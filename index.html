@@ -8,30 +8,30 @@
     :root{
       --bg1:#fff7fb;
       --bg2:#f3fbff;
-      --ink:#14213d;
-      --muted:#556;
-      --card:#ffffffcc;
-      --stroke:#e7e8f1;
+      --ink:#13213a;
+      --muted:#5b6170;
+      --card:#ffffffd8;
+      --stroke:#e6e8f2;
       --accent:#7c5cff;
       --accent2:#20c997;
       --accent3:#ffb703;
       --danger:#ff5d5d;
-      --shadow: 0 10px 30px rgba(20,33,61,.12);
+      --shadow: 0 10px 30px rgba(19,33,58,.12);
       --radius: 18px;
     }
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
       margin:0;
-      font-family: ui-rounded, "Nunito", system-ui, -apple-system, Segoe UI, Roboto, Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+      font-family: ui-rounded, system-ui, -apple-system, Segoe UI, Roboto, Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
       color:var(--ink);
-      background: radial-gradient(1200px 800px at 20% 10%, var(--bg2), transparent 60%),
-                  radial-gradient(1000px 700px at 80% 90%, var(--bg1), transparent 60%),
-                  linear-gradient(135deg, #f7fbff, #fff7fb);
+      background:
+        radial-gradient(1200px 800px at 18% 12%, var(--bg2), transparent 60%),
+        radial-gradient(1100px 780px at 80% 90%, var(--bg1), transparent 62%),
+        linear-gradient(135deg, #f7fbff, #fff7fb);
       overflow:hidden;
       user-select:none;
     }
-    a{color:inherit}
 
     /* Top bar */
     .topbar{
@@ -55,32 +55,26 @@
       padding-left:6px;
       min-width: 260px;
     }
-    .brand .pill{
+    .pill{
       display:inline-flex; align-items:center; gap:8px;
       padding:6px 10px;
       border-radius:999px;
       background: linear-gradient(135deg, #ffffff, #f3f0ff);
       border:1px solid var(--stroke);
-      font-weight:800;
+      font-weight:900;
       letter-spacing:.2px;
       font-size:14px;
       white-space:nowrap;
     }
-    .brand .pill img{width:18px;height:18px; display:block}
     .meta{
       font-size:12px;
       color:var(--muted);
       white-space:nowrap;
       overflow:hidden;
       text-overflow:ellipsis;
-      max-width: 40vw;
+      max-width: 42vw;
     }
-
-    .controls{
-      display:flex;
-      align-items:center;
-      gap:8px;
-    }
+    .controls{display:flex; align-items:center; gap:8px}
     .btn{
       border:1px solid var(--stroke);
       background:#fff;
@@ -88,16 +82,16 @@
       padding:10px 12px;
       border-radius:999px;
       cursor:pointer;
-      box-shadow: 0 6px 18px rgba(20,33,61,.08);
-      transition: transform .08s ease, box-shadow .15s ease, background .15s ease;
-      font-weight:800;
+      box-shadow: 0 6px 18px rgba(19,33,58,.08);
+      transition: transform .08s ease, box-shadow .15s ease;
+      font-weight:900;
       font-size:14px;
       display:inline-flex;
       align-items:center;
       gap:8px;
     }
-    .btn:hover{transform: translateY(-1px); box-shadow: 0 10px 22px rgba(20,33,61,.12)}
-    .btn:active{transform: translateY(0px); box-shadow: 0 6px 18px rgba(20,33,61,.08)}
+    .btn:hover{transform: translateY(-1px); box-shadow: 0 10px 22px rgba(19,33,58,.12)}
+    .btn:active{transform: translateY(0px)}
     .btn.primary{
       border-color: transparent;
       background: linear-gradient(135deg, var(--accent), #9b7dff);
@@ -113,14 +107,8 @@
       background: linear-gradient(135deg, var(--accent3), #ffd56b);
       color:#5a3a00;
     }
-    .btn.ghost{
-      background:#ffffff99;
-    }
-    .btn.small{
-      padding:8px 10px;
-      font-size:13px;
-      box-shadow:none;
-    }
+    .btn.ghost{background:#ffffff99}
+    .btn.small{padding:8px 10px; font-size:13px; box-shadow:none}
     .kbd{
       font-size:11px;
       color:var(--muted);
@@ -160,7 +148,6 @@
       justify-content:center;
       align-items:center;
     }
-
     .slide{
       width:min(1120px, calc(100vw - 44px));
       height:min(640px, calc(100vh - 160px));
@@ -173,7 +160,7 @@
       display:none;
     }
     .slide.active{display:block}
-    .slide .inner{
+    .inner{
       height:100%;
       padding: 34px 36px;
       display:grid;
@@ -197,117 +184,53 @@
       margin:0;
       line-height:1.45;
     }
-    .row{
-      display:grid;
-      grid-template-columns: 1.1fr .9fr;
-      gap: 18px;
-      align-items:stretch;
-    }
+    .row{display:grid; grid-template-columns: 1.1fr .9fr; gap:18px; align-items:stretch}
     .row.one{grid-template-columns:1fr}
     .row.three{grid-template-columns:1fr 1fr 1fr}
+
     .card{
       background: var(--card);
       border:1px solid var(--stroke);
       border-radius: var(--radius);
       padding: 16px 16px;
-      box-shadow: 0 8px 18px rgba(20,33,61,.06);
+      box-shadow: 0 8px 18px rgba(19,33,58,.06);
       backdrop-filter: blur(10px);
     }
-    .card.tight{padding:12px 12px}
+    .card.tight{padding:12px}
     .tag{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
+      display:inline-flex; align-items:center; gap:8px;
       padding:6px 10px;
       border-radius:999px;
       background: #fff;
       border:1px solid var(--stroke);
-      font-weight:800;
+      font-weight:900;
       font-size:13px;
       margin-bottom:10px;
     }
-    .tag img{width:18px;height:18px}
+    .emoji{font-size:18px}
 
+    /* Picture */
+    .picFrame{position:relative; height:100%; min-height:220px}
     .bigPic{
       width:100%;
       height:100%;
       border-radius: var(--radius);
       border:1px solid var(--stroke);
       object-fit:cover;
-      box-shadow: 0 10px 26px rgba(20,33,61,.10);
+      box-shadow: 0 10px 26px rgba(19,33,58,.10);
       background:#fff;
-    }
-    .picFrame{
-      position:relative;
-      height:100%;
-      min-height: 220px;
     }
     .picBadge{
       position:absolute;
-      left:14px;
-      top:14px;
-      display:inline-flex;
-      gap:8px;
-      align-items:center;
+      left:14px; top:14px;
+      display:inline-flex; gap:8px; align-items:center;
       padding:8px 10px;
       border-radius:999px;
       background:#ffffffd9;
       border:1px solid var(--stroke);
-      font-weight:900;
+      font-weight:950;
       font-size:13px;
     }
-    .picBadge img{width:18px;height:18px}
-
-    /* Vocabulary cards */
-    .vgrid{
-      display:grid;
-      grid-template-columns: repeat(2, minmax(0,1fr));
-      gap:12px;
-    }
-    .vcard{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      padding: 12px 12px;
-      border-radius: 16px;
-      border:1px solid var(--stroke);
-      background:#fff;
-      cursor:pointer;
-      transition: transform .08s ease, box-shadow .15s ease;
-      box-shadow: 0 6px 14px rgba(20,33,61,.06);
-      min-height:66px;
-    }
-    .vcard:hover{transform: translateY(-1px); box-shadow: 0 10px 22px rgba(20,33,61,.10)}
-    .vicon{
-      width:40px; height:40px;
-      border-radius: 14px;
-      background: linear-gradient(135deg, #f3f0ff, #eafff6);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      border:1px solid var(--stroke);
-      flex:0 0 auto;
-    }
-    .vicon img{width:28px;height:28px}
-    .vword{
-      display:flex;
-      flex-direction:column;
-      gap:3px;
-      min-width:0;
-    }
-    .vword b{
-      font-size: 18px;
-      letter-spacing:.2px;
-      overflow:hidden;
-      text-overflow:ellipsis;
-      white-space:nowrap;
-    }
-    .vword .hint{
-      font-size: 13px;
-      color:var(--muted);
-      display:none;
-    }
-    .vcard.reveal .hint{display:block}
 
     /* Speak box */
     .speak{
@@ -317,31 +240,63 @@
       background: linear-gradient(135deg, #fbfaff, #f2fff9);
     }
     .speak .title{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      font-weight:900;
-      margin-bottom:8px;
-    }
-    .speak .title span{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      font-weight:950; margin-bottom:8px;
       font-size:14px;
     }
-    .speak .title img{width:18px;height:18px}
-    .speak ul{margin:0; padding-left:18px; color:var(--ink); line-height:1.45}
+    .speak ul{margin:0; padding-left:18px; line-height:1.45}
     .speak li{margin:6px 0}
-    .mini{
-      color:var(--muted);
-      font-size:13px;
-    }
+    .mini{color:var(--muted); font-size:13px}
 
-    /* Sentence pattern */
+    /* Vocabulary */
+    .vgrid{display:grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap:12px}
+    .vcard{
+      display:flex; align-items:center; gap:12px;
+      padding:12px;
+      border-radius:16px;
+      border:1px solid var(--stroke);
+      background:#fff;
+      cursor:pointer;
+      transition: transform .08s ease, box-shadow .15s ease;
+      box-shadow: 0 6px 14px rgba(19,33,58,.06);
+      min-height:66px;
+    }
+    .vcard:hover{transform: translateY(-1px); box-shadow: 0 10px 22px rgba(19,33,58,.10)}
+    .vicon{
+      width:40px; height:40px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #f3f0ff, #eafff6);
+      display:flex; align-items:center; justify-content:center;
+      border:1px solid var(--stroke);
+      flex:0 0 auto;
+      font-size:20px;
+    }
+    .vword{display:flex; flex-direction:column; gap:3px; min-width:0}
+    .vword b{font-size:18px; letter-spacing:.2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+    .hint{font-size:13px; color:var(--muted); display:none}
+    .vcard.reveal .hint{display:block}
+
+    /* Chips */
+    .chips{display:flex; flex-wrap:wrap; gap:10px}
+    .chip{
+      padding:8px 10px;
+      border-radius:999px;
+      background:#fff;
+      border:1px solid var(--stroke);
+      font-weight:900;
+      cursor:pointer;
+      box-shadow: 0 6px 14px rgba(19,33,58,.06);
+      transition: transform .08s ease;
+    }
+    .chip:hover{transform: translateY(-1px)}
+    .chip.good{background:#eafff6; border-color:#c9ffe7}
+    .chip.purp{background:#f3f0ff; border-color:#e1d9ff}
+    .chip.yellow{background:#fff6d6; border-color:#ffe7a6}
+
+    /* Pattern */
     .pattern{
       font-size: clamp(20px, 2.5vw, 32px);
-      font-weight:950;
+      font-weight:1000;
       line-height:1.15;
       letter-spacing:.2px;
       margin: 4px 0 10px;
@@ -354,47 +309,96 @@
       border: 1px solid #ffe7a6;
       color:#5a3a00;
     }
-    .chips{
-      display:flex;
-      flex-wrap:wrap;
+
+    /* Matching game */
+    .matchWrap{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:14px;
+      align-items:stretch;
+    }
+    .colTitle{
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      margin-bottom:10px;
+      font-weight:950;
+    }
+    .list{
+      display:grid;
       gap:10px;
     }
-    .chip{
-      padding:8px 10px;
-      border-radius:999px;
-      background:#fff;
+    .item{
+      padding:12px 12px;
+      border-radius:16px;
       border:1px solid var(--stroke);
-      font-weight:800;
+      background:#fff;
       cursor:pointer;
-      box-shadow: 0 6px 14px rgba(20,33,61,.06);
+      box-shadow: 0 6px 14px rgba(19,33,58,.06);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      font-weight:950;
       transition: transform .08s ease;
     }
-    .chip:hover{transform: translateY(-1px)}
-    .chip.good{background:#eafff6; border-color:#c9ffe7}
-    .chip.purp{background:#f3f0ff; border-color:#e1d9ff}
-    .chip.yellow{background:#fff6d6; border-color:#ffe7a6}
+    .item:hover{transform: translateY(-1px)}
+    .item.sel{outline: 3px solid #d8d4ff}
+    .item.ok{background:#eafff6; border-color:#c9ffe7}
+    .item.bad{background:#ffecec; border-color:#ffd2d2}
+    .badge{
+      font-size:12px;
+      color:var(--muted);
+      font-weight:900;
+      padding:4px 8px;
+      border:1px solid var(--stroke);
+      border-radius:999px;
+      background:#fff;
+    }
+    .iconBox{font-size:22px}
 
-    /* Q practice */
-    .qbox{
+    /* MCQ */
+    .mcq{
       display:grid;
       gap:12px;
     }
+    .qline{
+      font-weight:1000;
+      font-size:18px;
+      line-height:1.35;
+    }
+    .opt{
+      padding:12px;
+      border-radius:16px;
+      border:1px solid var(--stroke);
+      background:#fff;
+      cursor:pointer;
+      box-shadow: 0 6px 14px rgba(19,33,58,.06);
+      font-weight:900;
+      transition: transform .08s ease;
+    }
+    .opt:hover{transform: translateY(-1px)}
+    .opt.ok{background:#eafff6; border-color:#c9ffe7}
+    .opt.bad{background:#ffecec; border-color:#ffd2d2}
+    .fb{display:none; padding:12px; border-radius:16px; border:1px dashed #d8d4ff; background:#fbfaff; color:var(--muted)}
+    .fb.show{display:block}
+
+    /* Q practice */
+    .qbox{display:grid; gap:12px}
     .qitem{
       border:1px solid var(--stroke);
       border-radius: 16px;
       background:#fff;
-      padding: 12px 12px;
-      box-shadow: 0 6px 14px rgba(20,33,61,.06);
+      padding: 12px;
+      box-shadow: 0 6px 14px rgba(19,33,58,.06);
     }
-    .qitem .q{
-      font-weight:900;
+    .q{
+      font-weight:1000;
       font-size:16px;
       display:flex;
       align-items:center;
       justify-content:space-between;
       gap:10px;
     }
-    .qitem .a{
+    .a{
       margin-top:10px;
       color:var(--muted);
       font-size:14px;
@@ -403,88 +407,8 @@
     }
     .qitem.show .a{display:block}
 
-    /* Structure map */
-    .map{
-      display:grid;
-      gap:12px;
-    }
-    .step{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      padding: 12px 12px;
-      border-radius: 16px;
-      border:1px solid var(--stroke);
-      background:#fff;
-      box-shadow: 0 6px 14px rgba(20,33,61,.06);
-    }
-    .step .n{
-      width:34px;height:34px;
-      border-radius: 12px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-weight:950;
-      color:#fff;
-      background: linear-gradient(135deg, var(--accent), #9b7dff);
-      flex:0 0 auto;
-    }
-    .step .t{
-      display:flex;
-      flex-direction:column;
-      gap:4px;
-      min-width:0;
-    }
-    .step .t b{font-size:16px}
-    .arrow{
-      text-align:center;
-      color:var(--muted);
-      font-weight:900;
-      letter-spacing:.4px;
-    }
-
-    /* Build game */
-    .buildArea{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap:12px;
-    }
-    .tray{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      align-items:flex-start;
-    }
-    .piece{
-      padding:10px 12px;
-      border-radius: 999px;
-      border:1px solid var(--stroke);
-      background:#fff;
-      cursor:pointer;
-      font-weight:900;
-      box-shadow: 0 6px 14px rgba(20,33,61,.06);
-      transition: transform .08s ease;
-    }
-    .piece:hover{transform: translateY(-1px)}
-    .piece.used{opacity:.35; cursor:not-allowed; transform:none}
-    .built{
-      min-height: 84px;
-      padding: 14px 14px;
-      border-radius: 16px;
-      border:2px dashed #d8d4ff;
-      background: linear-gradient(135deg, #fbfaff, #f2fff9);
-      font-size:18px;
-      font-weight:900;
-      line-height:1.4;
-    }
-
     /* Spinner */
-    .spinGrid{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:14px;
-      align-items:stretch;
-    }
+    .spinGrid{display:grid; grid-template-columns: 1fr 1fr; gap:14px}
     .spinPic{
       border-radius: var(--radius);
       border:1px solid var(--stroke);
@@ -492,36 +416,24 @@
       height: 300px;
       overflow:hidden;
       position:relative;
-      box-shadow: 0 10px 26px rgba(20,33,61,.10);
+      box-shadow: 0 10px 26px rgba(19,33,58,.10);
     }
-    .spinPic img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      display:block;
-    }
+    .spinPic img{width:100%; height:100%; object-fit:cover; display:block}
     .spinLabel{
       position:absolute;
-      left:12px;
-      top:12px;
+      left:12px; top:12px;
       padding:8px 10px;
       border-radius:999px;
       background:#ffffffd9;
       border:1px solid var(--stroke);
-      font-weight:950;
+      font-weight:1000;
       display:flex;
       align-items:center;
       gap:8px;
     }
-    .spinLabel img{width:18px;height:18px}
 
     /* Timer */
-    .timerBox{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:14px;
-      align-items:stretch;
-    }
+    .timerBox{display:grid; grid-template-columns: 1fr 1fr; gap:14px}
     .clock{
       border-radius: calc(var(--radius) + 6px);
       border:2px dashed #ffe7a6;
@@ -530,13 +442,13 @@
       align-items:center;
       justify-content:center;
       font-size: clamp(44px, 6vw, 90px);
-      font-weight: 1000;
+      font-weight: 1100;
       letter-spacing: 1px;
       color:#5a3a00;
       min-height: 260px;
     }
 
-    /* Footer hint */
+    /* Footer */
     .footer{
       display:flex;
       justify-content:space-between;
@@ -546,17 +458,11 @@
       font-size:13px;
       flex-wrap:wrap;
     }
-    .footer .dots{
-      display:flex;
-      gap:6px;
-      align-items:center;
-    }
-    .dot{
-      width:10px;height:10px;border-radius:999px;
-      background:#e7e8f1;
-      border:1px solid #dde0ee;
-    }
+    .dots{display:flex; gap:6px; align-items:center}
+    .dot{width:10px;height:10px;border-radius:999px;background:#e7e8f1;border:1px solid #dde0ee}
     .dot.on{background: linear-gradient(135deg, var(--accent2), var(--accent)); border-color:transparent}
+
+    /* Toast */
     .toast{
       position:fixed;
       left:50%;
@@ -572,7 +478,7 @@
       box-shadow: 0 10px 30px rgba(0,0,0,.25);
     }
 
-    /* Menu */
+    /* Overlays */
     .overlay{
       position:fixed;
       inset:0;
@@ -595,43 +501,20 @@
       box-shadow: 0 20px 60px rgba(0,0,0,.22);
       padding: 16px;
     }
-    .grid{
-      display:grid;
-      grid-template-columns: repeat(3, minmax(0,1fr));
-      gap:12px;
-    }
+    .grid{display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap:12px}
     .thumb{
       border:1px solid var(--stroke);
       border-radius: 18px;
       background:#fff;
       padding: 12px;
       cursor:pointer;
-      box-shadow: 0 6px 14px rgba(20,33,61,.06);
+      box-shadow: 0 6px 14px rgba(19,33,58,.06);
       transition: transform .08s ease;
     }
     .thumb:hover{transform: translateY(-1px)}
     .thumb b{display:block; font-size:14px}
     .thumb span{display:block; font-size:12px; color:var(--muted); margin-top:4px}
 
-    /* Tap-to-continue hint */
-    .tapHint{
-      position:absolute;
-      right:18px;
-      bottom:18px;
-      padding:8px 10px;
-      border-radius:999px;
-      background:#ffffffd9;
-      border:1px solid var(--stroke);
-      font-weight:900;
-      font-size:12px;
-      color:var(--muted);
-      display:flex;
-      align-items:center;
-      gap:8px;
-    }
-    .tapHint img{width:18px;height:18px}
-
-    /* Reduce motion */
     @media (prefers-reduced-motion: reduce){
       *{transition:none!important; animation:none!important}
     }
@@ -640,15 +523,12 @@
 <body>
   <div class="topbar">
     <div class="brand">
-      <span class="pill">
-        <img id="capIcon" alt="cap" />
-        KET Speaking 1v1 · T1
-      </span>
-      <div class="meta" id="metaText">About Me & School · talk 40–50s</div>
+      <span class="pill"><span class="emoji">🎓</span> KET Speaking 1v1 · T1</span>
+      <div class="meta" id="metaText">About Me & School · speak 40–50s</div>
     </div>
     <div class="controls">
       <button class="btn ghost small" id="menuBtn">Menu <span class="kbd">M</span></button>
-      <button class="btn ghost small" id="hintBtn">Help <span class="kbd">?</span></button>
+      <button class="btn ghost small" id="helpBtn">Help <span class="kbd">?</span></button>
       <button class="btn" id="prevBtn">◀ Prev</button>
       <button class="btn primary" id="nextBtn">Next ▶</button>
     </div>
@@ -659,129 +539,129 @@
   </div>
 
   <main id="deck" aria-label="Slide deck">
-    <!-- SLIDES -->
+
+    <!-- 1 -->
     <section class="slide active" data-title="Welcome" data-sub="Topic + goal">
       <div class="inner">
         <div>
           <h1 class="h1">About Me & School</h1>
-          <p class="sub">Today you will speak clearly, with <b>because</b> and good details.</p>
+          <p class="sub">Speak clearly. Add <b>because</b> and details.</p>
         </div>
         <div class="row">
           <div class="card">
-            <span class="tag"><img id="bagIcon" alt=""> Today’s Mission</span>
+            <span class="tag"><span class="emoji">🎯</span> Mission</span>
             <div class="speak">
-              <div class="title">
-                <span><img id="stopIcon" alt=""> Final Talk</span>
-                <span class="mini">40–50 seconds</span>
-              </div>
+              <div class="title"><span>Final talk</span><span class="mini">40–50 seconds</span></div>
               <ul>
                 <li><b>6+ sentences</b></li>
                 <li><b>2+ because</b></li>
-                <li>Talk: <b>me → school → after school</b></li>
+                <li>Order: <b>me → school → after school</b></li>
               </ul>
             </div>
-            <p class="mini" style="margin-top:10px">Tap anywhere (not on buttons) to go next.</p>
+            <p class="mini" style="margin-top:10px">Tap empty space to go next.</p>
           </div>
           <div class="picFrame">
-            <div class="picBadge"><img id="schoolIcon" alt=""> school</div>
-            <img class="bigPic" id="schoolPhoto" alt="School building photo">
+            <div class="picBadge"><span class="emoji">🏫</span> school</div>
+            <img class="bigPic" id="pic_school" alt="School illustration">
           </div>
         </div>
         <div class="footer">
-          <div>Keys: <b>←</b>/<b>→</b> or Space · Click <b>Next</b></div>
+          <div>Keys: <b>←</b>/<b>→</b> or Space</div>
           <div class="dots" id="dots1"></div>
         </div>
       </div>
-      <div class="tapHint"><img id="labelIcon" alt=""> click / press →</div>
     </section>
 
+    <!-- 2 -->
     <section class="slide" data-title="Roadmap" data-sub="Step by step">
       <div class="inner">
         <div>
-          <h2 class="h2">Step-by-step</h2>
-          <p class="sub">We learn words → chunks → sentences → Q&A → final talk.</p>
+          <h2 class="h2">Today’s Path</h2>
+          <p class="sub">Words → chunks → sentences → games → exam Q → timed talk</p>
         </div>
         <div class="row one">
           <div class="card">
-            <div class="map">
-              <div class="step"><div class="n">1</div><div class="t"><b>Words</b><span class="mini">Tap cards: English first, then Hint.</span></div></div>
-              <div class="arrow">↓</div>
-              <div class="step"><div class="n">2</div><div class="t"><b>Chunks</b><span class="mini">Make 1 sentence each.</span></div></div>
-              <div class="arrow">↓</div>
-              <div class="step"><div class="n">3</div><div class="t"><b>Sentence patterns</b><span class="mini">Fill the blanks fast.</span></div></div>
-              <div class="arrow">↓</div>
-              <div class="step"><div class="n">4</div><div class="t"><b>Questions + Role play</b><span class="mini">Answer like the exam.</span></div></div>
-              <div class="arrow">↓</div>
-              <div class="step"><div class="n">5</div><div class="t"><b>40–50s talk</b><span class="mini">6+ sentences, 2+ because.</span></div></div>
+            <div class="chips">
+              <span class="chip good">1) Words</span>
+              <span class="chip purp">2) Chunks</span>
+              <span class="chip yellow">3) Sentence patterns</span>
+              <span class="chip good">4) Games</span>
+              <span class="chip purp">5) Exam questions</span>
+              <span class="chip yellow">6) 40–50s talk</span>
+            </div>
+            <div class="speak" style="margin-top:12px">
+              <div class="title"><span>Warm-up (say now)</span></div>
+              <ul>
+                <li>“Hi! I’m ___.”</li>
+                <li>“I’m ___ years old.”</li>
+              </ul>
             </div>
           </div>
         </div>
-        <div class="footer">
-          <div>Try: say “Hello! I’m …” now.</div>
-          <div class="dots" id="dots2"></div>
-        </div>
+        <div class="footer"><div>Small steps = big talk.</div><div class="dots" id="dots2"></div></div>
       </div>
     </section>
 
-    <section class="slide" data-title="Warm-up" data-sub="Say it now">
+    <!-- 3 -->
+    <section class="slide" data-title="Warm-up" data-sub="Copy + change">
       <div class="inner">
         <div>
           <h2 class="h2">Warm-up: Copy Me</h2>
-          <p class="sub">Say the model, then make your own.</p>
+          <p class="sub">Say it → change one thing → say again.</p>
         </div>
         <div class="row">
           <div class="card">
-            <span class="tag"><img id="labelIcon2" alt=""> Model</span>
+            <span class="tag"><span class="emoji">🗣️</span> Model</span>
             <div class="pattern">Hi! I’m <span class="blank">Amy</span>. I’m <span class="blank">10</span> years old.</div>
             <div class="pattern">I study at <span class="blank">Sunshine School</span> because it’s <span class="blank">friendly</span>.</div>
             <div class="chips" style="margin-top:10px">
-              <span class="chip purp" data-fill="name">Change name</span>
-              <span class="chip yellow" data-fill="age">Change age</span>
-              <span class="chip good" data-fill="school">Change school</span>
-              <span class="chip" id="warmReset">Reset</span>
+              <span class="chip purp" id="w_name">Change name</span>
+              <span class="chip yellow" id="w_age">Change age</span>
+              <span class="chip good" id="w_school">Change school</span>
+              <span class="chip" id="w_reset">Reset</span>
             </div>
+            <p class="mini" id="w_tip" style="margin-top:10px"></p>
           </div>
           <div class="card">
-            <span class="tag"><img id="capIcon2" alt=""> Your Turn</span>
+            <span class="tag"><span class="emoji">✅</span> Your Turn</span>
             <div class="speak">
-              <div class="title"><span><img id="stopIcon2" alt=""> Speak (3 lines)</span></div>
+              <div class="title"><span>Speak (3 lines)</span></div>
               <ul>
-                <li>Say: <b>name</b> + <b>age</b></li>
-                <li>Say: <b>school</b> + <b>because</b></li>
-                <li>Smile + clear voice 🙂</li>
+                <li>Name + age</li>
+                <li>School + <b>because</b></li>
+                <li>One more detail</li>
               </ul>
             </div>
-            <p class="mini" style="margin-top:10px">Tip: If you forget, use “Let me think…”</p>
           </div>
         </div>
-        <div class="footer">
-          <div>Tap the chips, then speak again.</div>
-          <div class="dots" id="dots3"></div>
-        </div>
+        <div class="footer"><div>Say it twice, louder the 2nd time.</div><div class="dots" id="dots3"></div></div>
       </div>
     </section>
 
-    <!-- PERSONAL INFO VOCAB (12) -->
-    <section class="slide" data-title="Words" data-sub="Personal info 1/3">
+    <!-- PERSONAL WORDS 12 -> 2 slides -->
+    <!-- 4 -->
+    <section class="slide" data-title="Words" data-sub="Personal 1/2">
       <div class="inner">
         <div>
-          <h2 class="h2">Words: Personal Info (1/3)</h2>
-          <p class="sub">Tap a card to see a tiny Hint (CN). Say the word out loud.</p>
+          <h2 class="h2">Words: Personal (1/2)</h2>
+          <p class="sub">Tap a card to show a small Hint. Then say the word.</p>
         </div>
         <div class="row">
           <div class="card">
-            <span class="tag"><img id="labelIcon3" alt=""> Tap & Say</span>
+            <span class="tag"><span class="emoji">🧩</span> Tap & Say</span>
             <div class="vgrid">
-              <div class="vcard" data-zh="名字"><div class="vicon"><img id="labelIcon4" alt=""></div><div class="vword"><b>name</b><span class="hint">名字</span></div></div>
-              <div class="vcard" data-zh="全名"><div class="vicon"><img id="labelIcon5" alt=""></div><div class="vword"><b>full name</b><span class="hint">全名</span></div></div>
-              <div class="vcard" data-zh="年龄"><div class="vicon"><img id="stopIcon3" alt=""></div><div class="vword"><b>age</b><span class="hint">年龄</span></div></div>
-              <div class="vcard" data-zh="……岁"><div class="vicon"><img id="stopIcon4" alt=""></div><div class="vword"><b>years old</b><span class="hint">……岁</span></div></div>
+              <div class="vcard" data-zh="名字"><div class="vicon">🏷️</div><div class="vword"><b>name</b><span class="hint">名字</span></div></div>
+              <div class="vcard" data-zh="全名"><div class="vicon">🪪</div><div class="vword"><b>full name</b><span class="hint">全名</span></div></div>
+              <div class="vcard" data-zh="年龄"><div class="vicon">🎂</div><div class="vword"><b>age</b><span class="hint">年龄</span></div></div>
+              <div class="vcard" data-zh="……岁"><div class="vicon">🔢</div><div class="vword"><b>years old</b><span class="hint">……岁</span></div></div>
+              <div class="vcard" data-zh="居住"><div class="vicon">🏠</div><div class="vword"><b>live</b><span class="hint">居住</span></div></div>
+              <div class="vcard" data-zh="住在（地点）"><div class="vicon">📍</div><div class="vword"><b>live in</b><span class="hint">住在（地点）</span></div></div>
             </div>
           </div>
           <div class="card">
-            <span class="tag"><img id="bagIcon2" alt=""> Speak Task</span>
+            <span class="tag"><span class="emoji">🗣️</span> Speak Task</span>
             <div class="speak">
-              <div class="title"><span><img id="capIcon3" alt=""> Quick answers</span></div>
+              <div class="title"><span>3 quick answers</span></div>
               <ul>
                 <li>What’s your <b>name</b>?</li>
                 <li>What’s your <b>full name</b>?</li>
@@ -794,199 +674,150 @@
       </div>
     </section>
 
-    <section class="slide" data-title="Words" data-sub="Personal info 2/3">
+    <!-- 5 -->
+    <section class="slide" data-title="Words" data-sub="Personal 2/2">
       <div class="inner">
         <div>
-          <h2 class="h2">Words: Personal Info (2/3)</h2>
-          <p class="sub">Short + clear. Tap & speak.</p>
+          <h2 class="h2">Words: Personal (2/2)</h2>
+          <p class="sub">Tap → say → make one short sentence.</p>
         </div>
         <div class="row">
           <div class="card">
-            <span class="tag"><img id="bagIcon3" alt=""> Tap & Say</span>
+            <span class="tag"><span class="emoji">🧩</span> Tap & Say</span>
             <div class="vgrid">
-              <div class="vcard" data-zh="居住"><div class="vicon"><img id="houseIcon1" alt=""></div><div class="vword"><b>live</b><span class="hint">居住</span></div></div>
-              <div class="vcard" data-zh="住在（地点）"><div class="vicon"><img id="houseIcon2" alt=""></div><div class="vword"><b>live in</b><span class="hint">住在（地点）</span></div></div>
-              <div class="vcard" data-zh="和…住"><div class="vicon"><img id="peopleIcon1" alt=""></div><div class="vword"><b>live with</b><span class="hint">和…住</span></div></div>
-              <div class="vcard" data-zh="家乡"><div class="vicon"><img id="mapIcon1" alt=""></div><div class="vword"><b>hometown</b><span class="hint">家乡</span></div></div>
+              <div class="vcard" data-zh="和…住"><div class="vicon">👨‍👩‍👧</div><div class="vword"><b>live with</b><span class="hint">和…住</span></div></div>
+              <div class="vcard" data-zh="家乡"><div class="vicon">🗺️</div><div class="vword"><b>hometown</b><span class="hint">家乡</span></div></div>
+              <div class="vcard" data-zh="城市"><div class="vicon">🏙️</div><div class="vword"><b>city</b><span class="hint">城市</span></div></div>
+              <div class="vcard" data-zh="国家"><div class="vicon">🌍</div><div class="vword"><b>country</b><span class="hint">国家</span></div></div>
+              <div class="vcard" data-zh="家庭"><div class="vicon">👪</div><div class="vword"><b>family</b><span class="hint">家庭</span></div></div>
+              <div class="vcard" data-zh="地址"><div class="vicon">📫</div><div class="vword"><b>address</b><span class="hint">地址</span></div></div>
             </div>
           </div>
           <div class="card">
-            <span class="tag"><img id="capIcon4" alt=""> Speak Task</span>
+            <span class="tag"><span class="emoji">🗣️</span> Speak Task</span>
             <div class="speak">
-              <div class="title"><span><img id="labelIcon6" alt=""> Say 3 sentences</span></div>
+              <div class="title"><span>Mini talk (4 sentences)</span></div>
               <ul>
-                <li>I <b>live in</b> ____.</li>
                 <li>I <b>live with</b> ____.</li>
                 <li>My <b>hometown</b> is ____.</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div class="footer"><div>Try different places & people.</div><div class="dots" id="dots5"></div></div>
-      </div>
-    </section>
-
-    <section class="slide" data-title="Words" data-sub="Personal info 3/3">
-      <div class="inner">
-        <div>
-          <h2 class="h2">Words: Personal Info (3/3)</h2>
-          <p class="sub">Tap & speak. Keep it simple.</p>
-        </div>
-        <div class="row">
-          <div class="card">
-            <span class="tag"><img id="mapIcon2" alt=""> Tap & Say</span>
-            <div class="vgrid">
-              <div class="vcard" data-zh="城市"><div class="vicon"><img id="mapIcon3" alt=""></div><div class="vword"><b>city</b><span class="hint">城市</span></div></div>
-              <div class="vcard" data-zh="国家"><div class="vicon"><img id="mapIcon4" alt=""></div><div class="vword"><b>country</b><span class="hint">国家</span></div></div>
-              <div class="vcard" data-zh="家庭"><div class="vicon"><img id="peopleIcon2" alt=""></div><div class="vword"><b>family</b><span class="hint">家庭</span></div></div>
-              <div class="vcard" data-zh="地址"><div class="vicon"><img id="mapIcon5" alt=""></div><div class="vword"><b>address</b><span class="hint">地址</span></div></div>
-            </div>
-          </div>
-          <div class="card">
-            <span class="tag"><img id="bagIcon4" alt=""> Speak Task</span>
-            <div class="speak">
-              <div class="title"><span><img id="capIcon5" alt=""> Mini talk (4 sentences)</span></div>
-              <ul>
                 <li>My <b>city</b> is ____.</li>
-                <li>My <b>country</b> is ____.</li>
                 <li>My <b>family</b> has ____ people.</li>
-                <li>My <b>address</b> is near ____ (don’t say the full address).</li>
               </ul>
             </div>
-            <p class="mini" style="margin-top:10px">Safety: never share private details.</p>
           </div>
         </div>
-        <div class="footer"><div>Good! Now school words.</div><div class="dots" id="dots6"></div></div>
+        <div class="footer"><div>Next: school words.</div><div class="dots" id="dots5"></div></div>
       </div>
     </section>
 
-    <!-- SCHOOL INFO VOCAB (16) -->
-    <section class="slide" data-title="Words" data-sub="School 1/4">
+    <!-- SCHOOL WORDS 16 -> 3 slides -->
+    <!-- 6 -->
+    <section class="slide" data-title="Words" data-sub="School 1/3">
       <div class="inner">
         <div>
-          <h2 class="h2">Words: School (1/4)</h2>
-          <p class="sub">Tap & say. Point to the picture.</p>
+          <h2 class="h2">Words: School (1/3)</h2>
+          <p class="sub">Tap → say. Point to the picture.</p>
         </div>
         <div class="row">
           <div class="card">
-            <span class="tag"><img id="capIcon6" alt=""> Tap & Say</span>
+            <span class="tag"><span class="emoji">🧩</span> Tap & Say</span>
             <div class="vgrid">
-              <div class="vcard" data-zh="学生"><div class="vicon"><img id="capIcon7" alt=""></div><div class="vword"><b>student</b><span class="hint">学生</span></div></div>
-              <div class="vcard" data-zh="学校"><div class="vicon"><img id="schoolIcon2" alt=""></div><div class="vword"><b>school</b><span class="hint">学校</span></div></div>
-              <div class="vcard" data-zh="班级"><div class="vicon"><img id="peopleIcon3" alt=""></div><div class="vword"><b>class</b><span class="hint">班级</span></div></div>
-              <div class="vcard" data-zh="教室"><div class="vicon"><img id="roomIcon1" alt=""></div><div class="vword"><b>classroom</b><span class="hint">教室</span></div></div>
+              <div class="vcard" data-zh="学生"><div class="vicon">🎓</div><div class="vword"><b>student</b><span class="hint">学生</span></div></div>
+              <div class="vcard" data-zh="学校"><div class="vicon">🏫</div><div class="vword"><b>school</b><span class="hint">学校</span></div></div>
+              <div class="vcard" data-zh="班级"><div class="vicon">👥</div><div class="vword"><b>class</b><span class="hint">班级</span></div></div>
+              <div class="vcard" data-zh="教室"><div class="vicon">🪑</div><div class="vword"><b>classroom</b><span class="hint">教室</span></div></div>
+              <div class="vcard" data-zh="老师"><div class="vicon">🧑‍🏫</div><div class="vword"><b>teacher</b><span class="hint">老师</span></div></div>
+              <div class="vcard" data-zh="同学"><div class="vicon">🧒</div><div class="vword"><b>classmates</b><span class="hint">同学</span></div></div>
             </div>
           </div>
           <div class="picFrame">
-            <div class="picBadge"><img id="roomIcon2" alt=""> classroom</div>
-            <img class="bigPic" id="classroomPhoto" alt="Empty classroom photo">
+            <div class="picBadge"><span class="emoji">🏫</span> classroom</div>
+            <img class="bigPic" id="pic_classroom" alt="Classroom illustration">
           </div>
         </div>
-        <div class="footer"><div>Say: “I’m a student.” “This is my classroom.”</div><div class="dots" id="dots7"></div></div>
+        <div class="footer"><div>Say: “My classmates are friendly.”</div><div class="dots" id="dots6"></div></div>
       </div>
     </section>
 
-    <section class="slide" data-title="Words" data-sub="School 2/4">
+    <!-- 7 -->
+    <section class="slide" data-title="Words" data-sub="School 2/3">
       <div class="inner">
         <div>
-          <h2 class="h2">Words: School (2/4)</h2>
-          <p class="sub">Tap & say. Then make 1 short sentence each.</p>
+          <h2 class="h2">Words: School (2/3)</h2>
+          <p class="sub">Tap → say → 1 sentence each.</p>
         </div>
         <div class="row">
           <div class="card">
-            <span class="tag"><img id="pencilIcon1" alt=""> Tap & Say</span>
+            <span class="tag"><span class="emoji">🧩</span> Tap & Say</span>
             <div class="vgrid">
-              <div class="vcard" data-zh="老师"><div class="vicon"><img id="pencilIcon2" alt=""></div><div class="vword"><b>teacher</b><span class="hint">老师</span></div></div>
-              <div class="vcard" data-zh="科目"><div class="vicon"><img id="bookIcon1" alt=""></div><div class="vword"><b>subject</b><span class="hint">科目</span></div></div>
-              <div class="vcard" data-zh="课程"><div class="vicon"><img id="bookIcon2" alt=""></div><div class="vword"><b>lesson</b><span class="hint">课程</span></div></div>
-              <div class="vcard" data-zh="课程表"><div class="vicon"><img id="calendarIcon1" alt=""></div><div class="vword"><b>timetable</b><span class="hint">课程表</span></div></div>
+              <div class="vcard" data-zh="科目"><div class="vicon">📚</div><div class="vword"><b>subject</b><span class="hint">科目</span></div></div>
+              <div class="vcard" data-zh="课程"><div class="vicon">📝</div><div class="vword"><b>lesson</b><span class="hint">课程</span></div></div>
+              <div class="vcard" data-zh="课程表"><div class="vicon">🗓️</div><div class="vword"><b>timetable</b><span class="hint">课程表</span></div></div>
+              <div class="vcard" data-zh="作业"><div class="vicon">📒</div><div class="vword"><b>homework</b><span class="hint">作业</span></div></div>
+              <div class="vcard" data-zh="课间休息"><div class="vicon">⏸️</div><div class="vword"><b>break</b><span class="hint">课间休息</span></div></div>
+              <div class="vcard" data-zh="考试"><div class="vicon">✅</div><div class="vword"><b>exam</b><span class="hint">考试</span></div></div>
             </div>
           </div>
           <div class="card">
-            <span class="tag"><img id="calendarIcon2" alt=""> Speak Task</span>
+            <span class="tag"><span class="emoji">🗣️</span> Speak Task</span>
             <div class="speak">
-              <div class="title"><span><img id="capIcon8" alt=""> 4 sentences</span></div>
+              <div class="title"><span>3 sentences</span></div>
               <ul>
-                <li>My <b>teacher</b> is ____.</li>
                 <li>My favourite <b>subject</b> is ____.</li>
-                <li>I have an English <b>lesson</b> on ____.</li>
-                <li>My <b>timetable</b> is busy / easy.</li>
+                <li>My <b>timetable</b> is busy because ____.</li>
+                <li>I do <b>homework</b> at home.</li>
               </ul>
             </div>
           </div>
         </div>
-        <div class="footer"><div>Use 1 “because” if you can.</div><div class="dots" id="dots8"></div></div>
+        <div class="footer"><div>Add one “because”.</div><div class="dots" id="dots7"></div></div>
       </div>
     </section>
 
-    <section class="slide" data-title="Words" data-sub="School 3/4">
+    <!-- 8 -->
+    <section class="slide" data-title="Words" data-sub="School 3/3">
       <div class="inner">
         <div>
-          <h2 class="h2">Words: School (3/4)</h2>
-          <p class="sub">Tap & say. Look at the picture.</p>
+          <h2 class="h2">Words: School (3/3)</h2>
+          <p class="sub">Tap → say. Look at the picture.</p>
         </div>
         <div class="row">
           <div class="card">
-            <span class="tag"><img id="memoIcon1" alt=""> Tap & Say</span>
+            <span class="tag"><span class="emoji">🧩</span> Tap & Say</span>
             <div class="vgrid">
-              <div class="vcard" data-zh="作业"><div class="vicon"><img id="memoIcon2" alt=""></div><div class="vword"><b>homework</b><span class="hint">作业</span></div></div>
-              <div class="vcard" data-zh="课间休息"><div class="vicon"><img id="stopIcon5" alt=""></div><div class="vword"><b>break</b><span class="hint">课间休息</span></div></div>
-              <div class="vcard" data-zh="图书馆"><div class="vicon"><img id="libIcon1" alt=""></div><div class="vword"><b>library</b><span class="hint">图书馆</span></div></div>
-              <div class="vcard" data-zh="操场"><div class="vicon"><img id="playIcon1" alt=""></div><div class="vword"><b>playground</b><span class="hint">操场</span></div></div>
+              <div class="vcard" data-zh="图书馆"><div class="vicon">🏛️</div><div class="vword"><b>library</b><span class="hint">图书馆</span></div></div>
+              <div class="vcard" data-zh="操场"><div class="vicon">🛝</div><div class="vword"><b>playground</b><span class="hint">操场</span></div></div>
+              <div class="vcard" data-zh="社团"><div class="vicon">🎭</div><div class="vword"><b>club</b><span class="hint">社团</span></div></div>
+              <div class="vcard" data-zh="校服"><div class="vicon">👔</div><div class="vword"><b>uniform</b><span class="hint">校服</span></div></div>
+            </div>
+            <div class="speak" style="margin-top:12px">
+              <div class="title"><span>Speak (2 sentences)</span></div>
+              <ul>
+                <li>I go to the <b>library</b> because ____.</li>
+                <li>After school, I join a <b>club</b>.</li>
+              </ul>
             </div>
           </div>
           <div class="picFrame">
-            <div class="picBadge"><img id="libIcon2" alt=""> library</div>
-            <img class="bigPic" id="libraryPhoto" alt="Library photo">
+            <div class="picBadge"><span class="emoji">🏛️</span> library</div>
+            <img class="bigPic" id="pic_library" alt="Library illustration">
           </div>
         </div>
-        <div class="footer"><div>Say: “I do homework at home.” “I go to the library.”</div><div class="dots" id="dots9"></div></div>
+        <div class="footer"><div>Next: power-up words.</div><div class="dots" id="dots8"></div></div>
       </div>
     </section>
 
-    <section class="slide" data-title="Words" data-sub="School 4/4">
-      <div class="inner">
-        <div>
-          <h2 class="h2">Words: School (4/4)</h2>
-          <p class="sub">Tap & say. Then do a quick quiz.</p>
-        </div>
-        <div class="row">
-          <div class="card">
-            <span class="tag"><img id="pencilIcon3" alt=""> Tap & Say</span>
-            <div class="vgrid">
-              <div class="vcard" data-zh="考试"><div class="vicon"><img id="pencilIcon4" alt=""></div><div class="vword"><b>exam</b><span class="hint">考试</span></div></div>
-              <div class="vcard" data-zh="社团"><div class="vicon"><img id="clubIcon1" alt=""></div><div class="vword"><b>club</b><span class="hint">社团</span></div></div>
-              <div class="vcard" data-zh="校服"><div class="vicon"><img id="tieIcon1" alt=""></div><div class="vword"><b>uniform</b><span class="hint">校服</span></div></div>
-              <div class="vcard" data-zh="同学"><div class="vicon"><img id="peopleIcon4" alt=""></div><div class="vword"><b>classmates</b><span class="hint">同学</span></div></div>
-            </div>
-          </div>
-          <div class="card">
-            <span class="tag"><img id="stopIcon6" alt=""> Quick Quiz</span>
-            <div class="speak">
-              <div class="title"><span><img id="capIcon9" alt=""> Say it fast</span></div>
-              <ul>
-                <li>“I have an <b>exam</b> on ____.”</li>
-                <li>“I join a <b>club</b> after school.”</li>
-                <li>“I wear a <b>uniform</b>.”</li>
-                <li>“My <b>classmates</b> are ____.”</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div class="footer"><div>Great! Now power-up words.</div><div class="dots" id="dots10"></div></div>
-      </div>
-    </section>
-
-    <!-- POWER-UP (10) -->
+    <!-- POWER-UP 10 -> 2 slides -->
+    <!-- 9 -->
     <section class="slide" data-title="Power-up" data-sub="Adjectives 1/2">
       <div class="inner">
         <div>
           <h2 class="h2">Power-up Words (1/2)</h2>
-          <p class="sub">Use these to sound more natural.</p>
+          <p class="sub">Use these to sound better.</p>
         </div>
         <div class="row">
           <div class="card">
-            <span class="tag"><img id="sparkIcon1" alt=""> Tap & Say</span>
+            <span class="tag"><span class="emoji">✨</span> Tap & Say</span>
             <div class="vgrid">
               <div class="vcard" data-zh="友好的"><div class="vicon">🙂</div><div class="vword"><b>friendly</b><span class="hint">友好的</span></div></div>
               <div class="vcard" data-zh="乐于助人的"><div class="vicon">🤝</div><div class="vword"><b>helpful</b><span class="hint">乐于助人的</span></div></div>
@@ -996,9 +827,9 @@
             </div>
           </div>
           <div class="card">
-            <span class="tag"><img id="sparkIcon2" alt=""> Speak Task</span>
+            <span class="tag"><span class="emoji">🗣️</span> Speak Task</span>
             <div class="speak">
-              <div class="title"><span><img id="capIcon10" alt=""> This or That</span></div>
+              <div class="title"><span>This or That</span></div>
               <ul>
                 <li>My school is <b>friendly</b> / strict.</li>
                 <li>English is <b>interesting</b> / boring.</li>
@@ -1006,25 +837,26 @@
               </ul>
             </div>
             <div class="chips" style="margin-top:10px">
-              <span class="chip good" id="randAdj1">Random choice</span>
-              <span class="chip" id="clearAdj1">Clear</span>
+              <button class="btn green" id="idea1">Give me an idea</button>
+              <button class="btn" id="idea1c">Clear</button>
             </div>
-            <p class="mini" id="adjLine1" style="margin-top:8px"></p>
+            <p class="mini" id="ideaLine1" style="margin-top:8px"></p>
           </div>
         </div>
-        <div class="footer"><div>Try 2 “because” now.</div><div class="dots" id="dots11"></div></div>
+        <div class="footer"><div>Try 2 “because” now.</div><div class="dots" id="dots9"></div></div>
       </div>
     </section>
 
+    <!-- 10 -->
     <section class="slide" data-title="Power-up" data-sub="Adjectives 2/2">
       <div class="inner">
         <div>
           <h2 class="h2">Power-up Words (2/2)</h2>
-          <p class="sub">Tap & say. Then describe your subject.</p>
+          <p class="sub">Tap → say → make a reason.</p>
         </div>
         <div class="row">
           <div class="card">
-            <span class="tag"><img id="sparkIcon3" alt=""> Tap & Say</span>
+            <span class="tag"><span class="emoji">✨</span> Tap & Say</span>
             <div class="vgrid">
               <div class="vcard" data-zh="困难的"><div class="vicon">⛰️</div><div class="vword"><b>difficult</b><span class="hint">困难的</span></div></div>
               <div class="vcard" data-zh="容易的"><div class="vicon">✅</div><div class="vword"><b>easy</b><span class="hint">容易的</span></div></div>
@@ -1034,32 +866,33 @@
             </div>
           </div>
           <div class="card">
-            <span class="tag"><img id="sparkIcon4" alt=""> Speak Task</span>
+            <span class="tag"><span class="emoji">🗣️</span> Speak Task</span>
             <div class="speak">
-              <div class="title"><span><img id="capIcon11" alt=""> 3 sentences</span></div>
+              <div class="title"><span>3 sentences</span></div>
               <ul>
-                <li>Maths is difficult because ____.</li>
                 <li>English is useful because ____.</li>
+                <li>Maths is difficult because ____.</li>
                 <li>My classroom is comfortable because ____.</li>
               </ul>
             </div>
             <div class="chips" style="margin-top:10px">
-              <span class="chip purp" id="randAdj2">Give me an idea</span>
-              <span class="chip" id="clearAdj2">Clear</span>
+              <button class="btn green" id="idea2">Give me an idea</button>
+              <button class="btn" id="idea2c">Clear</button>
             </div>
-            <p class="mini" id="adjLine2" style="margin-top:8px"></p>
+            <p class="mini" id="ideaLine2" style="margin-top:8px"></p>
           </div>
         </div>
-        <div class="footer"><div>Nice! Now chunks (word blocks).</div><div class="dots" id="dots12"></div></div>
+        <div class="footer"><div>Next: chunks.</div><div class="dots" id="dots10"></div></div>
       </div>
     </section>
 
     <!-- CHUNKS -->
+    <!-- 11 -->
     <section class="slide" data-title="Chunks" data-sub="Say + make 1 sentence">
       <div class="inner">
         <div>
           <h2 class="h2">Chunks (Word Blocks)</h2>
-          <p class="sub">Tap a chunk → say 1 full sentence.</p>
+          <p class="sub">Tap a chunk → say a full sentence.</p>
         </div>
         <div class="row one">
           <div class="card">
@@ -1068,14 +901,14 @@
               <span class="chip good chunk" data-example="I go to an after-school club on Fridays.">after-school club</span>
               <span class="chip purp chunk" data-example="I study from Monday to Friday.">from Monday to Friday</span>
               <span class="chip chunk" data-example="I have lessons in the morning and I have a break at 10 o’clock.">have lessons / have a break</span>
-              <span class="chip good chunk" data-example="I get along with my classmates because they are friendly.">get along with my classmates</span>
-              <span class="chip yellow chunk" data-example="I do homework at home after dinner.">do homework at home</span>
+              <span class="chip good chunk" data-example="I do homework at home after dinner.">do homework at home</span>
+              <span class="chip yellow chunk" data-example="I get along with my classmates because they are friendly.">get along with my classmates</span>
             </div>
             <div class="speak">
-              <div class="title"><span><img id="capIcon12" alt=""> Your Turn</span></div>
+              <div class="title"><span>Speak Task</span><span class="mini">Pick 3</span></div>
               <ul>
                 <li>Pick <b>3 chunks</b> → say <b>3 sentences</b>.</li>
-                <li>Try to use <b>because</b> at least once.</li>
+                <li>Use <b>because</b> at least once.</li>
               </ul>
             </div>
             <div class="card tight" style="margin-top:12px">
@@ -1084,16 +917,17 @@
             </div>
           </div>
         </div>
-        <div class="footer"><div>Speak first. Then check the example.</div><div class="dots" id="dots13"></div></div>
+        <div class="footer"><div>Now: sentence patterns.</div><div class="dots" id="dots11"></div></div>
       </div>
     </section>
 
-    <!-- SENTENCE PATTERNS (12) split into 4 slides -->
-    <section class="slide" data-title="Sentences" data-sub="Patterns 1/4">
+    <!-- SENTENCE PATTERNS 12 -> 3 slides (less crowded) -->
+    <!-- 12 -->
+    <section class="slide" data-title="Sentences" data-sub="Patterns 1/3">
       <div class="inner">
         <div>
-          <h2 class="h2">Sentence Patterns (1/4)</h2>
-          <p class="sub">Fill the blanks. Say it 2 times.</p>
+          <h2 class="h2">Sentence Patterns (1/3)</h2>
+          <p class="sub">Fill the blanks. Say twice.</p>
         </div>
         <div class="row">
           <div class="card">
@@ -1101,36 +935,37 @@
             <div class="pattern">2) I study at <span class="blank">___</span> School.</div>
             <div class="pattern">3) My school is <span class="blank">big / clean / friendly</span>.</div>
             <div class="chips">
-              <span class="chip good" data-say="I’m a student at Sunshine Primary School.">Example 1</span>
-              <span class="chip purp" data-say="I study at Green Lake School.">Example 2</span>
-              <span class="chip yellow" data-say="My school is clean and friendly.">Example 3</span>
+              <span class="chip good ex" data-say="I’m a student at Sunshine Primary School.">Example 1</span>
+              <span class="chip purp ex" data-say="I study at Green Lake School.">Example 2</span>
+              <span class="chip yellow ex" data-say="My school is clean and friendly.">Example 3</span>
             </div>
           </div>
           <div class="card">
-            <span class="tag"><img id="capIcon13" alt=""> Speak Task</span>
+            <span class="tag"><span class="emoji">🗣️</span> Speak Task</span>
             <div class="speak">
-              <div class="title"><span><img id="labelIcon7" alt=""> 3 times</span></div>
+              <div class="title"><span>Say 3 lines</span></div>
               <ul>
-                <li>Say pattern 1 with your school.</li>
-                <li>Say pattern 2 with your school.</li>
-                <li>Say pattern 3 with <b>2 adjectives</b>.</li>
+                <li>Pattern 1 (your school)</li>
+                <li>Pattern 2 (your school)</li>
+                <li>Pattern 3 (2 adjectives)</li>
               </ul>
             </div>
             <div class="card tight" style="margin-top:12px">
               <b>Example line</b>
-              <div class="mini" id="exLine1" style="margin-top:8px">Tap an “Example”.</div>
+              <div class="mini outLine" style="margin-top:8px">Tap an example.</div>
             </div>
           </div>
         </div>
-        <div class="footer"><div>Keep your sentences full and clear.</div><div class="dots" id="dots14"></div></div>
+        <div class="footer"><div>Full sentences only.</div><div class="dots" id="dots12"></div></div>
       </div>
     </section>
 
-    <section class="slide" data-title="Sentences" data-sub="Patterns 2/4">
+    <!-- 13 -->
+    <section class="slide" data-title="Sentences" data-sub="Patterns 2/3">
       <div class="inner">
         <div>
-          <h2 class="h2">Sentence Patterns (2/4)</h2>
-          <p class="sub">Add “because”. Make it longer.</p>
+          <h2 class="h2">Sentence Patterns (2/3)</h2>
+          <p class="sub">Add reasons.</p>
         </div>
         <div class="row">
           <div class="card">
@@ -1138,111 +973,196 @@
             <div class="pattern">5) My favourite subject is <span class="blank">___</span>.</div>
             <div class="pattern">6) I like it because <span class="blank">___</span>.</div>
             <div class="chips">
-              <span class="chip good" data-say="I study English, maths and science.">Example 4</span>
-              <span class="chip purp" data-say="My favourite subject is English.">Example 5</span>
-              <span class="chip yellow" data-say="I like it because it helps me speak better.">Example 6</span>
+              <span class="chip good ex" data-say="I study English, maths and science.">Example 4</span>
+              <span class="chip purp ex" data-say="My favourite subject is English.">Example 5</span>
+              <span class="chip yellow ex" data-say="I like it because it helps me speak better.">Example 6</span>
             </div>
           </div>
           <div class="card">
-            <span class="tag"><img id="sparkIcon5" alt=""> Speak Task</span>
+            <span class="tag"><span class="emoji">🗣️</span> Speak Task</span>
             <div class="speak">
-              <div class="title"><span><img id="capIcon14" alt=""> 3 sentences</span></div>
+              <div class="title"><span>3 lines</span></div>
               <ul>
-                <li>Say 1: subjects (pattern 4).</li>
-                <li>Say 2: favourite subject (pattern 5).</li>
-                <li>Say 3: <b>because</b> (pattern 6).</li>
+                <li>Say pattern 4</li>
+                <li>Say pattern 5</li>
+                <li>Say pattern 6 with <b>because</b></li>
               </ul>
             </div>
             <div class="card tight" style="margin-top:12px">
               <b>Example line</b>
-              <div class="mini" id="exLine2" style="margin-top:8px">Tap an “Example”.</div>
+              <div class="mini outLine" style="margin-top:8px">Tap an example.</div>
             </div>
           </div>
         </div>
-        <div class="footer"><div>Try 2 reasons (two “because”).</div><div class="dots" id="dots15"></div></div>
+        <div class="footer"><div>Try 2 different reasons.</div><div class="dots" id="dots13"></div></div>
       </div>
     </section>
 
-    <section class="slide" data-title="Sentences" data-sub="Patterns 3/4">
+    <!-- 14 -->
+    <section class="slide" data-title="Sentences" data-sub="Patterns 3/3">
       <div class="inner">
         <div>
-          <h2 class="h2">Sentence Patterns (3/4)</h2>
-          <p class="sub">Time + teacher + after school.</p>
+          <h2 class="h2">Sentence Patterns (3/3)</h2>
+          <p class="sub">Teacher + after school + break + skill.</p>
         </div>
         <div class="row">
           <div class="card">
             <div class="pattern">7) I usually have <span class="blank">___</span> lessons on <span class="blank">___</span>.</div>
             <div class="pattern">8) My teacher is <span class="blank">___</span> and <span class="blank">___</span>.</div>
             <div class="pattern">9) After school, I often <span class="blank">___</span>.</div>
-            <div class="chips">
-              <span class="chip good" data-say="I usually have six lessons on Monday.">Example 7</span>
-              <span class="chip purp" data-say="My teacher is kind and funny.">Example 8</span>
-              <span class="chip yellow" data-say="After school, I often go to an English club.">Example 9</span>
-            </div>
-          </div>
-          <div class="card">
-            <span class="tag"><img id="stopIcon7" alt=""> Speak Task</span>
-            <div class="speak">
-              <div class="title"><span><img id="capIcon15" alt=""> 3 sentences</span></div>
-              <ul>
-                <li>Say pattern 7 with your day.</li>
-                <li>Say pattern 8 with 2 adjectives.</li>
-                <li>Say pattern 9 with an activity.</li>
-              </ul>
-            </div>
-            <div class="card tight" style="margin-top:12px">
-              <b>Example line</b>
-              <div class="mini" id="exLine3" style="margin-top:8px">Tap an “Example”.</div>
-            </div>
-          </div>
-        </div>
-        <div class="footer"><div>Speak in full sentences.</div><div class="dots" id="dots16"></div></div>
-      </div>
-    </section>
-
-    <section class="slide" data-title="Sentences" data-sub="Patterns 4/4">
-      <div class="inner">
-        <div>
-          <h2 class="h2">Sentence Patterns (4/4)</h2>
-          <p class="sub">Skills + break time + homework.</p>
-        </div>
-        <div class="row">
-          <div class="card">
             <div class="pattern">10) I’m good at <span class="blank">___</span> / I’m not good at <span class="blank">___</span>.</div>
             <div class="pattern">11) At break time, I usually <span class="blank">___</span>.</div>
             <div class="pattern">12) I do homework <span class="blank">at home</span>.</div>
             <div class="chips">
-              <span class="chip good" data-say="I’m good at English, but I’m not good at maths.">Example 10</span>
-              <span class="chip purp" data-say="At break time, I usually chat with my classmates.">Example 11</span>
-              <span class="chip yellow" data-say="I do homework at home after dinner.">Example 12</span>
+              <span class="chip good ex" data-say="My teacher is kind and funny.">Example 8</span>
+              <span class="chip purp ex" data-say="After school, I often go to an English club.">Example 9</span>
+              <span class="chip yellow ex" data-say="At break time, I usually chat with my classmates.">Example 11</span>
             </div>
           </div>
           <div class="card">
-            <span class="tag"><img id="memoIcon3" alt=""> Speak Task</span>
+            <span class="tag"><span class="emoji">🗣️</span> Speak Task</span>
             <div class="speak">
-              <div class="title"><span><img id="capIcon16" alt=""> 3 sentences</span></div>
+              <div class="title"><span>Choose any 4 patterns</span></div>
               <ul>
-                <li>Say a “good at / not good at” sentence.</li>
-                <li>Say a break time sentence.</li>
-                <li>Say a homework sentence.</li>
+                <li>Say 4 full sentences</li>
+                <li>Use <b>because</b> once</li>
               </ul>
             </div>
             <div class="card tight" style="margin-top:12px">
               <b>Example line</b>
-              <div class="mini" id="exLine4" style="margin-top:8px">Tap an “Example”.</div>
+              <div class="mini outLine" style="margin-top:8px">Tap an example.</div>
             </div>
           </div>
         </div>
-        <div class="footer"><div>Awesome. Now high-score phrases.</div><div class="dots" id="dots17"></div></div>
+        <div class="footer"><div>Now: more interaction games.</div><div class="dots" id="dots14"></div></div>
       </div>
     </section>
 
-    <!-- HIGH SCORE (6) -->
+    <!-- MATCHING GAME 1 -->
+    <!-- 15 -->
+    <section class="slide" data-title="Game" data-sub="Match word → picture">
+      <div class="inner">
+        <div>
+          <h2 class="h2">Matching Game 1</h2>
+          <p class="sub">Match the word to the picture. Then say one sentence with the word.</p>
+        </div>
+        <div class="row one">
+          <div class="card">
+            <div class="matchWrap">
+              <div>
+                <div class="colTitle"><span>Words</span><span class="badge" id="m1score">0/8</span></div>
+                <div class="list" id="m1left"></div>
+              </div>
+              <div>
+                <div class="colTitle"><span>Pictures</span><span class="badge">click to match</span></div>
+                <div class="list" id="m1right"></div>
+              </div>
+            </div>
+            <div class="chips" style="margin-top:12px">
+              <button class="btn green" id="m1reset">Reset</button>
+              <button class="btn" id="m1say">Speak challenge</button>
+            </div>
+            <div class="mini" id="m1tip" style="margin-top:10px"></div>
+          </div>
+        </div>
+        <div class="footer"><div>After each match: say 1 sentence.</div><div class="dots" id="dots15"></div></div>
+      </div>
+    </section>
+
+    <!-- MATCHING GAME 2 -->
+    <!-- 16 -->
+    <section class="slide" data-title="Game" data-sub="Match question → answer">
+      <div class="inner">
+        <div>
+          <h2 class="h2">Matching Game 2</h2>
+          <p class="sub">Match the question to the best sample answer. Then answer with your own info.</p>
+        </div>
+        <div class="row one">
+          <div class="card">
+            <div class="matchWrap">
+              <div>
+                <div class="colTitle"><span>Questions</span><span class="badge" id="m2score">0/6</span></div>
+                <div class="list" id="m2left"></div>
+              </div>
+              <div>
+                <div class="colTitle"><span>Sample answers</span><span class="badge">tap</span></div>
+                <div class="list" id="m2right"></div>
+              </div>
+            </div>
+            <div class="chips" style="margin-top:12px">
+              <button class="btn green" id="m2reset">Reset</button>
+              <button class="btn" id="m2say">Now answer (2 sentences)</button>
+            </div>
+            <div class="mini" id="m2tip" style="margin-top:10px"></div>
+          </div>
+        </div>
+        <div class="footer"><div>Speak after each match.</div><div class="dots" id="dots16"></div></div>
+      </div>
+    </section>
+
+    <!-- MCQ 1 -->
+    <!-- 17 -->
+    <section class="slide" data-title="Quiz" data-sub="Choose the best sentence">
+      <div class="inner">
+        <div>
+          <h2 class="h2">Quick Quiz 1</h2>
+          <p class="sub">Choose the best answer. Then read it aloud.</p>
+        </div>
+        <div class="row">
+          <div class="card">
+            <div class="mcq" id="qz1"></div>
+          </div>
+          <div class="card">
+            <span class="tag"><span class="emoji">🗣️</span> Speak Task</span>
+            <div class="speak">
+              <div class="title"><span>After you choose</span></div>
+              <ul>
+                <li>Read the correct sentence.</li>
+                <li>Change 1 word (your info).</li>
+              </ul>
+            </div>
+            <div class="fb" id="qz1fb"></div>
+          </div>
+        </div>
+        <div class="footer"><div>Focus: live in vs live with.</div><div class="dots" id="dots17"></div></div>
+      </div>
+    </section>
+
+    <!-- MCQ 2 -->
+    <!-- 18 -->
+    <section class="slide" data-title="Quiz" data-sub="because + adjectives">
+      <div class="inner">
+        <div>
+          <h2 class="h2">Quick Quiz 2</h2>
+          <p class="sub">Choose a good “because” reason.</p>
+        </div>
+        <div class="row">
+          <div class="card">
+            <div class="mcq" id="qz2"></div>
+          </div>
+          <div class="card">
+            <span class="tag"><span class="emoji">🗣️</span> Speak Task</span>
+            <div class="speak">
+              <div class="title"><span>Say 2 new reasons</span></div>
+              <ul>
+                <li>My school is ____ because ____.</li>
+                <li>My favourite subject is ____ because ____.</li>
+              </ul>
+            </div>
+            <div class="fb" id="qz2fb"></div>
+          </div>
+        </div>
+        <div class="footer"><div>Use: interesting / useful / friendly.</div><div class="dots" id="dots18"></div></div>
+      </div>
+    </section>
+
+    <!-- HIGH SCORE 6 -> 2 slides -->
+    <!-- 19 -->
     <section class="slide" data-title="High Score" data-sub="Phrases 1/2">
       <div class="inner">
         <div>
           <h2 class="h2">High-score Phrases (1/2)</h2>
-          <p class="sub">Use 1–2 of these to sound better.</p>
+          <p class="sub">Use 1–2 of these.</p>
         </div>
         <div class="row">
           <div class="card">
@@ -1250,35 +1170,36 @@
             <div class="pattern">B) What I like most is <span class="blank">___</span>.</div>
             <div class="pattern">C) It helps me <span class="blank">___</span>.</div>
             <div class="chips">
-              <span class="chip good" data-say="My full name is Zhang Wei, but you can call me Mike.">Example A</span>
-              <span class="chip purp" data-say="What I like most is English.">Example B</span>
-              <span class="chip yellow" data-say="It helps me speak better.">Example C</span>
+              <span class="chip good hs" data-say="My full name is Zhang Wei, but you can call me Mike.">Example A</span>
+              <span class="chip purp hs" data-say="What I like most is English.">Example B</span>
+              <span class="chip yellow hs" data-say="It helps me speak better.">Example C</span>
             </div>
           </div>
           <div class="card">
-            <span class="tag"><img id="sparkIcon6" alt=""> Speak Task</span>
+            <span class="tag"><span class="emoji">🗣️</span> Speak Task</span>
             <div class="speak">
-              <div class="title"><span><img id="capIcon17" alt=""> Use 2 phrases</span></div>
+              <div class="title"><span>Use 2 phrases</span></div>
               <ul>
-                <li>Say phrase A with your name.</li>
-                <li>Say phrase B + C about a subject.</li>
+                <li>Say phrase A with your name</li>
+                <li>Say phrase B + C about a subject</li>
               </ul>
             </div>
             <div class="card tight" style="margin-top:12px">
               <b>Example line</b>
-              <div class="mini" id="hiLine1" style="margin-top:8px">Tap an “Example”.</div>
+              <div class="mini" id="hsOut1" style="margin-top:8px">Tap an example.</div>
             </div>
           </div>
         </div>
-        <div class="footer"><div>Don’t memorize—make it YOURS.</div><div class="dots" id="dots18"></div></div>
+        <div class="footer"><div>Next: 3 more phrases.</div><div class="dots" id="dots19"></div></div>
       </div>
     </section>
 
+    <!-- 20 -->
     <section class="slide" data-title="High Score" data-sub="Phrases 2/2">
       <div class="inner">
         <div>
           <h2 class="h2">High-score Phrases (2/2)</h2>
-          <p class="sub">Feelings + interest + extra line.</p>
+          <p class="sub">Feeling + interest + extra line.</p>
         </div>
         <div class="row">
           <div class="card">
@@ -1286,225 +1207,101 @@
             <div class="pattern">E) I’m interested in <span class="blank">___</span>.</div>
             <div class="pattern">F) If I have time, I <span class="blank">___</span>.</div>
             <div class="chips">
-              <span class="chip good" data-say="I feel proud when I get good marks.">Example D</span>
-              <span class="chip purp" data-say="I’m interested in science.">Example E</span>
-              <span class="chip yellow" data-say="If I have time, I go to the library.">Example F</span>
+              <span class="chip good hs2" data-say="I feel proud when I get good marks.">Example D</span>
+              <span class="chip purp hs2" data-say="I’m interested in science.">Example E</span>
+              <span class="chip yellow hs2" data-say="If I have time, I go to the library.">Example F</span>
             </div>
           </div>
           <div class="card">
-            <span class="tag"><img id="sparkIcon7" alt=""> Speak Task</span>
+            <span class="tag"><span class="emoji">🗣️</span> Speak Task</span>
             <div class="speak">
-              <div class="title"><span><img id="capIcon18" alt=""> 3 sentences</span></div>
+              <div class="title"><span>3 sentences</span></div>
               <ul>
-                <li>Say D with a feeling.</li>
-                <li>Say E with a subject / club.</li>
-                <li>Say F with an after-school activity.</li>
+                <li>Say D (a feeling)</li>
+                <li>Say E (a subject/club)</li>
+                <li>Say F (after-school)</li>
               </ul>
             </div>
             <div class="card tight" style="margin-top:12px">
               <b>Example line</b>
-              <div class="mini" id="hiLine2" style="margin-top:8px">Tap an “Example”.</div>
+              <div class="mini" id="hsOut2" style="margin-top:8px">Tap an example.</div>
             </div>
           </div>
         </div>
-        <div class="footer"><div>Now learn the speaking order.</div><div class="dots" id="dots19"></div></div>
+        <div class="footer"><div>Now exam questions.</div><div class="dots" id="dots20"></div></div>
       </div>
     </section>
 
-    <!-- STRUCTURE -->
-    <section class="slide" data-title="Structure" data-sub="What to say first">
+    <!-- EXAM Q: Personal (6) -->
+    <!-- 21 -->
+    <section class="slide" data-title="Exam Q" data-sub="Personal (6)">
       <div class="inner">
         <div>
-          <h2 class="h2">Talk Order (Easy Map)</h2>
-          <p class="sub">Me → Home → School → Favourite subject → After school → Feeling</p>
-        </div>
-        <div class="row">
-          <div class="card">
-            <div class="map">
-              <div class="step"><div class="n">1</div><div class="t"><b>Name + age</b><span class="mini">My name is… I’m… years old.</span></div></div>
-              <div class="arrow">↓</div>
-              <div class="step"><div class="n">2</div><div class="t"><b>Where I live</b><span class="mini">I live in… / I live with…</span></div></div>
-              <div class="arrow">↓</div>
-              <div class="step"><div class="n">3</div><div class="t"><b>My school</b><span class="mini">I’m a student at… My school is…</span></div></div>
-              <div class="arrow">↓</div>
-              <div class="step"><div class="n">4</div><div class="t"><b>Favourite subject</b><span class="mini">My favourite subject is… because…</span></div></div>
-              <div class="arrow">↓</div>
-              <div class="step"><div class="n">5</div><div class="t"><b>After school</b><span class="mini">After school, I often…</span></div></div>
-              <div class="arrow">↓</div>
-              <div class="step"><div class="n">6</div><div class="t"><b>Feeling</b><span class="mini">I feel… when…</span></div></div>
-            </div>
-          </div>
-          <div class="card">
-            <span class="tag"><img id="capIcon19" alt=""> Speak Task</span>
-            <div class="speak">
-              <div class="title"><span><img id="stopIcon8" alt=""> Mini talk (6 lines)</span></div>
-              <ul>
-                <li>Follow steps 1 → 6.</li>
-                <li>Use <b>because</b> in step 4.</li>
-                <li>Add one more <b>because</b> anywhere.</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div class="footer"><div>Now exam-style questions.</div><div class="dots" id="dots20"></div></div>
-      </div>
-    </section>
-
-    <!-- QUESTIONS (12 total: 6 personal + 6 school) -->
-    <section class="slide" data-title="Q Practice" data-sub="Personal 1/2">
-      <div class="inner">
-        <div>
-          <h2 class="h2">Exam Questions · Personal (1/2)</h2>
+          <h2 class="h2">Exam Questions · Personal</h2>
           <p class="sub">Answer first. Then click “Show sample”.</p>
         </div>
         <div class="row">
           <div class="card">
             <div class="qbox">
-              <div class="qitem" data-q="1">
-                <div class="q">1) What’s your name? <button class="btn small ghost showBtn">Show sample</button></div>
-                <div class="a">My name is Amy Zhang, but you can call me Amy.</div>
-              </div>
-              <div class="qitem" data-q="2">
-                <div class="q">2) How old are you? <button class="btn small ghost showBtn">Show sample</button></div>
-                <div class="a">I’m ten years old.</div>
-              </div>
-              <div class="qitem" data-q="3">
-                <div class="q">3) Where do you live? <button class="btn small ghost showBtn">Show sample</button></div>
-                <div class="a">I live in Shenzhen. It’s a modern city and I like it because it’s convenient.</div>
-              </div>
+              <div class="qitem"><div class="q">1) What’s your name? <button class="btn small ghost showBtn">Show sample</button></div><div class="a">My name is Amy Zhang, but you can call me Amy.</div></div>
+              <div class="qitem"><div class="q">2) How old are you? <button class="btn small ghost showBtn">Show sample</button></div><div class="a">I’m ten years old.</div></div>
+              <div class="qitem"><div class="q">3) Where do you live? <button class="btn small ghost showBtn">Show sample</button></div><div class="a">I live in Shenzhen. I like it because it’s convenient.</div></div>
+              <div class="qitem"><div class="q">4) Who do you live with? <button class="btn small ghost showBtn">Show sample</button></div><div class="a">I live with my parents. We spend time together on weekends.</div></div>
+              <div class="qitem"><div class="q">5) Do you have brothers or sisters? <button class="btn small ghost showBtn">Show sample</button></div><div class="a">Yes, I have a younger brother. He’s funny and we get along well.</div></div>
+              <div class="qitem"><div class="q">6) What do you like doing after school? <button class="btn small ghost showBtn">Show sample</button></div><div class="a">After school, I often go to an English club because it helps me speak better.</div></div>
             </div>
           </div>
           <div class="card">
-            <span class="tag"><img id="capIcon20" alt=""> Speak Task</span>
+            <span class="tag"><span class="emoji">🗣️</span> Speak Rule</span>
             <div class="speak">
-              <div class="title"><span><img id="labelIcon8" alt=""> Answer format</span></div>
+              <div class="title"><span>2 sentences per question</span></div>
               <ul>
-                <li>1 short answer + 1 detail</li>
-                <li>Try: <b>because</b> / “also”</li>
-                <li>Keep eye contact 🙂</li>
+                <li>Short answer + 1 detail</li>
+                <li>Use <b>because</b> in 2 answers</li>
               </ul>
             </div>
           </div>
         </div>
-        <div class="footer"><div>Speak 2 sentences per question.</div><div class="dots" id="dots21"></div></div>
+        <div class="footer"><div>Next: school questions.</div><div class="dots" id="dots21"></div></div>
       </div>
     </section>
 
-    <section class="slide" data-title="Q Practice" data-sub="Personal 2/2">
+    <!-- EXAM Q: School (6) -->
+    <!-- 22 -->
+    <section class="slide" data-title="Exam Q" data-sub="School (6)">
       <div class="inner">
         <div>
-          <h2 class="h2">Exam Questions · Personal (2/2)</h2>
-          <p class="sub">Answer first. Then check.</p>
+          <h2 class="h2">Exam Questions · School</h2>
+          <p class="sub">Answer first. Then check sample.</p>
         </div>
         <div class="row">
           <div class="card">
             <div class="qbox">
-              <div class="qitem">
-                <div class="q">4) Who do you live with? <button class="btn small ghost showBtn">Show sample</button></div>
-                <div class="a">I live with my parents. We spend time together on weekends.</div>
-              </div>
-              <div class="qitem">
-                <div class="q">5) Do you have brothers or sisters? <button class="btn small ghost showBtn">Show sample</button></div>
-                <div class="a">Yes, I have a younger brother. He’s funny and we get along well.</div>
-              </div>
-              <div class="qitem">
-                <div class="q">6) What do you like doing after school? <button class="btn small ghost showBtn">Show sample</button></div>
-                <div class="a">After school, I often go to an English club because I want to speak better.</div>
-              </div>
+              <div class="qitem"><div class="q">1) What school do you go to? <button class="btn small ghost showBtn">Show sample</button></div><div class="a">I go to Sunshine Primary School. It’s a big school in the center of our city.</div></div>
+              <div class="qitem"><div class="q">2) What subjects do you study? <button class="btn small ghost showBtn">Show sample</button></div><div class="a">I study English, Chinese, maths, science and PE. English is my favourite.</div></div>
+              <div class="qitem"><div class="q">3) What’s your favourite subject? Why? <button class="btn small ghost showBtn">Show sample</button></div><div class="a">My favourite subject is English because it helps me talk with foreigners. I also like reading English stories.</div></div>
+              <div class="qitem"><div class="q">4) Do you like your school? Why? <button class="btn small ghost showBtn">Show sample</button></div><div class="a">Yes, I do. My school is clean and friendly. The teachers are helpful and I have many friends.</div></div>
+              <div class="qitem"><div class="q">5) What’s your teacher like? <button class="btn small ghost showBtn">Show sample</button></div><div class="a">My English teacher is kind and funny. She makes our lessons interesting with games.</div></div>
+              <div class="qitem"><div class="q">6) What do you do at break time? <button class="btn small ghost showBtn">Show sample</button></div><div class="a">At break time, I usually chat with my classmates. Sometimes we play games in the playground.</div></div>
             </div>
           </div>
           <div class="card">
-            <span class="tag"><img id="sparkIcon8" alt=""> Speak Task</span>
+            <span class="tag"><span class="emoji">🗣️</span> Speak Task</span>
             <div class="speak">
-              <div class="title"><span><img id="capIcon21" alt=""> “because” challenge</span></div>
+              <div class="title"><span>Make it longer</span></div>
               <ul>
-                <li>Use <b>because</b> in 2 answers.</li>
-                <li>Add 1 feeling: “I feel …”</li>
+                <li>Add 1 adjective (friendly / comfortable / popular)</li>
+                <li>Add 1 reason (<b>because</b>)</li>
               </ul>
             </div>
           </div>
         </div>
-        <div class="footer"><div>Nice! Now school questions.</div><div class="dots" id="dots22"></div></div>
-      </div>
-    </section>
-
-    <section class="slide" data-title="Q Practice" data-sub="School 1/2">
-      <div class="inner">
-        <div>
-          <h2 class="h2">Exam Questions · School (1/2)</h2>
-          <p class="sub">Answer first. Then click sample.</p>
-        </div>
-        <div class="row">
-          <div class="card">
-            <div class="qbox">
-              <div class="qitem">
-                <div class="q">1) What school do you go to? <button class="btn small ghost showBtn">Show sample</button></div>
-                <div class="a">I go to Sunshine Primary School. It’s a big school in the center of our city.</div>
-              </div>
-              <div class="qitem">
-                <div class="q">2) Is your school big or small? <button class="btn small ghost showBtn">Show sample</button></div>
-                <div class="a">My school is quite big. It has a large playground and a library.</div>
-              </div>
-              <div class="qitem">
-                <div class="q">3) Do you like your school? Why? <button class="btn small ghost showBtn">Show sample</button></div>
-                <div class="a">Yes, I do. My school is clean and friendly because the teachers are helpful.</div>
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <span class="tag"><img id="schoolIcon3" alt=""> Speak Task</span>
-            <div class="speak">
-              <div class="title"><span><img id="capIcon22" alt=""> Add details</span></div>
-              <ul>
-                <li>Say 1 detail: place / size / facilities</li>
-                <li>Use 1 adjective: friendly / comfortable / modern</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div class="footer"><div>2–3 sentences per question.</div><div class="dots" id="dots23"></div></div>
-      </div>
-    </section>
-
-    <section class="slide" data-title="Q Practice" data-sub="School 2/2">
-      <div class="inner">
-        <div>
-          <h2 class="h2">Exam Questions · School (2/2)</h2>
-          <p class="sub">Answer first. Then check.</p>
-        </div>
-        <div class="row">
-          <div class="card">
-            <div class="qbox">
-              <div class="qitem">
-                <div class="q">4) What subjects do you study? <button class="btn small ghost showBtn">Show sample</button></div>
-                <div class="a">I study English, Chinese, maths, science and PE. English is my favourite.</div>
-              </div>
-              <div class="qitem">
-                <div class="q">5) What’s your favourite subject? Why? <button class="btn small ghost showBtn">Show sample</button></div>
-                <div class="a">My favourite subject is English because it helps me talk with foreigners. I also like reading English stories.</div>
-              </div>
-              <div class="qitem">
-                <div class="q">6) What do you do at break time? <button class="btn small ghost showBtn">Show sample</button></div>
-                <div class="a">At break time, I usually chat with my classmates. Sometimes we play games in the playground.</div>
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <span class="tag"><img id="sparkIcon9" alt=""> Speak Task</span>
-            <div class="speak">
-              <div class="title"><span><img id="capIcon23" alt=""> Two “because”</span></div>
-              <ul>
-                <li>Use <b>because</b> in Q4 or Q5.</li>
-                <li>Add another <b>because</b> in any answer.</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div class="footer"><div>Now role play time.</div><div class="dots" id="dots24"></div></div>
+        <div class="footer"><div>Next: role play + build.</div><div class="dots" id="dots22"></div></div>
       </div>
     </section>
 
     <!-- ROLE PLAY -->
+    <!-- 23 -->
     <section class="slide" data-title="Role Play" data-sub="New classmate">
       <div class="inner">
         <div>
@@ -1513,74 +1310,75 @@
         </div>
         <div class="row">
           <div class="card">
-            <span class="tag"><img id="peopleIcon5" alt=""> Your Lines</span>
+            <span class="tag"><span class="emoji">🎭</span> Your Mission</span>
             <div class="speak">
-              <div class="title"><span><img id="capIcon24" alt=""> Must-use</span></div>
+              <div class="title"><span>Must-use</span></div>
               <ul>
-                <li>Use <b>2 sentence patterns</b> (any).</li>
-                <li>Use <b>1 high-score phrase</b>.</li>
-                <li>Use <b>2 because</b> if you can.</li>
+                <li>Use <b>2 sentence patterns</b></li>
+                <li>Use <b>1 high-score phrase</b></li>
+                <li>Use <b>2 because</b></li>
               </ul>
             </div>
             <div class="card tight" style="margin-top:12px">
-              <b>Prompt (read silently)</b>
-              <div class="mini" style="margin-top:8px">
-                “Hi! I’m your new classmate. Can you tell me about yourself and your school?”
-              </div>
+              <b>Prompt</b>
+              <div class="mini" style="margin-top:8px">“Hi! I’m your new classmate. Tell me about yourself and your school.”</div>
             </div>
           </div>
           <div class="picFrame">
-            <div class="picBadge"><img id="peopleIcon6" alt=""> new classmate</div>
-            <img class="bigPic" id="clubPhoto" alt="After school club photo">
+            <div class="picBadge"><span class="emoji">🎒</span> after-school club</div>
+            <img class="bigPic" id="pic_club" alt="Club illustration">
           </div>
         </div>
-        <div class="footer"><div>Speak for 30–40 seconds.</div><div class="dots" id="dots25"></div></div>
+        <div class="footer"><div>Speak 30–40 seconds.</div><div class="dots" id="dots23"></div></div>
       </div>
     </section>
 
-    <!-- BUILD GAME (click to build, no typing) -->
-    <section class="slide" data-title="Game" data-sub="Click-and-build">
+    <!-- CLICK-AND-BUILD -->
+    <!-- 24 -->
+    <section class="slide" data-title="Game" data-sub="Click & build a talk">
       <div class="inner">
         <div>
-          <h2 class="h2">Game: Click & Build a Mini Talk</h2>
-          <p class="sub">Click pieces to build your talk (no typing).</p>
+          <h2 class="h2">Click & Build (No typing)</h2>
+          <p class="sub">Click pieces to build your mini talk.</p>
         </div>
         <div class="row one">
           <div class="card">
-            <div class="buildArea">
-              <div class="built" id="builtText">Your sentence will appear here…</div>
-              <div class="tray" id="pieceTray"></div>
-              <div class="chips">
-                <button class="btn green" id="buildSpeak">Speak it!</button>
-                <button class="btn" id="buildReset">Reset</button>
-                <button class="btn warn" id="buildHint">Show a sample</button>
-              </div>
-              <div class="mini" id="buildSample" style="display:none">
-                Sample: Hi! My name is Amy and I’m ten years old. I live in Shenzhen with my parents. I’m a student at Sunshine Primary School. My favourite subject is English because it’s interesting. After school, I often go to an English club because it helps me speak better. I feel proud when I get good marks.
-              </div>
+            <div class="card tight" style="border-style:dashed; background:linear-gradient(135deg,#fbfaff,#f2fff9)">
+              <b>Your talk</b>
+              <div id="builtText" style="margin-top:10px; font-size:18px; font-weight:1000; line-height:1.45">Your sentence will appear here…</div>
+            </div>
+            <div class="chips" id="pieceTray" style="margin-top:12px"></div>
+            <div class="chips" style="margin-top:12px">
+              <button class="btn green" id="buildReset">Reset</button>
+              <button class="btn warn" id="buildSampleBtn">Show sample</button>
+              <button class="btn primary" id="buildSpeak">Speak it!</button>
+            </div>
+            <div class="mini" id="buildSample" style="display:none; margin-top:10px">
+              Sample: Hi! My name is Amy and I’m ten years old. I live in Shenzhen with my parents. I’m a student at Sunshine Primary School. My favourite subject is English because it’s interesting. After school, I often go to an English club because it helps me speak better. I feel proud when I get good marks.
             </div>
           </div>
         </div>
-        <div class="footer"><div>Goal: 6+ sentences, 2+ because.</div><div class="dots" id="dots26"></div></div>
+        <div class="footer"><div>Goal: 6+ sentences, 2+ because.</div><div class="dots" id="dots24"></div></div>
       </div>
     </section>
 
     <!-- PICTURE SPINNER -->
-    <section class="slide" data-title="Pictures" data-sub="Spin & speak (2 sentences each)">
+    <!-- 25 -->
+    <section class="slide" data-title="Pictures" data-sub="Spin & speak (2 sentences)">
       <div class="inner">
         <div>
           <h2 class="h2">Picture Spinner</h2>
-          <p class="sub">Click <b>SPIN</b>. Speak <b>2 sentences</b> about the picture.</p>
+          <p class="sub">Click <b>SPIN</b>. Speak <b>2 sentences</b> each time.</p>
         </div>
         <div class="row one">
           <div class="card">
             <div class="spinGrid">
               <div class="spinPic">
-                <div class="spinLabel"><img id="sparkIcon10" alt=""> <span id="spinName">school</span></div>
-                <img id="spinImg" alt="Spinner image">
+                <div class="spinLabel"><span class="emoji">🎲</span> <span id="spinName">school</span></div>
+                <img id="spinImg" alt="Spinner illustration">
               </div>
               <div class="card">
-                <span class="tag"><img id="capIcon25" alt=""> Sentence starters</span>
+                <span class="tag"><span class="emoji">🧠</span> Starters</span>
                 <div class="chips" style="margin-bottom:10px">
                   <span class="chip purp starter">I study at …</span>
                   <span class="chip yellow starter">My school is … because …</span>
@@ -1589,15 +1387,15 @@
                   <span class="chip starter">I feel … when …</span>
                 </div>
                 <div class="speak">
-                  <div class="title"><span><img id="stopIcon9" alt=""> Your Turn</span></div>
+                  <div class="title"><span>Your Turn</span></div>
                   <ul>
-                    <li>Say <b>2 sentences</b> about the picture.</li>
-                    <li>Use <b>1 because</b> if possible.</li>
+                    <li>Say <b>2 sentences</b> about the picture</li>
+                    <li>Use <b>because</b> if possible</li>
                   </ul>
                 </div>
                 <div class="chips" style="margin-top:12px">
                   <button class="btn primary" id="spinBtn">SPIN</button>
-                  <button class="btn" id="spinRevealHint">Show idea</button>
+                  <button class="btn" id="spinHintBtn">Show idea</button>
                 </div>
                 <p class="mini" id="spinHint" style="display:none; margin-top:10px">
                   Try: “This is the library. I like it because it’s quiet. I often go there after school.”
@@ -1606,25 +1404,26 @@
             </div>
           </div>
         </div>
-        <div class="footer"><div>Spin 5 times = 10 sentences!</div><div class="dots" id="dots27"></div></div>
+        <div class="footer"><div>Spin 5 times = 10 sentences.</div><div class="dots" id="dots25"></div></div>
       </div>
     </section>
 
-    <!-- TIMER PRACTICE -->
-    <section class="slide" data-title="Timed Talk" data-sub="30 / 40 / 50 seconds">
+    <!-- TIMER -->
+    <!-- 26 -->
+    <section class="slide" data-title="Timed Talk" data-sub="30 / 40 / 50s">
       <div class="inner">
         <div>
           <h2 class="h2">Timed Talk Practice</h2>
-          <p class="sub">Choose a time → speak continuously.</p>
+          <p class="sub">Choose time → speak continuously.</p>
         </div>
         <div class="row one">
           <div class="card">
             <div class="timerBox">
               <div class="clock" id="clock">00:40</div>
               <div class="card">
-                <span class="tag"><img id="stopIcon10" alt=""> Checklist</span>
+                <span class="tag"><span class="emoji">✅</span> Checklist</span>
                 <div class="speak">
-                  <div class="title"><span><img id="capIcon26" alt=""> Must-do</span></div>
+                  <div class="title"><span>Must-do</span></div>
                   <ul>
                     <li><b>6+ sentences</b></li>
                     <li><b>2+ because</b></li>
@@ -1632,54 +1431,55 @@
                   </ul>
                 </div>
                 <div class="chips" style="margin-top:12px">
-                  <button class="btn" data-time="30" id="t30">30s</button>
-                  <button class="btn" data-time="40" id="t40">40s</button>
-                  <button class="btn" data-time="50" id="t50">50s</button>
+                  <button class="btn" id="t30">30s</button>
+                  <button class="btn" id="t40">40s</button>
+                  <button class="btn" id="t50">50s</button>
                 </div>
                 <div class="chips" style="margin-top:10px">
                   <button class="btn green" id="startTimer">Start</button>
                   <button class="btn" id="pauseTimer">Pause</button>
                   <button class="btn" id="resetTimer">Reset</button>
                 </div>
-                <p class="mini" style="margin-top:10px">Tip: If you stop, use “and…” to continue.</p>
+                <p class="mini" style="margin-top:10px">If you stop: say “and…” then continue.</p>
               </div>
             </div>
           </div>
         </div>
-        <div class="footer"><div>Final goal: 40–50s with 2 “because”.</div><div class="dots" id="dots28"></div></div>
+        <div class="footer"><div>Final target: 40–50s.</div><div class="dots" id="dots26"></div></div>
       </div>
     </section>
 
     <!-- FINAL -->
-    <section class="slide" data-title="Final" data-sub="You did it!">
+    <!-- 27 -->
+    <section class="slide" data-title="Final" data-sub="Best talk">
       <div class="inner">
         <div>
-          <h1 class="h1">Great job! 🎉</h1>
-          <p class="sub">One more time: speak your best 40–50s talk.</p>
+          <h1 class="h1">Final Talk 🎉</h1>
+          <p class="sub">Speak your best 40–50 seconds.</p>
         </div>
         <div class="row">
           <div class="card">
-            <span class="tag"><img id="sparkIcon11" alt=""> Final Challenge</span>
+            <span class="tag"><span class="emoji">🏁</span> Final Challenge</span>
             <div class="speak">
-              <div class="title"><span><img id="capIcon27" alt=""> Your best talk</span></div>
+              <div class="title"><span>Do it</span></div>
               <ul>
                 <li>6+ sentences</li>
                 <li>2+ because</li>
                 <li>Use 1 high-score phrase</li>
-                <li>Clear ending: “Thank you.”</li>
+                <li>End: “Thank you.”</li>
               </ul>
             </div>
             <div class="chips" style="margin-top:12px">
               <button class="btn primary" id="confettiBtn">Celebrate!</button>
-              <button class="btn" id="goMenuEnd">Back to Menu</button>
+              <button class="btn" id="goMenuEnd">Menu</button>
             </div>
           </div>
           <div class="picFrame">
-            <div class="picBadge"><img id="capIcon28" alt=""> you can do it</div>
-            <img class="bigPic" id="playgroundPhoto" alt="Playground photo">
+            <div class="picBadge"><span class="emoji">🛝</span> playground</div>
+            <img class="bigPic" id="pic_playground" alt="Playground illustration">
           </div>
         </div>
-        <div class="footer"><div>Press M to jump to any slide.</div><div class="dots" id="dots29"></div></div>
+        <div class="footer"><div>Press M to jump.</div><div class="dots" id="dots27"></div></div>
       </div>
     </section>
 
@@ -1687,184 +1487,83 @@
 
   <div class="toast" id="toast"></div>
 
-  <!-- MENU OVERLAY -->
+  <!-- MENU -->
   <div class="overlay" id="menuOverlay" role="dialog" aria-modal="true" aria-label="Menu">
     <div class="panel">
       <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px">
-        <div>
-          <b style="font-size:16px">Slide Menu</b>
-          <span class="mini">Click to jump</span>
-        </div>
+        <div><b style="font-size:16px">Slide Menu</b> <span class="mini">Click to jump</span></div>
         <button class="btn small" id="closeMenu">Close</button>
       </div>
       <div class="grid" id="thumbGrid"></div>
     </div>
   </div>
 
-  <!-- HELP OVERLAY -->
+  <!-- HELP -->
   <div class="overlay" id="helpOverlay" role="dialog" aria-modal="true" aria-label="Help">
     <div class="panel">
       <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px">
-        <div>
-          <b style="font-size:16px">Help</b>
-          <span class="mini">How to use this deck</span>
-        </div>
+        <div><b style="font-size:16px">Help</b> <span class="mini">How to use</span></div>
         <button class="btn small" id="closeHelp">Close</button>
       </div>
       <div class="card">
         <ul style="margin:0; padding-left:18px; line-height:1.6">
-          <li><b>Next / Prev:</b> buttons, click empty area, or keys <b>← →</b>, <b>Space</b></li>
+          <li><b>Next / Prev:</b> buttons, click empty space, or keys <b>← →</b>, <b>Space</b></li>
           <li><b>Menu:</b> press <b>M</b></li>
-          <li><b>Show Chinese hint:</b> tap a word card (tap again to hide)</li>
-          <li><b>Speaking rule:</b> try <b>2 sentences</b> every slide</li>
+          <li><b>Word hint:</b> tap a word card (Hint CN appears)</li>
+          <li><b>Rule:</b> try <b>2 sentences</b> every slide</li>
         </ul>
       </div>
     </div>
   </div>
 
   <script>
-    // ======= Online images (OpenMoji + Wikimedia Commons) =======
-    const ASSETS = {
-      // OpenMoji direct downloads
-      cap: "https://openmoji.org/php/download_asset.php?emoji_hexcode=1F393&emoji_variant=color&type=emoji",
-      schoolIcon: "https://openmoji.org/php/download_asset.php?emoji_hexcode=1F3EB&emoji_variant=color&type=emoji",
-      playgroundIcon: "https://openmoji.org/php/download_asset.php?emoji_hexcode=1F6DD&emoji_variant=color&type=emoji",
-      pencil: "https://openmoji.org/php/download_asset.php?emoji_hexcode=270F&emoji_variant=color&type=emoji",
-      memo: "https://openmoji.org/php/download_asset.php?emoji_hexcode=1F4DD&emoji_variant=color&type=emoji",
-      books: "https://openmoji.org/php/download_asset.php?emoji_hexcode=1F4DA&emoji_variant=color&type=emoji",
-      calendar: "https://openmoji.org/php/download_asset.php?emoji_hexcode=1F4C5&emoji_variant=color&type=emoji",
-      people: "https://openmoji.org/php/download_asset.php?emoji_hexcode=1F465&emoji_variant=color&type=emoji",
-      tie: "https://openmoji.org/php/download_asset.php?emoji_hexcode=1F454&emoji_variant=color&type=emoji",
-      label: "https://openmoji.org/php/download_asset.php?emoji_hexcode=1F3F7&emoji_variant=color&type=emoji",
-      bag: "https://openmoji.org/php/download_asset.php?emoji_hexcode=1F392&emoji_variant=color&type=emoji",
-      stopwatch: "https://openmoji.org/php/download_asset.php?emoji_hexcode=23F1&emoji_variant=color&type=emoji",
-
-      // Wikimedia Commons (Special:FilePath redirects to the file)
-      photoSchool: "https://commons.wikimedia.org/wiki/Special:FilePath/School_Building_with_sign.jpg",
-      photoClassroom: "https://commons.wikimedia.org/wiki/Special:FilePath/Empty_classroom.jpg",
-      photoLibrary: "https://commons.wikimedia.org/wiki/Special:FilePath/Fort_Lupton_Public_%26_School_Library_Interior.jpg",
-      photoPlayground: "https://commons.wikimedia.org/wiki/Special:FilePath/Playground_and_slide.jpg",
-      photoClub: "https://commons.wikimedia.org/wiki/Special:FilePath/After_School_Club.jpg"
+    /* ---------- Reliable “images”: embedded SVG illustrations (no broken links) ---------- */
+    function svgData(svg){
+      return "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(svg);
+    }
+    function scene(title, mainEmoji, accent){
+      const svg = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+        <defs>
+          <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#f7fbff"/>
+            <stop offset="1" stop-color="${accent}"/>
+          </linearGradient>
+          <filter id="s" x="-20%" y="-20%" width="140%" height="140%">
+            <feDropShadow dx="0" dy="10" stdDeviation="16" flood-color="#13213a" flood-opacity=".14"/>
+          </filter>
+        </defs>
+        <rect width="1200" height="800" rx="48" fill="url(#g)"/>
+        <circle cx="220" cy="160" r="120" fill="#ffffff99"/>
+        <circle cx="1030" cy="640" r="160" fill="#ffffff77"/>
+        <g filter="url(#s)">
+          <rect x="120" y="220" width="960" height="460" rx="44" fill="#ffffffcc" stroke="#e6e8f2" stroke-width="6"/>
+        </g>
+        <text x="600" y="310" text-anchor="middle" font-size="44" font-family="system-ui" font-weight="800" fill="#13213a">${title}</text>
+        <text x="600" y="520" text-anchor="middle" font-size="170" font-family="system-ui" font-weight="900">${mainEmoji}</text>
+        <g>
+          <rect x="330" y="600" width="540" height="64" rx="32" fill="#ffffff" stroke="#e6e8f2" stroke-width="4"/>
+          <text x="600" y="642" text-anchor="middle" font-size="26" font-family="system-ui" font-weight="800" fill="#5b6170">Say 2 sentences about this picture</text>
+        </g>
+      </svg>`;
+      return svgData(svg);
+    }
+    const PICS = {
+      school: scene("My School", "🏫", "#f3f0ff"),
+      classroom: scene("My Classroom", "🪑", "#eafff6"),
+      library: scene("The Library", "🏛️", "#fff6d6"),
+      playground: scene("Playground", "🛝", "#ffecec"),
+      club: scene("After-school Club", "🎭", "#e8f7ff")
     };
+    document.getElementById("pic_school").src = PICS.school;
+    document.getElementById("pic_classroom").src = PICS.classroom;
+    document.getElementById("pic_library").src = PICS.library;
+    document.getElementById("pic_playground").src = PICS.playground;
+    document.getElementById("pic_club").src = PICS.club;
 
-    // set icons
-    const setSrc = (id, src) => { const el = document.getElementById(id); if(el) el.src = src; };
-
-    setSrc("capIcon", ASSETS.cap);
-    setSrc("capIcon2", ASSETS.cap);
-    setSrc("capIcon3", ASSETS.cap);
-    setSrc("capIcon4", ASSETS.cap);
-    setSrc("capIcon5", ASSETS.cap);
-    setSrc("capIcon6", ASSETS.cap);
-    setSrc("capIcon7", ASSETS.cap);
-    setSrc("capIcon8", ASSETS.cap);
-    setSrc("capIcon9", ASSETS.cap);
-    setSrc("capIcon10", ASSETS.cap);
-    setSrc("capIcon11", ASSETS.cap);
-    setSrc("capIcon12", ASSETS.cap);
-    setSrc("capIcon13", ASSETS.cap);
-    setSrc("capIcon14", ASSETS.cap);
-    setSrc("capIcon15", ASSETS.cap);
-    setSrc("capIcon16", ASSETS.cap);
-    setSrc("capIcon17", ASSETS.cap);
-    setSrc("capIcon18", ASSETS.cap);
-    setSrc("capIcon19", ASSETS.cap);
-    setSrc("capIcon20", ASSETS.cap);
-    setSrc("capIcon21", ASSETS.cap);
-    setSrc("capIcon22", ASSETS.cap);
-    setSrc("capIcon23", ASSETS.cap);
-    setSrc("capIcon24", ASSETS.cap);
-    setSrc("capIcon25", ASSETS.cap);
-    setSrc("capIcon26", ASSETS.cap);
-    setSrc("capIcon27", ASSETS.cap);
-    setSrc("capIcon28", ASSETS.cap);
-
-    setSrc("schoolIcon", ASSETS.schoolIcon);
-    setSrc("schoolIcon2", ASSETS.schoolIcon);
-    setSrc("schoolIcon3", ASSETS.schoolIcon);
-
-    setSrc("playIcon1", ASSETS.playgroundIcon);
-
-    setSrc("pencilIcon1", ASSETS.pencil);
-    setSrc("pencilIcon2", ASSETS.pencil);
-    setSrc("pencilIcon3", ASSETS.pencil);
-    setSrc("pencilIcon4", ASSETS.pencil);
-
-    setSrc("memoIcon1", ASSETS.memo);
-    setSrc("memoIcon2", ASSETS.memo);
-    setSrc("memoIcon3", ASSETS.memo);
-
-    setSrc("bookIcon1", ASSETS.books);
-    setSrc("bookIcon2", ASSETS.books);
-    setSrc("libIcon1", ASSETS.books);
-    setSrc("libIcon2", ASSETS.books);
-
-    setSrc("calendarIcon1", ASSETS.calendar);
-    setSrc("calendarIcon2", ASSETS.calendar);
-
-    setSrc("peopleIcon1", ASSETS.people);
-    setSrc("peopleIcon2", ASSETS.people);
-    setSrc("peopleIcon3", ASSETS.people);
-    setSrc("peopleIcon4", ASSETS.people);
-    setSrc("peopleIcon5", ASSETS.people);
-    setSrc("peopleIcon6", ASSETS.people);
-
-    setSrc("tieIcon1", ASSETS.tie);
-
-    setSrc("labelIcon", ASSETS.label);
-    setSrc("labelIcon2", ASSETS.label);
-    setSrc("labelIcon3", ASSETS.label);
-    setSrc("labelIcon4", ASSETS.label);
-    setSrc("labelIcon5", ASSETS.label);
-    setSrc("labelIcon6", ASSETS.label);
-    setSrc("labelIcon7", ASSETS.label);
-    setSrc("labelIcon8", ASSETS.label);
-
-    setSrc("bagIcon", ASSETS.bag);
-    setSrc("bagIcon2", ASSETS.bag);
-    setSrc("bagIcon3", ASSETS.bag);
-    setSrc("bagIcon4", ASSETS.bag);
-
-    setSrc("stopIcon", ASSETS.stopwatch);
-    setSrc("stopIcon2", ASSETS.stopwatch);
-    setSrc("stopIcon3", ASSETS.stopwatch);
-    setSrc("stopIcon4", ASSETS.stopwatch);
-    setSrc("stopIcon5", ASSETS.stopwatch);
-    setSrc("stopIcon6", ASSETS.stopwatch);
-    setSrc("stopIcon7", ASSETS.stopwatch);
-    setSrc("stopIcon8", ASSETS.stopwatch);
-    setSrc("stopIcon9", ASSETS.stopwatch);
-    setSrc("stopIcon10", ASSETS.stopwatch);
-
-    // quick simple icons for extra fields (use OpenMoji that we already have)
-    setSrc("houseIcon1", ASSETS.schoolIcon);
-    setSrc("houseIcon2", ASSETS.schoolIcon);
-    setSrc("mapIcon1", ASSETS.calendar);
-    setSrc("mapIcon2", ASSETS.calendar);
-    setSrc("mapIcon3", ASSETS.calendar);
-    setSrc("mapIcon4", ASSETS.calendar);
-    setSrc("mapIcon5", ASSETS.calendar);
-
-    setSrc("roomIcon1", ASSETS.schoolIcon);
-    setSrc("roomIcon2", ASSETS.schoolIcon);
-    setSrc("clubIcon1", ASSETS.bag);
-
-    // photos
-    setSrc("schoolPhoto", ASSETS.photoSchool);
-    setSrc("classroomPhoto", ASSETS.photoClassroom);
-    setSrc("libraryPhoto", ASSETS.photoLibrary);
-    setSrc("playgroundPhoto", ASSETS.photoPlayground);
-    setSrc("clubPhoto", ASSETS.photoClub);
-
-    // spark placeholders (emoji text)
-    const spark = (id) => { const el = document.getElementById(id); if(el) el.alt = "spark"; };
-    ["sparkIcon1","sparkIcon2","sparkIcon3","sparkIcon4","sparkIcon5","sparkIcon6","sparkIcon7","sparkIcon8","sparkIcon9","sparkIcon10","sparkIcon11"]
-      .forEach(spark);
-
-    // ======= Deck navigation =======
+    /* ---------- Deck navigation ---------- */
     const slides = Array.from(document.querySelectorAll(".slide"));
     let idx = 0;
-
     const progressBar = document.getElementById("progressBar");
     const metaText = document.getElementById("metaText");
     const toast = document.getElementById("toast");
@@ -1875,11 +1574,12 @@
       clearTimeout(showToast._t);
       showToast._t = setTimeout(()=>toast.style.display="none", 1400);
     }
-
     function renderDots(){
       const total = slides.length;
-      const makeDots = (holderId) => {
-        const holder = document.getElementById(holderId);
+      const holderIds = [];
+      for(let i=1;i<=27;i++) holderIds.push("dots"+i);
+      holderIds.forEach(id=>{
+        const holder = document.getElementById(id);
         if(!holder) return;
         holder.innerHTML = "";
         const max = Math.min(14, total);
@@ -1888,50 +1588,33 @@
           d.className = "dot" + (i === (idx % max) ? " on" : "");
           holder.appendChild(d);
         }
-      };
-      for(let i=1;i<=29;i++) makeDots("dots"+i);
+      });
     }
-
     function update(){
       slides.forEach((s,i)=>s.classList.toggle("active", i===idx));
-      const pct = ((idx+1)/slides.length)*100;
-      progressBar.style.width = pct.toFixed(2) + "%";
-      const t = slides[idx].dataset.title || "Slide";
-      const sub = slides[idx].dataset.sub || "";
-      metaText.textContent = `${t}${sub ? " · " + sub : ""}`;
+      progressBar.style.width = (((idx+1)/slides.length)*100).toFixed(2) + "%";
+      metaText.textContent = `${slides[idx].dataset.title || "Slide"} · ${slides[idx].dataset.sub || ""}`.replace(/\s·\s$/, "");
       renderDots();
-      // pre-load spinner image on first open
-      if(t === "Pictures") ensureSpinnerInit();
     }
-
-    function next(){
-      idx = Math.min(slides.length-1, idx+1);
-      update();
-    }
-    function prev(){
-      idx = Math.max(0, idx-1);
-      update();
-    }
+    function next(){ idx = Math.min(slides.length-1, idx+1); update(); }
+    function prev(){ idx = Math.max(0, idx-1); update(); }
 
     document.getElementById("nextBtn").addEventListener("click", next);
     document.getElementById("prevBtn").addEventListener("click", prev);
 
-    // click empty area to go next (avoid interactive elements)
     document.addEventListener("click", (e)=>{
-      const interactive = e.target.closest("button, .btn, .chip, .vcard, .piece, .showBtn, input, textarea, a");
       const overlays = document.querySelector(".overlay.show");
       if(overlays) return;
+      const interactive = e.target.closest("button, .btn, .chip, .vcard, .item, .opt, .thumb");
       if(interactive) return;
-      // only if clicking inside deck
       const inDeck = e.target.closest("#deck");
       if(!inDeck) return;
       next();
     });
 
     document.addEventListener("keydown", (e)=>{
-      if(document.getElementById("menuOverlay").classList.contains("show") ||
-         document.getElementById("helpOverlay").classList.contains("show")){
-        if(e.key === "Escape"){ closeOverlays(); }
+      if(menuOverlay.classList.contains("show") || helpOverlay.classList.contains("show")){
+        if(e.key === "Escape") closeOverlays();
         return;
       }
       if(e.key === "ArrowRight" || e.key === " "){ e.preventDefault(); next(); }
@@ -1940,51 +1623,38 @@
       if(e.key === "?" || (e.shiftKey && e.key === "/")){ toggleHelp(); }
     });
 
-    // ======= Menu / Help =======
+    /* ---------- Menu / Help ---------- */
     const menuOverlay = document.getElementById("menuOverlay");
     const helpOverlay = document.getElementById("helpOverlay");
     const thumbGrid = document.getElementById("thumbGrid");
 
-    function closeOverlays(){
-      menuOverlay.classList.remove("show");
-      helpOverlay.classList.remove("show");
-    }
-    function toggleMenu(){
-      if(helpOverlay.classList.contains("show")) helpOverlay.classList.remove("show");
-      menuOverlay.classList.toggle("show");
-    }
-    function toggleHelp(){
-      if(menuOverlay.classList.contains("show")) menuOverlay.classList.remove("show");
-      helpOverlay.classList.toggle("show");
-    }
+    function closeOverlays(){ menuOverlay.classList.remove("show"); helpOverlay.classList.remove("show"); }
+    function toggleMenu(){ if(helpOverlay.classList.contains("show")) helpOverlay.classList.remove("show"); menuOverlay.classList.toggle("show"); }
+    function toggleHelp(){ if(menuOverlay.classList.contains("show")) menuOverlay.classList.remove("show"); helpOverlay.classList.toggle("show"); }
+
     document.getElementById("menuBtn").addEventListener("click", toggleMenu);
-    document.getElementById("hintBtn").addEventListener("click", toggleHelp);
+    document.getElementById("helpBtn").addEventListener("click", toggleHelp);
     document.getElementById("closeMenu").addEventListener("click", closeOverlays);
     document.getElementById("closeHelp").addEventListener("click", closeOverlays);
-    menuOverlay.addEventListener("click", (e)=>{ if(e.target === menuOverlay) closeOverlays(); });
-    helpOverlay.addEventListener("click", (e)=>{ if(e.target === helpOverlay) closeOverlays(); });
-    document.getElementById("goMenuEnd")?.addEventListener("click", toggleMenu);
+    menuOverlay.addEventListener("click",(e)=>{ if(e.target===menuOverlay) closeOverlays(); });
+    helpOverlay.addEventListener("click",(e)=>{ if(e.target===helpOverlay) closeOverlays(); });
+    document.getElementById("goMenuEnd").addEventListener("click", toggleMenu);
 
-    // build thumbnails
     function buildMenu(){
       thumbGrid.innerHTML = "";
       slides.forEach((s,i)=>{
         const div = document.createElement("div");
         div.className = "thumb";
-        const title = s.dataset.title || `Slide ${i+1}`;
-        const sub = s.dataset.sub || "";
-        div.innerHTML = `<b>${String(i+1).padStart(2,"0")} · ${title}</b><span>${sub}</span>`;
+        div.innerHTML = `<b>${String(i+1).padStart(2,"0")} · ${s.dataset.title || "Slide"}</b><span>${s.dataset.sub || ""}</span>`;
         div.addEventListener("click", ()=>{
-          idx = i;
-          update();
-          closeOverlays();
+          idx = i; update(); closeOverlays();
         });
         thumbGrid.appendChild(div);
       });
     }
     buildMenu();
 
-    // ======= Vocabulary reveal (tap to show CN hint) =======
+    /* ---------- Vocabulary hint toggle ---------- */
     document.querySelectorAll(".vcard").forEach(card=>{
       card.addEventListener("click", (e)=>{
         e.stopPropagation();
@@ -1992,26 +1662,20 @@
       });
     });
 
-    // ======= Warm-up chips =======
+    /* ---------- Warm-up random tips ---------- */
     const warmMap = {
       name: ["Amy", "Leo", "Mia", "Jack", "Olivia"],
       age: ["9", "10", "11", "12"],
       school: ["Sunshine", "Green Lake", "Star", "Happy Kids"]
     };
-    document.querySelectorAll("[data-fill]").forEach(chip=>{
-      chip.addEventListener("click", (e)=>{
-        e.stopPropagation();
-        const key = chip.dataset.fill;
-        const pick = warmMap[key][Math.floor(Math.random()*warmMap[key].length)];
-        showToast(pick);
-      });
-    });
-    document.getElementById("warmReset")?.addEventListener("click", (e)=>{
-      e.stopPropagation();
-      showToast("Reset!");
-    });
+    const wTip = document.getElementById("w_tip");
+    function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+    document.getElementById("w_name").addEventListener("click",(e)=>{ e.stopPropagation(); wTip.textContent = "Try: " + pick(warmMap.name); });
+    document.getElementById("w_age").addEventListener("click",(e)=>{ e.stopPropagation(); wTip.textContent = "Try: " + pick(warmMap.age); });
+    document.getElementById("w_school").addEventListener("click",(e)=>{ e.stopPropagation(); wTip.textContent = "Try: " + pick(warmMap.school) + " School"; });
+    document.getElementById("w_reset").addEventListener("click",(e)=>{ e.stopPropagation(); wTip.textContent = ""; showToast("Reset!"); });
 
-    // ======= Chunks example =======
+    /* ---------- Chunk example ---------- */
     const chunkExample = document.getElementById("chunkExample");
     document.querySelectorAll(".chunk").forEach(ch=>{
       ch.addEventListener("click", (e)=>{
@@ -2020,70 +1684,346 @@
       });
     });
 
-    // ======= Example taps for sentence slides =======
-    function wireExamples(selector, outId){
-      document.querySelectorAll(selector).forEach(btn=>{
-        btn.addEventListener("click", (e)=>{
-          e.stopPropagation();
-          const line = btn.dataset.say || "";
-          const out = document.getElementById(outId);
-          if(out) out.textContent = line || "—";
-        });
-      });
-    }
-    wireExamples('[data-say][class*="chip"]', "exLine1"); // first slide will update too often, ok
-    // More precise: use capture based on current slide output boxes
+    /* ---------- Example output on sentence slides ---------- */
     document.querySelectorAll(".slide").forEach(sl=>{
-      sl.querySelectorAll(".chip[data-say]").forEach(chip=>{
-        chip.addEventListener("click", (e)=>{
+      const out = sl.querySelector(".outLine");
+      if(!out) return;
+      sl.querySelectorAll(".ex").forEach(chip=>{
+        chip.addEventListener("click",(e)=>{
           e.stopPropagation();
-          const line = chip.dataset.say || "";
-          const out = sl.querySelector(".card.tight .mini");
-          if(out) out.textContent = line || "—";
+          out.textContent = chip.dataset.say || "—";
         });
       });
     });
 
-    // ======= Q practice show sample =======
+    /* ---------- High-score example output ---------- */
+    const hsOut1 = document.getElementById("hsOut1");
+    const hsOut2 = document.getElementById("hsOut2");
+    document.querySelectorAll(".hs").forEach(x=>x.addEventListener("click",(e)=>{ e.stopPropagation(); hsOut1.textContent = x.dataset.say || "—"; }));
+    document.querySelectorAll(".hs2").forEach(x=>x.addEventListener("click",(e)=>{ e.stopPropagation(); hsOut2.textContent = x.dataset.say || "—"; }));
+
+    /* ---------- Q show sample ---------- */
     document.querySelectorAll(".showBtn").forEach(btn=>{
-      btn.addEventListener("click", (e)=>{
+      btn.addEventListener("click",(e)=>{
         e.stopPropagation();
         const item = btn.closest(".qitem");
         if(item) item.classList.toggle("show");
       });
     });
 
-    // ======= Random adjective prompts =======
-    const adjPrompts1 = [
+    /* ---------- Idea buttons ---------- */
+    const ideaPrompts1 = [
       "My school is friendly because the teachers are helpful.",
       "English is interesting because we play games in class.",
       "My teacher is strict, but I still like her."
     ];
-    const adjPrompts2 = [
+    const ideaPrompts2 = [
       "English is useful because I can talk with foreigners.",
       "Maths is difficult because there are many numbers.",
       "My classroom is comfortable because it is clean and bright."
     ];
-    const adjLine1 = document.getElementById("adjLine1");
-    const adjLine2 = document.getElementById("adjLine2");
-    document.getElementById("randAdj1")?.addEventListener("click",(e)=>{
-      e.stopPropagation();
-      adjLine1.textContent = adjPrompts1[Math.floor(Math.random()*adjPrompts1.length)];
-    });
-    document.getElementById("clearAdj1")?.addEventListener("click",(e)=>{
-      e.stopPropagation();
-      adjLine1.textContent = "";
-    });
-    document.getElementById("randAdj2")?.addEventListener("click",(e)=>{
-      e.stopPropagation();
-      adjLine2.textContent = adjPrompts2[Math.floor(Math.random()*adjPrompts2.length)];
-    });
-    document.getElementById("clearAdj2")?.addEventListener("click",(e)=>{
-      e.stopPropagation();
-      adjLine2.textContent = "";
-    });
+    const ideaLine1 = document.getElementById("ideaLine1");
+    const ideaLine2 = document.getElementById("ideaLine2");
+    document.getElementById("idea1").addEventListener("click",(e)=>{ e.stopPropagation(); ideaLine1.textContent = pick(ideaPrompts1); });
+    document.getElementById("idea1c").addEventListener("click",(e)=>{ e.stopPropagation(); ideaLine1.textContent = ""; });
+    document.getElementById("idea2").addEventListener("click",(e)=>{ e.stopPropagation(); ideaLine2.textContent = pick(ideaPrompts2); });
+    document.getElementById("idea2c").addEventListener("click",(e)=>{ e.stopPropagation(); ideaLine2.textContent = ""; });
 
-    // ======= Build game (click pieces) =======
+    /* ---------- Matching Game 1: word -> picture ---------- */
+    const M1 = [
+      { word:"library", icon:"🏛️" },
+      { word:"playground", icon:"🛝" },
+      { word:"teacher", icon:"🧑‍🏫" },
+      { word:"classmates", icon:"👥" },
+      { word:"homework", icon:"📒" },
+      { word:"timetable", icon:"🗓️" },
+      { word:"uniform", icon:"👔" },
+      { word:"club", icon:"🎭" }
+    ];
+    const m1left = document.getElementById("m1left");
+    const m1right = document.getElementById("m1right");
+    const m1score = document.getElementById("m1score");
+    const m1tip = document.getElementById("m1tip");
+    let m1SelL = null, m1SelR = null, m1Done = 0;
+
+    function shuffle(arr){
+      const a = arr.slice();
+      for(let i=a.length-1;i>0;i--){
+        const j = Math.floor(Math.random()*(i+1));
+        [a[i],a[j]] = [a[j],a[i]];
+      }
+      return a;
+    }
+    function renderM1(){
+      m1SelL = null; m1SelR = null; m1Done = 0;
+      m1tip.textContent = "";
+      m1left.innerHTML = "";
+      m1right.innerHTML = "";
+      m1score.textContent = "0/8";
+      const leftItems = shuffle(M1);
+      const rightItems = shuffle(M1);
+
+      leftItems.forEach((it)=>{
+        const d = document.createElement("div");
+        d.className = "item";
+        d.dataset.word = it.word;
+        d.innerHTML = `<span>${it.word}</span><span class="badge">tap</span>`;
+        d.addEventListener("click",(e)=>{
+          e.stopPropagation();
+          if(d.classList.contains("ok")) return;
+          m1left.querySelectorAll(".item").forEach(x=>x.classList.remove("sel"));
+          d.classList.add("sel");
+          m1SelL = d;
+          tryMatchM1();
+        });
+        m1left.appendChild(d);
+      });
+
+      rightItems.forEach((it)=>{
+        const d = document.createElement("div");
+        d.className = "item";
+        d.dataset.word = it.word;
+        d.innerHTML = `<span class="iconBox">${it.icon}</span><span class="badge">tap</span>`;
+        d.addEventListener("click",(e)=>{
+          e.stopPropagation();
+          if(d.classList.contains("ok")) return;
+          m1right.querySelectorAll(".item").forEach(x=>x.classList.remove("sel"));
+          d.classList.add("sel");
+          m1SelR = d;
+          tryMatchM1();
+        });
+        m1right.appendChild(d);
+      });
+    }
+
+    function tryMatchM1(){
+      if(!m1SelL || !m1SelR) return;
+      const ok = m1SelL.dataset.word === m1SelR.dataset.word;
+      if(ok){
+        m1SelL.classList.remove("sel");
+        m1SelR.classList.remove("sel");
+        m1SelL.classList.add("ok");
+        m1SelR.classList.add("ok");
+        m1Done++;
+        m1score.textContent = `${m1Done}/8`;
+        m1tip.textContent = `Now say 1 sentence with: "${m1SelL.dataset.word}"`;
+        showToast("✅ Match!");
+      }else{
+        m1SelL.classList.add("bad");
+        m1SelR.classList.add("bad");
+        showToast("Try again!");
+        setTimeout(()=>{
+          m1SelL.classList.remove("bad","sel");
+          m1SelR.classList.remove("bad","sel");
+        }, 450);
+      }
+      m1SelL = null; m1SelR = null;
+    }
+
+    document.getElementById("m1reset").addEventListener("click",(e)=>{ e.stopPropagation(); renderM1(); });
+    document.getElementById("m1say").addEventListener("click",(e)=>{
+      e.stopPropagation();
+      showToast("Speak 8 sentences (one per word)!");
+      m1tip.textContent = "Challenge: say 8 sentences. Add 2 because.";
+    });
+    renderM1();
+
+    /* ---------- Matching Game 2: question -> sample answer ---------- */
+    const M2 = [
+      { q:"What’s your name?", a:"My name is ___, but you can call me ___." },
+      { q:"How old are you?", a:"I’m ___ years old." },
+      { q:"Where do you live?", a:"I live in ___. I like it because ___." },
+      { q:"What school do you go to?", a:"I go to ___ School. It’s ___." },
+      { q:"What’s your favourite subject? Why?", a:"My favourite subject is ___ because ___." },
+      { q:"What do you do at break time?", a:"At break time, I usually ___. Sometimes I ___." }
+    ];
+    const m2left = document.getElementById("m2left");
+    const m2right = document.getElementById("m2right");
+    const m2score = document.getElementById("m2score");
+    const m2tip = document.getElementById("m2tip");
+    let m2SelL=null, m2SelR=null, m2Done=0;
+
+    function renderM2(){
+      m2SelL=null; m2SelR=null; m2Done=0;
+      m2score.textContent="0/6";
+      m2tip.textContent="";
+      m2left.innerHTML=""; m2right.innerHTML="";
+      const L = shuffle(M2);
+      const R = shuffle(M2);
+
+      L.forEach(it=>{
+        const d=document.createElement("div");
+        d.className="item";
+        d.dataset.key=it.q;
+        d.innerHTML=`<span>${it.q}</span><span class="badge">tap</span>`;
+        d.addEventListener("click",(e)=>{
+          e.stopPropagation();
+          if(d.classList.contains("ok")) return;
+          m2left.querySelectorAll(".item").forEach(x=>x.classList.remove("sel"));
+          d.classList.add("sel"); m2SelL=d; tryMatchM2();
+        });
+        m2left.appendChild(d);
+      });
+
+      R.forEach(it=>{
+        const d=document.createElement("div");
+        d.className="item";
+        d.dataset.key=it.q;
+        d.innerHTML=`<span style="font-weight:900; color:#13213a">${it.a}</span><span class="badge">tap</span>`;
+        d.addEventListener("click",(e)=>{
+          e.stopPropagation();
+          if(d.classList.contains("ok")) return;
+          m2right.querySelectorAll(".item").forEach(x=>x.classList.remove("sel"));
+          d.classList.add("sel"); m2SelR=d; tryMatchM2();
+        });
+        m2right.appendChild(d);
+      });
+    }
+
+    function tryMatchM2(){
+      if(!m2SelL || !m2SelR) return;
+      const ok = m2SelL.dataset.key === m2SelR.dataset.key;
+      if(ok){
+        m2SelL.classList.remove("sel"); m2SelR.classList.remove("sel");
+        m2SelL.classList.add("ok"); m2SelR.classList.add("ok");
+        m2Done++; m2score.textContent=`${m2Done}/6`;
+        m2tip.textContent = `Now answer "${m2SelL.dataset.key}" with your own info (2 sentences).`;
+        showToast("✅ Match!");
+      }else{
+        m2SelL.classList.add("bad"); m2SelR.classList.add("bad");
+        showToast("Try again!");
+        setTimeout(()=>{
+          m2SelL.classList.remove("bad","sel");
+          m2SelR.classList.remove("bad","sel");
+        }, 450);
+      }
+      m2SelL=null; m2SelR=null;
+    }
+    document.getElementById("m2reset").addEventListener("click",(e)=>{ e.stopPropagation(); renderM2(); });
+    document.getElementById("m2say").addEventListener("click",(e)=>{
+      e.stopPropagation();
+      showToast("Answer 3 questions now!");
+      m2tip.textContent = "Pick 3 questions and answer (2–3 sentences each).";
+    });
+    renderM2();
+
+    /* ---------- MCQ engine ---------- */
+    function renderMCQ(holderId, fbId, data){
+      const holder = document.getElementById(holderId);
+      const fb = document.getElementById(fbId);
+      let current = 0;
+
+      function draw(){
+        const q = data[current];
+        holder.innerHTML = "";
+        fb.classList.remove("show");
+        fb.textContent = "";
+
+        const ql = document.createElement("div");
+        ql.className = "qline";
+        ql.textContent = `Q${current+1}. ${q.q}`;
+        holder.appendChild(ql);
+
+        q.options.forEach((opt, i)=>{
+          const d = document.createElement("div");
+          d.className = "opt";
+          d.textContent = opt;
+          d.addEventListener("click",(e)=>{
+            e.stopPropagation();
+            holder.querySelectorAll(".opt").forEach(x=>x.classList.remove("ok","bad"));
+            const isOk = i === q.answer;
+            d.classList.add(isOk ? "ok" : "bad");
+            fb.classList.add("show");
+            fb.textContent = (isOk ? "✅ Nice! Now read it aloud." : "Try again. Look for the correct meaning.")
+              + "  " + q.explain;
+          });
+          holder.appendChild(d);
+        });
+
+        const nav = document.createElement("div");
+        nav.className = "chips";
+        nav.style.marginTop = "10px";
+        nav.innerHTML = `
+          <button class="btn small" id="${holderId}_prev">Prev</button>
+          <button class="btn small primary" id="${holderId}_next">Next</button>
+          <button class="btn small ghost" id="${holderId}_reset">Reset</button>
+        `;
+        holder.appendChild(nav);
+
+        document.getElementById(`${holderId}_prev`).onclick = (e)=>{ e.stopPropagation(); current = (current-1+data.length)%data.length; draw(); };
+        document.getElementById(`${holderId}_next`).onclick = (e)=>{ e.stopPropagation(); current = (current+1)%data.length; draw(); };
+        document.getElementById(`${holderId}_reset`).onclick = (e)=>{ e.stopPropagation(); draw(); };
+      }
+      draw();
+    }
+
+    renderMCQ("qz1","qz1fb",[
+      {
+        q:"Choose the correct sentence.",
+        options:[
+          "I live with Shenzhen.",
+          "I live in Shenzhen.",
+          "I live at Shenzhen."
+        ],
+        answer:1,
+        explain:"Use <b>live in</b> + place (city / country)."
+      },
+      {
+        q:"Choose the correct sentence.",
+        options:[
+          "I live with my parents.",
+          "I live in my parents.",
+          "I live with the park."
+        ],
+        answer:0,
+        explain:"Use <b>live with</b> + people."
+      },
+      {
+        q:"Which one is a full sentence for KET?",
+        options:[
+          "My favourite subject English.",
+          "My favourite subject is English because it’s interesting.",
+          "Favourite subject English interesting."
+        ],
+        answer:1,
+        explain:"Use <b>is</b> and add <b>because</b>."
+      }
+    ]);
+
+    renderMCQ("qz2","qz2fb",[
+      {
+        q:"Pick the best reason.",
+        options:[
+          "My school is friendly because I am ten.",
+          "My school is friendly because the teachers are helpful.",
+          "My school is friendly because I like pizza."
+        ],
+        answer:1,
+        explain:"Reason should match the topic (school)."
+      },
+      {
+        q:"Pick the best reason.",
+        options:[
+          "English is useful because it helps me speak better.",
+          "English is useful because my shoes are new.",
+          "English is useful because it is a desk."
+        ],
+        answer:0,
+        explain:"Use ‘It helps me…’ for a strong reason."
+      },
+      {
+        q:"Pick the best sentence.",
+        options:[
+          "At break time, I usually chat with my classmates.",
+          "At break time, I usually chats my classmates.",
+          "At break time, I chat usually with my classmates."
+        ],
+        answer:0,
+        explain:"Word order: usually before the verb; verb form: I chat."
+      }
+    ]);
+
+    /* ---------- Click & Build ---------- */
     const pieces = [
       "Hi! My name is ___",
       "and I’m ___ years old.",
@@ -2103,99 +2043,74 @@
     const buildSample = document.getElementById("buildSample");
 
     function initBuild(){
-      if(!tray) return;
       tray.innerHTML = "";
       builtText.textContent = "Your sentence will appear here…";
       pieces.forEach((p)=>{
-        const b = document.createElement("div");
-        b.className = "piece";
-        b.textContent = p;
-        b.addEventListener("click",(e)=>{
+        const c = document.createElement("span");
+        c.className = "chip";
+        c.textContent = p;
+        c.dataset.used = "0";
+        c.addEventListener("click",(e)=>{
           e.stopPropagation();
-          if(b.classList.contains("used")) return;
-          b.classList.add("used");
+          if(c.dataset.used === "1") return;
+          c.dataset.used = "1";
+          c.style.opacity = ".35";
           if(builtText.textContent.includes("appear here")) builtText.textContent = "";
           builtText.textContent += (builtText.textContent ? " " : "") + p;
         });
-        tray.appendChild(b);
+        tray.appendChild(c);
       });
-      if(buildSample) buildSample.style.display = "none";
+      buildSample.style.display = "none";
     }
     initBuild();
+    document.getElementById("buildReset").addEventListener("click",(e)=>{ e.stopPropagation(); initBuild(); });
+    document.getElementById("buildSampleBtn").addEventListener("click",(e)=>{
+      e.stopPropagation();
+      buildSample.style.display = (buildSample.style.display==="none") ? "block" : "none";
+    });
+    document.getElementById("buildSpeak").addEventListener("click",(e)=>{ e.stopPropagation(); showToast("Speak it out loud!"); });
 
-    document.getElementById("buildReset")?.addEventListener("click",(e)=>{
-      e.stopPropagation();
-      initBuild();
-    });
-    document.getElementById("buildHint")?.addEventListener("click",(e)=>{
-      e.stopPropagation();
-      if(buildSample){
-        buildSample.style.display = buildSample.style.display === "none" ? "block" : "none";
-      }
-    });
-    document.getElementById("buildSpeak")?.addEventListener("click",(e)=>{
-      e.stopPropagation();
-      showToast("Speak it out loud!");
-    });
-
-    // ======= Picture spinner =======
+    /* ---------- Picture spinner (uses embedded illustrations) ---------- */
     const spinnerItems = [
-      { name:"school", img: ASSETS.photoSchool },
-      { name:"classroom", img: ASSETS.photoClassroom },
-      { name:"library", img: ASSETS.photoLibrary },
-      { name:"playground", img: ASSETS.photoPlayground },
-      { name:"club", img: ASSETS.photoClub }
+      { name:"school", img:PICS.school, emoji:"🏫" },
+      { name:"classroom", img:PICS.classroom, emoji:"🪑" },
+      { name:"library", img:PICS.library, emoji:"🏛️" },
+      { name:"playground", img:PICS.playground, emoji:"🛝" },
+      { name:"club", img:PICS.club, emoji:"🎭" }
     ];
     const spinImg = document.getElementById("spinImg");
     const spinName = document.getElementById("spinName");
     const spinBtn = document.getElementById("spinBtn");
     const spinHint = document.getElementById("spinHint");
-    const spinReveal = document.getElementById("spinRevealHint");
-    let spinnerReady = false;
+    const spinHintBtn = document.getElementById("spinHintBtn");
 
-    function ensureSpinnerInit(){
-      if(spinnerReady) return;
-      spinnerReady = true;
-      const first = spinnerItems[0];
-      if(spinImg) spinImg.src = first.img;
-      if(spinName) spinName.textContent = first.name;
-      // preload
-      spinnerItems.forEach(it=>{ const im = new Image(); im.src = it.img; });
+    function setSpin(item){
+      spinImg.src = item.img;
+      spinName.textContent = item.name;
+      spinHint.style.display = "none";
     }
-    if(spinBtn){
-      spinBtn.addEventListener("click",(e)=>{
-        e.stopPropagation();
-        const pick = spinnerItems[Math.floor(Math.random()*spinnerItems.length)];
-        if(spinImg) spinImg.src = pick.img;
-        if(spinName) spinName.textContent = pick.name;
-        if(spinHint) spinHint.style.display = "none";
-      });
-    }
-    if(spinReveal){
-      spinReveal.addEventListener("click",(e)=>{
-        e.stopPropagation();
-        if(spinHint){
-          spinHint.style.display = spinHint.style.display === "none" ? "block" : "none";
-        }
-      });
-    }
+    setSpin(spinnerItems[0]);
+    spinBtn.addEventListener("click",(e)=>{
+      e.stopPropagation();
+      setSpin(spinnerItems[Math.floor(Math.random()*spinnerItems.length)]);
+    });
+    spinHintBtn.addEventListener("click",(e)=>{
+      e.stopPropagation();
+      spinHint.style.display = (spinHint.style.display==="none") ? "block" : "none";
+    });
+    document.querySelectorAll(".starter").forEach(ch=>{
+      ch.addEventListener("click",(e)=>{ e.stopPropagation(); showToast(ch.textContent); });
+    });
 
-    // ======= Timer =======
+    /* ---------- Timer ---------- */
     const clock = document.getElementById("clock");
     let timer = { total: 40, left: 40, running: false, t: null };
-
     function fmt(sec){
-      const m = Math.floor(sec/60);
-      const s = sec%60;
+      const m = Math.floor(sec/60), s = sec%60;
       return String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");
     }
-    function setClock(){
-      if(clock) clock.textContent = fmt(timer.left);
-    }
-    function stopInterval(){
-      if(timer.t) clearInterval(timer.t);
-      timer.t = null;
-    }
+    function setClock(){ clock.textContent = fmt(timer.left); }
+    function stopInterval(){ if(timer.t) clearInterval(timer.t); timer.t=null; }
     function start(){
       if(timer.running) return;
       timer.running = true;
@@ -2203,35 +2118,23 @@
         timer.left = Math.max(0, timer.left - 1);
         setClock();
         if(timer.left === 0){
-          stopInterval();
-          timer.running = false;
+          stopInterval(); timer.running=false;
           showToast("Stop! Great job!");
         }
-      }, 1000);
+      },1000);
     }
-    function pause(){
-      timer.running = false;
-      stopInterval();
-      showToast("Paused");
-    }
-    function reset(){
-      timer.running = false;
-      stopInterval();
-      timer.left = timer.total;
-      setClock();
-    }
-    document.getElementById("t30")?.addEventListener("click",(e)=>{ e.stopPropagation(); timer.total=30; timer.left=30; setClock(); });
-    document.getElementById("t40")?.addEventListener("click",(e)=>{ e.stopPropagation(); timer.total=40; timer.left=40; setClock(); });
-    document.getElementById("t50")?.addEventListener("click",(e)=>{ e.stopPropagation(); timer.total=50; timer.left=50; setClock(); });
-    document.getElementById("startTimer")?.addEventListener("click",(e)=>{ e.stopPropagation(); start(); });
-    document.getElementById("pauseTimer")?.addEventListener("click",(e)=>{ e.stopPropagation(); pause(); });
-    document.getElementById("resetTimer")?.addEventListener("click",(e)=>{ e.stopPropagation(); reset(); });
+    function pause(){ timer.running=false; stopInterval(); showToast("Paused"); }
+    function reset(){ timer.running=false; stopInterval(); timer.left=timer.total; setClock(); }
 
-    // init timer display
+    document.getElementById("t30").addEventListener("click",(e)=>{ e.stopPropagation(); timer.total=30; timer.left=30; setClock(); });
+    document.getElementById("t40").addEventListener("click",(e)=>{ e.stopPropagation(); timer.total=40; timer.left=40; setClock(); });
+    document.getElementById("t50").addEventListener("click",(e)=>{ e.stopPropagation(); timer.total=50; timer.left=50; setClock(); });
+    document.getElementById("startTimer").addEventListener("click",(e)=>{ e.stopPropagation(); start(); });
+    document.getElementById("pauseTimer").addEventListener("click",(e)=>{ e.stopPropagation(); pause(); });
+    document.getElementById("resetTimer").addEventListener("click",(e)=>{ e.stopPropagation(); reset(); });
     setClock();
 
-    // ======= Confetti (simple) =======
-    const confettiBtn = document.getElementById("confettiBtn");
+    /* ---------- Confetti ---------- */
     function confetti(){
       const N = 80;
       for(let i=0;i<N;i++){
@@ -2257,17 +2160,9 @@
       }
       showToast("🎉");
     }
-    confettiBtn?.addEventListener("click",(e)=>{ e.stopPropagation(); confetti(); });
+    document.getElementById("confettiBtn").addEventListener("click",(e)=>{ e.stopPropagation(); confetti(); });
 
-    // ======= Starter chips toast =======
-    document.querySelectorAll(".starter").forEach(ch=>{
-      ch.addEventListener("click",(e)=>{
-        e.stopPropagation();
-        showToast(ch.textContent);
-      });
-    });
-
-    // Initial update
+    /* ---------- Init dots & progress ---------- */
     update();
   </script>
 </body>
