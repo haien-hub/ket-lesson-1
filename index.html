@@ -3,353 +3,412 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KET Speaking Lesson 1: About Me & School</title>
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/white.min.css">
-    
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;600&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
-
+    <title>KET Oral Lesson 1: About Me & School</title>
     <style>
         :root {
-            --primary: #4A90E2;      /* 活力蓝 */
-            --accent: #FF6B6B;       /* 重点红 */
-            --success: #2ECC71;      /* 成功绿 */
-            --warning: #F1C40F;      /* 提示黄 */
-            --bg-gradient: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%); /* 梦幻渐变背景 */
-            --card-bg: rgba(255, 255, 255, 0.75); /* 毛玻璃背景色 */
+            --primary: #4A90E2;
+            --secondary: #50E3C2;
+            --accent: #FF6B6B;
+            --bg: #F0F4F8;
+            --text: #333;
+            --card-bg: #FFFFFF;
         }
-
         body {
-            background: var(--bg-gradient);
-            font-family: 'Nunito', sans-serif;
+            font-family: 'Segoe UI', 'Roboto', Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
             margin: 0;
             overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
-
-        /* 覆盖 Reveal 默认字体 */
-        .reveal h1, .reveal h2, .reveal h3, .reveal h4 {
-            font-family: 'Fredoka', sans-serif;
-            text-transform: none;
-            letter-spacing: 1px;
-            color: #2c3e50;
-        }
-
-        .reveal h1 { 
-            color: var(--primary); 
-            font-weight: 600; 
-            text-shadow: 3px 3px 0px rgba(255,255,255,0.5); 
-        }
-
-        /* --- 核心组件：毛玻璃卡片 --- */
-        .glass-card {
+        .slide-container {
+            width: 90%;
+            height: 90%;
+            max-width: 1200px;
             background: var(--card-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
             border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
-            padding: 20px;
-            margin: 15px auto;
-            transition: transform 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
         }
+        .slide {
+            display: none;
+            flex-direction: column;
+            height: 100%;
+            padding: 40px;
+            box-sizing: border-box;
+            animation: fadeIn 0.5s;
+        }
+        .slide.active {
+            display: flex;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        h1 { color: var(--primary); margin-bottom: 10px; font-size: 2.5em; }
+        h2 { color: var(--accent); margin-top: 0; }
+        .content { flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
         
-        .glass-card:hover {
-            transform: translateY(-5px); /* 悬浮微动效果 */
-        }
-
-        /* --- 教师专用 HUD (抬头显示) --- */
-        .teacher-hud {
-            position: fixed;
-            bottom: 15px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(255, 243, 205, 0.95);
-            border-left: 6px solid var(--warning);
-            padding: 12px 25px;
+        /* Interactive Elements */
+        .btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
             border-radius: 50px;
-            font-size: 18px;
-            color: #856404;
-            font-family: 'Nunito', sans-serif;
-            font-weight: bold;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
-            z-index: 9999; /* 确保永远在最上层 */
-            pointer-events: none; /* 让鼠标穿透，不影响点击PPT */
-            min-width: 400px;
+            cursor: pointer;
+            font-size: 1.2em;
+            margin: 10px;
+            transition: transform 0.2s;
+        }
+        .btn:hover { transform: scale(1.05); background: #357ABD; }
+        .nav-buttons {
+            position: absolute;
+            bottom: 20px;
+            right: 30px;
+            z-index: 100;
+        }
+        .nav-btn {
+            background: rgba(0,0,0,0.1);
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 10px 20px;
+            border-radius: 10px;
+        }
+        .nav-btn:hover { background: rgba(0,0,0,0.2); }
+
+        /* Vocab Cards */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            width: 100%;
+        }
+        .vocab-card {
+            background: #f9f9f9;
+            border: 2px solid var(--primary);
+            border-radius: 10px;
+            padding: 20px;
             text-align: center;
-            animation: slideUp 0.5s ease-out;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        .vocab-card:hover { background: var(--primary); color: white; }
+        .vocab-card span { display: block; font-size: 0.8em; font-weight: normal; color: #666; margin-top: 5px; }
+        .vocab-card:hover span { color: #eee; }
+
+        /* Mind Map Styling */
+        .mind-map-box {
+            display: flex;
+            gap: 20px;
+            align-items: stretch;
+            width: 100%;
+            justify-content: center;
+        }
+        .mm-column {
+            flex: 1;
+            background: #eef;
+            padding: 15px;
+            border-radius: 15px;
+            border-left: 5px solid var(--primary);
+        }
+        .mm-title { font-weight: bold; color: var(--primary); margin-bottom: 10px; font-size: 1.2em;}
+        .mm-item { background: white; margin: 5px 0; padding: 10px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+
+        /* Timer */
+        .timer-box {
+            font-size: 3em;
+            color: var(--accent);
+            font-weight: bold;
+            margin: 20px;
         }
 
-        /* 工具类 */
-        .highlight { color: var(--accent); font-weight: bold; }
-        .blue { color: var(--primary); font-weight: bold; }
-        .green { color: var(--success); font-weight: bold; }
+        /* Teacher Notes */
+        .teacher-note {
+            position: absolute;
+            bottom: 20px;
+            left: 30px;
+            font-size: 0.9em;
+            color: #888;
+            background: #fff3cd;
+            padding: 5px 10px;
+            border-radius: 5px;
+            border: 1px solid #ffeeba;
+        }
+
+        /* Lists */
+        ul.check-list { list-style: none; padding: 0; text-align: left; display: inline-block; }
+        ul.check-list li { margin: 10px 0; font-size: 1.3em; }
+        ul.check-list li::before { content: "✅"; margin-right: 10px; }
+
+        .hidden { visibility: hidden; }
+        .visible { visibility: visible; animation: fadeIn 0.5s; }
         
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; text-align: left; }
-        .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; }
-        .flex-center { display: flex; justify-content: center; align-items: center; gap: 15px; flex-wrap: wrap; }
-
-        @keyframes slideUp { from { transform: translate(-50%, 100%); } to { transform: translate(-50%, 0); } }
-
-        /* 隐藏掉 Reveal 默认的进度条，因为我们有 HUD */
-        .reveal .progress { height: 5px; color: var(--primary); }
+        .bubble {
+            background: white;
+            border: 3px solid var(--secondary);
+            border-radius: 20px;
+            padding: 15px;
+            margin: 10px;
+            display: inline-block;
+            font-size: 1.2em;
+        }
     </style>
 </head>
 <body>
 
-<div class="reveal">
-    <div class="slides">
+<div class="slide-container">
+    <div class="slide active" id="s1">
+        <div class="content">
+            <h2 style="color: #666;">KET Speaking 1V1</h2>
+            <h1>About Me & School</h1>
+            <div style="font-size: 5em;">👋 🏫</div>
+            <p>Ready to talk about yourself?</p>
+            <button class="btn" onclick="nextSlide()">Start Lesson 🚀</button>
+        </div>
+        <div class="teacher-note">T: Welcome student. Break the ice. Ask "How are you today?"</div>
+    </div>
 
-        <section>
-            <h1>Lesson 1</h1>
-            <h2 style="color: #666;">About Me & School</h2>
-            <div class="glass-card" style="display: inline-block; padding: 40px; margin-top: 30px;">
-                <div style="font-size: 100px;">🎒 🏫 🗣️</div>
+    <div class="slide" id="s2">
+        <h1>🎯 Today's Mission</h1>
+        <div class="content">
+            <ul class="check-list">
+                <li>Introduce yourself (Name, Age, Home)</li>
+                <li>Talk about your Family</li>
+                <li>Describe your School & Subjects</li>
+                <li><strong>Big Challenge:</strong> Speak for 45 seconds! ⏱️</li>
+            </ul>
+        </div>
+        <div class="teacher-note">T: Set the goal clearly. Explain that by the end, they will be a "Speaking Master".</div>
+    </div>
+
+    <div class="slide" id="s3">
+        <h1>1. Who are you? (Keywords)</h1>
+        <div class="content">
+            <div class="grid-container">
+                <div class="vocab-card">Name<span>Full name / Nickname</span></div>
+                <div class="vocab-card">Age<span>Years old</span></div>
+                <div class="vocab-card">Live<span>Apartment / City</span></div>
+                <div class="vocab-card">Family<span>Parents / Brother</span></div>
+                <div class="vocab-card">Hobby<span>Like / Enjoy</span></div>
+                <div class="vocab-card">From<span>Come from...</span></div>
+                <div class="vocab-card">Student<span>Primary School</span></div>
+                <div class="vocab-card">Character<span>Friendly / Funny</span></div>
             </div>
-            <p style="font-size: 22px; opacity: 0.8; margin-top: 30px;">KET Speaking Part 1 | 25-Min Session</p>
+            <p style="margin-top:20px;">👇 <strong>Click words to make sentences!</strong></p>
+        </div>
+        <div class="teacher-note">T: Point to a card, ask S to make a simple sentence immediately. Correct pronunciation.</div>
+    </div>
+
+    <div class="slide" id="s4">
+        <h1>🧠 Mind Map: Identity</h1>
+        <div class="content">
+            <div class="mind-map-box">
+                <div class="mm-column" style="border-color: #FF6B6B;">
+                    <div class="mm-title">📛 Name</div>
+                    <div class="mm-item">My name is...</div>
+                    <div class="mm-item">You can call me...</div>
+                </div>
+                <div class="mm-column" style="border-color: #F5A623;">
+                    <div class="mm-title">🎂 Age</div>
+                    <div class="mm-item">I am ... years old.</div>
+                    <div class="mm-item">I will be ... soon.</div>
+                </div>
+                <div class="mm-column" style="border-color: #50E3C2;">
+                    <div class="mm-title">🏠 Where I Live</div>
+                    <div class="mm-item">I live in [City].</div>
+                    <div class="mm-item">I live with my [Parents].</div>
+                    <div class="mm-item">It's near my school.</div>
+                </div>
+            </div>
+            <div style="margin-top: 30px;">
+                <div class="bubble" id="demo-bubble">Example: "My name is Tom. I'm 11. I live in Beijing."</div>
+            </div>
+            <button class="btn" onclick="document.getElementById('demo-bubble').innerText = 'Make it longer! Use keywords!'">Upgrade Answer ✨</button>
+        </div>
+        <div class="teacher-note">T: Follow the structure. Ask: "Can you give me your FULL profile?"</div>
+    </div>
+
+    <div class="slide" id="s5">
+        <h1>2. My Family 👨‍👩‍👧‍👦</h1>
+        <div class="content">
+            <div style="display:flex; justify-content:space-around; width:100%;">
+                <div style="text-align:left; width: 45%;">
+                    <h3>Questions:</h3>
+                    <p>❓ Who do you live with?</p>
+                    <p>❓ Do you have brothers or sisters?</p>
+                    <p>❓ What is your family like?</p>
+                </div>
+                <div style="text-align:left; width: 45%;">
+                    <h3>High Score Answers 🌟:</h3>
+                    <p class="hidden" id="ans1">👉 "I live with my parents and my younger brother."</p>
+                    <p class="hidden" id="ans2">👉 "There are 4 people in my family."</p>
+                    <p class="hidden" id="ans3">👉 "We are a <strong>close</strong> family."</p>
+                    <button class="btn" onclick="revealAnswers()">Show Answers</button>
+                </div>
+            </div>
+        </div>
+        <div class="teacher-note">T: Ask questions first. Let student try. Then reveal "High Score" phrases. Highlight "Close family".</div>
+    </div>
+
+    <div class="slide" id="s6">
+        <h1>3. My School & Subjects 📚</h1>
+        <div class="content">
+            <div class="grid-container">
+                <div class="vocab-card" style="border-color:var(--secondary);">Maths<span>🔢</span></div>
+                <div class="vocab-card" style="border-color:var(--secondary);">English<span>🔤</span></div>
+                <div class="vocab-card" style="border-color:var(--secondary);">Science<span>🔬</span></div>
+                <div class="vocab-card" style="border-color:var(--secondary);">PE<span>🏃</span></div>
+                <div class="vocab-card" style="border-color:var(--secondary);">Art<span>🎨</span></div>
+                <div class="vocab-card" style="border-color:var(--secondary);">Music<span>🎵</span></div>
+                <div class="vocab-card" style="border-color:var(--secondary);">Uniform<span>👔</span></div>
+                <div class="vocab-card" style="border-color:var(--secondary);">Club<span>🏆</span></div>
+            </div>
+            <h3>Describe your school:</h3>
+            <p>"My school is <strong>Big / Clean / Friendly / Strict</strong>."</p>
+        </div>
+        <div class="teacher-note">T: Rapid fire questions. "Do you like Maths?" "Is your school big?"</div>
+    </div>
+
+    <div class="slide" id="s7">
+        <h1>✨ The Magic Word: BECAUSE</h1>
+        <div class="content">
+            <h2>KET Rule: Never say just "Yes" or "Blue".</h2>
+            <div class="mind-map-box" style="margin-top: 20px;">
+                <div class="mm-column">
+                    <h3>My favourite subject is...</h3>
+                    <div class="mm-item">English</div>
+                    <div class="mm-item">PE</div>
+                    <div class="mm-item">Maths</div>
+                </div>
+                <div style="font-size: 3em; align-self:center;">➕</div>
+                <div class="mm-column" style="background:#fff3cd;">
+                    <h3>BECAUSE... (Reasons)</h3>
+                    <div class="mm-item">It is interesting / useful.</div>
+                    <div class="mm-item">I like the teacher.</div>
+                    <div class="mm-item">It helps me talk to foreigners.</div>
+                    <div class="mm-item">I am good at it.</div>
+                </div>
+            </div>
+        </div>
+        <div class="teacher-note">T: Drill this pattern. "What's your favourite subject?" wait for "Because...".</div>
+    </div>
+
+    <div class="slide" id="s8">
+        <h1>🏆 Final Challenge: The 45s Speech</h1>
+        <div class="content">
+            <p><strong>Topic: Tell me about yourself and your school.</strong></p>
+            <div style="text-align:left; background: #eee; padding: 15px; border-radius: 10px; margin-bottom: 20px;">
+                <small>Checklist:</small><br>
+                1. Name & Age & Where you live<br>
+                2. Family members<br>
+                3. School name & Class<br>
+                4. Favourite subject + BECAUSE<br>
+                5. Hobbies / After school
+            </div>
             
-            <div class="teacher-hud">
-                Tip: Smile! "Hi! I'm your teacher. Are you ready?"
-            </div>
-        </section>
+            <div class="timer-box" id="timer">00:45</div>
+            <button class="btn" onclick="startTimer()">Start Timer ⏱️</button>
+        </div>
+        <div class="teacher-note">T: This is the exam simulation. Don't interrupt. Give feedback AFTER the timer stops.</div>
+    </div>
 
-        <section>
-            <h3>🎯 Mission: Collect 10 Stars!</h3>
-            <div style="text-align: left; max-width: 800px; margin: 0 auto;">
-                <div class="glass-card fragment fade-up">
-                    <span style="font-size: 32px;">1. Basic Info</span> ⭐ <br>
-                    <small style="color:#666; font-size: 20px;">Name, Age, Family (Goal: 3 sentences)</small>
-                </div>
-                <div class="glass-card fragment fade-up">
-                    <span style="font-size: 32px;">2. School Life</span> ⭐⭐ <br>
-                    <small style="color:#666; font-size: 20px;">Subjects, Activities (Goal: 3 sentences)</small>
-                </div>
-                <div class="glass-card fragment fade-up">
-                    <span style="font-size: 32px;">3. Logic Power</span> ⭐⭐ <br>
-                    <small style="color:#666; font-size: 20px;">Use "Because" naturally</small>
-                </div>
-                <div class="glass-card fragment fade-up" style="border-left: 5px solid var(--accent);">
-                    <span style="font-size: 32px;">4. Fluency Boss</span> ⭐⭐⭐ <br>
-                    <small style="color:#666; font-size: 20px;">Speak 40s non-stop!</small>
-                </div>
+    <div class="slide" id="s9">
+        <h1>🎉 Great Job!</h1>
+        <div class="content">
+            <h2>Teacher's Feedback</h2>
+            <div style="display:flex; gap:20px;">
+                <div class="bubble">Vocabulary <br>⭐⭐⭐⭐⭐</div>
+                <div class="bubble">Grammar <br>⭐⭐⭐⭐⭐</div>
+                <div class="bubble">Fluency <br>⭐⭐⭐⭐⭐</div>
             </div>
-            <div class="teacher-hud">
-                Ask: "Can you do this? Let's verify!"
-            </div>
-        </section>
+            <h3 style="margin-top:40px;">Homework 📝</h3>
+            <p>Record a video (1 minute) introducing yourself to a new friend!</p>
+        </div>
+    </div>
 
-        <section>
-            <h3>🧠 Brain Game: Unscramble</h3>
-            <p>Guess the word!</p>
-            <br>
-            <div class="grid-3">
-                <div class="glass-card fragment fade-in">
-                    <div style="font-size: 40px; letter-spacing: 5px; color: #aaa;">EMAN</div>
-                    <div class="fragment zoom-in" style="font-size: 50px; color: var(--primary); font-weight:bold; margin-top:10px;">NAME 🏷️</div>
-                </div>
-                <div class="glass-card fragment fade-in">
-                    <div style="font-size: 40px; letter-spacing: 5px; color: #aaa;">EGA</div>
-                    <div class="fragment zoom-in" style="font-size: 50px; color: var(--primary); font-weight:bold; margin-top:10px;">AGE 🎂</div>
-                </div>
-                <div class="glass-card fragment fade-in">
-                    <div style="font-size: 40px; letter-spacing: 5px; color: #aaa;">ILVE</div>
-                    <div class="fragment zoom-in" style="font-size: 50px; color: var(--primary); font-weight:bold; margin-top:10px;">LIVE 🏠</div>
-                </div>
-            </div>
-
-            <div class="teacher-hud">
-                Wait for student to guess. "How do you spell it?"
-            </div>
-        </section>
-
-        <section>
-            <h3>🏫 School Challenge</h3>
-            <div class="flex-center">
-                <div class="glass-card fragment zoom-in" style="width: 220px;">Student 👨‍🎓</div>
-                <div class="glass-card fragment zoom-in" style="width: 220px;">Subject 📚</div>
-                <div class="glass-card fragment zoom-in" style="width: 220px;">Uniform 👔</div>
-                <div class="glass-card fragment zoom-in" style="width: 220px;">Library 🤫</div>
-                <div class="glass-card fragment zoom-in" style="width: 220px;">Playground ⚽</div>
-                <div class="glass-card fragment zoom-in" style="width: 220px;">Club 🎨</div>
-            </div>
-            <hr style="border-top: 3px dashed rgba(255,255,255,0.5); margin: 40px 0;">
-            <p class="fragment fade-up" style="font-size: 26px;">
-                Adjectives: <span class="highlight">Friendly 😊</span> | <span class="highlight">Strict 😐</span> | <span class="highlight">Boring 😴</span>
-            </p>
-            <div class="teacher-hud">
-                Game: "Stop the Wheel". Mouse over words, student says Stop.
-            </div>
-        </section>
-
-        <section>
-            <h3>✨ Magic Phrases</h3>
-            <div class="glass-card" style="text-align: left; padding: 40px 60px;">
-                <p class="fragment fade-right" style="font-size: 32px;">1. My name is... / You can call me... 👋</p>
-                <p class="fragment fade-right" style="font-size: 32px;">2. I come from... (China) 🌏</p>
-                <p class="fragment fade-right" style="font-size: 32px;">3. I live with... (my parents) 👨‍👩‍👦</p>
-                <p class="fragment fade-right" style="font-size: 32px;">4. My <span class="highlight">favourite subject</span> is... ⭐</p>
-                <p class="fragment fade-right" style="font-size: 32px;">5. Get along with my classmates 🤝</p>
-            </div>
-            <div class="teacher-hud">
-                Drill pronunciation. "Repeat after me."
-            </div>
-        </section>
-
-        <section>
-            <h3>🏗️ Build Your Intro</h3>
-            <div class="grid-2">
-                <div class="glass-card fragment" style="border-top: 6px solid var(--primary);">
-                    <h4 class="blue">Part A: Personal</h4>
-                    <p style="font-size: 28px;">"My name is <u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>."</p>
-                    <p style="font-size: 28px;">"I'm <u>&nbsp;&nbsp;&nbsp;&nbsp;</u> years old."</p>
-                    <p style="font-size: 28px;">"I live with <u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>."</p>
-                </div>
-                <div class="glass-card fragment" style="border-top: 6px solid var(--accent);">
-                    <h4 class="highlight">Part B: School</h4>
-                    <p style="font-size: 28px;">"I study at <u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u> School."</p>
-                    <p style="font-size: 28px;">"My favourite subject is <u>&nbsp;&nbsp;&nbsp;&nbsp;</u> <span class="highlight">because</span> <u>&nbsp;&nbsp;&nbsp;&nbsp;</u>."</p>
-                </div>
-            </div>
-            <div class="teacher-hud">
-                Ask student to fill in the blanks about THEMSELVES.
-            </div>
-        </section>
-
-        <section>
-            <h3>🚀 Level Up!</h3>
-            <div class="grid-2">
-                <div>
-                    <h4 style="color: #888;">Basic 😐</h4>
-                    <div class="glass-card" style="background: rgba(255,255,255,0.4);">I like English.</div>
-                    <div class="glass-card" style="background: rgba(255,255,255,0.4);">It helps me.</div>
-                </div>
-                <div>
-                    <h4 style="color: var(--accent);">High Score 🤩</h4>
-                    <div class="glass-card fragment highlight-current-blue">
-                        <span class="highlight">What I like most is</span> English...
-                    </div>
-                    <div class="glass-card fragment highlight-current-blue">
-                        It helps me <span class="highlight">speak better</span>...
-                    </div>
-                </div>
-            </div>
-            <div class="teacher-hud">
-                "Can you try the High Score sentence?"
-            </div>
-        </section>
-
-        <section>
-            <h3>🗺️ The Speaking Map</h3>
-            <p style="font-size: 20px; color: #555;">Follow the path (40 seconds)</p>
-            
-            <div style="display: flex; flex-direction: column; align-items: center; gap: 15px;">
-                <div class="fragment glass-card" style="padding: 10px 40px; background: #FFF3CD;">START 🚩</div>
-                <div class="fragment" style="font-size: 24px;">⬇️</div>
-                <div class="fragment glass-card" style="padding: 15px 40px;">Name & Age</div>
-                <div class="fragment" style="font-size: 24px;">⬇️</div>
-                <div class="fragment glass-card" style="padding: 15px 40px;">School & Subjects</div>
-                <div class="fragment" style="font-size: 24px;">⬇️</div>
-                <div class="fragment glass-card" style="padding: 15px 40px; border: 3px solid var(--accent);">Favourite + <span class="highlight">Because</span></div>
-                <div class="fragment" style="font-size: 24px;">⬇️</div>
-                <div class="fragment glass-card" style="padding: 10px 40px; background: #D4EFDF;">Feeling 😊</div>
-            </div>
-            <div class="teacher-hud">
-                "Ready? 3, 2, 1, GO! Speak non-stop."
-            </div>
-        </section>
-
-        <section>
-            <h3>🎤 KET Exam Mode</h3>
-            <div class="grid-2">
-                <div class="glass-card" style="text-align: left;">
-                    <h4 class="blue">Personal Info</h4>
-                    <ul style="font-size: 28px; line-height: 1.8;">
-                        <li class="fragment">What's your name?</li>
-                        <li class="fragment">How old are you?</li>
-                        <li class="fragment">Tell me about your family.</li>
-                    </ul>
-                </div>
-                <div class="glass-card" style="text-align: left;">
-                    <h4 class="highlight">School Info</h4>
-                    <ul style="font-size: 28px; line-height: 1.8;">
-                        <li class="fragment">What school do you go to?</li>
-                        <li class="fragment">What subjects do you study?</li>
-                        <li class="fragment">Do you like your school? Why?</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="teacher-hud">
-                Drill time. Ask questions randomly. Demand full sentences.
-            </div>
-        </section>
-
-        <section data-background="#2c3e50">
-            <h3 style="color: white;">🎭 Role Play Switch</h3>
-            <div class="glass-card" style="background: white; transform: rotate(-2deg); max-width: 700px;">
-                <h4 style="color: var(--accent);">YOU are the Examiner! 🧐</h4>
-                <p style="font-size: 28px;">Ask me 3 questions:</p>
-                <ol style="text-align: left; margin-left: 15%; font-size: 26px;">
-                    <li>What's your name?</li>
-                    <li>How old are you?</li>
-                    <li>What's your favourite subject?</li>
-                </ol>
-            </div>
-            <div class="fragment fade-up" style="background: var(--warning); padding: 10px; border-radius: 10px; display: inline-block; margin-top: 30px;">
-                <span style="font-size: 30px; font-weight: bold; color: #856404;">⚠️ Mission: Find my mistakes!</span>
-            </div>
-            <div class="teacher-hud">
-                Make mistakes on purpose (e.g. "I is 10 years old"). Let student correct you.
-            </div>
-        </section>
-
-        <section>
-            <h3>📝 Choose Your Challenge</h3>
-            <div class="grid-3" style="margin-top: 50px;">
-                <div class="glass-card fragment" style="border-top: 6px solid var(--success);">
-                    <h4 class="green">🟢 Easy</h4>
-                    <p style="font-size: 22px;">Record 30s<br>(Basic Info)</p>
-                </div>
-                <div class="glass-card fragment" style="border-top: 6px solid var(--warning);">
-                    <h4 style="color: var(--warning)">🟡 Medium</h4>
-                    <p style="font-size: 22px;">Record 40s<br>(+ School & Because)</p>
-                </div>
-                <div class="glass-card fragment" style="border-top: 6px solid var(--accent); transform: scale(1.1);">
-                    <h4 class="highlight">🔵 Hard</h4>
-                    <p style="font-size: 22px;">Record 50s<br>(Full Intro + Photos)</p>
-                </div>
-            </div>
-            <div class="teacher-hud">
-                "I recommend the Blue one! You can do it!"
-            </div>
-        </section>
-
-        <section>
-            <h1>🌟 Great Job!</h1>
-            <div class="glass-card" style="font-size: 32px; text-align: left; padding: 40px 80px; display: inline-block;">
-                <p>Vocabulary: ⭐⭐⭐⭐</p>
-                <p>Fluency: ⭐⭐⭐⭐</p>
-                <p>Confidence: ⭐⭐⭐⭐⭐</p>
-            </div>
-            <p style="margin-top: 40px; font-size: 28px;">Next Lesson: <span class="blue">Family & Friends</span></p>
-            <p class="fragment fade-up" style="font-size: 22px; color: #666;">(Please bring a family photo!)</p>
-        </section>
-
+    <div class="nav-buttons">
+        <button class="nav-btn" onclick="prevSlide()">⬅️</button>
+        <button class="nav-btn" onclick="nextSlide()">➡️</button>
     </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.js"></script>
 <script>
-    // 初始化配置
-    Reveal.initialize({
-        controls: true,      // 显示右下角控制箭头
-        progress: true,      // 显示底部进度条
-        center: true,        // 内容居中
-        hash: true,          // URL哈希记录
-        transition: 'convex', // 3D凸面过渡效果
-        backgroundTransition: 'fade',
-        fragments: true,     // 允许分步显示
-        mouseWheel: false    // 禁用滚轮，防止误触
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+
+    function showSlide(n) {
+        slides.forEach(slide => slide.classList.remove('active'));
+        slides[n].classList.add('active');
+    }
+
+    function nextSlide() {
+        if (currentSlide < totalSlides - 1) {
+            currentSlide++;
+            showSlide(currentSlide);
+        }
+    }
+
+    function prevSlide() {
+        if (currentSlide > 0) {
+            currentSlide--;
+            showSlide(currentSlide);
+        }
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', function(event) {
+        if (event.key === "ArrowRight") {
+            nextSlide();
+        } else if (event.key === "ArrowLeft") {
+            prevSlide();
+        }
     });
+
+    // Reveal Answers Logic
+    function revealAnswers() {
+        document.getElementById('ans1').classList.remove('hidden');
+        document.getElementById('ans1').classList.add('visible');
+        setTimeout(() => {
+            document.getElementById('ans2').classList.remove('hidden');
+            document.getElementById('ans2').classList.add('visible');
+        }, 500);
+        setTimeout(() => {
+            document.getElementById('ans3').classList.remove('hidden');
+            document.getElementById('ans3').classList.add('visible');
+        }, 1000);
+    }
+
+    // Timer Logic
+    function startTimer() {
+        let timeLeft = 45;
+        const timerDisplay = document.getElementById('timer');
+        const button = document.querySelector('#s8 .btn');
+        button.disabled = true;
+        
+        const countdown = setInterval(() => {
+            if (timeLeft <= 0) {
+                clearInterval(countdown);
+                timerDisplay.innerText = "Time's Up! 👏";
+                timerDisplay.style.color = "#FF6B6B";
+                button.disabled = false;
+            } else {
+                timerDisplay.innerText = "00:" + (timeLeft < 10 ? "0" : "") + timeLeft;
+                if(timeLeft < 10) timerDisplay.style.color = "red";
+                timeLeft--;
+            }
+        }, 1000);
+    }
 </script>
 
 </body>
