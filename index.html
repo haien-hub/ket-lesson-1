@@ -1,278 +1,440 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>KET Speaking 1v1 · T1 个人与学校（优化版）</title>
+  <title>KET Speaking 1v1 · T1 About Me & School (Student Slides)</title>
+
   <style>
     :root{
+      --bgA:#F6FBFF;
+      --bgB:#FFF6FB;
       --ink:#1E2A44;
       --mut:#5A6A86;
-      --bg:#F6FBFF;
+
       --card:#FFFFFF;
-      --stroke:rgba(30,42,68,.12);
-      --shadow:0 18px 40px rgba(30,42,68,.10);
+      --stroke: rgba(30,42,68,.12);
+      --shadow: 0 18px 40px rgba(30,42,68,.10);
+
       --blue:#4D96FF;
       --pink:#FB7185;
       --green:#22C55E;
       --purple:#8B5CF6;
       --amber:#FBBF24;
-      --radius:24px;
-      --pad:52px;
-      --padM:16px;
+      --highlight: #22C55E; /* 核心考点高亮色 */
+
+      --r: 24px;
+      --pad: 52px;
+      --padM: 16px;
     }
+
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
       margin:0;
-      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
       color:var(--ink);
       overflow:hidden;
-      background:linear-gradient(120deg, var(--bg), #FFF6FB);
-    }
-    /* 难度模式切换 */
-    .mode-switch{
-      position:fixed; top:20px; right:20px; z-index:1000;
-      display:flex; gap:8px; align-items:center;
-      background:rgba(255,255,255,.9); padding:8px; border-radius:999px;
-      border:1px solid var(--stroke); box-shadow:var(--shadow);
-    }
-    .mode-switch button{
-      padding:8px 16px; border-radius:999px; border:none; cursor:pointer;
-      font-size:13px; background:transparent;
-    }
-    .mode-switch .active{
-      background:var(--blue); color:#fff;
+      background:
+        radial-gradient(900px 560px at 14% 12%, rgba(77,150,255,.18), transparent 58%),
+        radial-gradient(920px 580px at 86% 18%, rgba(251,113,133,.16), transparent 58%),
+        radial-gradient(780px 540px at 60% 90%, rgba(34,197,94,.11), transparent 60%),
+        linear-gradient(120deg, var(--bgA), var(--bgB));
     }
 
+    /* Deck */
     #deck{height:100vh;width:100vw;position:relative}
     .slide{
       position:absolute; inset:0;
-      padding:var(--pad) var(--pad) 92px;
-      display:none; background:var(--bg);
+      padding: var(--pad) var(--pad) 92px;
+      display:none;
     }
     .slide.active{display:block}
-    .slide[data-level="pro"] .basic-hint{display:none}
-    .slide[data-level="basic"] .pro-hint{display:none}
-    
     @media (max-width: 980px){
       .slide{padding:46px var(--padM) 92px}
-      .mode-switch{top:10px; right:10px}
     }
 
+    /* Header */
     .header{
-      display:flex; align-items:center; justify-content:space-between; gap:12px;
-      margin-bottom:14px; padding-bottom:10px;
-      border-bottom:2px solid rgba(77,150,255,.15);
+      display:flex;align-items:center;justify-content:space-between;gap:12px;
+      margin-bottom:14px;
     }
     .badge{
-      display:inline-flex; align-items:center; gap:10px;
-      padding:10px 14px; border-radius:999px;
-      background:var(--card); border:1px solid var(--stroke);
-      box-shadow:var(--shadow); font-size:14px; color:var(--mut);
+      display:inline-flex;align-items:center;gap:10px;
+      padding:10px 14px;border-radius:999px;
+      background: rgba(255,255,255,.82);
+      border:1px solid var(--stroke);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      user-select:none;
+      color:var(--mut);
+      font-size:14px;
     }
     .badge .dot{
-      width:10px; height:10px; border-radius:50%;
-      background:linear-gradient(135deg, var(--blue), var(--purple));
+      width:10px;height:10px;border-radius:50%;
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      box-shadow: 0 0 0 4px rgba(77,150,255,.16);
     }
-    .micro-target{
-      font-size:13px; color:var(--green); font-weight:600; margin-top:6px;
+    .meta{
+      display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+      user-select:none;
+      color:var(--mut);font-size:14px;
+    }
+    .pill{
+      padding:9px 12px;border-radius:999px;
+      background: rgba(255,255,255,.82);
+      border:1px solid var(--stroke);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+    /* 新增：评分维度标签 */
+    .score-tag {
+      background: rgba(34,197,94,.14);
+      border-color: rgba(34,197,94,.22);
+      color: var(--highlight);
+      font-weight: 600;
     }
 
+    /* Layout */
     .wrap{
-      height:calc(100vh - 92px - 46px); display:grid;
-      grid-template-columns:1fr 1fr; gap:16px;
+      height: calc(100vh - 92px - 46px);
+      display:grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap:16px;
     }
     .wrap.one{grid-template-columns:1fr}
-    @media (max-width: 980px){.wrap{grid-template-columns:1fr}}
+    @media (max-width: 980px){
+      .wrap{grid-template-columns:1fr}
+    }
 
     .card{
-      background:var(--card); border:1px solid var(--stroke);
-      border-radius:var(--radius); box-shadow:var(--shadow);
-      padding:20px; overflow:auto; position:relative;
+      background: linear-gradient(180deg, rgba(255,255,255,.98), rgba(255,255,255,.92));
+      border:1px solid var(--stroke);
+      border-radius: var(--r);
+      box-shadow: var(--shadow);
+      padding:16px 16px 14px;
+      overflow:auto;
     }
-    .card.soft{background:linear-gradient(180deg, rgba(244,248,255,.92), rgba(255,255,255,.92))}
-    
-    h1{margin:0 0 10px; font-size:36px; letter-spacing:.2px}
-    h2{margin:0 0 10px; font-size:26px; display:flex; align-items:center; gap:10px}
-    .sub{color:var(--mut); font-size:16px; line-height:1.55; margin-bottom:12px}
-    .big{font-size:18px; line-height:1.65}
-    .mini{font-size:14px; color:var(--mut); line-height:1.55}
+    .card.soft{
+      background: linear-gradient(180deg, rgba(244,248,255,.92), rgba(255,255,255,.92));
+    }
 
+    h1{margin:0 0 10px;font-size:36px;letter-spacing:.2px}
+    h2{margin:0 0 10px;font-size:26px}
+    /* 新增：核心考点高亮 */
+    h2 .highlight {
+      color: var(--highlight);
+      font-weight: 700;
+    }
+    .sub{color:var(--mut);font-size:16px;line-height:1.55}
+    .big{font-size:18px;line-height:1.65}
+    .mini{font-size:14px;color:var(--mut);line-height:1.55}
+    /* 新增：词汇难度星级 */
+    .level {
+      display: inline-block;
+      margin-left: 8px;
+      color: var(--amber);
+      font-size: 12px;
+    }
+    /* 新增：中文释义（hover显示） */
+    .hint .cn {
+      opacity: 0;
+      transition: opacity 0.2s;
+      font-size: 12px;
+      margin-left: 4px;
+    }
+    .hint:hover .cn {
+      opacity: 1;
+    }
+    /* 新增：分层提示样式 */
+    .level-hint {
+      margin-top: 8px;
+      padding: 8px;
+      border-radius: 12px;
+      background: rgba(77,150,255,.08);
+      font-size: 13px;
+    }
+    .basic {
+      color: var(--green);
+      font-weight: 600;
+    }
+    .advanced {
+      color: var(--purple);
+      font-weight: 600;
+    }
+    /* 新增：反馈卡片样式 */
+    .feedback-card {
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: 12px;
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,.88);
+    }
+    .feedback-card textarea {
+      width: 100%;
+      border: 1px solid var(--stroke);
+      border-radius: 8px;
+      padding: 8px;
+      margin-top: 8px;
+      resize: none;
+      height: 60px;
+      font-size: 14px;
+    }
+    /* 新增：语速/词数提示 */
+    .word-count {
+      margin-top: 8px;
+      font-size: 14px;
+      color: var(--mut);
+    }
+    /* 新增：评分卡样式 */
+    .score-card {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .score-item {
+      padding: 8px;
+      border-radius: 8px;
+      background: rgba(255,255,255,.88);
+      border: 1px solid var(--stroke);
+      text-align: center;
+    }
+    .score-item .label {
+      font-size: 12px;
+      color: var(--mut);
+    }
+    .score-item .stars {
+      color: var(--amber);
+      font-size: 16px;
+      margin-top: 4px;
+    }
+
+    /* Your Turn */
     .turn{
-      margin-top:16px; padding:14px; border-radius:18px;
-      border:2px dashed rgba(77,150,255,.24); background:rgba(255,255,255,.88);
+      margin-top:12px;
+      border-radius:18px;
+      border:2px dashed rgba(77,150,255,.24);
+      background: rgba(255,255,255,.88);
+      padding:12px;
     }
     .turn .tTitle{
-      display:flex; align-items:center; gap:10px;
-      font-size:16px; color:var(--ink); margin-bottom:8px;
-      user-select:none; font-weight:600;
+      display:flex;align-items:center;gap:10px;
+      font-size:16px;color:var(--ink);
+      margin-bottom:6px;
+      user-select:none;
     }
-    .turn ul{margin:8px 0 0; padding-left:18px; color:var(--mut); line-height:1.6}
-    .turn li{margin-bottom:6px}
+    .turn ul{margin:8px 0 0;padding-left:18px;color:var(--mut);line-height:1.6}
 
-    .grid6{
-      display:grid; grid-template-columns:repeat(3, 1fr);
-      gap:12px; margin-top:12px;
+    /* Visual blocks */
+    .scene{
+      width:100%;
+      border-radius:20px;
+      border:1px solid var(--stroke);
+      box-shadow: var(--shadow);
+      background: linear-gradient(120deg, rgba(77,150,255,.10), rgba(251,113,133,.08), rgba(34,197,94,.08));
+      overflow:hidden;
+      display:grid;
+      place-items:center;
+      padding:10px;
+      margin-top:10px;
+      min-height: 210px;
     }
-    @media (max-width: 980px){.grid6{grid-template-columns:repeat(2, 1fr)}}
+
+    /* Micro cards (vocab / chunks / frames) */
+    .grid6{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:12px;
+      margin-top:10px;
+    }
+    @media (max-width: 980px){ .grid6{grid-template-columns: repeat(2, 1fr)} }
 
     .tile{
-      border-radius:18px; border:1px solid var(--stroke);
-      background:var(--card); box-shadow:0 12px 26px rgba(30,42,68,.08);
-      padding:14px; cursor:pointer; user-select:none;
-      transition:all .2s ease; min-height:110px; position:relative;
-    }
-    .tile:hover{transform:translateY(-2px)}
-    .tile:active{transform:translateY(1px)}
-    .tile.speaking{background:rgba(77,150,255,.1); border-color:var(--blue)}
-    .tile.revealed{outline:3px solid rgba(77,150,255,.2)}
-    
-    .tag{
-      position:absolute; top:10px; right:10px;
-      padding:6px 10px; border-radius:999px; font-size:12px;
-      border:1px solid var(--stroke); background:rgba(255,255,255,.85);
-      color:var(--mut);
-    }
-    .w{display:flex; align-items:flex-start; gap:10px}
-    .icon{width:28px; height:28px; flex:0 0 auto}
-    .word{font-size:18px; color:var(--ink); font-weight:500}
-    .hint{margin-top:8px; color:var(--mut); font-size:14px; line-height:1.5}
-    
-    .tile .front{opacity:1; transition:opacity .3s}
-    .tile .back{display:none; opacity:0}
-    .tile.revealed .front{display:none; opacity:0}
-    .tile.revealed .back{display:block; opacity:1}
-
-    .btnRow{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px}
-    button{
-      appearance:none; border:none; cursor:pointer;
-      padding:12px 14px; border-radius:14px; font-size:14px;
-      background:var(--card); border:1px solid var(--stroke);
-      color:var(--ink); box-shadow:0 10px 22px rgba(30,42,68,.08);
-      transition:all .15s ease; position:relative;
-    }
-    button.primary{background:rgba(34,197,94,.14); border-color:rgba(34,197,94,.22)}
-    button.blue{background:rgba(77,150,255,.14); border-color:rgba(77,150,255,.22)}
-    button.pink{background:rgba(251,113,133,.14); border-color:rgba(251,113,133,.22)}
-    button.amber{background:rgba(251,191,36,.14); border-color:rgba(251,191,36,.22)}
-    button:active{transform:translateY(1px)}
-    button:disabled{opacity:.45; cursor:not-allowed}
-
-    .mini-timer{
-      display:inline-flex; align-items:center; gap:8px;
-      padding:8px 12px; border-radius:12px;
-      background:var(--card); border:1px solid var(--stroke);
-      font-size:13px; color:var(--mut);
-    }
-    .mini-ring{
-      width:20px; height:20px; border-radius:50%;
-      border:2px solid var(--stroke);
-      border-top-color:var(--blue);
-      animation:spin 1s linear infinite;
-    }
-    @keyframes spin{to{transform:rotate(360deg)}}
-
-    #nav{
-      position:absolute; left:18px; right:18px; bottom:14px; height:54px;
-      border-radius:18px; background:rgba(255,255,255,.86);
-      border:1px solid var(--stroke); box-shadow:var(--shadow);
-      display:flex; align-items:center; justify-content:space-between;
-      padding:8px 10px; gap:10px; user-select:none;
-    }
-    .navBtn{
-      padding:10px 12px; border-radius:14px; cursor:pointer;
-      font-size:14px; white-space:nowrap;
-      background:rgba(77,150,255,.12); border:1px solid rgba(77,150,255,.2);
-    }
-    .navBtn.secondary{
-      background:rgba(251,113,133,.12); border-color:rgba(251,113,133,.2);
-    }
-    .navBtn:disabled{opacity:.45; cursor:not-allowed}
-    .center{
-      flex:1; display:flex; align-items:center; justify-content:center; gap:10px;
-      min-width:260px; color:var(--mut); font-size:14px;
-    }
-    .progress{
-      height:8px; width:220px; background:rgba(30,42,68,.10);
-      border-radius:999px; overflow:hidden; border:1px solid rgba(30,42,68,.08);
-    }
-    .bar{
-      height:100%; width:0%; background:linear-gradient(135deg, var(--blue), var(--purple));
-      border-radius:999px; transition:width .2s ease;
-    }
-
-    /* 教师面板 */
-    #teacherPanel{
-      position:fixed; top:0; right:0; width:320px; height:100vh;
-      background:var(--card); border-left:1px solid var(--stroke);
-      box-shadow:-8px 0 24px rgba(30,42,68,.1);
-      transform:translateX(100%); transition:transform .3s ease;
-      z-index:1001; display:flex; flex-direction:column;
-    }
-    #teacherPanel.open{transform:translateX(0)}
-    .panel-header{
-      padding:16px; border-bottom:1px solid var(--stroke);
-      display:flex; justify-content:space-between; align-items:center;
-    }
-    .panel-content{
-      flex:1; overflow:auto; padding:16px; display:grid; gap:12px;
-    }
-    .error-card{
-      background:rgba(251,113,133,.08); border:1px solid rgba(251,113,133,.2);
-      border-radius:14px; padding:12px;
-    }
-    .error-card h4{margin:0 0 6px; color:var(--ink)}
-    .error-card p{margin:0; font-size:13px; color:var(--mut)}
-    .heat-bar{
-      height:6px; background:rgba(77,150,255,.1); border-radius:3px; margin-top:6px;
+      border-radius:18px;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.88);
+      box-shadow: 0 12px 26px rgba(30,42,68,.08);
+      padding:12px;
+      cursor:pointer;
+      user-select:none;
+      transition: transform .08s ease;
+      min-height: 110px;
+      position:relative;
       overflow:hidden;
     }
-    .heat-fill{
-      height:100%; background:var(--blue); transition:width .3s ease;
+    .tile:active{transform: translateY(1px)}
+    .tag{
+      position:absolute; top:10px; right:10px;
+      padding:6px 10px;border-radius:999px;
+      font-size:12px;
+      border:1px solid rgba(30,42,68,.12);
+      background: rgba(255,255,255,.85);
+      color:var(--mut);
     }
+    .w{
+      display:flex;align-items:flex-start;gap:10px;
+    }
+    .icon{width:28px;height:28px;flex:0 0 auto}
+    .word{font-size:18px;color:var(--ink)}
+    .hint{margin-top:8px;color:var(--mut);font-size:14px;line-height:1.5}
+    .tile .back{display:none;margin-top:8px}
+    .tile.on .front{display:none}
+    .tile.on .back{display:block}
+    .tile.on{outline: 3px solid rgba(77,150,255,.20)}
+
+    /* Buttons */
+    .btnRow{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+    button{
+      appearance:none;border:none;cursor:pointer;
+      padding:12px 14px;border-radius:14px;
+      background: rgba(255,255,255,.90);
+      border:1px solid var(--stroke);
+      color:var(--ink);
+      font-size:14px;
+      box-shadow: 0 10px 22px rgba(30,42,68,.08);
+    }
+    button.primary{background: rgba(34,197,94,.14);border-color: rgba(34,197,94,.22)}
+    button.blue{background: rgba(77,150,255,.14);border-color: rgba(77,150,255,.22)}
+    button.pink{background: rgba(251,113,133,.14);border-color: rgba(251,113,133,.22)}
+    button:active{transform: translateY(1px)}
+    /* 新增：暂停标注按钮 */
+    button.mark{
+      background: rgba(251,191,36,.14);
+      border-color: rgba(251,191,36,.22);
+    }
+
+    /* Timer */
+    .timerWrap{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:10px}
+    .ring{
+      width:240px;height:240px;border-radius:50%;
+      background: conic-gradient(var(--blue) var(--deg), rgba(30,42,68,.10) 0);
+      border:1px solid var(--stroke);
+      box-shadow: var(--shadow);
+      display:grid;place-items:center;
+      position:relative;
+      --deg: 0deg;
+    }
+    .ring::after{
+      content:""; position:absolute; inset:16px; border-radius:50%;
+      background: rgba(255,255,255,.92);
+      border:1px solid var(--stroke);
+    }
+    .timeBox{position:relative;z-index:2;text-align:center}
+    .timeBox .num{font-size:64px;margin:0}
+    .timeBox .lab{font-size:14px;color:var(--mut);margin:0}
+    /* 新增：时间分段提示 */
+    .time-segment {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 8px;
+      font-size: 13px;
+      color: var(--mut);
+    }
+
+    /* Bottom nav */
+    #nav{
+      position:absolute;left:18px;right:18px;bottom:14px;height:54px;
+      border-radius:18px;
+      background: rgba(255,255,255,.86);
+      border:1px solid var(--stroke);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      display:flex;align-items:center;justify-content:space-between;
+      padding:8px 10px; gap:10px;
+      user-select:none;
+    }
+    .navBtn{
+      padding:10px 12px;border-radius:14px;
+      background: rgba(77,150,255,.12);
+      border:1px solid rgba(77,150,255,.20);
+      cursor:pointer;
+      font-size:14px;
+      white-space:nowrap;
+    }
+    .navBtn.secondary{
+      background: rgba(251,113,133,.12);
+      border-color: rgba(251,113,133,.20);
+    }
+    .navBtn:disabled{opacity:.45;cursor:not-allowed}
+    .center{
+      display:flex;align-items:center;gap:10px;
+      min-width: 260px;
+      justify-content:center;
+      color:var(--mut);
+      font-size:14px;
+      text-align:center;
+      flex:1;
+    }
+    .progress{
+      height:8px; width:220px;
+      background: rgba(30,42,68,.10);
+      border-radius:999px;
+      overflow:hidden;
+      border:1px solid rgba(30,42,68,.08);
+    }
+    .bar{
+      height:100%;
+      width:0%;
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      border-radius:999px;
+      transition: width .2s ease;
+    }
+
+    /* Slide picker */
+    #picker{
+      position:fixed; inset:0;
+      background: rgba(30,42,68,.26);
+      backdrop-filter: blur(10px);
+      display:none;
+      z-index:999;
+      padding:18px;
+    }
+    #picker.on{display:block}
+    .pickerPanel{
+      max-width: 980px;
+      margin: 0 auto;
+      background: rgba(255,255,255,.92);
+      border:1px solid var(--stroke);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+      padding:16px;
+      max-height: calc(100vh - 36px);
+      overflow:auto;
+    }
+    .pickerTop{
+      display:flex;align-items:center;justify-content:space-between;gap:10px;
+      margin-bottom:10px;
+    }
+    .pickerTop h3{margin:0;font-size:18px;color:var(--ink)}
+    .list{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:10px;
+    }
+    @media (max-width: 980px){ .list{grid-template-columns: repeat(2, 1fr)} }
+    .jump{
+      padding:12px;border-radius:18px;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.88);
+      cursor:pointer;
+      user-select:none;
+    }
+    .jump small{display:block;color:var(--mut);margin-top:4px}
   </style>
 </head>
 
 <body>
-<!-- 难度模式切换 -->
-<div class="mode-switch">
-  <span>模式:</span>
-  <button id="modeBasic" class="active" onclick="setMode('basic')">基础</button>
-  <button id="modePro" onclick="setMode('pro')">进阶</button>
-  <button onclick="toggleTeacher()" style="margin-left:10px; background:var(--purple); color:#fff">教师</button>
+<div id="deck">
+  <!-- Slides are generated by JS -->
 </div>
 
-<div id="deck"></div>
-
-<!-- 教师监控面板 -->
-<div id="teacherPanel">
-  <div class="panel-header">
-    <h3>教师监控</h3>
-    <button onclick="toggleTeacher()">关闭</button>
-  </div>
-  <div class="panel-content">
-    <div class="card">
-      <h4>班级进度</h4>
-      <div id="classProgress"></div>
-    </div>
-    <div class="card">
-      <h4>高频错误</h4>
-      <div id="errorStats"></div>
-    </div>
-    <div class="card">
-      <h4>实时答题</h4>
-      <div id="liveAnswers"></div>
-    </div>
-  </div>
-</div>
-
-<!-- 幻灯片选择器 -->
+<!-- Slide picker overlay -->
 <div id="picker" aria-hidden="true">
   <div class="pickerPanel">
     <div class="pickerTop">
-      <h3>跳转到幻灯片</h3>
-      <button onclick="togglePicker(false)">关闭</button>
+      <h3>Jump to a slide</h3>
+      <button onclick="togglePicker(false)">Close</button>
     </div>
     <div class="list" id="pickerList"></div>
   </div>
@@ -280,823 +442,672 @@
 
 <script>
 /* =========================
-   SVG图标库
+   1) Pretty inline SVGs
    ========================= */
 function svgIcon(type){
   const s = 'stroke="rgba(30,42,68,.35)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"';
-  const icons = {
-    tag: `<svg class="icon" viewBox="0 0 24 24"><path ${s} d="M4 7.5C4 6.1 5.1 5 6.5 5h11C19 5 20 6.1 20 7.5v9C20 17.9 18.9 19 17.5 19h-11C5.1 19 4 17.9 4 16.5v-9Z"/><path d="M7 9h10" stroke="#4D96FF" stroke-width="2.2"/><path d="M7 12h7" stroke="#FB7185" stroke-width="2.2"/></svg>`,
-    clock: `<svg class="icon" viewBox="0 0 24 24"><path ${s} d="M12 22a10 10 0 1 0-10-10 10 10 0 0 0 10 10Z"/><path d="M12 6v6l4 2" stroke="#4D96FF" stroke-width="2.2"/></svg>`,
-    pin: `<svg class="icon" viewBox="0 0 24 24"><path ${s} d="M12 21s7-4.4 7-10.2A7 7 0 0 0 5 10.8C5 16.6 12 21 12 21Z"/><circle cx="12" cy="11" r="2.6" fill="#22C55E" opacity=".35"/></svg>`,
-    home: `<svg class="icon" viewBox="0 0 24 24"><path ${s} d="M3 11l9-7 9 7"/><path ${s} d="M5 10v10h14V10"/><path d="M10 20v-6h4v6" stroke="#FB7185" stroke-width="2.2"/></svg>`,
-    school: `<svg class="icon" viewBox="0 0 24 24"><path ${s} d="M4 10.5 12 6l8 4.5v8.2a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8.2Z"/><path d="M9 20v-6h6v6" stroke="#4D96FF" stroke-width="2.2"/></svg>`,
-    book: `<svg class="icon" viewBox="0 0 24 24"><path ${s} d="M6 4h10a2 2 0 0 1 2 2v14H8a2 2 0 0 0-2 2V4Z"/><path d="M8 7h8" stroke="#22C55E" stroke-width="2.2"/></svg>`,
-    teacher: `<svg class="icon" viewBox="0 0 24 24"><path ${s} d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4Z"/><path ${s} d="M4 20a8 8 0 0 1 16 0"/></svg>`,
-    group: `<svg class="icon" viewBox="0 0 24 24"><path ${s} d="M16 11a3 3 0 1 0-3-3 3 3 0 0 0 3 3Z"/><path ${s} d="M8 12a3 3 0 1 0-3-3 3 3 0 0 0 3 3Z"/><path ${s} d="M2 20a6 6 0 0 1 10 0"/><path ${s} d="M12 20a6 6 0 0 1 10 0"/></svg>`,
-    bolt: `<svg class="icon" viewBox="0 0 24 24"><path ${s} d="M13 2 4 14h7l-1 8 10-12h-7Z"/><path d="M11 14h7" stroke="#FBBF24" stroke-width="2.2"/></svg>`,
-    star: `<svg class="icon" viewBox="0 0 24 24"><path ${s} d="M12 3l3 6 6 .9-4.5 4.3 1.1 6.3L12 18.8 5.4 20.5 6.5 14 2 9.7 8 8.9 12 3Z" fill="rgba(251,191,36,.25)"/></svg>`
-  };
-  return icons[type] || `<svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="rgba(77,150,255,.18)"/></svg>`;
+  if(type==="tag") return `<svg class="icon" viewBox="0 0 24 24"><path ${s} d="M4 7.5C4 6.1 5.1 5 6.5 5h11C19 5 20 6.1 20 7.5v9C20 17.9 18.9 19 17.5 19h-11C5.1 19 4 17.9 4 16.5v-9Z"/><path d="M7 9h10" stroke="#4D96FF" stroke-width="2.2"/><path d="M7 12h7" stroke="#FB7185" stroke-width="2.2"/></svg>`;
+  if(type==="clock") return `<svg class="icon" viewBox="0 0 24 24"><path ${s} d="M12 22a10 10 0 1 0-10-10 10 10 0 0 0 10 10Z"/><path d="M12 6v6l4 2" stroke="#4D96FF" stroke-width="2.2"/></svg>`;
+  if(type==="pin") return `<svg class="icon" viewBox="0 0 24 24"><path ${s} d="M12 21s7-4.4 7-10.2A7 7 0 0 0 5 10.8C5 16.6 12 21 12 21Z"/><circle cx="12" cy="11" r="2.6" fill="#22C55E" opacity=".35"/></svg>`;
+  if(type==="home") return `<svg class="icon" viewBox="0 0 24 24"><path ${s} d="M3 11l9-7 9 7"/><path ${s} d="M5 10v10h14V10"/><path d="M10 20v-6h4v6" stroke="#FB7185" stroke-width="2.2"/></svg>`;
+  if(type==="school") return `<svg class="icon" viewBox="0 0 24 24"><path ${s} d="M4 10.5 12 6l8 4.5v8.2a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8.2Z"/><path d="M9 20v-6h6v6" stroke="#4D96FF" stroke-width="2.2"/></svg>`;
+  if(type==="book") return `<svg class="icon" viewBox="0 0 24 24"><path ${s} d="M6 4h10a2 2 0 0 1 2 2v14H8a2 2 0 0 0-2 2V4Z"/><path d="M8 7h8" stroke="#22C55E" stroke-width="2.2"/></svg>`;
+  if(type==="teacher") return `<svg class="icon" viewBox="0 0 24 24"><path ${s} d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4Z"/><path ${s} d="M4 20a8 8 0 0 1 16 0"/></svg>`;
+  if(type==="group") return `<svg class="icon" viewBox="0 0 24 24"><path ${s} d="M16 11a3 3 0 1 0-3-3 3 3 0 0 0 3 3Z"/><path ${s} d="M8 12a3 3 0 1 0-3-3 3 3 0 0 0 3 3Z"/><path ${s} d="M2 20a6 6 0 0 1 10 0"/><path ${s} d="M12 20a6 6 0 0 1 10 0"/></svg>`;
+  if(type==="bolt") return `<svg class="icon" viewBox="0 0 24 24"><path ${s} d="M13 2 4 14h7l-1 8 10-12h-7Z"/><path d="M11 14h7" stroke="#FBBF24" stroke-width="2.2"/></svg>`;
+  return `<svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="rgba(77,150,255,.18)"/></svg>`;
+}
+
+function sceneSVG(kind){
+  // Large visuals, very little text.
+  if(kind==="cover") return `
+  <svg viewBox="0 0 900 260" width="100%" height="240" role="img" aria-label="school scene">
+    <defs>
+      <linearGradient id="g1" x1="0" x2="1">
+        <stop offset="0" stop-color="#4D96FF" stop-opacity=".20"/>
+        <stop offset="1" stop-color="#FB7185" stop-opacity=".16"/>
+      </linearGradient>
+    </defs>
+    <rect x="0" y="0" width="900" height="260" rx="26" fill="url(#g1)"/>
+    <g fill="#fff" opacity=".86">
+      <circle cx="160" cy="70" r="22"/><circle cx="190" cy="62" r="28"/><circle cx="228" cy="72" r="22"/>
+      <circle cx="690" cy="80" r="18"/><circle cx="718" cy="72" r="24"/><circle cx="750" cy="82" r="18"/>
+    </g>
+    <g transform="translate(330,55)">
+      <polygon points="120,0 260,70 -20,70" fill="rgba(251,191,36,.42)" stroke="rgba(30,42,68,.12)"/>
+      <rect x="0" y="70" width="240" height="150" rx="18" fill="#ffffff" opacity=".92" stroke="rgba(30,42,68,.12)"/>
+      <rect x="90" y="120" width="60" height="100" rx="10" fill="rgba(77,150,255,.14)" stroke="rgba(77,150,255,.22)"/>
+      <rect x="24" y="100" width="45" height="40" rx="8" fill="rgba(34,197,94,.14)" stroke="rgba(34,197,94,.22)"/>
+      <rect x="171" y="100" width="45" height="40" rx="8" fill="rgba(34,197,94,.14)" stroke="rgba(34,197,94,.22)"/>
+    </g>
+    <g transform="translate(200,170)">
+      <circle cx="0" cy="0" r="22" fill="#fff" stroke="rgba(30,42,68,.12)"/>
+      <rect x="-18" y="25" width="36" height="50" rx="12" fill="rgba(34,197,94,.70)" stroke="rgba(30,42,68,.10)"/>
+      <circle cx="-7" cy="-6" r="3" fill="#1E2A44"/><circle cx="7" cy="-6" r="3" fill="#1E2A44"/>
+      <path d="M-8 6 Q0 14 8 6" fill="none" stroke="#1E2A44" stroke-width="3" stroke-linecap="round"/>
+    </g>
+    <g transform="translate(720,175)">
+      <circle cx="0" cy="0" r="22" fill="#fff" stroke="rgba(30,42,68,.12)"/>
+      <rect x="-18" y="25" width="36" height="50" rx="12" fill="rgba(139,92,246,.65)" stroke="rgba(30,42,68,.10)"/>
+      <circle cx="-7" cy="-6" r="3" fill="#1E2A44"/><circle cx="7" cy="-6" r="3" fill="#1E2A44"/>
+      <path d="M-8 6 Q0 14 8 6" fill="none" stroke="#1E2A44" stroke-width="3" stroke-linecap="round"/>
+    </g>
+  </svg>`;
+  if(kind==="personal") return `
+  <svg viewBox="0 0 900 260" width="100%" height="240" role="img" aria-label="name & home">
+    <rect width="900" height="260" rx="26" fill="rgba(255,255,255,.72)"/>
+    <g transform="translate(120,70)">
+      <rect x="0" y="0" width="300" height="140" rx="22" fill="rgba(77,150,255,.14)" stroke="rgba(77,150,255,.22)"/>
+      <text x="150" y="60" text-anchor="middle" font-size="22" fill="#1E2A44">NAME</text>
+      <text x="150" y="98" text-anchor="middle" font-size="16" fill="#5A6A86">My name is…</text>
+    </g>
+    <g transform="translate(520,62)">
+      <polygon points="0,60 90,0 180,60" fill="rgba(251,113,133,.16)" stroke="rgba(251,113,133,.22)"/>
+      <rect x="20" y="60" width="140" height="120" rx="18" fill="#fff" stroke="rgba(30,42,68,.10)"/>
+      <rect x="72" y="112" width="56" height="68" rx="12" fill="rgba(77,150,255,.12)" stroke="rgba(77,150,255,.20)"/>
+    </g>
+  </svg>`;
+  if(kind==="school") return `
+  <svg viewBox="0 0 900 260" width="100%" height="240" role="img" aria-label="classroom & library">
+    <rect width="900" height="260" rx="26" fill="rgba(255,255,255,.72)"/>
+    <g transform="translate(110,70)">
+      <rect x="0" y="0" width="330" height="150" rx="22" fill="rgba(34,197,94,.14)" stroke="rgba(34,197,94,.22)"/>
+      <rect x="28" y="28" width="274" height="64" rx="16" fill="#fff" opacity=".92"/>
+      <text x="165" y="70" text-anchor="middle" font-size="18" fill="#1E2A44">classroom</text>
+      <rect x="60" y="110" width="84" height="34" rx="12" fill="rgba(77,150,255,.14)" stroke="rgba(77,150,255,.22)"/>
+      <rect x="156" y="110" width="84" height="34" rx="12" fill="rgba(77,150,255,.14)" stroke="rgba(77,150,255,.22)"/>
+      <rect x="252" y="110" width="50" height="34" rx="12" fill="rgba(77,150,255,.14)" stroke="rgba(77,150,255,.22)"/>
+    </g>
+    <g transform="translate(520,70)">
+      <rect x="0" y="0" width="270" height="150" rx="22" fill="rgba(77,150,255,.14)" stroke="rgba(77,150,255,.22)"/>
+      <rect x="26" y="30" width="218" height="86" rx="16" fill="#fff" opacity=".92"/>
+      <path d="M56 56h158M56 78h158M56 100h158" stroke="#4D96FF" stroke-width="8" stroke-linecap="round"/>
+      <text x="135" y="138" text-anchor="middle" font-size="16" fill="#5A6A86">library</text>
+    </g>
+  </svg>`;
+  if(kind==="club-china") return `
+  <svg viewBox="0 0 900 260" width="100%" height="240" role="img" aria-label="chinese school club">
+    <rect width="900" height="260" rx="26" fill="rgba(255,255,255,.72)"/>
+    <g transform="translate(220,70)">
+      <rect x="0" y="0" width="460" height="150" rx="22" fill="rgba(251,113,133,.12)" stroke="rgba(251,113,133,.22)"/>
+      <circle cx="160" cy="74" r="22" fill="#fff" opacity=".95"/>
+      <circle cx="230" cy="62" r="22" fill="#fff" opacity=".95"/>
+      <circle cx="300" cy="74" r="22" fill="#fff" opacity=".95"/>
+      <rect x="140" y="104" width="220" height="34" rx="17" fill="#fff" opacity=".92"/>
+      <text x="230" y="128" text-anchor="middle" font-size="18" fill="#1E2A44">calligraphy club</text>
+    </g>
+  </svg>`;
+  return `<svg viewBox="0 0 900 260" width="100%" height="240"><rect width="900" height="260" rx="26" fill="rgba(255,255,255,.72)"/></svg>`;
 }
 
 /* =========================
-   核心数据（结构化JSON）
+   2) Content: fewer items per slide + 教研优化
    ========================= */
-const curriculum = {
-  powerWords: ["friendly","helpful","strict","interesting","boring","difficult","easy","useful","popular","comfortable"],
-  topics: {
-    personal: [
-      {w:"name", q:"What's your name?", a:"My name is ___."},
-      {w:"age", q:"How old are you?", a:"I'm ___ years old."},
-      {w:"live in", q:"Where do you live?", a:"I live in ___."},
-      {w:"live with", q:"Who do you live with?", a:"I live with ___."},
-      {w:"come from", q:"Where are you from?", a:"I come from ___."},
-      {w:"hobby", q:"What's your hobby?", a:"My hobby is ___."}
-    ],
-    school: [
-      {w:"student", q:"Are you a student?", a:"Yes, I'm a student."},
-      {w:"school", q:"Do you like your school?", a:"My school is ___."},
-      {w:"subject", q:"What subjects do you study?", a:"I study English, maths and ___."},
-      {w:"teacher", q:"What's your teacher like?", a:"My teacher is ___."},
-      {w:"after school", q:"What do you do after school?", a:"After school, I ___."},
-      {w:"uniform", q:"Do you wear a uniform?", a:"Yes, I wear a uniform."}
-    ]
-  },
-  chunks: [
-    {w:"my favourite subject", a:"My favourite subject is ___ because ___."},
-    {w:"after-school club", a:"I go to an after-school club."},
-    {w:"get along with", a:"I get along with my classmates."}
-  ],
-  frames: [
-    "I study at ___ School.",
-    "My favourite subject is ___ because ___.",
-    "I get along with my classmates."
-  ],
-  examQs: {
-    personal: ["What's your name?","How old are you?","Where do you live?","Who do you live with?","What's your hobby?"],
-    school: ["What school do you go to?","What's your favourite subject? Why?","Do you like your school?","What do you do after school?"]
-  },
-  errors: [
-    {w:"I live with Beijing.", type:"介词错误", a:"I live in Beijing."},
-    {w:"I study in Sunshine School.", type:"介词错误", a:"I study at Sunshine School."},
-    {w:"My mother...he...", type:"人称错误", a:"My mother...she..."},
-    {w:"He like football.", type:"三单错误", a:"He likes football."}
-  ]
-};
+// 词汇分层：基础必掌握（★）、拓展选掌握（★★）
+const powerWordsBasic = [
+  {w:"friendly", level:"★", cn:"友好的"},
+  {w:"helpful", level:"★", cn:"乐于助人的"},
+  {w:"interesting", level:"★", cn:"有趣的"},
+  {w:"useful", level:"★", cn:"有用的"},
+  {w:"comfortable", level:"★", cn:"舒适的"},
+  {w:"popular", level:"★", cn:"受欢迎的"}
+];
+const powerWordsAdvanced = [
+  {w:"strict", level:"★★", cn:"严格的"},
+  {w:"boring", level:"★★", cn:"无聊的"},
+  {w:"difficult", level:"★★", cn:"难的"},
+  {w:"easy", level:"★★", cn:"简单的"}
+];
+const powerWords = [...powerWordsBasic, ...powerWordsAdvanced];
 
-/* =========================
-   工具函数
-   ========================= */
-function makeTileCard(item, tag, level = 'basic'){
-  const tile = document.createElement('div');
-  tile.className = 'tile';
-  tile.dataset.level = level;
-  tile.innerHTML = `
-    <div class="tag">${tag}</div>
-    <div class="front">
-      <div class="w">${svgIcon(item.ic || 'book')}
-        <div><div class="word">${item.w}</div>
-        ${level === 'basic' ? `<div class="hint basic-hint">点击听发音</div>` : ''}
-        <div class="hint pro-hint">说出2个句子</div></div>
-      </div>
-    </div>
-    <div class="back">
-      <div class="mini"><b>${item.q || 'Say it'}</b></div>
-      <div class="hint">${item.a}</div>
-      ${level === 'basic' ? `<div class="hint" style="margin-top:6px; color:var(--green)">+ 细节补充</div>` : ''}
-    </div>
-  `;
-  
-  // 交互：模拟TTS+答案显示
-  tile.addEventListener('click', function(){
-    if(this.classList.contains('speaking')) return;
-    
-    // 第一步：视觉反馈+模拟发音
-    this.classList.add('speaking');
-    setTimeout(() => {
-      this.classList.remove('speaking');
-      this.classList.add('revealed');
-      // 模拟教师监控数据
-      recordStudentAction('speak', item.w);
-    }, 1200);
-  });
-  
-  return tile;
-}
+const personalCore12 = [
+  {w:"name", ic:"tag", q:"What’s your name?", a:"My name is ___.", cn:"名字"},
+  {w:"full name", ic:"tag", q:"What’s your full name?", a:"My full name is ___.", cn:"全名"},
+  {w:"call me", ic:"tag", q:"Nickname?", a:"You can call me ___.", cn:"称呼我"},
+  {w:"age", ic:"clock", q:"How old are you?", a:"I’m ___ years old.", cn:"年龄"},
+  {w:"years old", ic:"clock", q:"Say it!", a:"I’m ___ years old.", cn:"岁"},
+  {w:"live in", ic:"pin", q:"Where do you live?", a:"I live in ___.", cn:"居住在（地点）"},
+  {w:"live with", ic:"home", q:"Who do you live with?", a:"I live with ___.", cn:"和（人）住"},
+  {w:"come from", ic:"pin", q:"Where are you from?", a:"I come from ___.", cn:"来自"},
+  {w:"city", ic:"pin", q:"Your city?", a:"My city is ___.", cn:"城市"},
+  {w:"family", ic:"group", q:"Family?", a:"There are ___ people in my family.", cn:"家庭"},
+  {w:"hobby", ic:"bolt", q:"Your hobby?", a:"My hobby is ___.", cn:"爱好"},
+  {w:"free time", ic:"bolt", q:"Free time?", a:"In my free time, I ___.", cn:"空闲时间"}
+];
 
-function makeErrorCard(error){
-  const card = document.createElement('div');
-  card.className = 'tile';
-  card.innerHTML = `
-    <div class="tag" style="background:rgba(251,113,133,.15)">Fix</div>
-    <div class="front">
-      <div class="w">${svgIcon('bolt')}
-        <div><div class="word" style="color:var(--pink)">${error.w}</div>
-        <div class="hint" style="color:var(--pink)">${error.type}</div></div>
-      </div>
-    </div>
-    <div class="back">
-      <div class="hint" style="color:var(--green)">${error.a}</div>
-    </div>
-  `;
-  card.addEventListener('click', () => {
-    card.classList.toggle('revealed');
-    recordStudentAction('fix', error.type);
-  });
-  return card;
-}
+const schoolCore16 = [
+  {w:"student", ic:"school", q:"Are you a student?", a:"Yes, I’m a student.", cn:"学生"},
+  {w:"school", ic:"school", q:"Do you like your school?", a:"My school is ___.", cn:"学校"},
+  {w:"class", ic:"group", q:"Your class?", a:"I’m in Class ___.", cn:"班级"},
+  {w:"classroom", ic:"school", q:"Your classroom?", a:"My classroom is ___.", cn:"教室"},
+  {w:"teacher", ic:"teacher", q:"Teacher like?", a:"My teacher is ___.", cn:"老师"},
+  {w:"subject", ic:"book", q:"Subjects?", a:"I study English, maths and ___.", cn:"科目"},
+  {w:"lesson", ic:"book", q:"Lessons?", a:"I have ___ lessons on ___.", cn:"课程"},
+  {w:"timetable", ic:"book", q:"Timetable?", a:"My timetable is ___.", cn:"时间表"},
+  {w:"homework", ic:"book", q:"Homework?", a:"I do homework at home.", cn:"作业"},
+  {w:"break", ic:"bolt", q:"Break time?", a:"At break time, I ___.", cn:"休息时间"},
+  {w:"library", ic:"book", q:"Library?", a:"I go to the library to ___.", cn:"图书馆"},
+  {w:"playground", ic:"bolt", q:"Playground?", a:"I play ___ in the playground.", cn:"操场"},
+  {w:"exam", ic:"book", q:"Exams?", a:"We have exams sometimes.", cn:"考试"},
+  {w:"club", ic:"bolt", q:"Club?", a:"I go to a club after school.", cn:"社团"},
+  {w:"uniform", ic:"school", q:"Uniform?", a:"I wear a uniform.", cn:"校服"},
+  {w:"classmates", ic:"group", q:"Classmates?", a:"I get along with my classmates.", cn:"同学"}
+];
 
-function recordStudentAction(action, detail){
-  // 模拟数据收集
-  const data = JSON.parse(localStorage.getItem('ketSpeakingData') || '{}');
-  data[detail] = (data[detail] || 0) + 1;
-  localStorage.setItem('ketSpeakingData', JSON.stringify(data));
-  updateTeacherPanel();
-}
+const chunks6 = [
+  {w:"my favourite subject", ic:"book", q:"Make a sentence", a:"My favourite subject is ___ because ___.", cn:"我最喜欢的科目"},
+  {w:"after-school club", ic:"bolt", q:"Make a sentence", a:"I go to an after-school club.", cn:"课后社团"},
+  {w:"from Monday to Friday", ic:"book", q:"Make a sentence", a:"I have lessons from Monday to Friday.", cn:"从周一到周五"},
+  {w:"have lessons / have a break", ic:"bolt", q:"Make a sentence", a:"We have lessons and then we have a break.", cn:"上课/休息"},
+  {w:"do homework at home", ic:"book", q:"Make a sentence", a:"I do homework at home after school.", cn:"在家做作业"},
+  {w:"get along with my classmates", ic:"group", q:"Make a sentence", a:"I get along with my classmates because they are friendly.", cn:"和同学相处融洽"}
+];
 
-/* =========================
-   幻灯片定义（按话题聚类）
-   ========================= */
-const slideDefs = [
-  // 1. 封面页（含KET标准）
-  {
-    title:"欢迎", stage:"T1 · 个人与学校", one:true,
-    left:(root)=>{
-      root.innerHTML = `
-        <div class="card">
-          <h1>个人介绍与学校生活</h1>
-          <div class="sub">KET口语Part 1 · 1对1训练</div>
-          <div class="scene" style="height:200px; background:linear-gradient(135deg, rgba(77,150,255,.1), rgba(251,113,133,.08)); border-radius:20px; display:grid; place-items:center; font-size:18px; color:var(--mut)">
-            <div style="text-align:center">
-              <div style="font-size:24px; color:var(--ink); margin-bottom:10px">🎯 评分标准</div>
-              <div>✓ 6+ 句子 | ✓ 40-50秒 | ✓ 2个because | ✓ 2个高级词</div>
-            </div>
-          </div>
-          <div class="turn">
-            <div class="tTitle">🎤 你的任务</div>
-            <ul>
-              <li>用英语介绍自己（姓名、年龄、城市）</li>
-              <li>描述你的学校和老师</li>
-              <li>说明喜欢的科目及原因</li>
-            </ul>
-          </div>
-          <div class="micro-target">微目标：明确考试要求</div>
-        </div>
-      `;
-    }
-  },
+const frames12 = [
+  "I’m a student at ___.",
+  "I study at ___ School.",
+  "My school is big/clean/friendly.",
+  "I study English, maths and ___.",
+  "My favourite subject is ___ because ___.",
+  "I usually have ___ lessons on ___.",
+  "My teacher is ___ and ___.",
+  "After school, I often ___.",
+  "I’m good at ___ / I’m not good at ___.",
+  "I have lessons / I have a break.",
+  "I do homework at home.",
+  "I get along with my classmates."
+];
 
-  // 2. 语音模仿（微计时器）
-  {
-    title:"语音模仿", stage:"热身", rightMeta:"3秒准备+15秒答题",
-    left:(root)=>{
-      root.innerHTML = `
-        <div class="card">
-          <h2>⚡ 跟我读</h2>
-          <div class="sub">先听示范，然后模仿并改编</div>
-          <div class="scene" style="padding:20px; font-size:18px; background:rgba(77,150,255,.08)">
-            <div style="background:#fff; padding:16px; border-radius:14px; margin-bottom:12px">
-              My name is Alex. I'm 12 years old.<br>
-              I live in Beijing with my parents.
-            </div>
-            <div class="mini" style="display:flex; align-items:center; gap:8px">
-              <span>准备时间：</span>
-              <div class="mini-timer"><div class="mini-ring"></div> <span id="prepTimer">3</span>秒</div>
-            </div>
-          </div>
-          <div class="turn">
-            <div class="tTitle">🎤 你的版本</div>
-            <ul>
-              <li>替换划线部分为你的信息</li>
-              <li>基础模式：用中文提示辅助</li>
-              <li>进阶模式：直接英语输出</li>
-            </ul>
-          </div>
-        </div>
-      `;
-    },
-    right:(root)=>{
-      root.innerHTML = `
-        <div class="card soft">
-          <h2>因果表达矩阵</h2>
-          <div class="sub" style="margin-bottom:12px">选择一种方式展开：</div>
-          <div style="display:grid; gap:8px; font-size:14px">
-            <div style="padding:10px; background:rgba(34,197,94,.1); border-radius:10px">
-              <b>基础：</b>because it's <span class="pro-hint">useful/interesting</span>
-            </div>
-            <div style="padding:10px; background:rgba(77,150,255,.08); border-radius:10px" class="pro-hint">
-              <b>进阶：</b>also because... / which helps me...
-            </div>
-            <div style="padding:10px; background:rgba(251,191,36,.1); border-radius:10px" class="pro-hint">
-              <b>高级：</b>The reason is that...
-            </div>
-          </div>
-        </div>
-      `;
-    },
-    onMount: ()=> startMiniTimer('prepTimer', 3)
-  },
+const highs6 = [
+  "My full name is ___, but you can call me ___.",
+  "What I like most is ___.",
+  "It helps me ___.",
+  "I feel ___ when ___.",
+  "I’m interested in ___.",
+  "If I have time, I ___."
+];
 
-  // 3-4. 个人信息词汇（主题聚类）
-  {
-    title:"个人信息1", stage:"词汇 · 基础信息", rightMeta:"3个核心词",
-    left:(root)=>{
-      root.innerHTML = `
-        <div class="card">
-          <h2>👤 关于我</h2>
-          <div class="sub">点击卡片→听发音→说出2个句子</div>
-          <div class="grid6" id="personal1"></div>
-          <div class="turn">
-            <div class="tTitle">🎤 快速输出</div>
-            <ul>
-              <li>任选2个词，各说2句话</li>
-              <li>基础：用提示句型</li>
-              <li>进阶：自由发挥</li>
-            </ul>
-          </div>
-        </div>
-      `;
-    },
-    right:(root)=>{
-      root.innerHTML = `
-        <div class="card soft">
-          <h2>场景挑战</h2>
-          <div class="scene" style="height:180px; background:linear-gradient(135deg, rgba(77,150,255,.1), rgba(251,113,133,.08)); display:grid; place-items:center; font-size:16px">
-            <div style="text-align:center">
-              <div style="font-size:36px">👋</div>
-              <div>新同学问：What's your name?</div>
-            </div>
-          </div>
-          <div style="margin-top:12px; font-size:14px; color:var(--mut)">
-            倒计时: <span id="microTimer1">15</span>秒
-          </div>
-        </div>
-      `;
-    },
-    onMount: ()=>{
-      const host = document.getElementById('personal1');
-      curriculum.topics.personal.slice(0,3).forEach(item=>{
-        host.appendChild(makeTileCard({...item, ic:'tag'}, '核心', getCurrentMode()));
-      });
-      startMiniTimer('microTimer1', 15);
-    }
-  },
-  {
-    title:"个人信息2", stage:"词汇 · 扩展信息", rightMeta:"3个核心词",
-    left:(root)=>{
-      root.innerHTML = `
-        <div class="card">
-          <h2>👤 我的生活</h2>
-          <div class="sub">点击卡片→听发音→说出2个句子</div>
-          <div class="grid6" id="personal2"></div>
-          <div class="turn">
-            <div class="tTitle">🎤 句子连接</div>
-            <ul>
-              <li>用"and"连接两个信息</li>
-              <li>例：I live in Beijing and I live with my parents.</li>
-            </ul>
-          </div>
-        </div>
-      `;
-    },
-    right:(root)=>{
-      root.innerHTML = `
-        <div class="card soft">
-          <h2>对比练习</h2>
-          <div style="display:grid; gap:12px">
-            <div style="background:rgba(77,150,255,.08); padding:14px; border-radius:14px">
-              <div class="mini">住在<b>地方</b>：</div>
-              <div style="font-size:18px; margin-top:6px">I live <b>in</b> Beijing.</div>
-            </div>
-            <div style="background:rgba(34,197,94,.08); padding:14px; border-radius:14px">
-              <div class="mini">和<b>人</b>一起住：</div>
-              <div style="font-size:18px; margin-top:6px">I live <b>with</b> my parents.</div>
-            </div>
-          </div>
-        </div>
-      `;
-    },
-    onMount: ()=>{
-      const host = document.getElementById('personal2');
-      curriculum.topics.personal.slice(3).forEach(item=>{
-        host.appendChild(makeTileCard({...item, ic:'pin'}, '核心', getCurrentMode()));
-      });
-    }
-  },
+// 优化：Exam questions 使用KET官方原句 + 补充中文释义
+const examPersonal6 = [
+  "What’s your name? <span class='cn'>你叫什么名字？</span>",
+  "How old are you? <span class='cn'>你几岁了？</span>",
+  "Where do you live? <span class='cn'>你住在哪里？</span>",
+  "Who do you live with? <span class='cn'>你和谁住在一起？</span>",
+  "Where are you from? <span class='cn'>你来自哪里？</span>",
+  "What do you enjoy doing in your free time? <span class='cn'>你空闲时间喜欢做什么？</span>" // 官方原句
+];
+const examSchool6 = [
+  "What school do you go to? <span class='cn'>你上哪所学校？</span>",
+  "What subjects do you study? <span class='cn'>你学习哪些科目？</span>",
+  "What’s your favourite subject? Why? <span class='cn'>你最喜欢的科目是什么？为什么？</span>",
+  "Do you like your school? Why? <span class='cn'>你喜欢你的学校吗？为什么？</span>",
+  "What’s your teacher like? <span class='cn'>你的老师怎么样？</span>",
+  "What do you do after school? <span class='cn'>你放学后做什么？</span>"
+];
 
-  // 5. 微型输出页
-  {
-    title:"输出练习1", stage:"输出 · 个人信息", one:true, rightMeta:"40秒",
-    left:(root)=>{
-      root.innerHTML = `
-        <div class="card">
-          <h1>🎤 个人介绍</h1>
-          <div class="sub">使用本页所学词汇，连续说40秒</div>
-          <div class="scene" style="height:200px; background:linear-gradient(135deg, rgba(251,113,133,.08), rgba(34,197,94,.08)); display:grid; place-items:center">
-            <div style="font-size:20px; text-align:center">
-              <div style="margin-bottom:12px">姓名 + 年龄 + 城市</div>
-              <div class="mini" style="color:var(--mut)">至少6句话，使用1个because</div>
-            </div>
-          </div>
-          <div class="turn">
-            <div class="tTitle">评分标准</div>
-            <ul>
-              <li>内容完整：✓ 姓名 ✓ 年龄 ✓ 城市</li>
-              <li>语言质量：because ×1，高级词 ×1</li>
-              <li>流利度：无明显长停顿</li>
-            </ul>
-          </div>
-          <div class="btnRow" style="justify-content:center; margin-top:16px">
-            <button class="primary" onclick="startTimer(40)">开始计时</button>
-          </div>
-        </div>
-      `;
-    }
-  },
-
-  // 6-7. 学校词汇（主题聚类）
-  {
-    title:"学校词汇1", stage:"词汇 · 学校概况", rightMeta:"3个核心词",
-    left:(root)=>{
-      root.innerHTML = `
-        <div class="card">
-          <h2>🏫 我的学校</h2>
-          <div class="sub">点击卡片→听发音→说出2个句子</div>
-          <div class="grid6" id="school1"></div>
-          <div class="turn">
-            <div class="tTitle">🎤 学校描述</div>
-            <ul>
-              <li>用"big/clean/friendly"描述学校</li>
-              <li>例：My school is big because...</li>
-            </ul>
-          </div>
-        </div>
-      `;
-    },
-    right:(root)=>{
-      root.innerHTML = `
-        <div class="card soft">
-          <h2>高级词汇库</h2>
-          <div class="btnRow" id="powerSchool"></div>
-          <div class="turn">
-            <div class="tTitle">🎤 升级句子</div>
-            <ul><li>使用2个高级词描述学校</li></ul>
-          </div>
-        </div>
-      `;
-    },
-    onMount: ()=>{
-      const host = document.getElementById('school1');
-      curriculum.topics.school.slice(0,3).forEach(item=>{
-        host.appendChild(makeTileCard({...item, ic:'school'}, '核心', getCurrentMode()));
-      });
-      const powerHost = document.getElementById('powerSchool');
-      curriculum.powerWords.slice(0,6).forEach((w,i)=>{
-        const btn = document.createElement('button');
-        btn.className = i%2===0 ? 'blue' : 'pink';
-        btn.textContent = w;
-        btn.onclick = ()=> recordStudentAction('powerWord', w);
-        powerHost.appendChild(btn);
-      });
-    }
-  },
-  {
-    title:"学校词汇2", stage:"词汇 · 学习与活动", rightMeta:"3个核心词",
-    left:(root)=>{
-      root.innerHTML = `
-        <div class="card">
-          <h2>📚 学习与课后</h2>
-          <div class="sub">点击卡片→听发音→说出2个句子</div>
-          <div class="grid6" id="school2"></div>
-          <div class="turn">
-            <div class="tTitle">🎤 连贯表达</div>
-            <ul>
-              <li>用"and/then/also"连接活动</li>
-              <li>例：I study English and then I do homework.</li>
-            </ul>
-          </div>
-        </div>
-      `;
-    },
-    right:(root)=>{
-      root.innerHTML = `
-        <div class="card soft">
-          <h2>语块挑战</h2>
-          <div class="btnRow">
-            <button class="amber" onclick="useChunk('my favourite subject')">my favourite subject</button>
-            <button class="amber" onclick="useChunk('after-school club')">after-school club</button>
-          </div>
-          <div id="chunkOutput" class="scene" style="height:120px; margin-top:10px; display:grid; place-items:center; font-size:16px; color:var(--mut)">
-            选择一个语块，说2个句子
-          </div>
-        </div>
-      `;
-    },
-    onMount: ()=>{
-      const host = document.getElementById('school2');
-      curriculum.topics.school.slice(3).forEach(item=>{
-        host.appendChild(makeTileCard({...item, ic:'book'}, '核心', getCurrentMode()));
-      });
-    }
-  },
-
-  // 8. 学校话题输出页
-  {
-    title:"输出练习2", stage:"输出 · 学校生活", one:true, rightMeta:"50秒",
-    left:(root)=>{
-      root.innerHTML = `
-        <div class="card">
-          <h1>🎤 学校介绍</h1>
-          <div class="sub">使用本页所学词汇，连续说50秒</div>
-          <div class="scene" style="height:200px; background:linear-gradient(135deg, rgba(77,150,255,.08), rgba(139,92,246,.08)); display:grid; place-items:center">
-            <div style="font-size:20px; text-align:center">
-              <div style="margin-bottom:12px">学校 + 科目 + 课后活动</div>
-              <div class="mini" style="color:var(--mut)">至少7句话，because ×2，高级词 ×2</div>
-            </div>
-          </div>
-          <div class="turn">
-            <div class="tTitle">参考结构</div>
-            <ul>
-              <li>开头：I study at ___ School.</li>
-              <li>主体：My favourite subject is ___ because ___ and also because ___.</li>
-              <li>结尾：After school, I ___.</li>
-            </ul>
-          </div>
-          <div class="btnRow" style="justify-content:center; margin-top:16px">
-            <button class="primary" onclick="startTimer(50)">开始计时</button>
-          </div>
-        </div>
-      `;
-    }
-  },
-
-  // 9. 错误纠正（覆盖多种类型）
-  {
-    title:"错误纠正", stage:"准确性 · 改错", rightMeta:"4种常见错误",
-    left:(root)=>{
-      root.innerHTML = `
-        <div class="card">
-          <h2>🛠️ 常见问题纠正</h2>
-          <div class="sub">点击卡片→查看正确答案→模仿</div>
-          <div class="grid6" id="errorGrid"></div>
-          <div class="turn">
-            <div class="tTitle">🎤 避免错误</div>
-            <ul>
-              <li>介词：in（城市）/ at（学校）/ with（人）</li>
-              <li>三单：he/she/it后面动词加s</li>
-            </ul>
-          </div>
-        </div>
-      `;
-    },
-    right:(root)=>{
-      root.innerHTML = `
-        <div class="card soft">
-          <h2>自我检查清单</h2>
-          <div style="display:grid; gap:10px; font-size:14px">
-            ${[
-              "✓ 介词使用正确？",
-              "✓ he/she没有混淆？",
-              "✓ 动词三单形式？",
-              "✓ because后面有完整句子？"
-            ].map(item=>`<div style="padding:10px; background:rgba(77,150,255,.05); border-radius:10px">${item}</div>`).join('')}
-          </div>
-        </div>
-      `;
-    },
-    onMount: ()=>{
-      const host = document.getElementById('errorGrid');
-      curriculum.errors.forEach(err=>{
-        host.appendChild(makeErrorCard(err));
-      });
-    }
-  },
-
-  // 10. 考试模拟
-  {
-    title:"考试模拟", stage:"实战 · 人机对话", one:true, rightMeta:"6个问题",
-    left:(root)=>{
-      root.innerHTML = `
-        <div class="card">
-          <h1>📝 KET Part 1 模拟</h1>
-          <div class="sub">回答所有问题，每个问题2句话</div>
-          <div class="scene" style="height:260px">
-            <div id="examQ" style="font-size:24px; text-align:center; margin-bottom:20px; color:var(--ink)">
-              点击下方按钮开始
-            </div>
-            <div id="examA" style="font-size:16px; color:var(--mut); text-align:center; min-height:60px">
-              你的答案会自动"提交"（模拟）
-            </div>
-          </div>
-          <div class="btnRow" style="justify-content:center">
-            <button class="primary" onclick="nextExamQ()">下一个问题</button>
-            <button onclick="showExamTip()">提示</button>
-          </div>
-          <div class="turn">
-            <div class="tTitle">答题进度</div>
-            <ul>
-              <li>已答：<span id="qCount">0</span> / 6</li>
-              <li>使用because：<span id="bcCount">0</span>次</li>
-            </ul>
-          </div>
-        </div>
-      `;
-    }
-  },
-
-  // 11. 总结页
-  {
-    title:"任务完成", stage:"结束", one:true,
-    left:(root)=>{
-      root.innerHTML = `
-        <div class="card">
-          <h1>🎉 课堂任务完成！</h1>
-          <div class="sub">你的进步：</div>
-          <div class="scene" style="height:180px; background:linear-gradient(135deg, rgba(34,197,94,.1), rgba(77,150,255,.08)); display:grid; place-items:center; font-size:18px">
-            <div style="text-align:center">
-              <div id="finalScore" style="font-size:36px; color:var(--green); margin-bottom:10px">85%</div>
-              <div class="mini">准确率 + 流利度 + 完整度</div>
-            </div>
-          </div>
-          <div class="turn">
-            <div class="tTitle">课后作业</div>
-            <ul>
-              <li>用录音App录制1分钟自我介绍</li>
-              <li>尝试使用今天学的2个新语块</li>
-            </ul>
-          </div>
-        </div>
-      `;
-    },
-    onMount: ()=>{
-      // 模拟评分
-      const data = JSON.parse(localStorage.getItem('ketSpeakingData') || '{}');
-      const score = Math.min(95, 60 + Object.keys(data).length * 5);
-      document.getElementById('finalScore').textContent = score + '%';
-    }
-  }
+// 新增：中式表达纠错扩充
+const fixItems = [
+  {w:"I live with Beijing.", ic:"home", q:"Fix it", a:"I live in Beijing. / I live with my parents.", cn:"我住在北京/我和父母住"},
+  {w:"I study in Sunshine School.", ic:"school", q:"Fix it", a:"I study at Sunshine School.", cn:"我在阳光学校学习"},
+  {w:"My favourite subject is English because useful.", ic:"book", q:"Fix it", a:"…because it’s useful.", cn:"因为它很有用"},
+  {w:"I make homework at home.", ic:"book", q:"Fix it", a:"I do homework at home.", cn:"我在家做作业"},
+  {w:"classroom /ˈklæsruːm/", ic:"school", q:"Pronunciation fix", a:"classroom /ˈklɑːsruːm/ (重音在第一个音节)", cn:"教室（发音纠正）"},
+  {w:"I go to school to study.", ic:"school", q:"Simplify", a:"I study at school. (更简洁)", cn:"我在学校学习"}
 ];
 
 /* =========================
-   难度模式管理
+   3) Slide builder helpers
    ========================= */
-let currentMode = 'basic';
-function getCurrentMode(){ return currentMode; }
-function setMode(mode){
-  currentMode = mode;
-  document.getElementById('modeBasic').classList.toggle('active', mode === 'basic');
-  document.getElementById('modePro').classList.toggle('active', mode === 'pro');
-  document.getElementById('deck').dataset.level = mode;
-  
-  // 重新渲染当前幻灯片
-  show(idx);
-}
-
-/* =========================
-   教师面板
-   ========================= */
-function toggleTeacher(){
-  const panel = document.getElementById('teacherPanel');
-  panel.classList.toggle('open');
-  updateTeacherPanel();
-}
-
-function updateTeacherPanel(){
-  const data = JSON.parse(localStorage.getItem('ketSpeakingData') || '{}');
-  const errorStats = document.getElementById('errorStats');
-  const classProgress = document.getElementById('classProgress');
-  
-  // 高频错误
-  const errors = Object.entries(data).filter(([k,v])=>v>1 && k.includes('错误'));
-  errorStats.innerHTML = errors.length ? errors.map(([k,v])=>`
-    <div class="error-card">
-      <h4>${k}</h4>
-      <p>出现${v}次</p>
-      <div class="heat-bar"><div class="heat-fill" style="width:${Math.min(100, v*30)}%"></div></div>
+function makeTileCard(item, tagText){
+  const t = document.createElement('div');
+  t.className = 'tile';
+  // 补充词汇难度和中文释义
+  const levelHtml = item.level ? `<span class="level">${item.level}</span>` : '';
+  const cnHtml = item.cn ? `<span class="cn">(${item.cn})</span>` : '';
+  t.innerHTML = `
+    <div class="tag">${tagText}</div>
+    <div class="front">
+      <div class="w">
+        ${svgIcon(item.ic)}
+        <div>
+          <div class="word">${item.w}${levelHtml}</div>
+          <div class="hint">Tap to reveal ${cnHtml}</div>
+        </div>
+      </div>
     </div>
-  `).join('') : '<p>暂无错误数据</p>';
-  
-  // 班级进度模拟
-  classProgress.innerHTML = `
-    <div style="display:grid; gap:8px; font-size:13px">
-      <div style="display:flex; justify-content:space-between">
-        <span>完成词汇练习</span>
-        <span style="color:var(--green)">85%</span>
-      </div>
-      <div style="display:flex; justify-content:space-between">
-        <span>完成输出练习</span>
-        <span style="color:var(--amber)">60%</span>
-      </div>
-      <div style="display:flex; justify-content:space-between">
-        <span>主动使用because</span>
-        <span style="color:var(--pink)">3.2次/人</span>
-      </div>
+    <div class="back">
+      <div class="mini"><b>${item.q}</b></div>
+      <div class="hint">${item.a}${cnHtml}</div>
+      <div class="hint" style="margin-top:6px;opacity:.9">+ one more sentence</div>
     </div>
   `;
+  t.addEventListener('click', ()=>t.classList.toggle('on'));
+  return t;
 }
 
-/* =========================
-   微型计时器
-   ========================= */
-function startMiniTimer(id, seconds){
-  const el = document.getElementById(id);
-  if(!el) return;
-  let t = seconds;
-  el.textContent = t;
-  const interval = setInterval(()=>{
-    t--;
-    el.textContent = t;
-    if(t<=0){
-      clearInterval(interval);
-      el.textContent = "时间到！";
-    }
-  }, 1000);
+function makeSimpleList(items){
+  const box = document.createElement('div');
+  box.className = 'grid6';
+  items.forEach(x=>box.appendChild(x));
+  return box;
 }
 
-/* =========================
-   语块功能
-   ========================= */
-function useChunk(chunk){
-  const output = document.getElementById('chunkOutput');
-  const chunkData = curriculum.chunks.find(c=>c.w===chunk);
-  if(!output || !chunkData) return;
-  
-  output.innerHTML = `
-    <div style="background:#fff; padding:16px; border-radius:14px; text-align:center">
-      <div style="font-size:18px; margin-bottom:8px"><b>${chunk}</b></div>
-      <div style="color:var(--mut); font-size:14px">${chunkData.a}</div>
-      <div class="mini" style="margin-top:10px">+ 1个细节句子</div>
-    </div>
-  `;
-  recordStudentAction('chunk', chunk);
-}
-
-/* =========================
-   考试模拟
-   ========================= */
-let examIndex = 0, becauseCount = 0;
-const allExamQs = [...curriculum.examQs.personal, ...curriculum.examQs.school];
-function nextExamQ(){
-  const qEl = document.getElementById('examQ');
-  const aEl = document.getElementById('examA');
-  const countEl = document.getElementById('qCount');
-  
-  if(examIndex >= allExamQs.length){
-    qEl.innerHTML = '<div style="color:var(--green)">考试完成！</div>';
-    return;
-  }
-  
-  qEl.textContent = allExamQs[examIndex];
-  aEl.innerHTML = '<div style="color:var(--mut)">请口头回答...</div>';
-  
-  // 模拟答案分析
-  setTimeout(()=>{
-    aEl.innerHTML = `
-      <div style="background:rgba(34,197,94,.1); padding:12px; border-radius:10px; margin-top:10px">
-        <div style="font-size:14px; color:var(--ink)">✓ 回答了2句话</div>
-        ${Math.random()>.5 ? '<div style="font-size:13px; color:var(--green); margin-top:4px">✓ 使用了because</div>' : '<div style="font-size:13px; color:var(--pink); margin-top:4px">⚠ 建议加because</div>'}
-      </div>
-    `;
-    if(Math.random()>.5){
-      becauseCount++;
-      document.getElementById('bcCount').textContent = becauseCount;
-    }
-  }, 3000);
-  
-  examIndex++;
-  countEl.textContent = examIndex;
-  recordStudentAction('examQ', allExamQs[examIndex-1]);
-}
-
-function showExamTip(){
-  const tips = [
-    '每个问题回答<b>2句话</b>：答案+细节',
-    '使用<b>because</b>给出理由',
-    '描述学校用<b>friendly/interesting</b>等高级词'
-  ];
-  alert(`提示：${tips[Math.floor(Math.random()*tips.length)]}`);
-}
-
-/* =========================
-   幻灯片渲染系统
-   ========================= */
-function slideShell({title, stage, rightMeta, one=false}){
+function slideShell({title, stage, rightMeta, scoreFocus, one=false}){
   const s = document.createElement('section');
   s.className = 'slide';
   s.dataset.title = title;
-  s.dataset.level = currentMode;
-  
+
   const header = document.createElement('div');
   header.className = 'header';
+  // 新增：评分维度标签
+  const scoreTag = scoreFocus ? `<span class="pill score-tag">${scoreFocus}</span>` : '';
   header.innerHTML = `
     <div class="badge"><span class="dot"></span> ${stage}</div>
     <div class="meta">
-      <span class="pill" data-count>1 / ${slides.length}</span>
-      ${rightMeta ? `<span class="pill">${rightMeta}</span>` : ''}
-      <button class="blue" onclick="togglePicker(true)">菜单</button>
+      <span class="pill" data-count>1 / 1</span>
+      ${rightMeta ? `<span class="pill">${rightMeta}</span>` : ``}
+      ${scoreTag}
+      <button class="blue" onclick="togglePicker(true)">Menu</button>
     </div>
   `;
-  
+
   const wrap = document.createElement('div');
   wrap.className = 'wrap' + (one ? ' one' : '');
-  
+
   s.appendChild(header);
   s.appendChild(wrap);
   return {s, wrap};
 }
 
-const deck = document.getElementById('deck');
-const slides = [];
-slideDefs.forEach(def=>{
-  const {s, wrap} = slideShell({
-    title: def.title,
-    stage: def.stage,
-    rightMeta: def.rightMeta,
-    one: !!def.one
-  });
-  
-  if(def.one){
-    const slot = document.createElement('div'); slot.className = 'slot';
-    wrap.appendChild(slot);
-    def.left(slot);
-  } else {
-    const left = document.createElement('div'); left.className = 'slot';
-    const right = document.createElement('div'); right.className = 'slot';
-    wrap.appendChild(left); wrap.appendChild(right);
-    def.left(left);
-    if(def.right) def.right(right);
-  }
-  
-  deck.appendChild(s);
-  slides.push({el:s, onMount:def.onMount||null, title:def.title});
-});
+/* =========================
+   4) Define slides (优化后：评分显性化+分层+复盘)
+   ========================= */
+const slideDefs = [
+  // 1 Cover
+  {
+    title:"Welcome",
+    stage:"T1 · About Me & School",
+    one:true,
+    left: (root)=> {
+      root.innerHTML = `
+        <div class="card">
+          <h1>About Me & School</h1>
+          <div class="sub">KET Speaking · 1-to-1 | 评分维度：流利度+词汇+语法+发音</div>
+          <div class="scene">${sceneSVG("cover")}</div>
+          <div class="turn">
+            <div class="tTitle">🎤 Your Turn</div>
+            <ul>
+              <li>Say: “Hello! Nice to meet you.”</li>
+              <li>Say: “I’m ready!”</li>
+            </ul>
+          </div>
+        </div>
+      `;
+    }
+  },
 
-// 底部导航
-const nav = document.createElement('div');
-nav.id = "nav";
-nav.innerHTML = `
-  <button class="navBtn secondary" id="prev">⬅ 上一页</button>
-  <div class="center">
-    <span id="navTitle">欢迎</span>
-    <div class="progress" aria-label="进度"><div class="bar" id="bar"></div></div>
-    <span id="count">1 / ${slides.length}</span>
-  </div>
-  <button class="navBtn" id="next">下一页 ➡</button>
-`;
-deck.appendChild(nav);
+  // 2 Mission (优化：评分维度+时间拆解)
+  {
+    title:"Mission",
+    stage:"Mission",
+    rightMeta:"Goal: 40–50s",
+    scoreFocus:"流利度+词汇+语法",
+    left:(root)=>{
+      root.innerHTML = `
+        <div class="card">
+          <h2>🎯 Today’s Goal <span class="highlight">（评分核心）</span></h2>
+          <div class="big"><b>40–50s</b> · <b>6+ sentences</b> · <b>because ×2</b></div>
+          <div class="mini" style="margin-top:8px">
+            ✅ 流利度：无长时间停顿 | ✅ 词汇：2个power words | ✅ 语法：because句型无错误 | ✅ 发音：重音准确
+          </div>
+          <div class="time-segment">
+            <span>个人信息：20–25s</span>
+            <span>校园信息：20–25s</span>
+          </div>
+          <div class="turn">
+            <div class="tTitle">🎤 Your Turn</div>
+            <ul>
+              <li>Repeat: “I will speak for 40 to 50 seconds.”</li>
+              <li>Repeat: “I will use two because.”</li>
+            </ul>
+          </div>
+        </div>
+      `;
+    },
+    right:(root)=>{
+      root.innerHTML = `
+        <div class="card soft">
+          <h2>Rule</h2>
+          <div class="sub">Every answer = <b>2 sentences</b>（Answer + Detail）</div>
+          <div class="scene">${sceneSVG("personal")}</div>
+          <div class="level-hint">
+            <span class="basic">基础：</span>按模板答 | <span class="advanced">进阶：</span>加个人细节
+          </div>
+        </div>
+      `;
+    }
+  },
 
-let idx = 0;
-function show(i){
-  idx = Math.max(0, Math.min(slides.length-1, i));
-  slides.forEach((s,k)=>s.el.classList.toggle('active', k===idx));
-  
-  const c = slides[idx].el.querySelector('[data-count]');
-  if(c) c.textContent = `${idx+1} / ${slides.length}`;
-  
-  document.getElementById('navTitle').textContent = slides[idx].title;
-  document.getElementById('count').textContent = `${idx+1} / ${slides.length}`;
-  document.getElementById('prev').disabled = idx===0;
-  document.getElementById('next').disabled = idx===slides.length-1;
-  document.getElementById('bar').style.width = ((idx+1)/slides.length*100) + '%';
-  
-  if(slides[idx].onMount) slides[idx].onMount();
-}
-document.getElementById('prev').onclick = ()=>show(idx-1);
-document.getElementById('next').onclick = ()=>show(idx+1);
+  // 3 Warm-up (优化：三步梯度+分层)
+  {
+    title:"Warm-up",
+    stage:"Warm-up",
+    scoreFocus:"发音+流利度",
+    left:(root)=>{
+      root.innerHTML = `
+        <div class="card">
+          <h2>⚡ Imitate (3 steps)</h2>
+          <div class="sub">Step1: 填空 → Step2: 换词 → Step3: 加细节</div>
+          <div class="scene">
+            <div style="max-width:720px;width:100%">
+              <div style="font-size:18px;line-height:1.7;color:var(--ink);background:rgba(77,150,255,.08);border:1px solid rgba(77,150,255,.18);padding:14px;border-radius:18px">
+                Step1: My name is Alex. I’m 12 years old.<br>
+                Step2: My name is ___. I’m ___ years old.<br>
+                Step3: My name is ___. I’m ___ years old. I like ___.
+              </div>
+              <div class="mini" style="margin-top:10px;color:var(--mut)">Tap nothing — just speak 🙂</div>
+            </div>
+          </div>
+          <div class="turn">
+            <div class="tTitle">🎤 Your Turn</div>
+            <ul>
+              <li>Round 1: copy (same words)</li>
+              <li>Round 2: change (your info) + because</li>
+            </ul>
+            <div class="level-hint" style="margin-top:8px">
+              <span class="basic">基础：</span>完成Step1+Step2 | <span class="advanced">进阶：</span>完成Step3+加because
+            </div>
+          </div>
+        </div>
+      `;
+    },
+    right:(root)=>{
+      root.innerHTML = `
+        <div class="card soft">
+          <h2>Pick 1 power word <span class="highlight">（基础必掌握）</span></h2>
+          <div class="sub">Use it in a sentence.</div>
+          <div class="btnRow" id="pwBtns"></div>
+          <div class="turn">
+            <div class="tTitle">🎤 Your Turn</div>
+            <ul><li>Say: “My school is ___ because ___.”</li></ul>
+            <div class="level-hint" style="margin-top:8px">
+              <span class="basic">基础：</span>My school is friendly because it’s big<br>
+              <span class="advanced">进阶：</span>My school is friendly because my classmates always help me
+            </div>
+          </div>
+          <!-- 新增：反馈卡片 -->
+          <div class="feedback-card">
+            <div class="mini"><b>教师反馈</b></div>
+            <textarea placeholder="记录学生易错点：如发音/语法错误..."></textarea>
+          </div>
+        </div>
+      `;
+    },
+    onMount: ()=>{
+      const box = document.getElementById('pwBtns');
+      if(!box) return;
+      box.innerHTML = "";
+      powerWordsBasic.forEach((w,i)=>{
+        const b = document.createElement('button');
+        b.className = (i%2===0) ? 'blue' : 'pink';
+        b.textContent = `${w.w} ${w.level} (${w.cn})`;
+        b.onclick = ()=> {
+          [...box.children].forEach(x=>x.style.outline='none');
+          b.style.outline = '3px solid rgba(77,150,255,.22)';
+        };
+        box.appendChild(b);
+      });
+    }
+  },
 
-// 键盘控制
-window.addEventListener('keydown', e=>{
-  const k = e.key.toLowerCase();
-  if(k==='arrowright' || k==='d') show(idx+1);
-  if(k==='arrowleft' || k==='a') show(idx-1);
-  if(k==='m') togglePicker(true);
-  if(k==='escape') togglePicker(false);
-});
+  // 4–5 Personal vocab (6 per slide)
+  {
+    title:"Personal Words 1",
+    stage:"Personal · Core",
+    rightMeta:"6 words",
+    scoreFocus:"词汇+语法",
+    left:(root)=>{
+      root.innerHTML = `
+        <div class="card">
+          <h2>Personal Words <span class="highlight">（核心词汇）</span></h2>
+          <div class="sub">点卡片 → 说2句话 <span class="cn">(Tap a card → speak 2 sentences)</span></div>
+          <div id="pv1" class="grid6"></div>
+          <div class="turn">
+            <div class="tTitle">🎤 Your Turn</div>
+            <ul>
+              <li>Pick any 3 cards → 3 mini answers</li>
+              <li>Use because once</li>
+            </ul>
+            <div class="level-hint" style="margin-top:8px">
+              <span class="basic">基础：</span>按模板答 | <span class="advanced">进阶：</span>加个人细节（如具体城市/家庭人数）
+            </div>
+          </div>
+        </div>
+      `;
+    },
+    right:(root)=>{
+      root.innerHTML = `
+        <div class="card soft">
+          <h2>Picture prompt</h2>
+          <div class="scene">${sceneSVG("personal")}</div>
+          <div class="turn">
+            <div class="tTitle">🎤 Your Turn</div>
+            <ul><li>Say 2 sentences: name + city</li></ul>
+          </div>
+        </div>
+      `;
+    },
+    onMount: ()=>{
+      const host = document.getElementById('pv1');
+      host.innerHTML = "";
+      personalCore12.slice(0,6).forEach(x=>host.appendChild(makeTileCard(x,"Core")));
+    }
+  },
+  {
+    title:"Personal Words 2",
+    stage:"Personal · Core",
+    rightMeta:"6 words",
+    scoreFocus:"词汇+语法",
+    left:(root)=>{
+      root.innerHTML = `
+        <div class="card">
+          <h2>Personal Words <span class="highlight">（核心词汇）</span></h2>
+          <div class="sub">点卡片 → 说2句话 <span class="cn">(Tap a card → speak 2 sentences)</span></div>
+          <div id="pv2" class="grid6"></div>
+          <div class="turn">
+            <div class="tTitle">🎤 Your Turn</div>
+            <ul>
+              <li>Answer: “Where do you live?” (2 sentences)</li>
+              <li>Answer: “What’s your hobby?” (2 sentences)</li>
+            </ul>
+            <div class="level-hint" style="margin-top:8px">
+              <span class="basic">基础：</span>I live in Beijing. I like it.<br>
+              <span class="advanced">进阶：</span>I live in Beijing because it’s a big city. I like reading books in my free time.
+            </div>
+          </div>
+        </div>
+      `;
+    },
+    right:(root)=>{
+      root.innerHTML = `
+        <div class="card soft">
+          <h2>Quick fix <span class="highlight">（易错点）</span></h2>
+          <div class="sub"><b>live in</b> (place) · <b>live with</b> (people)</div>
+          <div class="scene">
+            <div style="max-width:720px;width:100%">
+              <div class="mini" style="margin-bottom:10px">Say both:</div>
+              <div style="display:flex;gap:10px;flex-wrap:wrap">
+                <div style="flex:1;min-width:220px;background:rgba(77,150,255,.10);border:1px solid rgba(77,150,255,.20);padding:12px;border-radius:18px">
+                  I live in ___. <span class="cn">（地点：北京/上海）</span>
+                </div>
+                <div style="flex:1;min-width:220px;background:rgba(34,197,94,.10);border:1px solid rgba(34,197,94,.20);padding:12px;border-radius:18px">
+                  I live with ___. <span class="cn">（人：父母/爷爷奶奶）</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    },
+    onMount: ()=>{
+      const host = document.getElementById('pv2');
+      host.innerHTML = "";
+      personalCore12.slice(6,12).forEach(x=>host.appendChild(makeTileCard(x,"Core")));
+    }
+  },
 
-// 幻灯片选择器
-const picker = document.getElementById('picker');
-const pickerList = document.getElementById('pickerList');
-slides.forEach((s,i)=>{
-  const b = document.createElement('div');
-  b.className = 'jump';
-  b.innerHTML = `<b>${i+1}. ${s.title}</b><small>${slideDefs[i].stage}</small>`;
-  b.onclick = ()=>{ show(i); togglePicker(false); };
-  pickerList.appendChild(b);
-});
-window.togglePicker = function(on){
-  picker.classList.toggle('on', !!on);
-  picker.setAttribute('aria-hidden', on ? 'false' : 'true');
-};
+  // 6–8 School vocab (split into 3 smaller slides: 6 / 5 / 5)
+  {
+    title:"School Words 1",
+    stage:"School · Core",
+    rightMeta:"6 words",
+    scoreFocus:"词汇+流利度",
+    left:(root)=>{
+      root.innerHTML = `
+        <div class="card">
+          <h2>School Words <span class="highlight">（核心词汇）</span></h2>
+          <div class="sub">点卡片 → 说2句话 <span class="cn">(Tap a card → speak 2 sentences)</span></div>
+          <div id="sv1" class="grid6"></div>
+          <div class="turn">
+            <div class="tTitle">🎤 Your Turn</div>
+            <ul>
+              <li>Say 3 sentences about your school</li>
+              <li>Add 1 power word</li>
+            </ul>
+            <div class="level-hint" style="margin-top:8px">
+              <span class="basic">基础：</span>My school is big. I like it.<br>
+              <span class="advanced">进阶：</span>My school is big and friendly because there are many nice teachers.
+            </div>
+          </div>
+        </div>
+      `;
+    },
+    right:(root)=>{
+      root.innerHTML = `
+        <div class="card soft">
+          <h2>Picture prompt</h2>
+          <div class="scene">${sceneSVG("school")}</div>
+          <div class="mini" style="margin-top:8px">示例：Our classroom is clean and comfortable <span class="cn">（我们的教室干净又舒适）</span></div>
+        </div>
+      `;
+    },
+    onMount: ()=>{
+      const host = document.getElementById('sv1');
+      host.innerHTML = "";
+      schoolCore16.slice(0,6).forEach(x=>host.appendChild(makeTileCard(x,"Core")));
+    }
+  },
+  {
+    title:"School Words 2",
+    stage:"School · Core",
+    rightMeta:"5 words",
+    scoreFocus:"词汇+语法",
+    left:(root)=>{
+      root.innerHTML = `
+        <div class="card">
+          <h2>School Words <span class="highlight">（核心词汇）</span></h2>
+          <div class="sub">点卡片 → 说2句话 <span class="cn">(Tap a card → speak 2 sentences)</span></div>
+          <div id="sv2" class="grid6"></div>
+          <div class="turn">
+            <div class="tTitle">🎤 Your Turn</div>
+            <ul>
+              <li>Answer: “What subjects do you study?”</li>
+              <li>Use “and”</li>
+            </ul>
+            <div class="level-hint" style="margin-top:8px">
+              <span class="basic">基础：</span>I study English and maths.<br>
+              <span class="advanced">进阶：</span>I study English, maths and science. English is my favourite because it’s useful.
+            </div>
+          </div>
+        </div>
+      `;
+    },
+    right:(root)=>{
+      root.innerHTML = `
+        <div class="card soft">
+          <h2>Mini speaking rule</h2>
+          <div class="sub">Answer + Detail</div>
+          <div class="scene">
+            <div style="max-width:720px;width:100%">
+              <div style="background:rgba(251,191,36,.14);border:1px solid rgba(251,191,36,.22);padding:14px;border-radius:18px;font-size:18px;line-height:1.7">
+                I study English, maths and science.<br>
+                English is my favourite because it’s useful.
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    },
+    onMount: ()=>{
+      const host = document.getElementById('sv2');
+      host.innerHTML = "";
+      schoolCore16.slice(6,11).forEach(x=>host.appendChild(makeTileCard(x,"Core")));
+    }
+  },
+  {
+    title:"School Words 3",
+    stage:"School · Core",
+    rightMeta:"5 words",
+    scoreFocus:"词汇+流利度",
+    left:(root)=>{
+      root.innerHTML = `
+        <div class="card">
+          <h2>School Words <span class="highlight">（核心词汇）</span></h2>
+          <div class="sub">点卡片 → 说2句话 <span class="cn">(Tap a card → speak 2 sentences)</span></div>
+          <div id="sv3" class="grid6"></div>
+          <div class="turn">
+            <div class="tTitle">🎤 Your Turn</div>
+            <ul>
+              <li>Say 2 sentences about after school</li>
+              <li>Use: club / homework</li>
+            </ul>
+            <div class="level-hint" style="margin-top:8px">
+              <span class="basic">基础：</span>I do homework after school.<br>
+              <span class="advanced">进阶：</span>I go to the calligraphy club after school, then I do homework at home.
+            </div>
+          </div>
+        </div>
+      `;
+    },
+    right:(root)=>{
+      root.innerHTML = `
+        <div class="card soft">
+          <h2>Quick challenge <span class="highlight">（拓展词汇）</span></h2>
+          <div class="sub">Use 2 power words:</div>
+          <div class="btnRow" id="pwBtns2"></div>
+          <div class="mini" style="margin-top:8px">中国校园示例：calligraphy club (书法社) / robotics club (机器人社)</div>
+        </div>
+      `;
+    },
+    onMount: ()=>{
+      const host = document.getElementById('sv3');
+      host.innerHTML = "";
+      schoolCore16.slice(11,16).forEach(x=>host.appendChild(makeTileCard(x,"Core")));
+      const box = document.getElementById('pwBtns2');
+      box.innerHTML = "";
+      powerWordsBasic.forEach((w,i)=>{
+        const b = document.createElement('button');
+        b.className = (i%2===0) ? 'blue' : 'pink';
+        b.textContent = `${w.w} ${w.level} (${w.cn})`;
+        box.appendChild(b);
+      });
+    }
+  },
 
-// 教师面板
-function updateTeacherPanel(){
-  if(document.getElementById('teacherPanel').classList.contains('open')){
-    // 实际项目中这里会轮询后端API
-    setTimeout(updateTeacherPanel, 3000);
-  }
-}
-
-show(0);
-</script>
-</body>
-</html>
+  // 9 Power words (优化：分层展示)
+  {
+    title:"Power Words 1",
+    stage:"Power Words",
+    rightMeta:"基础词汇 (★)",
+    scoreFocus:"词汇多样性",
+    left:(root)=>{
+      root.innerHTML = `
+        <div class="card">
+          <h2>${svgIcon("bolt")} Power Words <span class="highlight">（基础必掌握）</span></h2>
+          <div class="sub">Say 1 sentence for each word.</div>
+          <div class="btnRow" id="pwA"></div>
+          <div class="turn">
+            <div class="tTitle">🎤 Your Turn</div>
+            <ul><li>Pick 2 words → 2 sentences</li></ul>
+            <div class="level-hint" style="margin-top:8px">
+              <span class="basic">基础：</span>
