@@ -1,1279 +1,1419 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>KET Speaking Master · Unit 1 Making Friends</title>
-  <style>
-    :root{
-      --ink:#1E2A44; --mut:#5A6A86; --bg:#F6FBFF; --card:#FFFFFF;
-      --stroke:rgba(30,42,68,.12); --shadow:0 18px 40px rgba(30,42,68,.10);
-      --blue:#4D96FF; --pink:#FB7185; --green:#22C55E; --purple:#8B5CF6; --amber:#FBBF24;
-      --radius:24px; --pad:52px; --padM:16px;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-      color:var(--ink); overflow:hidden; background:linear-gradient(120deg, var(--bg), #FFF6FB);
-    }
-    /* Progress & Score */
-    .score-bar{
-      position:fixed; top:20px; left:20px; right:20px; z-index:1000;
-      display:flex; justify-content:space-between; align-items:center;
-      padding:10px 16px; border-radius:999px; background:var(--card);
-      border:1px solid var(--stroke); box-shadow:var(--shadow);
-      font-size:14px; font-weight:600;
-    }
-    .score{display:flex; align-items:center; gap:8px}
-    .stars{font-size:18px}
-    .star{color:rgba(251,191,36,.3); transition:color .3s}
-    .star.earned{color:var(--amber)}
-    .level{color:var(--purple)}
-    
-    #deck{height:100vh;width:100vw;position:relative}
-    .slide{
-      position:absolute; inset:0; padding:var(--pad) var(--pad) 92px;
-      display:none; background:var(--bg);
-    }
-    .slide.active{display:block}
-    @media (max-width: 980px){.slide{padding:46px var(--padM) 92px}}
-    
-    .header{
-      display:flex; align-items:center; justify-content:space-between; gap:12px;
-      margin-bottom:14px; padding-bottom:10px; border-bottom:2px solid rgba(77,150,255,.15);
-    }
-    .badge{
-      display:inline-flex; align-items:center; gap:10px; padding:10px 14px;
-      border-radius:999px; background:var(--card); border:1px solid var(--stroke);
-      box-shadow:var(--shadow); font-size:14px; color:var(--mut);
-    }
-    .badge .dot{
-      width:10px; height:10px; border-radius:50%;
-      background:linear-gradient(135deg, var(--blue), var(--purple));
-    }
-    .micro-target{margin-top:6px; font-size:13px; color:var(--green); font-weight:600}
-    
-    .wrap{
-      height:calc(100vh - 92px - 46px); display:grid; grid-template-columns:1fr 1fr; gap:16px;
-    }
-    .wrap.one{grid-template-columns:1fr}
-    @media (max-width: 980px){.wrap{grid-template-columns:1fr}}
-    
-    .card{
-      background:var(--card); border:1px solid var(--stroke); border-radius:var(--radius);
-      box-shadow:var(--shadow); padding:20px; overflow:auto; position:relative;
-    }
-    .card.soft{background:linear-gradient(180deg, rgba(244,248,255,.92), rgba(255,255,255,.92))}
-    
-    h1{margin:0 0 10px; font-size:36px; letter-spacing:.2px}
-    h2{margin:0 0 10px; font-size:26px; display:flex; align-items:center; gap:10px}
-    .sub{color:var(--mut); font-size:16px; line-height:1.55; margin-bottom:12px}
-    .big{font-size:18px; line-height:1.65}
-    .mini{font-size:14px; color:var(--mut); line-height:1.55}
-    
-    .turn{
-      margin-top:16px; padding:14px; border-radius:18px;
-      border:2px dashed var(--blue); background:rgba(77,150,255,.05);
-    }
-    .turn .tTitle{
-      display:flex; align-items:center; gap:10px; font-size:16px; color:var(--ink);
-      margin-bottom:8px; user-select:none; font-weight:600;
-    }
-    .turn ul{margin:8px 0 0; padding-left:18px; color:var(--mut); line-height:1.6}
-    .turn li{margin-bottom:6px}
-    
-    .grid6{
-      display:grid; grid-template-columns:repeat(3, 1fr); gap:12px; margin-top:12px;
-    }
-    @media (max-width: 980px){.grid6{grid-template-columns:repeat(2, 1fr)}}
-    
-    .tile{
-      border-radius:18px; border:1px solid var(--stroke); background:var(--card);
-      box-shadow:0 12px 26px rgba(30,42,68,.08); padding:14px; cursor:pointer;
-      user-select:none; transition:all .2s ease; min-height:110px; position:relative;
-    }
-    .tile:hover{transform:translateY(-2px)}
-    .tile:active{transform:translateY(1px)}
-    .tile.speaking{
-      background:var(--blue); color:#fff; border-color:var(--blue);
-      animation:pulse .8s ease-in-out;
-    }
-    @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.02)}}
-    .tile.revealed{outline:3px solid var(--blue);}
-    .tile.correct{outline:3px solid var(--green);}
-    .tile.wrong{outline:3px solid var(--pink); animation:shake .4s ease;}
-    @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
-    
-    .tag{
-      position:absolute; top:10px; right:10px; padding:6px 10px; border-radius:999px;
-      font-size:12px; border:1px solid var(--stroke); background:rgba(255,255,255,.85);
-      color:var(--mut);
-    }
-    .w{display:flex; align-items:flex-start; gap:10px}
-    .icon{width:28px; height:28px; flex:0 0 auto}
-    .word{font-size:18px; color:var(--ink); font-weight:500}
-    .hint{margin-top:8px; color:var(--mut); font-size:14px; line-height:1.5}
-    
-    .tile .front{opacity:1; transition:opacity .3s}
-    .tile .back{display:none; opacity:0}
-    .tile.revealed .front{display:none; opacity:0}
-    .tile.revealed .back{display:block; opacity:1}
-    
-    .btnRow{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px}
-    button{
-      appearance:none; border:none; cursor:pointer; padding:12px 14px; border-radius:14px;
-      font-size:14px; background:var(--card); border:1px solid var(--stroke);
-      color:var(--ink); box-shadow:0 10px 22px rgba(30,42,68,.08);
-      transition:all .15s ease; position:relative;
-    }
-    button.primary{background:rgba(34,197,94,.14); border-color:rgba(34,197,54,.22)}
-    button.blue{background:rgba(77,150,255,.14); border-color:rgba(77,150,255,.22)}
-    button.pink{background:rgba(251,113,133,.14); border-color:rgba(251,113,133,.22)}
-    button.amber{background:rgba(251,191,36,.14); border-color:rgba(251,191,36,.22)}
-    button.purple{background:rgba(139,92,246,.14); border-color:rgba(139,92,246,.22)}
-    button:active{transform:translateY(1px)}
-    button:disabled{opacity:.45; cursor:not-allowed}
-    
-    .challenge-box{
-      margin-top:16px; padding:14px; border-radius:16px;
-      border:2px solid var(--amber); background:rgba(251,191,36,.08);
-    }
-    .challenge-box h3{margin:0 0 8px; color:var(--amber); font-size:18px}
-    
-    .dialogue-box{
-      background:linear-gradient(135deg, rgba(77,150,255,.05), rgba(251,113,133,.05));
-      border:1px solid var(--stroke); border-radius:16px; padding:16px;
-      margin-top:12px;
-    }
-    .dialogue-line{
-      padding:10px; margin:6px 0; border-radius:10px; background:#fff;
-      box-shadow:0 4px 8px rgba(30,42,68,.04); font-size:16px; cursor:pointer;
-      transition:all .3s ease;
-    }
-    .dialogue-line:hover{transform:translateX(4px)}
-    .dialogue-line:active{transform:scale(.98)}
-    .dialogue-line.teacher{border-left:4px solid var(--blue)}
-    .dialogue-line.student{border-left:4px solid var(--green)}
-    
-    #nav{
-      position:absolute; left:18px; right:18px; bottom:14px; height:54px;
-      border-radius:18px; background:rgba(255,255,255,.86); border:1px solid var(--stroke);
-      box-shadow:var(--shadow); display:flex; align-items:center; justify-content:space-between;
-      padding:8px 10px; gap:10px; user-select:none;
-    }
-    .navBtn{
-      padding:10px 12px; border-radius:14px; cursor:pointer; font-size:14px; white-space:nowrap;
-      background:rgba(77,150,255,.12); border:1px solid rgba(77,150,255,.2);
-    }
-    .navBtn.secondary{background:rgba(251,113,133,.12); border-color:rgba(251,113,133,.2);}
-    .navBtn:disabled{opacity:.45; cursor:not-allowed}
-    .center{
-      flex:1; display:flex; align-items:center; justify-content:center; gap:10px;
-      min-width:260px; color:var(--mut); font-size:14px;
-    }
-    .progress{
-      height:8px; width:220px; background:rgba(30,42,68,.10);
-      border-radius:999px; overflow:hidden; border:1px solid rgba(30,42,68,.08);
-    }
-    .bar{
-      height:100%; width:0%; background:linear-gradient(135deg, var(--blue), var(--purple));
-      border-radius:999px; transition:width .2s ease;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KET Speaking: About Me & My School</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-blue: #4D96FF;
+            --secondary-blue: #6C8CE6;
+            --accent-green: #22C55E;
+            --accent-yellow: #FBBF24;
+            --accent-pink: #FB7185;
+            --text-dark: #1F2A44;
+            --text-light: #5B6B86;
+            --bg-light: #F7FBFF;
+            --bg-white: #FFFFFF;
+            --border-color: rgba(31, 42, 68, 0.12);
+            --shadow: 0 8px 30px rgba(31, 42, 68, 0.10);
+            --radius: 20px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Arial', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7ff 0%, #f0f8ff 100%);
+            color: var(--text-dark);
+            min-height: 100vh;
+            overflow-x: hidden;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: var(--bg-white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            min-height: 90vh;
+        }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(to right, var(--primary-blue), var(--secondary-blue));
+            color: white;
+            padding: 25px 40px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .teacher-note {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 15px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        /* Navigation */
+        .navigation {
+            display: flex;
+            background-color: var(--bg-light);
+            padding: 15px 40px;
+            border-bottom: 1px solid var(--border-color);
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .nav-btn {
+            padding: 10px 20px;
+            border-radius: 30px;
+            border: none;
+            background-color: white;
+            color: var(--text-dark);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .nav-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(77, 150, 255, 0.2);
+        }
+        
+        .nav-btn.active {
+            background-color: var(--primary-blue);
+            color: white;
+            border-color: var(--primary-blue);
+        }
+        
+        /* Main Content */
+        .main-content {
+            display: flex;
+            min-height: 600px;
+        }
+        
+        .sidebar {
+            width: 280px;
+            background-color: var(--bg-light);
+            padding: 25px;
+            border-right: 1px solid var(--border-color);
+        }
+        
+        .sidebar h3 {
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--border-color);
+        }
+        
+        .lesson-section {
+            margin-bottom: 25px;
+        }
+        
+        .lesson-section ul {
+            list-style-type: none;
+        }
+        
+        .lesson-section li {
+            padding: 10px 15px;
+            margin-bottom: 8px;
+            background-color: white;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border-left: 4px solid transparent;
+        }
+        
+        .lesson-section li:hover {
+            background-color: rgba(77, 150, 255, 0.1);
+            transform: translateX(5px);
+            border-left-color: var(--primary-blue);
+        }
+        
+        .lesson-section li.active {
+            background-color: rgba(77, 150, 255, 0.15);
+            border-left-color: var(--primary-blue);
+            font-weight: 600;
+        }
+        
+        .content-area {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
+        }
+        
+        .slide {
+            display: none;
+        }
+        
+        .slide.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .slide-title {
+            color: var(--primary-blue);
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+        
+        .slide-subtitle {
+            color: var(--text-light);
+            margin-bottom: 25px;
+            font-size: 1.2rem;
+        }
+        
+        /* Game and Activity Styles */
+        .activity-container {
+            background-color: white;
+            border-radius: var(--radius);
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border-color);
+        }
+        
+        .activity-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            color: var(--text-dark);
+        }
+        
+        .activity-title i {
+            color: var(--accent-green);
+        }
+        
+        .flashcards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .flashcard {
+            height: 150px;
+            background-color: white;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid transparent;
+        }
+        
+        .flashcard:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .flashcard.personal {
+            border-color: var(--primary-blue);
+            background: linear-gradient(135deg, rgba(77, 150, 255, 0.1), rgba(77, 150, 255, 0.05));
+        }
+        
+        .flashcard.school {
+            border-color: var(--accent-green);
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.1), rgba(34, 197, 94, 0.05));
+        }
+        
+        .flashcard.power {
+            border-color: var(--accent-yellow);
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.1), rgba(251, 191, 36, 0.05));
+        }
+        
+        .flashcard-word {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+        }
+        
+        .flashcard-translation {
+            font-size: 1rem;
+            color: var(--text-light);
+        }
+        
+        /* Role Play */
+        .role-play-container {
+            display: flex;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .role-card {
+            flex: 1;
+            background-color: white;
+            border-radius: var(--radius);
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            border: 2px solid var(--border-color);
+        }
+        
+        .role-card.student {
+            border-top: 8px solid var(--primary-blue);
+        }
+        
+        .role-card.teacher {
+            border-top: 8px solid var(--accent-green);
+        }
+        
+        .role-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: var(--bg-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 2.5rem;
+        }
+        
+        .role-card.student .role-avatar {
+            background-color: rgba(77, 150, 255, 0.1);
+            color: var(--primary-blue);
+        }
+        
+        .role-card.teacher .role-avatar {
+            background-color: rgba(34, 197, 94, 0.1);
+            color: var(--accent-green);
+        }
+        
+        .dialogue-box {
+            background-color: var(--bg-light);
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+        
+        .speak-button {
+            background-color: var(--primary-blue);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .speak-button:hover {
+            background-color: var(--secondary-blue);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(77, 150, 255, 0.3);
+        }
+        
+        /* Matching Game */
+        .matching-game-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .match-column {
+            flex: 1;
+            background-color: var(--bg-light);
+            border-radius: var(--radius);
+            padding: 20px;
+            min-height: 300px;
+        }
+        
+        .match-column h4 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--text-dark);
+        }
+        
+        .match-item {
+            background-color: white;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            cursor: move;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+            border: 2px dashed transparent;
+        }
+        
+        .match-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .match-item.dragging {
+            opacity: 0.5;
+            border-color: var(--primary-blue);
+        }
+        
+        .match-item.correct {
+            background-color: rgba(34, 197, 94, 0.15);
+            border-color: var(--accent-green);
+        }
+        
+        /* Timer */
+        .timer-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        
+        .timer-circle {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: conic-gradient(var(--primary-blue) 0%, var(--bg-light) 0%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .timer-circle::before {
+            content: '';
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background-color: white;
+        }
+        
+        .timer-display {
+            position: relative;
+            z-index: 2;
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--text-dark);
+        }
+        
+        .timer-controls {
+            display: flex;
+            gap: 15px;
+        }
+        
+        /* Progress Tracking */
+        .progress-container {
+            background-color: white;
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-top: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .progress-bar {
+            height: 12px;
+            background-color: var(--bg-light);
+            border-radius: 6px;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(to right, var(--primary-blue), var(--secondary-blue));
+            border-radius: 6px;
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        
+        .score-display {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        
+        .score-item {
+            text-align: center;
+            padding: 15px;
+            border-radius: 10px;
+            background-color: var(--bg-light);
+            flex: 1;
+            margin: 0 10px;
+        }
+        
+        .score-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary-blue);
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+            }
+            
+            .role-play-container, .matching-game-container {
+                flex-direction: column;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .teacher-note {
+                position: static;
+                margin-top: 15px;
+                justify-content: center;
+            }
+            
+            .flashcards-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
 </head>
-
 <body>
-<!-- Score & Progress Bar -->
-<div class="score-bar">
-  <div class="level">LEVEL <span id="currentLevel">1</span></div>
-  <div class="score">
-    Score: <span id="userScore">0</span>pts
-    <div class="stars">
-      <span class="star" id="star1">⭐</span>
-      <span class="star" id="star2">⭐</span>
-      <span class="star" id="star3">⭐</span>
-    </div>
-  </div>
-</div>
-
-<div id="deck"></div>
-
-<script>
-/* =========================
-   SVG Icon Library (Complete)
-   ========================= */
-function svgIcon(type){
-  const s = 'stroke="rgba(30,42,68,.35)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"';
-  const icons = {
-    tag: `<svg class="icon" viewBox="0 0 24 24"><path ${s} d="M4 7.5C4 6.1 5.1 5 6.5 5h11C19 5 20 6.1 20 7.5v9C20 17.9 18.9 19 17.5 19h-11C5.1 19 4 17.9 4 16.5v-9Z"/><path d="M7 9h10" stroke="#4D96FF" stroke-width="2.2"/><path d="M7 12h7" stroke="#FB7185" stroke-width="2.2"/></svg>`,
-    clock: `<svg class="icon" viewBox="0 0 24 24"><path ${s} d="M12 22a10 10 0 1 0-10-10 10 10 0 0 0 10 10Z"/><path d="M12 6v6l4 2" stroke="#4D96FF" stroke-width="2.2"/></svg>`,
-    user: `<svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" ${s}/><path ${s} d="M4 20a8 8 0 0 1 16 0"/></svg>`,
-    school: `<svg class="icon" viewBox="0 0 24 24"><path ${s} d="M4 10.5 12 6l8 4.5v8.2a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8.2Z"/><path d="M9 20v-6h6v6" stroke="#4D96FF" stroke-width="2.2"/></svg>`,
-    book: `<svg class="icon" viewBox="0 0 24 24"><path ${s} d="M6 4h10a2 2 0 0 1 2 2v14H8a2 2 0 0 0-2 2V4Z"/><path d="M8 7h8" stroke="#22C55E" stroke-width="2.2"/></svg>`,
-    chat: `<svg class="icon" viewBox="0 0 24 24"><path ${s} d="M3 20v-4a8 8 0 0 1 16 0v4M3 20h6M3 16h8"/><circle cx="18" cy="10" r="2" fill="var(--pink)" opacity=".3"/></svg>`,
-    trophy: `<svg class="icon" viewBox="0 0 24 24"><path ${s} d="M8 21h8M10 17h4M12 3v4M6 5v3a6 6 0 0 0 12 0V5M5 5H3a2 2 0 0 0 2 2M19 5h2a2 2 0 0 1-2 2"/></svg>`,
-    bolt: `<svg class="icon" viewBox="0 0 24 24"><path ${s} d="M13 2 4 14h7l-1 8 10-12h-7Z"/><path d="M11 14h7" stroke="#FBBF24" stroke-width="2.2"/></svg>`,
-    heart: `<svg class="icon" viewBox="0 0 24 24"><path d="M12 21s-7-4.4-7-10.2C5 6.1 8.6 3 12 3s7 3.1 7 7.8C19 16.6 12 21 12 21Z" fill="rgba(251,113,133,.25)" stroke="#FB7185" stroke-width="2"/></svg>`
-  };
-  return icons[type] || `<svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="rgba(77,150,255,.18)"/></svg>`;
-}
-
-/* =========================
-   Score & Progress System (Complete)
-   ========================= */
-let userScore = 0, starsEarned = 0, currentLevel = 1;
-function updateScore(points, action = ''){
-  userScore += points;
-  document.getElementById('userScore').textContent = userScore;
-  
-  // Level up every 150 points
-  const newLevel = Math.floor(userScore / 150) + 1;
-  if(newLevel > currentLevel){
-    currentLevel = newLevel;
-    document.getElementById('currentLevel').textContent = currentLevel;
-    alert(`🎉 Level Up! You're now Level ${currentLevel}!`);
-  }
-  
-  // Star system: 1 star per 100 points
-  const newStars = Math.floor(userScore / 100);
-  for(let i = 1; i <= 3; i++){
-    const star = document.getElementById(`star${i}`);
-    if(i <= newStars){
-      star.classList.add('earned');
-    } else {
-      star.classList.remove('earned');
-    }
-  }
-}
-
-/* =========================
-   Interactive Component Generators
-   ========================= */
-function makeTileCard(item, tag){
-  const tile = document.createElement('div');
-  tile.className = 'tile';
-  tile.innerHTML = `
-    <div class="tag">${tag}</div>
-    <div class="front">
-      <div class="w">${svgIcon(item.ic || 'book')}
-        <div><div class="word">${item.w}</div>
-        <div class="hint">Tap to speak & reveal</div></div>
-      </div>
-    </div>
-    <div class="back">
-      <div class="mini"><b>${item.q || 'Say it!'}</b></div>
-      <div class="hint">${item.a}</div>
-      <div class="hint" style="margin-top:6px; color:var(--green)">+ Add detail</div>
-    </div>
-  `;
-  
-  tile.addEventListener('click', function(){
-    if(this.classList.contains('speaking')) return;
-    this.classList.add('speaking');
-    
-    // Simulate speaking practice
-    setTimeout(()=>{
-      this.classList.remove('speaking');
-      this.classList.add('revealed');
-      updateScore(10, 'vocab');
-    }, 1200);
-  });
-  
-  return tile;
-}
-
-function makeDialogueBox(lines){
-  const box = document.createElement('div');
-  box.className = 'dialogue-box';
-  lines.forEach((line, i)=>{
-    const div = document.createElement('div');
-    div.className = `dialogue-line ${i%2===0 ? 'teacher' : 'student'}`;
-    div.textContent = line;
-    div.onclick = ()=>{
-      div.style.background = 'var(--green)';
-      div.style.color = '#fff';
-      setTimeout(()=>{div.style.background='#fff'; div.style.color='var(--ink)';}, 500);
-      updateScore(5, 'dialogue');
-      
-      // Track role-play progress
-      if(line.includes('Student:') && !window.roleAComplete){
-        window.roleAComplete = true;
-        document.getElementById('progressA').style.opacity = '1';
-        document.getElementById('progressB').style.opacity = '1';
-      } else if(line.includes('Student:') && window.roleAComplete && !window.roleBComplete){
-        window.roleBComplete = true;
-        updateScore(30, 'roleComplete');
-      }
-    };
-    box.appendChild(div);
-  });
-  return box;
-}
-
-/* =========================
-   Complete Slide Definitions (12 Slides)
-   ========================= */
-const slideDefs = [
-  // 1. THEME INTRODUCTION
-  {
-    title:"Lesson Start", stage:"1. Theme", one:true,
-    left:(root)=>{
-      root.innerHTML = `
-        <div class="card">
-          <h1>Making Friends & Introductions</h1>
-          <div class="sub">KET Speaking Unit 1 | 15 Interactive Tasks</div>
-          <div class="scene" style="height:200px; background:linear-gradient(135deg, rgba(77,150,255,.1), rgba(251,113,133,.08)); border-radius:20px; display:grid; place-items:center; font-size:18px">
-            <div style="text-align:center">
-              <div style="font-size:48px; margin-bottom:12px">👋🤝</div>
-              <div>How can we make friends at school?</div>
+    <div class="container">
+        <!-- Header Section -->
+        <div class="header">
+            <h1><i class="fas fa-chalkboard-teacher"></i> KET Speaking: About Me & My School</h1>
+            <p>Master personal information and school-related expressions for KET speaking test</p>
+            <div class="teacher-note">
+                <i class="fas fa-lightbulb"></i>
+                <span>Teacher's Goal: Ensure student speaks at least 6 sentences with 2x "because"</span>
             </div>
-          </div>
-          <div class="challenge-box">
-            <h3>Today's Mission</h3>
-            <div class="big">✓ 10 Core Words | ✓ 5 Key Sentences | ✓ 3 Dialogues</div>
-            <div class="big">✓ 40-50 sec Speech | ✓ High-scoring Expressions</div>
-          </div>
-          <div class="turn">
-            <div class="tTitle">🎯 Let's Begin!</div>
-            <ul>
-              <li>Tap the cards to learn vocabulary</li>
-              <li>Practice each dialogue with points</li>
-              <li>Build up to final speaking test</li>
-            </ul>
-          </div>
-          <div class="micro-target">Progress: 0% | Score: <span id="initialScore">0</span>pts</div>
         </div>
-      `;
-    },
-    onMount: ()=>{
-      document.getElementById('initialScore').textContent = userScore;
-    }
-  },
+        
+        <!-- Navigation -->
+        <div class="navigation">
+            <button class="nav-btn active" data-slide="welcome">Welcome</button>
+            <button class="nav-btn" data-slide="vocabulary">Vocabulary Builder</button>
+            <button class="nav-btn" data-slide="sentences">Sentence Practice</button>
+            <button class="nav-btn" data-slide="roleplay">Role Play</button>
+            <button class="nav-btn" data-slide="games">Interactive Games</button>
+            <button class="nav-btn" data-slide="challenge">40-Second Challenge</button>
+        </div>
+        
+        <div class="main-content">
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <div class="lesson-section">
+                    <h3><i class="fas fa-map"></i> Lesson Plan</h3>
+                    <ul>
+                        <li class="active" data-slide="welcome">Welcome & Objectives</li>
+                        <li data-slide="vocabulary">Personal Info Vocabulary</li>
+                        <li data-slide="vocabulary">School Info Vocabulary</li>
+                        <li data-slide="sentences">Key Sentence Patterns</li>
+                        <li data-slide="roleplay">Teacher-Student Dialogue</li>
+                        <li data-slide="games">Matching Game</li>
+                        <li data-slide="challenge">Speaking Challenge</li>
+                    </ul>
+                </div>
+                
+                <div class="lesson-section">
+                    <h3><i class="fas fa-bullseye"></i> Today's Goals</h3>
+                    <ul>
+                        <li>✅ Speak 40-50 seconds continuously</li>
+                        <li>✅ Use at least 6 sentences</li>
+                        <li>✅ Include 2x "because" in answers</li>
+                        <li>✅ Answer questions about self & school</li>
+                    </ul>
+                </div>
+                
+                <div class="progress-container">
+                    <h4><i class="fas fa-chart-line"></i> Student Progress</h4>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <div class="score-display">
+                        <div class="score-item">
+                            <div class="score-value" id="wordsScore">0</div>
+                            <div>Words Mastered</div>
+                        </div>
+                        <div class="score-item">
+                            <div class="score-value" id="sentencesScore">0</div>
+                            <div>Sentences Said</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Main Content Area -->
+            <div class="content-area">
+                <!-- Welcome Slide -->
+                <div class="slide active" id="welcome">
+                    <h2 class="slide-title">Welcome to Your KET Speaking Lesson!</h2>
+                    <p class="slide-subtitle">Today we will practice talking about yourself and your school.</p>
+                    
+                    <div class="activity-container">
+                        <div class="activity-title">
+                            <i class="fas fa-info-circle"></i>
+                            <h3>Lesson Objectives</h3>
+                        </div>
+                        <p>By the end of this lesson, you will be able to:</p>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li>Introduce yourself (name, age, family, where you live)</li>
+                            <li>Talk about your school (name, subjects, teachers, activities)</li>
+                            <li>Speak for 40-50 seconds without stopping</li>
+                            <li>Use "because" to explain your reasons</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="activity-container">
+                        <div class="activity-title">
+                            <i class="fas fa-user-graduate"></i>
+                            <h3>Let's Get Started!</h3>
+                        </div>
+                        <p>Teacher: Please ask the student to introduce themselves. Encourage full sentences.</p>
+                        <div class="dialogue-box" id="welcomeDialogue">
+                            <p>Hello! My name is __________. I'm __________ years old. I live in __________.</p>
+                        </div>
+                        <button class="speak-button" id="startSpeaking">
+                            <i class="fas fa-microphone"></i> Click when student is ready to speak
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Vocabulary Slide -->
+                <div class="slide" id="vocabulary">
+                    <h2 class="slide-title">Vocabulary Builder</h2>
+                    <p class="slide-subtitle">Learn and practice essential words for talking about yourself and school</p>
+                    
+                    <div class="activity-container">
+                        <div class="activity-title">
+                            <i class="fas fa-user"></i>
+                            <h3>Personal Information Words</h3>
+                        </div>
+                        <p>Click on each card to practice pronunciation and make a sentence with the word.</p>
+                        <div class="flashcards-container" id="personalCards">
+                            <!-- Cards will be generated by JavaScript -->
+                        </div>
+                    </div>
+                    
+                    <div class="activity-container">
+                        <div class="activity-title">
+                            <i class="fas fa-school"></i>
+                            <h3>School Information Words</h3>
+                        </div>
+                        <p>Teacher: Ask the student to use each word in a sentence about their own school.</p>
+                        <div class="flashcards-container" id="schoolCards">
+                            <!-- Cards will be generated by JavaScript -->
+                        </div>
+                    </div>
+                    
+                    <div class="activity-container">
+                        <div class="activity-title">
+                            <i class="fas fa-bolt"></i>
+                            <h3>Power-Up Words (Adjectives)</h3>
+                        </div>
+                        <p>These words make your sentences more interesting. Practice using them to describe your school or teacher.</p>
+                        <div class="flashcards-container" id="powerCards">
+                            <!-- Cards will be generated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Sentences Slide -->
+                <div class="slide" id="sentences">
+                    <h2 class="slide-title">Sentence Practice</h2>
+                    <p class="slide-subtitle">Practice the key sentence patterns for KET speaking test</p>
+                    
+                    <div class="activity-container">
+                        <div class="activity-title">
+                            <i class="fas fa-comment-dots"></i>
+                            <h3>Key Sentence Patterns</h3>
+                        </div>
+                        <p>Teacher: Read each sentence pattern aloud, then ask the student to complete it with their own information.</p>
+                        
+                        <div class="sentence-practice">
+                            <div class="sentence-item">
+                                <h4>1. My name is __________. / You can call me __________.</h4>
+                                <button class="speak-button small-btn" data-sentence="My name is">Practice This</button>
+                            </div>
+                            
+                            <div class="sentence-item">
+                                <h4>2. I'm __________ years old.</h4>
+                                <button class="speak-button small-btn" data-sentence="I'm">Practice This</button>
+                            </div>
+                            
+                            <div class="sentence-item">
+                                <h4>3. I live with __________ in __________.</h4>
+                                <button class="speak-button small-btn" data-sentence="I live with">Practice This</button>
+                            </div>
+                            
+                            <div class="sentence-item">
+                                <h4>4. I'm a student at __________ School.</h4>
+                                <button class="speak-button small-btn" data-sentence="I'm a student at">Practice This</button>
+                            </div>
+                            
+                            <div class="sentence-item">
+                                <h4>5. My favourite subject is __________ because __________.</h4>
+                                <button class="speak-button small-btn" data-sentence="My favourite subject is">Practice This</button>
+                            </div>
+                            
+                            <div class="sentence-item">
+                                <h4>6. After school, I often __________.</h4>
+                                <button class="speak-button small-btn" data-sentence="After school">Practice This</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="activity-container">
+                        <div class="activity-title">
+                            <i class="fas fa-star"></i>
+                            <h3>High-Score Expressions</h3>
+                        </div>
+                        <p>These expressions can help you get a higher score in the speaking test.</p>
+                        
+                        <div class="sentence-practice">
+                            <div class="sentence-item">
+                                <h4>My full name is __________, but you can call me __________.</h4>
+                                <button class="speak-button small-btn" data-sentence="My full name is">Try This</button>
+                            </div>
+                            
+                            <div class="sentence-item">
+                                <h4>What I like most is __________ because __________.</h4>
+                                <button class="speak-button small-btn" data-sentence="What I like most is">Try This</button>
+                            </div>
+                            
+                            <div class="sentence-item">
+                                <h4>I feel __________ when __________.</h4>
+                                <button class="speak-button small-btn" data-sentence="I feel">Try This</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Role Play Slide -->
+                <div class="slide" id="roleplay">
+                    <h2 class="slide-title">Role Play Practice</h2>
+                    <p class="slide-subtitle">Practice real exam-style questions with your teacher</p>
+                    
+                    <div class="activity-container">
+                        <div class="activity-title">
+                            <i class="fas fa-theater-masks"></i>
+                            <h3>Teacher-Student Dialogue</h3>
+                        </div>
+                        <p>Teacher: Ask the student these exam questions. Student: Answer in complete sentences.</p>
+                        
+                        <div class="role-play-container">
+                            <div class="role-card teacher">
+                                <div class="role-avatar">
+                                    <i class="fas fa-chalkboard-teacher"></i>
+                                </div>
+                                <h3>Teacher (Examiner)</h3>
+                                <p>Ask the student these questions:</p>
+                                
+                                <div class="dialogue-box" id="teacherQuestion">
+                                    <p id="questionText">What's your name and how old are you?</p>
+                                </div>
+                                
+                                <button class="speak-button" id="nextQuestion">
+                                    <i class="fas fa-forward"></i> Next Question
+                                </button>
+                            </div>
+                            
+                            <div class="role-card student">
+                                <div class="role-avatar">
+                                    <i class="fas fa-user-graduate"></i>
+                                </div>
+                                <h3>Student</h3>
+                                <p>Answer the teacher's question:</p>
+                                
+                                <div class="dialogue-box" id="studentAnswer">
+                                    <p>My name is __________ and I'm __________ years old.</p>
+                                </div>
+                                
+                                <button class="speak-button" id="showAnswer">
+                                    <i class="fas fa-lightbulb"></i> Show Sample Answer
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Games Slide -->
+                <div class="slide" id="games">
+                    <h2 class="slide-title">Interactive Games</h2>
+                    <p class="slide-subtitle">Practice vocabulary and sentence building with fun games</p>
+                    
+                    <div class="activity-container">
+                        <div class="activity-title">
+                            <i class="fas fa-gamepad"></i>
+                            <h3>Vocabulary Matching Game</h3>
+                        </div>
+                        <p>Drag the words on the left to match with their meanings on the right.</p>
+                        
+                        <div class="matching-game-container">
+                            <div class="match-column" id="wordsColumn">
+                                <h4>Words</h4>
+                                <div class="match-item" data-match="1" draggable="true">favourite</div>
+                                <div class="match-item" data-match="2" draggable="true">subject</div>
+                                <div class="match-item" data-match="3" draggable="true">classmates</div>
+                                <div class="match-item" data-match="4" draggable="true">playground</div>
+                                <div class="match-item" data-match="5" draggable="true">homework</div>
+                            </div>
+                            
+                            <div class="match-column" id="meaningsColumn">
+                                <h4>Meanings</h4>
+                                <div class="match-item" data-match="4">an area for children to play</div>
+                                <div class="match-item" data-match="1">liked more than others</div>
+                                <div class="match-item" data-match="2">something you study at school</div>
+                                <div class="match-item" data-match="5">schoolwork done at home</div>
+                                <div class="match-item" data-match="3">other students in your class</div>
+                            </div>
+                        </div>
+                        
+                        <div style="text-align: center; margin-top: 20px;">
+                            <button class="speak-button" id="checkMatches">
+                                <i class="fas fa-check"></i> Check Answers
+                            </button>
+                            <button class="speak-button" style="background-color: var(--accent-pink);" id="resetGame">
+                                <i class="fas fa-redo"></i> Reset Game
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Challenge Slide -->
+                <div class="slide" id="challenge">
+                    <h2 class="slide-title">40-Second Speaking Challenge</h2>
+                    <p class="slide-subtitle">Practice speaking continuously about yourself and your school</p>
+                    
+                    <div class="activity-container">
+                        <div class="activity-title">
+                            <i class="fas fa-trophy"></i>
+                            <h3>Speaking Challenge</h3>
+                        </div>
+                        <p>Student: Talk about yourself and your school for 40 seconds. Try to use at least 6 sentences and 2 "because".</p>
+                        
+                        <div class="timer-container">
+                            <div class="timer-circle" id="timerCircle">
+                                <div class="timer-display" id="timerDisplay">40</div>
+                            </div>
+                            
+                            <div class="timer-controls">
+                                <button class="speak-button" id="startTimer">
+                                    <i class="fas fa-play"></i> Start Speaking
+                                </button>
+                                <button class="speak-button" style="background-color: var(--accent-yellow);" id="pauseTimer">
+                                    <i class="fas fa-pause"></i> Pause
+                                </button>
+                                <button class="speak-button" style="background-color: var(--accent-pink);" id="resetTimer">
+                                    <i class="fas fa-stop"></i> Reset
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 30px; text-align: center;">
+                            <h4>Speaking Tips:</h4>
+                            <ul style="display: inline-block; text-align: left; margin-top: 10px;">
+                                <li>Start with your name and age</li>
+                                <li>Talk about where you live and your family</li>
+                                <li>Describe your school and favourite subject</li>
+                                <li>Mention what you do after school</li>
+                                <li>Use "because" to explain why you like something</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="activity-container">
+                        <div class="activity-title">
+                            <i class="fas fa-award"></i>
+                            <h3>Challenge Completed!</h3>
+                        </div>
+                        <p>Teacher: Provide feedback to the student on their speaking.</p>
+                        
+                        <div style="text-align: center; padding: 20px;">
+                            <h4>Feedback Checklist</h4>
+                            <div style="display: flex; justify-content: center; gap: 30px; margin-top: 15px; flex-wrap: wrap;">
+                                <div>
+                                    <input type="checkbox" id="check1">
+                                    <label for="check1">Spoke for 40+ seconds</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="check2">
+                                    <label for="check2">Used 6+ sentences</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="check3">
+                                    <label for="check3">Used 2+ "because"</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="check4">
+                                    <label for="check4">Clear pronunciation</label>
+                                </div>
+                            </div>
+                            
+                            <button class="speak-button" style="margin-top: 25px; background-color: var(--accent-green);" id="completeLesson">
+                                <i class="fas fa-graduation-cap"></i> Complete Lesson
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-  // 2. CORE VOCABULARY
-  {
-    title:"Core Vocabulary", stage:"2. Vocabulary", rightMeta:"10 Words",
-    left:(root)=>{
-      root.innerHTML = `
-        <div class="card">
-          <h2>${svgIcon('book')} Core Words</h2>
-          <div class="sub">Tap each card → Listen → Repeat → Act it out!</div>
-          <div class="grid6" id="coreVocab"></div>
-          <div class="turn">
-            <div class="tTitle">🎤 Action Challenge</div>
-            <ul>
-              <li>Tap card: Listen to "wave your hand"</li>
-              <li>Do the action while speaking</li>
-              <li>+10pts per correct action!</li>
-            </ul>
-          </div>
-        </div>
-      `;
-    },
-    right:(root)=>{
-      root.innerHTML = `
-        <div class="card soft">
-          <h2>Word Power</h2>
-          <div class="sub">Use these words in sentences:</div>
-          <div class="btnRow" id="powerWords"></div>
-          <div class="challenge-box">
-            <h3>Speed Round</h3>
-            <div>Answer 10 questions in 60 seconds</div>
-            <button class="amber" onclick="startVocabRace()">Start Race</button>
-            <div>Score: <span id="raceScore">0</span></div>
-          </div>
-        </div>
-      `;
-    },
-    onMount: ()=>{
-      const vocab = [
-        {w:"name", q:"What's your name?", a:"My name is ___."},
-        {w:"friend", q:"Who is your friend?", a:"My friend is ___."},
-        {w:"wave", q:"Wave your hand", a:"Hello! (wave)"},
-        {w:"point", q:"Point to your eye", a:"This is my eye."},
-        {w:"look", q:"Look at me", a:"I look at you."},
-        {w:"hand", q:"Show your hand", a:"This is my hand."},
-        {w:"arm", q:"Wave your arm", a:"Bye-bye! (wave arm)"},
-        {w:"eye", q:"Wink your eye", a:"I can wink!"},
-        {w:"ear", q:"Point to your ear", a:"I listen with my ear."},
-        {w:"mouth", q:"Point to your mouth", a:"I speak with my mouth."}
-      ];
-      
-      const host = document.getElementById('coreVocab');
-      vocab.forEach(item=>{
-        item.ic = 'tag';
-        host.appendChild(makeTileCard(item, 'CORE'));
-      });
-      
-      const powerHost = document.getElementById('powerWords');
-      ["friendly","helpful","nice","happy"].forEach((w,i)=>{
-        const btn = document.createElement('button');
-        btn.className = i%2===0 ? 'blue' : 'pink';
-        btn.textContent = w;
-        btn.onclick = ()=>updateScore(5, 'power');
-        powerHost.appendChild(btn);
-      });
-    }
-  },
-
-  // 3. KEY SENTENCES
-  {
-    title:"Key Sentences", stage:"3. Sentences", rightMeta:"5 Patterns",
-    left:(root)=>{
-      root.innerHTML = `
-        <div class="card">
-          <h2>${svgIcon('chat')} Master Patterns</h2>
-          <div class="sub">Tap each line to practice. Speak it out loud!</div>
-          <div id="sentencePatterns"></div>
-          <div class="turn">
-            <div class="tTitle">Pattern Challenge</div>
-            <ul>
-              <li>Tap each pattern 3 times</li>
-              <li>Change the blank parts</li>
-              <li>+5pts per correct variation</li>
-            </ul>
-          </div>
-        </div>
-      `;
-    },
-    right:(root)=>{
-      root.innerHTML = `
-        <div class="card soft">
-          <h2>Build Variations</h2>
-          <div class="sub">Make 3 versions of each pattern:</div>
-          <div id="variationBuilder"></div>
-          <div class="challenge-box">
-            <h3>Variation Master</h3>
-            <div>15 variations = +30pts bonus</div>
-            <div>Progress: <span id="varCount">0</span> / 15</div>
-          </div>
-        </div>
-      `;
-    },
-    onMount: ()=>{
-      const patterns = [
-        "My name is _____.",
-        "I'm _____ years old.",
-        "I live in _____.",
-        "I study at _____ School.",
-        "Nice to meet you, _____."
-      ];
-      
-      const host = document.getElementById('sentencePatterns');
-      let variationCount = 0;
-      patterns.forEach((pattern, i)=>{
-        const div = document.createElement('div');
-        div.className = 'dialogue-line';
-        div.style.cursor = 'pointer';
-        div.textContent = pattern;
-        div.onclick = function(){
-          this.style.background = 'var(--green)';
-          this.style.color = '#fff';
-          setTimeout(()=>{this.style.background='#fff'; this.style.color='var(--ink)';}, 500);
-          updateScore(3, 'sentence');
-          
-          variationCount++;
-          document.getElementById('varCount').textContent = Math.min(variationCount, 15);
-          if(variationCount === 15){
-            updateScore(30, 'bonus');
-          }
+    <script>
+        // Lesson data
+        const lessonData = {
+            personalWords: [
+                { word: "name", translation: "名字", example: "My name is Alex." },
+                { word: "age", translation: "年龄", example: "What's your age?" },
+                { word: "live", translation: "居住", example: "I live in Beijing." },
+                { word: "family", translation: "家庭", example: "I have a big family." },
+                { word: "favourite", translation: "最喜欢的", example: "English is my favourite subject." },
+                { word: "hobby", translation: "爱好", example: "My hobby is drawing." }
+            ],
+            
+            schoolWords: [
+                { word: "student", translation: "学生", example: "I'm a student at Sunshine School." },
+                { word: "school", translation: "学校", example: "My school is big and clean." },
+                { word: "teacher", translation: "老师", example: "My teacher is very helpful." },
+                { word: "subject", translation: "科目", example: "My favourite subject is English." },
+                { word: "homework", translation: "作业", example: "I do my homework after school." },
+                { word: "classmates", translation: "同学", example: "I get along with my classmates." }
+            ],
+            
+            powerWords: [
+                { word: "friendly", translation: "友好的", example: "My school is friendly." },
+                { word: "helpful", translation: "乐于助人的", example: "My teacher is helpful." },
+                { word: "interesting", translation: "有趣的", example: "Science is interesting." },
+                { word: "useful", translation: "有用的", example: "English is useful for travel." },
+                { word: "popular", translation: "受欢迎的", example: "Football is popular at my school." },
+                { word: "comfortable", translation: "舒适的", example: "My classroom is comfortable." }
+            ],
+            
+            examQuestions: [
+                {
+                    question: "What's your name and how old are you?",
+                    sampleAnswer: "My name is Zhang Xiaoming. You can call me Mike. I'm twelve years old."
+                },
+                {
+                    question: "Where do you live and who do you live with?",
+                    sampleAnswer: "I live in Beijing with my parents. We live in an apartment near my school."
+                },
+                {
+                    question: "What school do you go to?",
+                    sampleAnswer: "I go to Sunshine Primary School. It's a big school in the center of our city."
+                },
+                {
+                    question: "What's your favourite subject? Why?",
+                    sampleAnswer: "My favourite subject is English because it helps me talk with foreigners. I also like reading English stories."
+                },
+                {
+                    question: "What do you do after school?",
+                    sampleAnswer: "After school, I often go to an English club. Then I do my homework at home."
+                },
+                {
+                    question: "Do you like your school? Why?",
+                    sampleAnswer: "Yes, I do. My school is clean and friendly. The teachers are helpful and I have many friends."
+                }
+            ],
+            
+            sentencePatterns: [
+                "My name is __________. / You can call me __________.",
+                "I'm __________ years old.",
+                "I live with __________ in __________.",
+                "I come from __________.",
+                "I'm a student at __________ School.",
+                "My school is __________.",
+                "My favourite subject is __________ because __________.",
+                "I usually have __________ lessons on __________.",
+                "After school, I often __________.",
+                "I'm good at __________ / I'm not good at __________.",
+                "I like __________ too, because __________."
+            ]
         };
-        host.appendChild(div);
-      });
-      
-      // Build variation buttons
-      const builder = document.getElementById('variationBuilder');
-      const names = ['Alex','Sam','Lisa','Tom'];
-      const places = ['Beijing','London','New York','Sydney'];
-      
-      names.forEach(n=>{
-        const btn = document.createElement('button');
-        btn.textContent = n;
-        btn.className = 'blue';
-        btn.onclick = ()=>updateScore(2, 'name');
-        builder.appendChild(btn);
-      });
-      places.forEach(p=>{
-        const btn = document.createElement('button');
-        btn.textContent = p;
-        btn.className = 'pink';
-        btn.onclick = ()=>updateScore(2, 'place');
-        builder.appendChild(btn);
-      });
-    }
-  },
-
-  // 4. DIALOGUE 1
-  {
-    title:"Dialogue 1", stage:"4. Dialogue", rightMeta:"Listen & Repeat",
-    left:(root)=>{
-      root.innerHTML = `
-        <div class="card">
-          <h2>${svgIcon('user')} Teacher-Student Model</h2>
-          <div class="sub">Tap each line to hear and repeat. Get points!</div>
-          <div id="dialogue1"></div>
-          <div class="turn">
-            <div class="tTitle">Role-Play Ready?</div>
-            <ul>
-              <li>Student: Tap your lines</li>
-              <li>Teacher: Tap teacher lines</li>
-              <li>Complete dialogue = +25pts</li>
-            </ul>
-          </div>
-          <div id="dialogue1Score" style="text-align:center; margin-top:12px; font-size:18px; color:var(--purple)">Score: 0 / 25</div>
-        </div>
-      `;
-    },
-    right:(root)=>{
-      root.innerHTML = `
-        <div class="card soft">
-          <h2>Dialogue Tips</h2>
-          <div class="sub">For better communication:</div>
-          <div style="display:grid; gap:8px; font-size:14px">
-            <div style="padding:10px; background:#fff; border-radius:10px">👋 Smile when greeting</div>
-            <div style="padding:10px; background:#fff; border-radius:10px">👁️ Make eye contact</div>
-            <div style="padding:10px; background:#fff; border-radius:10px">🗣️ Speak clearly</div>
-          </div>
-          <button class="purple" onclick="simulateRolePlay('dialogue1')" style="width:100%; margin-top:12px">Start Role-Play</button>
-        </div>
-      `;
-    },
-    onMount: ()=>{
-      const lines = [
-        "Teacher: Hello, I'm Teacher Smith.",
-        "Student: Hi! My name is Alex.",
-        "Teacher: Nice to meet you, Alex.",
-        "Student: Nice to meet you, too.",
-        "Teacher: How old are you?",
-        "Student: I'm 11 years old."
-      ];
-      document.getElementById('dialogue1').appendChild(makeDialogueBox(lines));
-    }
-  },
-
-  // 5. DIALOGUE 2
-  {
-    title:"Dialogue 2", stage:"4. Dialogue", rightMeta:"Switch Roles",
-    left:(root)=>{
-      root.innerHTML = `
-        <div class="card">
-          <h2>${svgIcon('user')} Student-Student Practice</h2>
-          <div class="sub">Now you be Student A, then switch to Student B!</div>
-          <div id="dialogue2"></div>
-          <div class="turn">
-            <div class="tTitle">Switch Challenge</div>
-            <ul>
-              <li>Round 1: Be Student A (blue)</li>
-              <li>Round 2: Be Student B (green)</li>
-              <li>Complete both = +30pts</li>
-            </ul>
-          </div>
-          <div id="roleSwitchProgress" style="margin-top:12px">
-            <div style="display:flex; gap:4px;">
-              <div style="flex:1; height:8px; background:var(--blue); border-radius:4px" id="progressA"></div>
-              <div style="flex:1; height:8px; background:var(--green); border-radius:4px; opacity:.3" id="progressB"></div>
-            </div>
-            <div class="mini" style="margin-top:4px">Tap all lines to complete</div>
-          </div>
-        </div>
-      `;
-    },
-    right:(root)=>{
-      root.innerHTML = `
-        <div class="card soft">
-          <h2>Expression Logic</h2>
-          <div class="sub">How to extend answers:</div>
-          <div style="display:grid; gap:8px; font-size:14px">
-            <div style="padding:10px; background:rgba(77,150,255,.08); border-radius:10px">
-              Q: What's your name?<br>
-              A: My name is Alex. <b>I like it because it's short.</b>
-            </div>
-            <div style="padding:10px; background:rgba(34,197,54,.08); border-radius:10px">
-              Q: How old are you?<br>
-              A: I'm 11. <b>My birthday is in July.</b>
-            </div>
-          </div>
-          <button class="amber" onclick="extendDialogue()" style="width:100%; margin-top:12px">Practice Extensions</button>
-        </div>
-      `;
-    },
-    onMount: ()=>{
-      const lines = [
-        "Student A: Hi, I'm Lisa. What's your name?",
-        "Student B: My name is Tom. Nice to meet you.",
-        "Student A: Happy to meet you, too. How old are you?",
-        "Student B: I'm 10 years old. What about you?",
-        "Student A: I'm 10, too! Let's be friends.",
-        "Student B: Great! See you at school."
-      ];
-      document.getElementById('dialogue2').appendChild(makeDialogueBox(lines));
-      
-      // Initialize role-switch progress
-      window.roleAComplete = false;
-      window.roleBComplete = false;
-    }
-  },
-
-  // 6. VOCAB CHALLENGE
-  {
-    title:"Vocab Challenge", stage:"5. Practice", rightMeta:"Test & Earn",
-    left:(root)=>{
-      root.innerHTML = `
-        <div class="card">
-          <h2>${svgIcon('bolt')} Vocabulary Test</h2>
-          <div class="sub">Choose the correct answer. Fast and accurate!</div>
-          <div id="mcQuiz"></div>
-          <div class="challenge-box">
-            <h3>Speed Round</h3>
-            <div>Answer 10 questions in 60 seconds</div>
-            <button class="amber" onclick="startVocabRace()">Start Race</button>
-            <div>Score: <span id="quizScore">0</span></div>
-          </div>
-        </div>
-      `;
-    },
-    right:(root)=>{
-      root.innerHTML = `
-        <div class="card soft">
-          <h2>Memory Test</h2>
-          <div class="sub">Can you recall all 10 words?</div>
-          <div class="scene" style="height:150px; display:grid; place-items:center">
-            <input type="text" id="memoryTest" placeholder="Type words separated by commas" style="width:80%; padding:12px; border-radius:12px; border:1px solid var(--stroke); font-size:16px">
-          </div>
-          <button class="primary" onclick="checkMemory()" style="width:100%">Check Memory (+20pts)</button>
-          <div id="memoryResult" style="margin-top:8px; font-size:14px"></div>
-        </div>
-      `;
-    },
-    onMount: ()=>{
-      const quiz = [
-        {q:"What's the word for 👋?", options:["wave","point","look"], correct:0},
-        {q:"What do you 👁️ with?", options:["ear","eye","mouth"], correct:1},
-        {q:"What do you listen with?", options:["hand","ear","arm"], correct:1},
-        {q:"Greeting response?", options:["Nice to meet you, too","Thank you","Goodbye"], correct:0}
-      ];
-      
-      const host = document.getElementById('mcQuiz');
-      quiz.forEach((item,i)=>{
-        const qDiv = document.createElement('div');
-        qDiv.style.marginBottom = '16px';
-        qDiv.innerHTML = `<div class="mini" style="margin-bottom:8px">${item.q}</div>`;
-        item.options.forEach((opt,j)=>{
-          const btn = document.createElement('button');
-          btn.textContent = opt;
-          btn.className = 'blue';
-          btn.style.margin = '4px';
-          btn.onclick = function(){
-            if(j === item.correct){
-              this.style.background = 'var(--green)';
-              this.style.color = '#fff';
-              updateScore(10, 'quiz');
-              const current = parseInt(document.getElementById('quizScore').textContent);
-              document.getElementById('quizScore').textContent = current + 10;
-            } else {
-              this.style.background = 'var(--pink)';
-              this.style.color = '#fff';
-            }
-            setTimeout(()=>{this.style.background=''; this.style.color='';}, 1000);
-          };
-          qDiv.appendChild(btn);
+        
+        // Student progress tracking
+        let studentProgress = {
+            wordsMastered: 0,
+            sentencesSaid: 0,
+            currentSlide: "welcome",
+            speakingTime: 0,
+            gamesCompleted: 0
+        };
+        
+        // DOM elements
+        const navButtons = document.querySelectorAll('.nav-btn');
+        const lessonItems = document.querySelectorAll('.lesson-section li');
+        const slides = document.querySelectorAll('.slide');
+        const progressFill = document.getElementById('progressFill');
+        const wordsScore = document.getElementById('wordsScore');
+        const sentencesScore = document.getElementById('sentencesScore');
+        
+        // Initialize the lesson
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set up navigation
+            setupNavigation();
+            
+            // Initialize vocabulary cards
+            initializeVocabularyCards();
+            
+            // Set up sentence practice buttons
+            setupSentencePractice();
+            
+            // Set up role play
+            setupRolePlay();
+            
+            // Set up matching game
+            setupMatchingGame();
+            
+            // Set up timer challenge
+            setupTimerChallenge();
+            
+            // Update progress display
+            updateProgressDisplay();
         });
-        host.appendChild(qDiv);
-      });
-    }
-  },
-
-  // 7. EXPRESSION LOGIC
-  {
-    title:"Expression Logic", stage:"6. Logic", rightMeta:"Extend & Elaborate",
-    left:(root)=>{
-      root.innerHTML = `
-        <div class="card">
-          <h2>${svgIcon('bolt')} How to Extend Answers</h2>
-          <div class="sub">Don't just answer—add details!</div>
-          <div style="display:grid; gap:12px; margin-top:12px">
-            <div style="padding:16px; background:rgba(77,150,255,.08); border-radius:14px">
-              <div class="mini"><b>Level 1:</b> Simple Answer</div>
-              <div style="font-size:16px; margin-top:6px">Q: What's your name?<br>A: My name is Alex.</div>
-              <button class="blue" onclick="updateScore(5)" style="margin-top:8px">Practice (+5pts)</button>
-            </div>
-            <div style="padding:16px; background:rgba(34,197,54,.08); border-radius:14px">
-              <div class="mini"><b>Level 2:</b> Add Detail</div>
-              <div style="font-size:16px; margin-top:6px">Q: What's your name?<br>A: My name is Alex. <b>I'm from Canada.</b></div>
-              <button class="primary" onclick="updateScore(10)" style="margin-top:8px">Practice (+10pts)</button>
-            </div>
-            <div style="padding:16px; background:rgba(251,191,36,.08); border-radius:14px">
-              <div class="mini"><b>Level 3:</b> Add Reason</div>
-              <div style="font-size:16px; margin-top:6px">Q: What's your name?<br>A: My name is Alex. <b>I like it because it's short.</b></div>
-              <button class="amber" onclick="updateScore(15)" style="margin-top:8px">Practice (+15pts)</button>
-            </div>
-          </div>
-          <div class="turn">
-            <div class="tTitle">Your Turn: Level Up!</div>
-            <ul>
-              <li>Start with Level 1</li>
-              <li>Build to Level 3</li>
-              <li>+15pts per Level 3 answer!</li>
-            </ul>
-          </div>
-        </div>
-      `;
-    },
-    right:(root)=>{
-      root.innerHTML = `
-        <div class="card soft">
-          <h2>Logic Connectors</h2>
-          <div class="sub">Link your ideas:</div>
-          <div class="btnRow" id="connectors"></div>
-          <div class="scene" style="height:120px; margin-top:12px">
-            <div id="logicPractice" style="padding:12px; background:#fff; border-radius:10px; font-size:14px; color:var(--mut)">
-              Tap connectors to build extended sentences
-            </div>
-          </div>
-          <button class="purple" onclick="testLogic()" style="width:100%; margin-top:12px">Test Logic (+20pts)</button>
-        </div>
-      `;
-    },
-    onMount: ()=>{
-      const connectors = ['and','also','because','so','which','then','when'];
-      const host = document.getElementById('connectors');
-      connectors.forEach((c,i)=>{
-        const btn = document.createElement('button');
-        btn.textContent = c;
-        btn.className = i%3===0 ? 'blue' : i%3===1 ? 'pink' : 'amber';
-        btn.onclick = function(){
-          const practice = document.getElementById('logicPractice');
-          practice.textContent = practice.textContent === 'Tap connectors to build extended sentences' ? c : practice.textContent + ' ' + c;
-          updateScore(2, 'connector');
-        };
-        host.appendChild(btn);
-      });
-    }
-  },
-
-  // 8. PRACTICE DRILL 1
-  {
-    title:"Practice Drill 1", stage:"7. Heavy Practice", rightMeta:"Personal Focus",
-    left:(root)=>{
-      root.innerHTML = `
-        <div class="card">
-          <h2>${svgIcon('user')} Personal Info Drill</h2>
-          <div class="sub">Answer all questions with 2 sentences each!</div>
-          <div id="personalDrill"></div>
-          <div class="turn">
-            <div class="tTitle">Drill Tracker</div>
-            <ul>
-              <li>Answered: <span id="drillCount">0</span> / 5</li>
-              <li>Extended answers: <span id="extendedCount">0</span></li>
-              <li>+10pts per extended answer</li>
-            </ul>
-          </div>
-        </div>
-      `;
-    },
-    right:(root)=>{
-      root.innerHTML = `
-        <div class="card soft">
-          <h2>Quick Fire Round</h2>
-          <div class="sub">3 seconds per answer!</div>
-          <div class="scene" style="height:120px; display:grid; place-items:center">
-            <div style="font-size:36px; color:var(--pink)" id="quickFireQ">Ready?</div>
-          </div>
-          <button class="primary" onclick="startQuickFire()" style="width:100%">Start Quick Fire (+30pts)</button>
-          <div id="quickFireResult" style="margin-top:8px; font-size:14px; color:var(--mut)"></div>
-        </div>
-      `;
-    },
-    onMount: ()=>{
-      const questions = [
-        "What's your name?",
-        "How old are you?",
-        "Where are you from?",
-        "Who is your best friend?",
-        "What do you like doing?"
-      ];
-      
-      const host = document.getElementById('personalDrill');
-      let answered = 0, extended = 0;
-      
-      questions.forEach(q=>{
-        const qDiv = document.createElement('div');
-        qDiv.style.marginBottom = '12px';
-        qDiv.innerHTML = `
-          <div class="mini" style="margin-bottom:8px">${q}</div>
-          <input type="text" placeholder="Type your 2-sentence answer" style="width:100%; padding:10px; border-radius:10px; border:1px solid var(--stroke)">
-          <button class="blue" style="margin-top:6px">Submit Answer</button>
-        `;
-        qDiv.querySelector('button').onclick = function(){
-          answered++;
-          document.getElementById('drillCount').textContent = answered;
-          
-          // Simulate checking for extended answer
-          if(Math.random() > 0.4){
-            extended++;
-            document.getElementById('extendedCount').textContent = extended;
-            updateScore(10, 'extended');
-            this.textContent = 'Great! +10pts';
-            this.style.background = 'var(--green)';
-          } else {
-            this.textContent = 'Try again';
-            this.style.background = 'var(--pink)';
-          }
-          this.disabled = true;
-        };
-        host.appendChild(qDiv);
-      });
-    }
-  },
-
-  // 9. PRACTICE DRILL 2
-  {
-    title:"Practice Drill 2", stage:"7. Heavy Practice", rightMeta:"School Focus",
-    left:(root)=>{
-      root.innerHTML = `
-        <div class="card">
-          <h2>${svgIcon('school')} School Life Drill</h2>
-          <div class="sub">Talk about school with details!</div>
-          <div class="grid6" id="schoolTiles"></div>
-          <div class="turn">
-            <div class="tTitle">School Challenge</div>
-            <ul>
-              <li>Tap 5 cards → speak 2 sentences each</li>
-              <li>Use "because" at least 3 times</li>
-              <li>Complete = +50pts</li>
-            </ul>
-          </div>
-        </div>
-      `;
-    },
-    right:(root)=>{
-      root.innerHTML = `
-        <div class="card soft">
-          <h2>School Description</h2>
-          <div class="sub">Describe your school in 30 seconds:</div>
-          <div id="schoolDesc"></div>
-          <button class="primary" onclick="practiceSchoolDesc()" style="width:100%; margin-top:12px">Describe School (+20pts)</button>
-        </div>
-      `;
-    },
-    onMount: ()=>{
-      const schoolItems = [
-        {w:"teacher", q:"Describe your teacher", a:"My teacher is friendly because..."},
-        {w:"subject", q:"Favourite subject?", a:"My favourite subject is English because..."},
-        {w:"classroom", q:"Your classroom?", a:"My classroom is big and clean."},
-        {w:"friend", q:"Classmates?", a:"I have many friends at school."},
-        {w:"uniform", q:"Uniform?", a:"I wear a blue uniform."},
-        {w:"playground", q:"Playground?", a:"I play football at the playground."}
-      ];
-      
-      const host = document.getElementById('schoolTiles');
-      let tapped = 0;
-      schoolItems.forEach(item=>{
-        item.ic = 'school';
-        const tile = makeTileCard(item, 'SCHOOL');
-        tile.addEventListener('click', ()=>{
-          if(!tile.classList.contains('revealed')){
-            tapped++;
-            if(tapped >= 5){
-              updateScore(50, 'schoolChallenge');
-              alert('School Challenge Complete! +50pts');
+        
+        // Navigation functions
+        function setupNavigation() {
+            navButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const slideId = this.getAttribute('data-slide');
+                    
+                    // Update active button
+                    navButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Update lesson items
+                    lessonItems.forEach(item => {
+                        item.classList.remove('active');
+                        if (item.getAttribute('data-slide') === slideId) {
+                            item.classList.add('active');
+                        }
+                    });
+                    
+                    // Show selected slide
+                    slides.forEach(slide => {
+                        slide.classList.remove('active');
+                        if (slide.id === slideId) {
+                            slide.classList.add('active');
+                        }
+                    });
+                    
+                    // Update progress
+                    studentProgress.currentSlide = slideId;
+                });
+            });
+            
+            // Lesson items navigation
+            lessonItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const slideId = this.getAttribute('data-slide');
+                    
+                    // Update active lesson item
+                    lessonItems.forEach(li => li.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Update nav buttons
+                    navButtons.forEach(btn => {
+                        btn.classList.remove('active');
+                        if (btn.getAttribute('data-slide') === slideId) {
+                            btn.classList.add('active');
+                        }
+                    });
+                    
+                    // Show selected slide
+                    slides.forEach(slide => {
+                        slide.classList.remove('active');
+                        if (slide.id === slideId) {
+                            slide.classList.add('active');
+                        }
+                    });
+                    
+                    // Update progress
+                    studentProgress.currentSlide = slideId;
+                });
+            });
+        }
+        
+        // Vocabulary cards
+        function initializeVocabularyCards() {
+            const personalCardsContainer = document.getElementById('personalCards');
+            const schoolCardsContainer = document.getElementById('schoolCards');
+            const powerCardsContainer = document.getElementById('powerCards');
+            
+            // Create personal info cards
+            lessonData.personalWords.forEach(word => {
+                const card = createFlashcard(word, 'personal');
+                personalCardsContainer.appendChild(card);
+            });
+            
+            // Create school info cards
+            lessonData.schoolWords.forEach(word => {
+                const card = createFlashcard(word, 'school');
+                schoolCardsContainer.appendChild(card);
+            });
+            
+            // Create power-up cards
+            lessonData.powerWords.forEach(word => {
+                const card = createFlashcard(word, 'power');
+                powerCardsContainer.appendChild(card);
+            });
+        }
+        
+        function createFlashcard(wordData, type) {
+            const card = document.createElement('div');
+            card.className = `flashcard ${type}`;
+            
+            card.innerHTML = `
+                <div class="flashcard-word">${wordData.word}</div>
+                <div class="flashcard-translation">${wordData.translation}</div>
+            `;
+            
+            card.addEventListener('click', function() {
+                // Speak the word
+                speakWord(wordData.word);
+                
+                // Ask student to make a sentence
+                setTimeout(() => {
+                    const sentence = prompt(`Please make a sentence with the word "${wordData.word}":`, wordData.example);
+                    if (sentence && sentence.trim() !== '') {
+                        // Update progress
+                        studentProgress.wordsMastered++;
+                        studentProgress.sentencesSaid++;
+                        updateProgressDisplay();
+                        
+                        // Provide feedback
+                        alert(`Good job! "${sentence}" is a great sentence!`);
+                    }
+                }, 500);
+            });
+            
+            return card;
+        }
+        
+        // Sentence practice
+        function setupSentencePractice() {
+            const sentenceButtons = document.querySelectorAll('.small-btn');
+            
+            sentenceButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const sentencePattern = this.getAttribute('data-sentence');
+                    const fullSentence = prompt(`Complete this sentence: "${sentencePattern}..."`, "");
+                    
+                    if (fullSentence && fullSentence.trim() !== '') {
+                        // Update progress
+                        studentProgress.sentencesSaid++;
+                        updateProgressDisplay();
+                        
+                        // Check if sentence contains "because"
+                        if (fullSentence.toLowerCase().includes('because')) {
+                            alert("Excellent! You used 'because' in your sentence!");
+                        }
+                        
+                        // Speak the sentence
+                        speakWord(fullSentence);
+                    }
+                });
+            });
+            
+            // Start speaking button
+            document.getElementById('startSpeaking').addEventListener('click', function() {
+                const studentIntro = prompt("Student, please introduce yourself:", "My name is... I'm... years old... I live in...");
+                
+                if (studentIntro && studentIntro.trim() !== '') {
+                    studentProgress.sentencesSaid += (studentIntro.split('.').length - 1);
+                    updateProgressDisplay();
+                    
+                    // Update dialogue box
+                    document.getElementById('welcomeDialogue').innerHTML = `<p>${studentIntro}</p>`;
+                }
+            });
+        }
+        
+        // Role play
+        let currentQuestionIndex = 0;
+        
+        function setupRolePlay() {
+            const questionText = document.getElementById('questionText');
+            const nextQuestionBtn = document.getElementById('nextQuestion');
+            const showAnswerBtn = document.getElementById('showAnswer');
+            const studentAnswerBox = document.getElementById('studentAnswer');
+            
+            // Initialize first question
+            questionText.textContent = lessonData.examQuestions[currentQuestionIndex].question;
+            studentAnswerBox.innerHTML = `<p>My answer: ___________________________</p>`;
+            
+            // Next question button
+            nextQuestionBtn.addEventListener('click', function() {
+                currentQuestionIndex = (currentQuestionIndex + 1) % lessonData.examQuestions.length;
+                questionText.textContent = lessonData.examQuestions[currentQuestionIndex].question;
+                studentAnswerBox.innerHTML = `<p>My answer: ___________________________</p>`;
+                
+                // Update progress
+                studentProgress.sentencesSaid++;
+                updateProgressDisplay();
+            });
+            
+            // Show sample answer button
+            showAnswerBtn.addEventListener('click', function() {
+                const sampleAnswer = lessonData.examQuestions[currentQuestionIndex].sampleAnswer;
+                studentAnswerBox.innerHTML = `<p><strong>Sample Answer:</strong> ${sampleAnswer}</p>`;
+                
+                // Speak the sample answer
+                speakWord(sampleAnswer);
+            });
+        }
+        
+        // Matching game
+        function setupMatchingGame() {
+            const wordItems = document.querySelectorAll('#wordsColumn .match-item');
+            const meaningItems = document.querySelectorAll('#meaningsColumn .match-item');
+            const checkMatchesBtn = document.getElementById('checkMatches');
+            const resetGameBtn = document.getElementById('resetGame');
+            
+            let draggedItem = null;
+            
+            // Drag and drop functionality
+            wordItems.forEach(item => {
+                item.addEventListener('dragstart', function() {
+                    draggedItem = this;
+                    setTimeout(() => this.style.opacity = '0.5', 0);
+                    this.classList.add('dragging');
+                });
+                
+                item.addEventListener('dragend', function() {
+                    setTimeout(() => this.style.opacity = '1', 0);
+                    this.classList.remove('dragging');
+                    draggedItem = null;
+                });
+            });
+            
+            meaningItems.forEach(item => {
+                item.addEventListener('dragover', function(e) {
+                    e.preventDefault();
+                });
+                
+                item.addEventListener('drop', function(e) {
+                    e.preventDefault();
+                    
+                    // Check if match is correct
+                    const wordMatch = draggedItem.getAttribute('data-match');
+                    const meaningMatch = this.getAttribute('data-match');
+                    
+                    if (wordMatch === meaningMatch) {
+                        draggedItem.classList.add('correct');
+                        this.classList.add('correct');
+                        
+                        // Update progress
+                        studentProgress.gamesCompleted++;
+                        updateProgressDisplay();
+                        
+                        // Provide feedback
+                        if (studentProgress.gamesCompleted === 5) {
+                            alert("Excellent! You matched all words correctly!");
+                        }
+                    } else {
+                        alert("Not quite right. Try again!");
+                    }
+                });
+            });
+            
+            // Check matches button
+            checkMatchesBtn.addEventListener('click', function() {
+                const correctMatches = document.querySelectorAll('.match-item.correct').length / 2;
+                alert(`You have ${correctMatches} out of 5 correct matches!`);
+            });
+            
+            // Reset game button
+            resetGameBtn.addEventListener('click', function() {
+                wordItems.forEach(item => item.classList.remove('correct'));
+                meaningItems.forEach(item => item.classList.remove('correct'));
+            });
+        }
+        
+        // Timer challenge
+        let timerInterval;
+        let timerSeconds = 40;
+        let timerRunning = false;
+        
+        function setupTimerChallenge() {
+            const startTimerBtn = document.getElementById('startTimer');
+            const pauseTimerBtn = document.getElementById('pauseTimer');
+            const resetTimerBtn = document.getElementById('resetTimer');
+            const timerDisplay = document.getElementById('timerDisplay');
+            const timerCircle = document.getElementById('timerCircle');
+            
+            startTimerBtn.addEventListener('click', function() {
+                if (!timerRunning) {
+                    timerRunning = true;
+                    startTimerBtn.disabled = true;
+                    pauseTimerBtn.disabled = false;
+                    
+                    timerInterval = setInterval(() => {
+                        if (timerSeconds > 0) {
+                            timerSeconds--;
+                            timerDisplay.textContent = timerSeconds;
+                            
+                            // Update circle progress
+                            const progress = ((40 - timerSeconds) / 40) * 100;
+                            timerCircle.style.background = `conic-gradient(var(--primary-blue) ${progress}%, var(--bg-light) 0%)`;
+                            
+                            // Every 5 seconds, encourage the student
+                            if (timerSeconds === 30) {
+                                speakWord("Good! Keep going!");
+                            } else if (timerSeconds === 20) {
+                                speakWord("Try to use 'because' in your next sentence.");
+                            } else if (timerSeconds === 10) {
+                                speakWord("Almost there! Finish strong!");
+                            }
+                        } else {
+                            // Timer finished
+                            clearInterval(timerInterval);
+                            timerRunning = false;
+                            startTimerBtn.disabled = false;
+                            pauseTimerBtn.disabled = true;
+                            
+                            // Celebrate
+                            alert("Time's up! Great job speaking for 40 seconds!");
+                            
+                            // Update progress
+                            studentProgress.speakingTime += 40;
+                            updateProgressDisplay();
+                        }
+                    }, 1000);
+                }
+            });
+            
+            pauseTimerBtn.addEventListener('click', function() {
+                if (timerRunning) {
+                    clearInterval(timerInterval);
+                    timerRunning = false;
+                    startTimerBtn.disabled = false;
+                    pauseTimerBtn.disabled = true;
+                }
+            });
+            
+            resetTimerBtn.addEventListener('click', function() {
+                clearInterval(timerInterval);
+                timerRunning = false;
+                timerSeconds = 40;
+                timerDisplay.textContent = timerSeconds;
+                timerCircle.style.background = `conic-gradient(var(--primary-blue) 0%, var(--bg-light) 0%)`;
+                startTimerBtn.disabled = false;
+                pauseTimerBtn.disabled = true;
+            });
+            
+            // Complete lesson button
+            document.getElementById('completeLesson').addEventListener('click', function() {
+                const check1 = document.getElementById('check1').checked;
+                const check2 = document.getElementById('check2').checked;
+                const check3 = document.getElementById('check3').checked;
+                const check4 = document.getElementById('check4').checked;
+                
+                const checksPassed = [check1, check2, check3, check4].filter(Boolean).length;
+                
+                if (checksPassed >= 3) {
+                    alert("Congratulations! You've completed the lesson successfully!");
+                    
+                    // Update progress
+                    studentProgress.wordsMastered += 5;
+                    studentProgress.sentencesSaid += 10;
+                    updateProgressDisplay();
+                    
+                    // Navigate to welcome slide
+                    document.querySelector('[data-slide="welcome"]').click();
+                } else {
+                    alert("Good effort! Let's practice a bit more to reach all goals.");
+                }
+            });
+        }
+        
+        // Progress tracking
+        function updateProgressDisplay() {
+            // Calculate overall progress (max 100)
+            const totalWords = lessonData.personalWords.length + lessonData.schoolWords.length + lessonData.powerWords.length;
+            const wordProgress = (studentProgress.wordsMastered / totalWords) * 40;
+            
+            const sentenceProgress = Math.min(studentProgress.sentencesSaid / 30 * 40, 40);
+            
+            const timeProgress = Math.min(studentProgress.speakingTime / 120 * 20, 20);
+            
+            const totalProgress = Math.min(wordProgress + sentenceProgress + timeProgress, 100);
+            
+            // Update progress bar
+            progressFill.style.width = `${totalProgress}%`;
+            
+            // Update scores
+            wordsScore.textContent = studentProgress.wordsMastered;
+            sentencesScore.textContent = studentProgress.sentencesSaid;
+        }
+        
+        // Text-to-speech function
+        function speakWord(text) {
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.rate = 0.9; // Slightly slower for ESL students
+                utterance.pitch = 1;
+                utterance.volume = 1;
+                utterance.lang = 'en-US';
+                window.speechSynthesis.speak(utterance);
+            } else {
+                console.log("Text-to-speech not supported");
             }
-          }
-        }, {once: true});
-        host.appendChild(tile);
-      });
-      
-      // School description practice
-      const descHost = document.getElementById('schoolDesc');
-      const prompts = [
-        "Big/Friendly/Modern",
-        "Playground/Library/Classroom",
-        "Teachers are helpful/strict/interesting",
-        "I like it because..."
-      ];
-      prompts.forEach(p=>{
-        const btn = document.createElement('button');
-        btn.textContent = p;
-        btn.className = 'amber';
-        btn.style.margin = '4px';
-        btn.onclick = ()=>updateScore(5, 'schoolDesc');
-        descHost.appendChild(btn);
-      });
-    }
-  },
-
-  // 10. HIGH-SCORING EXPRESSIONS
-  {
-    title:"High-Scoring Expressions", stage:"8. Advanced", rightMeta:"Score Higher!",
-    left:(root)=>{
-      root.innerHTML = `
-        <div class="card">
-          <h2>${svgIcon('trophy')} Express Like a Pro</h2>
-          <div class="sub">Use these for KET Speaking Part 1:</div>
-          <div style="display:grid; gap:12px;">
-            <div style="padding:16px; background:rgba(251,191,36,.08); border-radius:14px">
-              <div class="mini">Instead of: "I like English"</div>
-              <div style="font-size:16px; margin-top:6px; font-weight:500">"My favourite subject is English because it's useful and interesting."</div>
-              <button class="amber" onclick="practiceHighScore(1)" style="margin-top:8px">Practice (+15pts)</button>
-            </div>
-            <div style="padding:16px; background:rgba(139,92,246,.08); border-radius:14px">
-              <div class="mini">Instead of: "I have friends"</div>
-              <div style="font-size:16px; margin-top:6px; font-weight:500">"I get along with my classmates because they are friendly and helpful."</div>
-              <button class="purple" onclick="practiceHighScore(2)" style="margin-top:8px">Practice (+15pts)</button>
-            </div>
-            <div style="padding:16px; background:rgba(34,197,54,.08); border-radius:14px">
-              <div class="mini">Instead of: "I go to school"</div>
-              <div style="font-size:16px; margin-top:6px; font-weight:500">"I study at Sunshine School from Monday to Friday, and I really enjoy it."</div>
-              <button class="green" onclick="practiceHighScore(3)" style="margin-top:8px">Practice (+15pts)</button>
-            </div>
-          </div>
-        </div>
-      `;
-    },
-    right:(root)=>{
-      root.innerHTML = `
-        <div class="card soft">
-          <h2>Complex Sentences</h2>
-          <div class="sub">Build sentences with:</div>
-          <div class="btnRow" id="complexParts"></div>
-          <div id="complexResult" class="scene" style="height:100px; margin-top:12px; display:grid; place-items:center; font-size:16px; color:var(--mut)">
-            Tap buttons to build complex sentences
-          </div>
-          <button class="primary" onclick="testComplexSentence()" style="width:100%; margin-top:12px">Test Sentence (+20pts)</button>
-        </div>
-      `;
-    },
-    onMount: ()=>{
-      const parts = ['My favourite','subject is','English','because it is','useful','and also','interesting','which helps me','study better'];
-      const host = document.getElementById('complexParts');
-      parts.forEach((p,i)=>{
-        const btn = document.createElement('button');
-        btn.textContent = p;
-        btn.className = i%3===0 ? 'blue' : i%3===1 ? 'pink' : 'amber';
-        btn.onclick = function(){
-          const result = document.getElementById('complexResult');
-          const currentText = result.textContent;
-          result.textContent = currentText === 'Tap buttons to build complex sentences' ? p : currentText + ' ' + p;
-          updateScore(2, 'complex');
-        };
-        host.appendChild(btn);
-      });
-    }
-  },
-
-  // 11. FINAL SIMULATION
-  {
-    title:"Final Simulation", stage:"9. Assessment", one:true,
-    left:(root)=>{
-      root.innerHTML = `
-        <div class="card">
-          <h1>📝 Final KET Speaking Test</h1>
-          <div class="sub">Complete all tasks to earn your certificate!</div>
-          <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:16px">
-            <div style="padding:16px; background:rgba(77,150,255,.08); border-radius:14px">
-              <div class="mini">Task 1: Personal Info</div>
-              <div style="font-size:14px; margin-top:6px">5 questions</div>
-              <div id="task1Status">⏳ Not started</div>
-            </div>
-            <div style="padding:16px; background:rgba(34,197,54,.08); border-radius:14px">
-              <div class="mini">Task 2: School Life</div>
-              <div style="font-size:14px; margin-top:6px">5 questions</div>
-              <div id="task2Status">⏳ Not started</div>
-            </div>
-            <div style="padding:16px; background:rgba(251,191,36,.08); border-radius:14px; grid-column:1/-1">
-              <div class="mini">Task 3: 40-second Speech</div>
-              <div id="task3Status">⏳ Not started</div>
-            </div>
-          </div>
-          <div class="turn" style="margin-top:16px">
-            <div class="tTitle">🎤 Start Assessment</div>
-            <ul>
-              <li>Complete all tasks for final score</li>
-              <li>800+ points = Gold Certificate</li>
-              <li>600+ points = Silver Certificate</li>
-            </ul>
-          </div>
-          <div class="btnRow" style="justify-content:center; margin-top:16px">
-            <button class="primary" onclick="startFinalAssessment()" style="padding:16px 32px; font-size:18px">Start Final Test</button>
-          </div>
-        </div>
-      `;
-    },
-    onMount: ()=>{
-      window.assessmentProgress = {task1: false, task2: false, task3: false};
-    }
-  },
-
-  // 12. CERTIFICATE
-  {
-    title:"Certificate", stage:"10. Complete", one:true,
-    left:(root)=>{
-      root.innerHTML = `
-        <div class="card">
-          <h1>🎉 Congratulations!</h1>
-          <div class="scene" style="height:250px; background:linear-gradient(135deg, rgba(251,191,36,.15), rgba(139,92,246,.15)); display:grid; place-items:center; border-radius:20px">
-            <div style="text-align:center">
-              <div style="font-size:72px">🏆</div>
-              <div style="font-size:24px; color:var(--purple); margin-top:12px" id="certificateType">Gold Certificate</div>
-              <div style="font-size:36px; color:var(--amber); margin-top:8px" id="finalScoreDisplay">850pts</div>
-            </div>
-          </div>
-          <div class="challenge-box">
-            <h3>Your Achievements</h3>
-            <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; font-size:14px">
-              <div>✓ Vocabulary Master: <span id="vocabScore">--</span></div>
-              <div>✓ Dialogue Expert: <span id="dialogueScore">--</span></div>
-              <div>✓ Logic Builder: <span id="logicScore">--</span></div>
-              <div>✓ Speaking Pro: <span id="speakingScore">--</span></div>
-            </div>
-          </div>
-          <div class="turn">
-            <div class="tTitle">Next Steps</div>
-            <ul>
-              <li>Review weak areas (see feedback)</li>
-              <li>Practice with friends</li>
-              <li>Try Unit 2: Daily Routines</li>
-            </ul>
-          </div>
-        </div>
-      `;
-    },
-    onMount: ()=>{
-      // Calculate and display final scores
-      document.getElementById('finalScoreDisplay').textContent = userScore + 'pts';
-      
-      let certificate = 'Bronze Certificate';
-      if(userScore >= 800) certificate = 'Gold Certificate';
-      else if(userScore >= 600) certificate = 'Silver Certificate';
-      document.getElementById('certificateType').textContent = certificate;
-      
-      // Break down scores (simulated)
-      const vocabScore = Math.min(150, Math.floor(userScore * 0.3));
-      const dialogueScore = Math.min(150, Math.floor(userScore * 0.25));
-      const logicScore = Math.min(150, Math.floor(userScore * 0.25));
-      const speakingScore = Math.min(150, Math.floor(userScore * 0.2));
-      
-      document.getElementById('vocabScore').textContent = vocabScore + 'pts';
-      document.getElementById('dialogueScore').textContent = dialogueScore + 'pts';
-      document.getElementById('logicScore').textContent = logicScore + 'pts';
-      document.getElementById('speakingScore').textContent = speakingScore + 'pts';
-    }
-  }
-];
-
-/* =========================
-   Interactive Functions (Complete)
-   ========================= */
-function startVocabRace(){
-  let time = 60, score = 0;
-  const timer = setInterval(()=>{
-    time--;
-    document.getElementById('raceScore').textContent = `Time: ${time}s | Score: ${score}`;
-    if(time <= 0){
-      clearInterval(timer);
-      alert(`Race finished! Final score: ${score}`);
-      updateScore(score, 'race');
-    }
-  }, 1000);
-  
-  // Enable scoring on power words
-  document.querySelectorAll('#powerWords button').forEach(btn=>{
-    btn.addEventListener('click', ()=>{score += 5;}, {once: true});
-  });
-}
-
-function checkMemory(){
-  const input = document.getElementById('memoryTest').value.toLowerCase();
-  const words = ['name','friend','wave','point','look','hand','arm','eye','ear','mouth'];
-  const userWords = input.split(',').map(w=>w.trim());
-  const correct = userWords.filter(w=>words.includes(w)).length;
-  
-  const resultDiv = document.getElementById('memoryResult');
-  resultDiv.innerHTML = `Correct: ${correct} / 10 words. +${correct*2}pts`;
-  updateScore(correct*2, 'memory');
-}
-
-function practiceHighScore(level){
-  alert(`High-Score Level ${level}: Practice saying the full sentence 3 times with expression!`);
-  updateScore(15, 'highScore'+level);
-}
-
-function testLogic(){
-  const practice = document.getElementById('logicPractice');
-  if(practice.textContent.split(' ').length > 5){
-    alert('Great logic chain! +20pts');
-    updateScore(20, 'logic');
-  } else {
-    alert('Add more connectors for better logic!');
-  }
-}
-
-function practiceSchoolDesc(){
-  alert('Practice describing your school for 30 seconds. Use 2 power words and 1 because!');
-  updateScore(20, 'schoolDesc');
-}
-
-function startQuickFire(){
-  const questions = ["Name?","Age?","City?","Hobby?","School?"];
-  let qIndex = 0;
-  const qDiv = document.getElementById('quickFireQ');
-  
-  const interval = setInterval(()=>{
-    qDiv.textContent = questions[qIndex];
-    qIndex++;
-    if(qIndex >= questions.length){
-      clearInterval(interval);
-      document.getElementById('quickFireResult').textContent = 'Great! Quick responses earn +30pts';
-      updateScore(30, 'quickFire');
-    }
-  }, 3000);
-  
-  document.getElementById('quickFireResult').textContent = 'Answer each question immediately!';
-}
-
-function startFinalAssessment(){
-  alert('Starting final assessment! Complete all tasks to earn big points.');
-  
-  // Simulate task completion with delays
-  setTimeout(()=>{
-    document.getElementById('task1Status').innerHTML = '✅ Complete +150pts';
-    window.assessmentProgress.task1 = true;
-    updateScore(150, 'task1');
-  }, 2000);
-  
-  setTimeout(()=>{
-    document.getElementById('task2Status').innerHTML = '✅ Complete +150pts';
-    window.assessmentProgress.task2 = true;
-    updateScore(150, 'task2');
-  }, 4000);
-  
-  setTimeout(()=>{
-    document.getElementById('task3Status').innerHTML = '✅ Complete +200pts';
-    window.assessmentProgress.task3 = true;
-    updateScore(200, 'task3');
-    
-    // Auto-advance to certificate after completion
-    setTimeout(()=>show(11), 1000);
-  }, 6000);
-}
-
-function simulateRolePlay(id){
-  alert('Role-Play Mode: Speak each line aloud. Tap when finished!');
-  updateScore(10, 'roleplay');
-}
-
-function extendDialogue(){
-  alert('Practice adding details: "My name is Tom" → "My name is Tom, I am 11 years old"');
-  updateScore(10, 'extension');
-}
-
-/* =========================
-   Slide Rendering System (Complete)
-   ========================= */
-function slideShell({title, stage, rightMeta, one=false}){
-  const s = document.createElement('section');
-  s.className = 'slide';
-  s.dataset.title = title;
-  
-  const header = document.createElement('div');
-  header.className = 'header';
-  header.innerHTML = `
-    <div class="badge"><span class="dot"></span> ${stage}</div>
-    <div class="meta">
-      <span class="pill" data-count>1 / ${slides.length}</span>
-      ${rightMeta ? `<span class="pill">${rightMeta}</span>` : ``}
-    </div>
-  `;
-  
-  const wrap = document.createElement('div');
-  wrap.className = 'wrap' + (one ? ' one' : '');
-  
-  s.appendChild(header);
-  s.appendChild(wrap);
-  return {s, wrap};
-}
-
-const deck = document.getElementById('deck');
-const slides = [];
-slideDefs.forEach(def=>{
-  const {s, wrap} = slideShell({
-    title: def.title,
-    stage: def.stage,
-    rightMeta: def.rightMeta,
-    one: !!def.one
-  });
-  
-  if(def.one){
-    const slot = document.createElement('div'); slot.className = 'slot';
-    wrap.appendChild(slot);
-    def.left(slot);
-  } else {
-    const left = document.createElement('div'); left.className = 'slot';
-    const right = document.createElement('div'); right.className = 'slot';
-    wrap.appendChild(left); wrap.appendChild(right);
-    def.left(left);
-    if(def.right) def.right(right);
-  }
-  
-  deck.appendChild(s);
-  slides.push({el:s, onMount:def.onMount||null, title:def.title});
-});
-
-// Bottom Navigation
-const nav = document.createElement('div');
-nav.id = "nav";
-nav.innerHTML = `
-  <button class="navBtn secondary" id="prev">⬅ Prev</button>
-  <div class="center">
-    <span id="navTitle">Lesson Start</span>
-    <div class="progress" aria-label="progress"><div class="bar" id="bar"></div></div>
-    <span id="count">1 / ${slides.length}</span>
-  </div>
-  <button class="navBtn" id="next">Next ➡</button>
-`;
-deck.appendChild(nav);
-
-let idx = 0;
-function show(i){
-  idx = Math.max(0, Math.min(slides.length-1, i));
-  slides.forEach((s,k)=>s.el.classList.toggle('active', k===idx));
-  
-  const c = slides[idx].el.querySelector('[data-count]');
-  if(c) c.textContent = `${idx+1} / ${slides.length}`;
-  
-  document.getElementById('navTitle').textContent = slides[idx].title;
-  document.getElementById('count').textContent = `${idx+1} / ${slides.length}`;
-  document.getElementById('prev').disabled = idx===0;
-  document.getElementById('next').disabled = idx===slides.length-1;
-  document.getElementById('bar').style.width = ((idx+1)/slides.length*100) + '%';
-  
-  if(slides[idx].onMount) slides[idx].onMount();
-}
-
-document.getElementById('prev').onclick = ()=>show(idx-1);
-document.getElementById('next').onclick = ()=>show(idx+1);
-
-// Keyboard Controls
-window.addEventListener('keydown', e=>{
-  const k = e.key.toLowerCase();
-  if(k==='arrowright' || k===' ') show(idx+1);
-  if(k==='arrowleft') show(idx-1);
-});
-
-// Swipe Support
-let sx=null;
-window.addEventListener('touchstart', e=>sx=e.changedTouches[0].clientX, {passive:true});
-window.addEventListener('touchend', e=>{
-  if(sx===null) return;
-  const dx = e.changedTouches[0].clientX - sx;
-  if(dx < -50) show(idx+1);
-  if(dx > 50) show(idx-1);
-  sx=null;
-},{passive:true});
-
-// Initialize
-show(0);
-</script>
+        }
+    </script>
 </body>
 </html>
