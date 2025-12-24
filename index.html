@@ -1692,4 +1692,583 @@
     <div class="panel">
       <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px">
         <div>
-          <b style="font-size:16px">Slide
+          <b style="font-size:16px">Slide Menu</b>
+          <span class="mini">Click to jump</span>
+        </div>
+        <button class="btn small" id="closeMenu">Close</button>
+      </div>
+      <div class="grid" id="thumbGrid"></div>
+    </div>
+  </div>
+
+  <!-- HELP OVERLAY -->
+  <div class="overlay" id="helpOverlay" role="dialog" aria-modal="true" aria-label="Help">
+    <div class="panel">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px">
+        <div>
+          <b style="font-size:16px">Help</b>
+          <span class="mini">How to use this deck</span>
+        </div>
+        <button class="btn small" id="closeHelp">Close</button>
+      </div>
+      <div class="card">
+        <ul style="margin:0; padding-left:18px; line-height:1.6">
+          <li><b>Next / Prev:</b> buttons, click empty area, or keys <b>← →</b>, <b>Space</b></li>
+          <li><b>Menu:</b> press <b>M</b></li>
+          <li><b>Show Chinese hint:</b> tap a word card (tap again to hide)</li>
+          <li><b>Speaking rule:</b> try <b>2 sentences</b> every slide</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ======= Online images (OpenMoji + Wikimedia Commons) =======
+    const ASSETS = {
+      // OpenMoji direct downloads
+      cap: "https://openmoji.org/php/download_asset.php?emoji_hexcode=1F393&emoji_variant=color&type=emoji",
+      schoolIcon: "https://openmoji.org/php/download_asset.php?emoji_hexcode=1F3EB&emoji_variant=color&type=emoji",
+      playgroundIcon: "https://openmoji.org/php/download_asset.php?emoji_hexcode=1F6DD&emoji_variant=color&type=emoji",
+      pencil: "https://openmoji.org/php/download_asset.php?emoji_hexcode=270F&emoji_variant=color&type=emoji",
+      memo: "https://openmoji.org/php/download_asset.php?emoji_hexcode=1F4DD&emoji_variant=color&type=emoji",
+      books: "https://openmoji.org/php/download_asset.php?emoji_hexcode=1F4DA&emoji_variant=color&type=emoji",
+      calendar: "https://openmoji.org/php/download_asset.php?emoji_hexcode=1F4C5&emoji_variant=color&type=emoji",
+      people: "https://openmoji.org/php/download_asset.php?emoji_hexcode=1F465&emoji_variant=color&type=emoji",
+      tie: "https://openmoji.org/php/download_asset.php?emoji_hexcode=1F454&emoji_variant=color&type=emoji",
+      label: "https://openmoji.org/php/download_asset.php?emoji_hexcode=1F3F7&emoji_variant=color&type=emoji",
+      bag: "https://openmoji.org/php/download_asset.php?emoji_hexcode=1F392&emoji_variant=color&type=emoji",
+      stopwatch: "https://openmoji.org/php/download_asset.php?emoji_hexcode=23F1&emoji_variant=color&type=emoji",
+
+      // Wikimedia Commons (Special:FilePath redirects to the file)
+      photoSchool: "https://commons.wikimedia.org/wiki/Special:FilePath/School_Building_with_sign.jpg",
+      photoClassroom: "https://commons.wikimedia.org/wiki/Special:FilePath/Empty_classroom.jpg",
+      photoLibrary: "https://commons.wikimedia.org/wiki/Special:FilePath/Fort_Lupton_Public_%26_School_Library_Interior.jpg",
+      photoPlayground: "https://commons.wikimedia.org/wiki/Special:FilePath/Playground_and_slide.jpg",
+      photoClub: "https://commons.wikimedia.org/wiki/Special:FilePath/After_School_Club.jpg"
+    };
+
+    // set icons
+    const setSrc = (id, src) => { const el = document.getElementById(id); if(el) el.src = src; };
+
+    setSrc("capIcon", ASSETS.cap);
+    setSrc("capIcon2", ASSETS.cap);
+    setSrc("capIcon3", ASSETS.cap);
+    setSrc("capIcon4", ASSETS.cap);
+    setSrc("capIcon5", ASSETS.cap);
+    setSrc("capIcon6", ASSETS.cap);
+    setSrc("capIcon7", ASSETS.cap);
+    setSrc("capIcon8", ASSETS.cap);
+    setSrc("capIcon9", ASSETS.cap);
+    setSrc("capIcon10", ASSETS.cap);
+    setSrc("capIcon11", ASSETS.cap);
+    setSrc("capIcon12", ASSETS.cap);
+    setSrc("capIcon13", ASSETS.cap);
+    setSrc("capIcon14", ASSETS.cap);
+    setSrc("capIcon15", ASSETS.cap);
+    setSrc("capIcon16", ASSETS.cap);
+    setSrc("capIcon17", ASSETS.cap);
+    setSrc("capIcon18", ASSETS.cap);
+    setSrc("capIcon19", ASSETS.cap);
+    setSrc("capIcon20", ASSETS.cap);
+    setSrc("capIcon21", ASSETS.cap);
+    setSrc("capIcon22", ASSETS.cap);
+    setSrc("capIcon23", ASSETS.cap);
+    setSrc("capIcon24", ASSETS.cap);
+    setSrc("capIcon25", ASSETS.cap);
+    setSrc("capIcon26", ASSETS.cap);
+    setSrc("capIcon27", ASSETS.cap);
+    setSrc("capIcon28", ASSETS.cap);
+
+    setSrc("schoolIcon", ASSETS.schoolIcon);
+    setSrc("schoolIcon2", ASSETS.schoolIcon);
+    setSrc("schoolIcon3", ASSETS.schoolIcon);
+
+    setSrc("playIcon1", ASSETS.playgroundIcon);
+
+    setSrc("pencilIcon1", ASSETS.pencil);
+    setSrc("pencilIcon2", ASSETS.pencil);
+    setSrc("pencilIcon3", ASSETS.pencil);
+    setSrc("pencilIcon4", ASSETS.pencil);
+
+    setSrc("memoIcon1", ASSETS.memo);
+    setSrc("memoIcon2", ASSETS.memo);
+    setSrc("memoIcon3", ASSETS.memo);
+
+    setSrc("bookIcon1", ASSETS.books);
+    setSrc("bookIcon2", ASSETS.books);
+    setSrc("libIcon1", ASSETS.books);
+    setSrc("libIcon2", ASSETS.books);
+
+    setSrc("calendarIcon1", ASSETS.calendar);
+    setSrc("calendarIcon2", ASSETS.calendar);
+
+    setSrc("peopleIcon1", ASSETS.people);
+    setSrc("peopleIcon2", ASSETS.people);
+    setSrc("peopleIcon3", ASSETS.people);
+    setSrc("peopleIcon4", ASSETS.people);
+    setSrc("peopleIcon5", ASSETS.people);
+    setSrc("peopleIcon6", ASSETS.people);
+
+    setSrc("tieIcon1", ASSETS.tie);
+
+    setSrc("labelIcon", ASSETS.label);
+    setSrc("labelIcon2", ASSETS.label);
+    setSrc("labelIcon3", ASSETS.label);
+    setSrc("labelIcon4", ASSETS.label);
+    setSrc("labelIcon5", ASSETS.label);
+    setSrc("labelIcon6", ASSETS.label);
+    setSrc("labelIcon7", ASSETS.label);
+    setSrc("labelIcon8", ASSETS.label);
+
+    setSrc("bagIcon", ASSETS.bag);
+    setSrc("bagIcon2", ASSETS.bag);
+    setSrc("bagIcon3", ASSETS.bag);
+    setSrc("bagIcon4", ASSETS.bag);
+
+    setSrc("stopIcon", ASSETS.stopwatch);
+    setSrc("stopIcon2", ASSETS.stopwatch);
+    setSrc("stopIcon3", ASSETS.stopwatch);
+    setSrc("stopIcon4", ASSETS.stopwatch);
+    setSrc("stopIcon5", ASSETS.stopwatch);
+    setSrc("stopIcon6", ASSETS.stopwatch);
+    setSrc("stopIcon7", ASSETS.stopwatch);
+    setSrc("stopIcon8", ASSETS.stopwatch);
+    setSrc("stopIcon9", ASSETS.stopwatch);
+    setSrc("stopIcon10", ASSETS.stopwatch);
+
+    // quick simple icons for extra fields (use OpenMoji that we already have)
+    setSrc("houseIcon1", ASSETS.schoolIcon);
+    setSrc("houseIcon2", ASSETS.schoolIcon);
+    setSrc("mapIcon1", ASSETS.calendar);
+    setSrc("mapIcon2", ASSETS.calendar);
+    setSrc("mapIcon3", ASSETS.calendar);
+    setSrc("mapIcon4", ASSETS.calendar);
+    setSrc("mapIcon5", ASSETS.calendar);
+
+    setSrc("roomIcon1", ASSETS.schoolIcon);
+    setSrc("roomIcon2", ASSETS.schoolIcon);
+    setSrc("clubIcon1", ASSETS.bag);
+
+    // photos
+    setSrc("schoolPhoto", ASSETS.photoSchool);
+    setSrc("classroomPhoto", ASSETS.photoClassroom);
+    setSrc("libraryPhoto", ASSETS.photoLibrary);
+    setSrc("playgroundPhoto", ASSETS.photoPlayground);
+    setSrc("clubPhoto", ASSETS.photoClub);
+
+    // spark placeholders (emoji text)
+    const spark = (id) => { const el = document.getElementById(id); if(el) el.alt = "spark"; };
+    ["sparkIcon1","sparkIcon2","sparkIcon3","sparkIcon4","sparkIcon5","sparkIcon6","sparkIcon7","sparkIcon8","sparkIcon9","sparkIcon10","sparkIcon11"]
+      .forEach(spark);
+
+    // ======= Deck navigation =======
+    const slides = Array.from(document.querySelectorAll(".slide"));
+    let idx = 0;
+
+    const progressBar = document.getElementById("progressBar");
+    const metaText = document.getElementById("metaText");
+    const toast = document.getElementById("toast");
+
+    function showToast(msg){
+      toast.textContent = msg;
+      toast.style.display = "block";
+      clearTimeout(showToast._t);
+      showToast._t = setTimeout(()=>toast.style.display="none", 1400);
+    }
+
+    function renderDots(){
+      const total = slides.length;
+      const makeDots = (holderId) => {
+        const holder = document.getElementById(holderId);
+        if(!holder) return;
+        holder.innerHTML = "";
+        const max = Math.min(14, total);
+        for(let i=0;i<max;i++){
+          const d = document.createElement("div");
+          d.className = "dot" + (i === (idx % max) ? " on" : "");
+          holder.appendChild(d);
+        }
+      };
+      for(let i=1;i<=29;i++) makeDots("dots"+i);
+    }
+
+    function update(){
+      slides.forEach((s,i)=>s.classList.toggle("active", i===idx));
+      const pct = ((idx+1)/slides.length)*100;
+      progressBar.style.width = pct.toFixed(2) + "%";
+      const t = slides[idx].dataset.title || "Slide";
+      const sub = slides[idx].dataset.sub || "";
+      metaText.textContent = `${t}${sub ? " · " + sub : ""}`;
+      renderDots();
+      // pre-load spinner image on first open
+      if(t === "Pictures") ensureSpinnerInit();
+    }
+
+    function next(){
+      idx = Math.min(slides.length-1, idx+1);
+      update();
+    }
+    function prev(){
+      idx = Math.max(0, idx-1);
+      update();
+    }
+
+    document.getElementById("nextBtn").addEventListener("click", next);
+    document.getElementById("prevBtn").addEventListener("click", prev);
+
+    // click empty area to go next (avoid interactive elements)
+    document.addEventListener("click", (e)=>{
+      const interactive = e.target.closest("button, .btn, .chip, .vcard, .piece, .showBtn, input, textarea, a");
+      const overlays = document.querySelector(".overlay.show");
+      if(overlays) return;
+      if(interactive) return;
+      // only if clicking inside deck
+      const inDeck = e.target.closest("#deck");
+      if(!inDeck) return;
+      next();
+    });
+
+    document.addEventListener("keydown", (e)=>{
+      if(document.getElementById("menuOverlay").classList.contains("show") ||
+         document.getElementById("helpOverlay").classList.contains("show")){
+        if(e.key === "Escape"){ closeOverlays(); }
+        return;
+      }
+      if(e.key === "ArrowRight" || e.key === " "){ e.preventDefault(); next(); }
+      if(e.key === "ArrowLeft"){ e.preventDefault(); prev(); }
+      if(e.key.toLowerCase() === "m"){ toggleMenu(); }
+      if(e.key === "?" || (e.shiftKey && e.key === "/")){ toggleHelp(); }
+    });
+
+    // ======= Menu / Help =======
+    const menuOverlay = document.getElementById("menuOverlay");
+    const helpOverlay = document.getElementById("helpOverlay");
+    const thumbGrid = document.getElementById("thumbGrid");
+
+    function closeOverlays(){
+      menuOverlay.classList.remove("show");
+      helpOverlay.classList.remove("show");
+    }
+    function toggleMenu(){
+      if(helpOverlay.classList.contains("show")) helpOverlay.classList.remove("show");
+      menuOverlay.classList.toggle("show");
+    }
+    function toggleHelp(){
+      if(menuOverlay.classList.contains("show")) menuOverlay.classList.remove("show");
+      helpOverlay.classList.toggle("show");
+    }
+    document.getElementById("menuBtn").addEventListener("click", toggleMenu);
+    document.getElementById("hintBtn").addEventListener("click", toggleHelp);
+    document.getElementById("closeMenu").addEventListener("click", closeOverlays);
+    document.getElementById("closeHelp").addEventListener("click", closeOverlays);
+    menuOverlay.addEventListener("click", (e)=>{ if(e.target === menuOverlay) closeOverlays(); });
+    helpOverlay.addEventListener("click", (e)=>{ if(e.target === helpOverlay) closeOverlays(); });
+    document.getElementById("goMenuEnd")?.addEventListener("click", toggleMenu);
+
+    // build thumbnails
+    function buildMenu(){
+      thumbGrid.innerHTML = "";
+      slides.forEach((s,i)=>{
+        const div = document.createElement("div");
+        div.className = "thumb";
+        const title = s.dataset.title || `Slide ${i+1}`;
+        const sub = s.dataset.sub || "";
+        div.innerHTML = `<b>${String(i+1).padStart(2,"0")} · ${title}</b><span>${sub}</span>`;
+        div.addEventListener("click", ()=>{
+          idx = i;
+          update();
+          closeOverlays();
+        });
+        thumbGrid.appendChild(div);
+      });
+    }
+    buildMenu();
+
+    // ======= Vocabulary reveal (tap to show CN hint) =======
+    document.querySelectorAll(".vcard").forEach(card=>{
+      card.addEventListener("click", (e)=>{
+        e.stopPropagation();
+        card.classList.toggle("reveal");
+      });
+    });
+
+    // ======= Warm-up chips =======
+    const warmMap = {
+      name: ["Amy", "Leo", "Mia", "Jack", "Olivia"],
+      age: ["9", "10", "11", "12"],
+      school: ["Sunshine", "Green Lake", "Star", "Happy Kids"]
+    };
+    document.querySelectorAll("[data-fill]").forEach(chip=>{
+      chip.addEventListener("click", (e)=>{
+        e.stopPropagation();
+        const key = chip.dataset.fill;
+        const pick = warmMap[key][Math.floor(Math.random()*warmMap[key].length)];
+        showToast(pick);
+      });
+    });
+    document.getElementById("warmReset")?.addEventListener("click", (e)=>{
+      e.stopPropagation();
+      showToast("Reset!");
+    });
+
+    // ======= Chunks example =======
+    const chunkExample = document.getElementById("chunkExample");
+    document.querySelectorAll(".chunk").forEach(ch=>{
+      ch.addEventListener("click", (e)=>{
+        e.stopPropagation();
+        chunkExample.textContent = ch.dataset.example || "—";
+      });
+    });
+
+    // ======= Example taps for sentence slides =======
+    function wireExamples(selector, outId){
+      document.querySelectorAll(selector).forEach(btn=>{
+        btn.addEventListener("click", (e)=>{
+          e.stopPropagation();
+          const line = btn.dataset.say || "";
+          const out = document.getElementById(outId);
+          if(out) out.textContent = line || "—";
+        });
+      });
+    }
+    wireExamples('[data-say][class*="chip"]', "exLine1"); // first slide will update too often, ok
+    // More precise: use capture based on current slide output boxes
+    document.querySelectorAll(".slide").forEach(sl=>{
+      sl.querySelectorAll(".chip[data-say]").forEach(chip=>{
+        chip.addEventListener("click", (e)=>{
+          e.stopPropagation();
+          const line = chip.dataset.say || "";
+          const out = sl.querySelector(".card.tight .mini");
+          if(out) out.textContent = line || "—";
+        });
+      });
+    });
+
+    // ======= Q practice show sample =======
+    document.querySelectorAll(".showBtn").forEach(btn=>{
+      btn.addEventListener("click", (e)=>{
+        e.stopPropagation();
+        const item = btn.closest(".qitem");
+        if(item) item.classList.toggle("show");
+      });
+    });
+
+    // ======= Random adjective prompts =======
+    const adjPrompts1 = [
+      "My school is friendly because the teachers are helpful.",
+      "English is interesting because we play games in class.",
+      "My teacher is strict, but I still like her."
+    ];
+    const adjPrompts2 = [
+      "English is useful because I can talk with foreigners.",
+      "Maths is difficult because there are many numbers.",
+      "My classroom is comfortable because it is clean and bright."
+    ];
+    const adjLine1 = document.getElementById("adjLine1");
+    const adjLine2 = document.getElementById("adjLine2");
+    document.getElementById("randAdj1")?.addEventListener("click",(e)=>{
+      e.stopPropagation();
+      adjLine1.textContent = adjPrompts1[Math.floor(Math.random()*adjPrompts1.length)];
+    });
+    document.getElementById("clearAdj1")?.addEventListener("click",(e)=>{
+      e.stopPropagation();
+      adjLine1.textContent = "";
+    });
+    document.getElementById("randAdj2")?.addEventListener("click",(e)=>{
+      e.stopPropagation();
+      adjLine2.textContent = adjPrompts2[Math.floor(Math.random()*adjPrompts2.length)];
+    });
+    document.getElementById("clearAdj2")?.addEventListener("click",(e)=>{
+      e.stopPropagation();
+      adjLine2.textContent = "";
+    });
+
+    // ======= Build game (click pieces) =======
+    const pieces = [
+      "Hi! My name is ___",
+      "and I’m ___ years old.",
+      "I live in ___",
+      "with my parents.",
+      "I’m a student at ___ School.",
+      "My school is ___",
+      "because it’s ___.",
+      "My favourite subject is ___.",
+      "I like it because ___.",
+      "After school, I often ___.",
+      "If I have time, I go to the library.",
+      "I feel proud when I get good marks."
+    ];
+    const tray = document.getElementById("pieceTray");
+    const builtText = document.getElementById("builtText");
+    const buildSample = document.getElementById("buildSample");
+
+    function initBuild(){
+      if(!tray) return;
+      tray.innerHTML = "";
+      builtText.textContent = "Your sentence will appear here…";
+      pieces.forEach((p)=>{
+        const b = document.createElement("div");
+        b.className = "piece";
+        b.textContent = p;
+        b.addEventListener("click",(e)=>{
+          e.stopPropagation();
+          if(b.classList.contains("used")) return;
+          b.classList.add("used");
+          if(builtText.textContent.includes("appear here")) builtText.textContent = "";
+          builtText.textContent += (builtText.textContent ? " " : "") + p;
+        });
+        tray.appendChild(b);
+      });
+      if(buildSample) buildSample.style.display = "none";
+    }
+    initBuild();
+
+    document.getElementById("buildReset")?.addEventListener("click",(e)=>{
+      e.stopPropagation();
+      initBuild();
+    });
+    document.getElementById("buildHint")?.addEventListener("click",(e)=>{
+      e.stopPropagation();
+      if(buildSample){
+        buildSample.style.display = buildSample.style.display === "none" ? "block" : "none";
+      }
+    });
+    document.getElementById("buildSpeak")?.addEventListener("click",(e)=>{
+      e.stopPropagation();
+      showToast("Speak it out loud!");
+    });
+
+    // ======= Picture spinner =======
+    const spinnerItems = [
+      { name:"school", img: ASSETS.photoSchool },
+      { name:"classroom", img: ASSETS.photoClassroom },
+      { name:"library", img: ASSETS.photoLibrary },
+      { name:"playground", img: ASSETS.photoPlayground },
+      { name:"club", img: ASSETS.photoClub }
+    ];
+    const spinImg = document.getElementById("spinImg");
+    const spinName = document.getElementById("spinName");
+    const spinBtn = document.getElementById("spinBtn");
+    const spinHint = document.getElementById("spinHint");
+    const spinReveal = document.getElementById("spinRevealHint");
+    let spinnerReady = false;
+
+    function ensureSpinnerInit(){
+      if(spinnerReady) return;
+      spinnerReady = true;
+      const first = spinnerItems[0];
+      if(spinImg) spinImg.src = first.img;
+      if(spinName) spinName.textContent = first.name;
+      // preload
+      spinnerItems.forEach(it=>{ const im = new Image(); im.src = it.img; });
+    }
+    if(spinBtn){
+      spinBtn.addEventListener("click",(e)=>{
+        e.stopPropagation();
+        const pick = spinnerItems[Math.floor(Math.random()*spinnerItems.length)];
+        if(spinImg) spinImg.src = pick.img;
+        if(spinName) spinName.textContent = pick.name;
+        if(spinHint) spinHint.style.display = "none";
+      });
+    }
+    if(spinReveal){
+      spinReveal.addEventListener("click",(e)=>{
+        e.stopPropagation();
+        if(spinHint){
+          spinHint.style.display = spinHint.style.display === "none" ? "block" : "none";
+        }
+      });
+    }
+
+    // ======= Timer =======
+    const clock = document.getElementById("clock");
+    let timer = { total: 40, left: 40, running: false, t: null };
+
+    function fmt(sec){
+      const m = Math.floor(sec/60);
+      const s = sec%60;
+      return String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");
+    }
+    function setClock(){
+      if(clock) clock.textContent = fmt(timer.left);
+    }
+    function stopInterval(){
+      if(timer.t) clearInterval(timer.t);
+      timer.t = null;
+    }
+    function start(){
+      if(timer.running) return;
+      timer.running = true;
+      timer.t = setInterval(()=>{
+        timer.left = Math.max(0, timer.left - 1);
+        setClock();
+        if(timer.left === 0){
+          stopInterval();
+          timer.running = false;
+          showToast("Stop! Great job!");
+        }
+      }, 1000);
+    }
+    function pause(){
+      timer.running = false;
+      stopInterval();
+      showToast("Paused");
+    }
+    function reset(){
+      timer.running = false;
+      stopInterval();
+      timer.left = timer.total;
+      setClock();
+    }
+    document.getElementById("t30")?.addEventListener("click",(e)=>{ e.stopPropagation(); timer.total=30; timer.left=30; setClock(); });
+    document.getElementById("t40")?.addEventListener("click",(e)=>{ e.stopPropagation(); timer.total=40; timer.left=40; setClock(); });
+    document.getElementById("t50")?.addEventListener("click",(e)=>{ e.stopPropagation(); timer.total=50; timer.left=50; setClock(); });
+    document.getElementById("startTimer")?.addEventListener("click",(e)=>{ e.stopPropagation(); start(); });
+    document.getElementById("pauseTimer")?.addEventListener("click",(e)=>{ e.stopPropagation(); pause(); });
+    document.getElementById("resetTimer")?.addEventListener("click",(e)=>{ e.stopPropagation(); reset(); });
+
+    // init timer display
+    setClock();
+
+    // ======= Confetti (simple) =======
+    const confettiBtn = document.getElementById("confettiBtn");
+    function confetti(){
+      const N = 80;
+      for(let i=0;i<N;i++){
+        const d = document.createElement("div");
+        d.style.position="fixed";
+        d.style.left = (Math.random()*100)+"vw";
+        d.style.top = "-20px";
+        d.style.width = (6+Math.random()*8)+"px";
+        d.style.height = (8+Math.random()*14)+"px";
+        d.style.background = ["#7c5cff","#20c997","#ffb703","#ff5d5d","#38bdf8"][Math.floor(Math.random()*5)];
+        d.style.borderRadius="3px";
+        d.style.zIndex=120;
+        d.style.opacity=".9";
+        d.style.transform=`rotate(${Math.random()*360}deg)`;
+        document.body.appendChild(d);
+        const dur = 1200 + Math.random()*1000;
+        const drift = (Math.random()*2-1)*120;
+        d.animate([
+          { transform:`translate(0,0) rotate(0deg)`, opacity:.9 },
+          { transform:`translate(${drift}px, 110vh) rotate(${360+Math.random()*360}deg)`, opacity:1 }
+        ], { duration: dur, easing:"cubic-bezier(.2,.8,.2,1)" });
+        setTimeout(()=>d.remove(), dur+50);
+      }
+      showToast("🎉");
+    }
+    confettiBtn?.addEventListener("click",(e)=>{ e.stopPropagation(); confetti(); });
+
+    // ======= Starter chips toast =======
+    document.querySelectorAll(".starter").forEach(ch=>{
+      ch.addEventListener("click",(e)=>{
+        e.stopPropagation();
+        showToast(ch.textContent);
+      });
+    });
+
+    // Initial update
+    update();
+  </script>
+</body>
+</html>
