@@ -3,413 +3,970 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KET Oral Lesson 1: About Me & School</title>
+    <title>KET Speaking: About Me & School</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            --primary: #4A90E2;
-            --secondary: #50E3C2;
-            --accent: #FF6B6B;
-            --bg: #F0F4F8;
-            --text: #333;
-            --card-bg: #FFFFFF;
-        }
-        body {
-            font-family: 'Segoe UI', 'Roboto', Helvetica, Arial, sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
+        * {
             margin: 0;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        .slide-container {
-            width: 90%;
-            height: 90%;
-            max-width: 1200px;
-            background: var(--card-bg);
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
-        .slide {
-            display: none;
-            flex-direction: column;
-            height: 100%;
-            padding: 40px;
+            padding: 0;
             box-sizing: border-box;
-            animation: fadeIn 0.5s;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        .slide.active {
-            display: flex;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        h1 { color: var(--primary); margin-bottom: 10px; font-size: 2.5em; }
-        h2 { color: var(--accent); margin-top: 0; }
-        .content { flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
         
-        /* Interactive Elements */
-        .btn {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 50px;
-            cursor: pointer;
-            font-size: 1.2em;
-            margin: 10px;
-            transition: transform 0.2s;
+        body {
+            background-color: #f0f7ff;
+            color: #333;
+            overflow-x: hidden;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
-        .btn:hover { transform: scale(1.05); background: #357ABD; }
-        .nav-buttons {
-            position: absolute;
-            bottom: 20px;
-            right: 30px;
+        
+        .header {
+            background: linear-gradient(135deg, #4a6fa5, #2c3e50);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             z-index: 100;
         }
-        .nav-btn {
-            background: rgba(0,0,0,0.1);
-            border: none;
-            font-size: 24px;
-            cursor: pointer;
-            padding: 10px 20px;
-            border-radius: 10px;
-        }
-        .nav-btn:hover { background: rgba(0,0,0,0.2); }
-
-        /* Vocab Cards */
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 15px;
-            width: 100%;
-        }
-        .vocab-card {
-            background: #f9f9f9;
-            border: 2px solid var(--primary);
-            border-radius: 10px;
-            padding: 20px;
-            text-align: center;
-            cursor: pointer;
-            transition: 0.3s;
-            font-weight: bold;
-            font-size: 1.1em;
-        }
-        .vocab-card:hover { background: var(--primary); color: white; }
-        .vocab-card span { display: block; font-size: 0.8em; font-weight: normal; color: #666; margin-top: 5px; }
-        .vocab-card:hover span { color: #eee; }
-
-        /* Mind Map Styling */
-        .mind-map-box {
+        
+        .logo {
             display: flex;
-            gap: 20px;
-            align-items: stretch;
-            width: 100%;
+            align-items: center;
+            gap: 10px;
+            font-weight: bold;
+            font-size: 1.4rem;
+        }
+        
+        .logo i {
+            color: #ffcc00;
+        }
+        
+        .slide-counter {
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+        }
+        
+        .container {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+        }
+        
+        .sidebar {
+            width: 70px;
+            background-color: #2c3e50;
+            padding: 20px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
+        }
+        
+        .nav-btn {
+            background: none;
+            border: none;
+            color: #bdc3c7;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            padding: 10px;
+            border-radius: 8px;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
             justify-content: center;
         }
-        .mm-column {
-            flex: 1;
-            background: #eef;
-            padding: 15px;
-            border-radius: 15px;
-            border-left: 5px solid var(--primary);
-        }
-        .mm-title { font-weight: bold; color: var(--primary); margin-bottom: 10px; font-size: 1.2em;}
-        .mm-item { background: white; margin: 5px 0; padding: 10px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-
-        /* Timer */
-        .timer-box {
-            font-size: 3em;
-            color: var(--accent);
-            font-weight: bold;
-            margin: 20px;
-        }
-
-        /* Teacher Notes */
-        .teacher-note {
-            position: absolute;
-            bottom: 20px;
-            left: 30px;
-            font-size: 0.9em;
-            color: #888;
-            background: #fff3cd;
-            padding: 5px 10px;
-            border-radius: 5px;
-            border: 1px solid #ffeeba;
-        }
-
-        /* Lists */
-        ul.check-list { list-style: none; padding: 0; text-align: left; display: inline-block; }
-        ul.check-list li { margin: 10px 0; font-size: 1.3em; }
-        ul.check-list li::before { content: "✅"; margin-right: 10px; }
-
-        .hidden { visibility: hidden; }
-        .visible { visibility: visible; animation: fadeIn 0.5s; }
         
-        .bubble {
-            background: white;
-            border: 3px solid var(--secondary);
+        .nav-btn:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+        
+        .nav-btn.active {
+            background-color: #4a6fa5;
+            color: white;
+        }
+        
+        .slides-container {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            transform: translateX(100px);
+            transition: opacity 0.5s, transform 0.5s;
+            overflow-y: auto;
+        }
+        
+        .slide.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .slide-title {
+            color: #2c3e50;
+            border-bottom: 3px solid #4a6fa5;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .slide-title i {
+            color: #4a6fa5;
+        }
+        
+        .content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .row {
+            display: flex;
+            gap: 20px;
+            flex: 1;
+        }
+        
+        .col {
+            flex: 1;
+            background-color: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border-left: 5px solid #4a6fa5;
+        }
+        
+        .col.highlight {
+            border-left-color: #ffcc00;
+            background-color: #fffdf0;
+        }
+        
+        .section-title {
+            color: #4a6fa5;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .vocab-list, .phrase-list, .sentence-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .vocab-item, .phrase-item, .sentence-item {
+            background-color: #eef5ff;
+            padding: 8px 15px;
             border-radius: 20px;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .phrase-item {
+            background-color: #f0f9ff;
+        }
+        
+        .sentence-item {
+            background-color: #f9f0ff;
+        }
+        
+        .power-up {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        
+        .interaction-box {
+            background-color: #e8f4ff;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            border: 2px dashed #4a6fa5;
+        }
+        
+        .question {
+            font-size: 1.2rem;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .answer-box {
+            background-color: white;
+            border-radius: 8px;
             padding: 15px;
-            margin: 10px;
+            margin-bottom: 15px;
+            border-left: 4px solid #3498db;
+        }
+        
+        .student-speak {
+            font-style: italic;
+            color: #27ae60;
+            margin-top: 10px;
+        }
+        
+        .timer {
             display: inline-block;
-            font-size: 1.2em;
+            background-color: #2c3e50;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            margin-left: 15px;
+            font-size: 0.9rem;
+        }
+        
+        .mic-icon {
+            display: inline-block;
+            background-color: #ffcc00;
+            color: #2c3e50;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            background-color: white;
+            border-top: 1px solid #ddd;
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            border-radius: 30px;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s;
+        }
+        
+        .btn-prev {
+            background-color: #ecf0f1;
+            color: #7f8c8d;
+        }
+        
+        .btn-next {
+            background-color: #4a6fa5;
+            color: white;
+        }
+        
+        .btn-practice {
+            background-color: #27ae60;
+            color: white;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .speech-bubble {
+            position: relative;
+            background-color: white;
+            border-radius: 12px;
+            padding: 15px;
+            margin: 15px 0;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e0e0e0;
+        }
+        
+        .speech-bubble:after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 30px;
+            border-width: 10px;
+            border-style: solid;
+            border-color: white transparent transparent transparent;
+        }
+        
+        .avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #4a6fa5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.8rem;
+            margin-right: 15px;
+        }
+        
+        .student-avatar {
+            background-color: #27ae60;
+        }
+        
+        .teacher-avatar {
+            background-color: #e74c3c;
+        }
+        
+        .dialog {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        
+        .mind-map {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .mind-node {
+            background-color: white;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            border-top: 4px solid #4a6fa5;
+            transition: transform 0.3s;
+        }
+        
+        .mind-node:hover {
+            transform: translateY(-5px);
+        }
+        
+        .mind-node.center {
+            grid-column: 2;
+            background-color: #4a6fa5;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background-color: #ecf0f1;
+            border-radius: 4px;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            background-color: #27ae60;
+            width: 0%;
+            transition: width 0.5s;
+        }
+        
+        @media (max-width: 1100px) {
+            .row {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 60px;
+            }
+            
+            .mind-map {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header {
+                padding: 10px;
+            }
+            
+            .slide {
+                padding: 20px;
+            }
+            
+            .mind-map {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
-
-<div class="slide-container">
-    <div class="slide active" id="s1">
-        <div class="content">
-            <h2 style="color: #666;">KET Speaking 1V1</h2>
-            <h1>About Me & School</h1>
-            <div style="font-size: 5em;">👋 🏫</div>
-            <p>Ready to talk about yourself?</p>
-            <button class="btn" onclick="nextSlide()">Start Lesson 🚀</button>
+    <div class="header">
+        <div class="logo">
+            <i class="fas fa-chalkboard-teacher"></i>
+            <span>KET Speaking Course</span>
         </div>
-        <div class="teacher-note">T: Welcome student. Break the ice. Ask "How are you today?"</div>
-    </div>
-
-    <div class="slide" id="s2">
-        <h1>🎯 Today's Mission</h1>
-        <div class="content">
-            <ul class="check-list">
-                <li>Introduce yourself (Name, Age, Home)</li>
-                <li>Talk about your Family</li>
-                <li>Describe your School & Subjects</li>
-                <li><strong>Big Challenge:</strong> Speak for 45 seconds! ⏱️</li>
-            </ul>
+        <div class="slide-counter">
+            <span id="current-slide">1</span> / <span id="total-slides">8</span>
         </div>
-        <div class="teacher-note">T: Set the goal clearly. Explain that by the end, they will be a "Speaking Master".</div>
     </div>
-
-    <div class="slide" id="s3">
-        <h1>1. Who are you? (Keywords)</h1>
-        <div class="content">
-            <div class="grid-container">
-                <div class="vocab-card">Name<span>Full name / Nickname</span></div>
-                <div class="vocab-card">Age<span>Years old</span></div>
-                <div class="vocab-card">Live<span>Apartment / City</span></div>
-                <div class="vocab-card">Family<span>Parents / Brother</span></div>
-                <div class="vocab-card">Hobby<span>Like / Enjoy</span></div>
-                <div class="vocab-card">From<span>Come from...</span></div>
-                <div class="vocab-card">Student<span>Primary School</span></div>
-                <div class="vocab-card">Character<span>Friendly / Funny</span></div>
-            </div>
-            <p style="margin-top:20px;">👇 <strong>Click words to make sentences!</strong></p>
+    
+    <div class="container">
+        <div class="sidebar">
+            <button class="nav-btn active" data-slide="1">
+                <i class="fas fa-home"></i>
+            </button>
+            <button class="nav-btn" data-slide="2">
+                <i class="fas fa-user"></i>
+            </button>
+            <button class="nav-btn" data-slide="3">
+                <i class="fas fa-school"></i>
+            </button>
+            <button class="nav-btn" data-slide="4">
+                <i class="fas fa-comments"></i>
+            </button>
+            <button class="nav-btn" data-slide="5">
+                <i class="fas fa-brain"></i>
+            </button>
+            <button class="nav-btn" data-slide="6">
+                <i class="fas fa-gamepad"></i>
+            </button>
+            <button class="nav-btn" data-slide="7">
+                <i class="fas fa-microphone"></i>
+            </button>
+            <button class="nav-btn" data-slide="8">
+                <i class="fas fa-star"></i>
+            </button>
         </div>
-        <div class="teacher-note">T: Point to a card, ask S to make a simple sentence immediately. Correct pronunciation.</div>
-    </div>
-
-    <div class="slide" id="s4">
-        <h1>🧠 Mind Map: Identity</h1>
-        <div class="content">
-            <div class="mind-map-box">
-                <div class="mm-column" style="border-color: #FF6B6B;">
-                    <div class="mm-title">📛 Name</div>
-                    <div class="mm-item">My name is...</div>
-                    <div class="mm-item">You can call me...</div>
+        
+        <div class="slides-container">
+            <!-- Slide 1: Welcome -->
+            <div class="slide active" id="slide1">
+                <h1 class="slide-title">
+                    <i class="fas fa-graduation-cap"></i>
+                    Lesson 1: About Me & School
+                </h1>
+                <div class="content">
+                    <div class="row">
+                        <div class="col">
+                            <h2 class="section-title">
+                                <i class="fas fa-bullseye"></i>
+                                Today's Goal
+                            </h2>
+                            <div class="speech-bubble">
+                                <p><strong>Speak for 40-50 seconds</strong> about yourself and your school</p>
+                                <p>Use <strong>at least 6 sentences</strong> with <strong>2 "because"</strong> explanations</p>
+                            </div>
+                            
+                            <h2 class="section-title" style="margin-top: 25px;">
+                                <i class="fas fa-user-check"></i>
+                                Teacher's Tips
+                            </h2>
+                            <ul style="padding-left: 20px; line-height: 1.6;">
+                                <li>Speak clearly and at a comfortable pace</li>
+                                <li>Use complete sentences</li>
+                                <li>Don't worry about mistakes - just try!</li>
+                                <li>Use the vocabulary and phrases we learn today</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="col highlight">
+                            <h2 class="section-title">
+                                <i class="fas fa-star"></i>
+                                Let's Warm Up!
+                            </h2>
+                            <div class="interaction-box">
+                                <div class="question">
+                                    <div class="mic-icon">
+                                        <i class="fas fa-microphone"></i>
+                                    </div>
+                                    <span>Hello! What's your name?</span>
+                                </div>
+                                <div class="answer-box">
+                                    <p><strong>Suggested answer:</strong> My name is [Your Name]. You can call me [Nickname].</p>
+                                    <div class="student-speak">
+                                        <i class="fas fa-user"></i> <strong>Student's turn:</strong> 
+                                        <span id="student-name">(Please say your name)</span>
+                                    </div>
+                                </div>
+                                
+                                <button class="btn btn-practice" onclick="recordAnswer('student-name', 'My name is...')">
+                                    <i class="fas fa-microphone"></i> Click & Say Your Answer
+                                </button>
+                            </div>
+                            
+                            <div class="progress-bar">
+                                <div class="progress" id="overall-progress" style="width: 12.5%;"></div>
+                            </div>
+                            <p style="text-align: center; margin-top: 10px; color: #7f8c8d;">Lesson Progress</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="mm-column" style="border-color: #F5A623;">
-                    <div class="mm-title">🎂 Age</div>
-                    <div class="mm-item">I am ... years old.</div>
-                    <div class="mm-item">I will be ... soon.</div>
-                </div>
-                <div class="mm-column" style="border-color: #50E3C2;">
-                    <div class="mm-title">🏠 Where I Live</div>
-                    <div class="mm-item">I live in [City].</div>
-                    <div class="mm-item">I live with my [Parents].</div>
-                    <div class="mm-item">It's near my school.</div>
-                </div>
-            </div>
-            <div style="margin-top: 30px;">
-                <div class="bubble" id="demo-bubble">Example: "My name is Tom. I'm 11. I live in Beijing."</div>
-            </div>
-            <button class="btn" onclick="document.getElementById('demo-bubble').innerText = 'Make it longer! Use keywords!'">Upgrade Answer ✨</button>
-        </div>
-        <div class="teacher-note">T: Follow the structure. Ask: "Can you give me your FULL profile?"</div>
-    </div>
-
-    <div class="slide" id="s5">
-        <h1>2. My Family 👨‍👩‍👧‍👦</h1>
-        <div class="content">
-            <div style="display:flex; justify-content:space-around; width:100%;">
-                <div style="text-align:left; width: 45%;">
-                    <h3>Questions:</h3>
-                    <p>❓ Who do you live with?</p>
-                    <p>❓ Do you have brothers or sisters?</p>
-                    <p>❓ What is your family like?</p>
-                </div>
-                <div style="text-align:left; width: 45%;">
-                    <h3>High Score Answers 🌟:</h3>
-                    <p class="hidden" id="ans1">👉 "I live with my parents and my younger brother."</p>
-                    <p class="hidden" id="ans2">👉 "There are 4 people in my family."</p>
-                    <p class="hidden" id="ans3">👉 "We are a <strong>close</strong> family."</p>
-                    <button class="btn" onclick="revealAnswers()">Show Answers</button>
-                </div>
-            </div>
-        </div>
-        <div class="teacher-note">T: Ask questions first. Let student try. Then reveal "High Score" phrases. Highlight "Close family".</div>
-    </div>
-
-    <div class="slide" id="s6">
-        <h1>3. My School & Subjects 📚</h1>
-        <div class="content">
-            <div class="grid-container">
-                <div class="vocab-card" style="border-color:var(--secondary);">Maths<span>🔢</span></div>
-                <div class="vocab-card" style="border-color:var(--secondary);">English<span>🔤</span></div>
-                <div class="vocab-card" style="border-color:var(--secondary);">Science<span>🔬</span></div>
-                <div class="vocab-card" style="border-color:var(--secondary);">PE<span>🏃</span></div>
-                <div class="vocab-card" style="border-color:var(--secondary);">Art<span>🎨</span></div>
-                <div class="vocab-card" style="border-color:var(--secondary);">Music<span>🎵</span></div>
-                <div class="vocab-card" style="border-color:var(--secondary);">Uniform<span>👔</span></div>
-                <div class="vocab-card" style="border-color:var(--secondary);">Club<span>🏆</span></div>
-            </div>
-            <h3>Describe your school:</h3>
-            <p>"My school is <strong>Big / Clean / Friendly / Strict</strong>."</p>
-        </div>
-        <div class="teacher-note">T: Rapid fire questions. "Do you like Maths?" "Is your school big?"</div>
-    </div>
-
-    <div class="slide" id="s7">
-        <h1>✨ The Magic Word: BECAUSE</h1>
-        <div class="content">
-            <h2>KET Rule: Never say just "Yes" or "Blue".</h2>
-            <div class="mind-map-box" style="margin-top: 20px;">
-                <div class="mm-column">
-                    <h3>My favourite subject is...</h3>
-                    <div class="mm-item">English</div>
-                    <div class="mm-item">PE</div>
-                    <div class="mm-item">Maths</div>
-                </div>
-                <div style="font-size: 3em; align-self:center;">➕</div>
-                <div class="mm-column" style="background:#fff3cd;">
-                    <h3>BECAUSE... (Reasons)</h3>
-                    <div class="mm-item">It is interesting / useful.</div>
-                    <div class="mm-item">I like the teacher.</div>
-                    <div class="mm-item">It helps me talk to foreigners.</div>
-                    <div class="mm-item">I am good at it.</div>
-                </div>
-            </div>
-        </div>
-        <div class="teacher-note">T: Drill this pattern. "What's your favourite subject?" wait for "Because...".</div>
-    </div>
-
-    <div class="slide" id="s8">
-        <h1>🏆 Final Challenge: The 45s Speech</h1>
-        <div class="content">
-            <p><strong>Topic: Tell me about yourself and your school.</strong></p>
-            <div style="text-align:left; background: #eee; padding: 15px; border-radius: 10px; margin-bottom: 20px;">
-                <small>Checklist:</small><br>
-                1. Name & Age & Where you live<br>
-                2. Family members<br>
-                3. School name & Class<br>
-                4. Favourite subject + BECAUSE<br>
-                5. Hobbies / After school
             </div>
             
-            <div class="timer-box" id="timer">00:45</div>
-            <button class="btn" onclick="startTimer()">Start Timer ⏱️</button>
-        </div>
-        <div class="teacher-note">T: This is the exam simulation. Don't interrupt. Give feedback AFTER the timer stops.</div>
-    </div>
-
-    <div class="slide" id="s9">
-        <h1>🎉 Great Job!</h1>
-        <div class="content">
-            <h2>Teacher's Feedback</h2>
-            <div style="display:flex; gap:20px;">
-                <div class="bubble">Vocabulary <br>⭐⭐⭐⭐⭐</div>
-                <div class="bubble">Grammar <br>⭐⭐⭐⭐⭐</div>
-                <div class="bubble">Fluency <br>⭐⭐⭐⭐⭐</div>
+            <!-- Slide 2: Personal Information -->
+            <div class="slide" id="slide2">
+                <h1 class="slide-title">
+                    <i class="fas fa-user"></i>
+                    Part 1: About Me
+                </h1>
+                <div class="content">
+                    <div class="row">
+                        <div class="col">
+                            <h2 class="section-title">
+                                <i class="fas fa-language"></i>
+                                Core Vocabulary
+                            </h2>
+                            <div class="vocab-list">
+                                <div class="vocab-item">
+                                    <i class="fas fa-user"></i> name
+                                </div>
+                                <div class="vocab-item">
+                                    <i class="fas fa-birthday-cake"></i> age
+                                </div>
+                                <div class="vocab-item">
+                                    <i class="fas fa-home"></i> live
+                                </div>
+                                <div class="vocab-item">
+                                    <i class="fas fa-users"></i> family
+                                </div>
+                                <div class="vocab-item">
+                                    <i class="fas fa-globe"></i> from
+                                </div>
+                                <div class="vocab-item">
+                                    <i class="fas fa-heart"></i> like
+                                </div>
+                                <div class="vocab-item">
+                                    <i class="fas fa-star"></i> favourite
+                                </div>
+                                <div class="vocab-item">
+                                    <i class="fas fa-gamepad"></i> hobby
+                                </div>
+                            </div>
+                            
+                            <h2 class="section-title" style="margin-top: 25px;">
+                                <i class="fas fa-comment-dots"></i>
+                                Useful Phrases
+                            </h2>
+                            <div class="phrase-list">
+                                <div class="phrase-item">
+                                    My name is... / You can call me...
+                                </div>
+                                <div class="phrase-item">
+                                    I'm ... years old.
+                                </div>
+                                <div class="phrase-item">
+                                    I live with...
+                                </div>
+                                <div class="phrase-item">
+                                    I come from...
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col">
+                            <h2 class="section-title">
+                                <i class="fas fa-bullhorn"></i>
+                                Let's Practice!
+                            </h2>
+                            
+                            <div class="interaction-box">
+                                <div class="dialog">
+                                    <div class="avatar teacher-avatar">
+                                        <i class="fas fa-chalkboard-teacher"></i>
+                                    </div>
+                                    <div class="speech-bubble">
+                                        <p><strong>Teacher:</strong> How old are you?</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="answer-box">
+                                    <p><strong>Answer structure:</strong> I'm [number] years old. I'll be [number] next month/year.</p>
+                                    <div class="student-speak">
+                                        <i class="fas fa-user"></i> <strong>Your answer:</strong> 
+                                        <span id="student-age">(Say your age)</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="dialog" style="margin-top: 20px;">
+                                    <div class="avatar teacher-avatar">
+                                        <i class="fas fa-chalkboard-teacher"></i>
+                                    </div>
+                                    <div class="speech-bubble">
+                                        <p><strong>Teacher:</strong> Where do you live?</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="answer-box">
+                                    <p><strong>Answer structure:</strong> I live in [city] with [family]. We live in a [house/apartment].</p>
+                                    <div class="student-speak">
+                                        <i class="fas fa-user"></i> <strong>Your answer:</strong> 
+                                        <span id="student-live">(Say where you live)</span>
+                                    </div>
+                                </div>
+                                
+                                <button class="btn btn-practice" onclick="practicePersonalInfo()">
+                                    <i class="fas fa-microphone"></i> Practice All Questions
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <h3 style="margin-top:40px;">Homework 📝</h3>
-            <p>Record a video (1 minute) introducing yourself to a new friend!</p>
-        </div>
-    </div>
-
-    <div class="nav-buttons">
-        <button class="nav-btn" onclick="prevSlide()">⬅️</button>
-        <button class="nav-btn" onclick="nextSlide()">➡️</button>
-    </div>
-</div>
-
-<script>
-    let currentSlide = 0;
-    const slides = document.querySelectorAll('.slide');
-    const totalSlides = slides.length;
-
-    function showSlide(n) {
-        slides.forEach(slide => slide.classList.remove('active'));
-        slides[n].classList.add('active');
-    }
-
-    function nextSlide() {
-        if (currentSlide < totalSlides - 1) {
-            currentSlide++;
-            showSlide(currentSlide);
-        }
-    }
-
-    function prevSlide() {
-        if (currentSlide > 0) {
-            currentSlide--;
-            showSlide(currentSlide);
-        }
-    }
-
-    // Keyboard navigation
-    document.addEventListener('keydown', function(event) {
-        if (event.key === "ArrowRight") {
-            nextSlide();
-        } else if (event.key === "ArrowLeft") {
-            prevSlide();
-        }
-    });
-
-    // Reveal Answers Logic
-    function revealAnswers() {
-        document.getElementById('ans1').classList.remove('hidden');
-        document.getElementById('ans1').classList.add('visible');
-        setTimeout(() => {
-            document.getElementById('ans2').classList.remove('hidden');
-            document.getElementById('ans2').classList.add('visible');
-        }, 500);
-        setTimeout(() => {
-            document.getElementById('ans3').classList.remove('hidden');
-            document.getElementById('ans3').classList.add('visible');
-        }, 1000);
-    }
-
-    // Timer Logic
-    function startTimer() {
-        let timeLeft = 45;
-        const timerDisplay = document.getElementById('timer');
-        const button = document.querySelector('#s8 .btn');
-        button.disabled = true;
-        
-        const countdown = setInterval(() => {
-            if (timeLeft <= 0) {
-                clearInterval(countdown);
-                timerDisplay.innerText = "Time's Up! 👏";
-                timerDisplay.style.color = "#FF6B6B";
-                button.disabled = false;
-            } else {
-                timerDisplay.innerText = "00:" + (timeLeft < 10 ? "0" : "") + timeLeft;
-                if(timeLeft < 10) timerDisplay.style.color = "red";
-                timeLeft--;
-            }
-        }, 1000);
-    }
-</script>
-
-</body>
-</html>
+            
+            <!-- Slide 3: School Information -->
+            <div class="slide" id="slide3">
+                <h1 class="slide-title">
+                    <i class="fas fa-school"></i>
+                    Part 2: About School
+                </h1>
+                <div class="content">
+                    <div class="row">
+                        <div class="col">
+                            <h2 class="section-title">
+                                <i class="fas fa-language"></i>
+                                School Vocabulary
+                            </h2>
+                            <div class="vocab-list">
+                                <div class="vocab-item">
+                                    <i class="fas fa-user-graduate"></i> student
+                                </div>
+                                <div class="vocab-item">
+                                    <i class="fas fa-school"></i> school
+                                </div>
+                                <div class="vocab-item">
+                                    <i class="fas fa-book"></i> subject
+                                </div>
+                                <div class="vocab-item">
+                                    <i class="fas fa-user-tie"></i> teacher
+                                </div>
+                                <div class="vocab-item">
+                                    <i class="fas fa-users"></i> classmates
+                                </div>
+                                <div class="vocab-item">
+                                    <i class="fas fa-book-open"></i> homework
+                                </div>
+                                <div class="vocab-item">
+                                    <i class="fas fa-futbol"></i> playground
+                                </div>
+                                <div class="vocab-item">
+                                    <i class="fas fa-tshirt"></i> uniform
+                                </div>
+                            </div>
+                            
+                            <h2 class="section-title" style="margin-top: 25px;">
+                                <i class="fas fa-bolt"></i>
+                                Power-up Words
+                            </h2>
+                            <div class="vocab-list">
+                                <div class="vocab-item power-up">
+                                    friendly
+                                </div>
+                                <div class="vocab-item power-up">
+                                    helpful
+                                </div>
+                                <div class="vocab-item power-up">
+                                    interesting
+                                </div>
+                                <div class="vocab-item power-up">
+                                    difficult
+                                </div>
+                                <div class="vocab-item power-up">
+                                    useful
+                                </div>
+                                <div class="vocab-item power-up">
+                                    popular
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col">
+                            <h2 class="section-title">
+                                <i class="fas fa-comment-dots"></i>
+                                School Phrases
+                            </h2>
+                            <div class="phrase-list">
+                                <div class="phrase-item">
+                                    my favourite subject
+                                </div>
+                                <div class="phrase-item">
+                                    after-school club
+                                </div>
+                                <div class="phrase-item">
+                                    from Monday to Friday
+                                </div>
+                                <div class="phrase-item">
+                                    get along with my classmates
+                                </div>
+                            </div>
+                            
+                            <h2 class="section-title" style="margin-top: 25px;">
+                                <i class="fas fa-bullhorn"></i>
+                                Let's Practice!
+                            </h2>
+                            
+                            <div class="interaction-box">
+                                <div class="dialog">
+                                    <div class="avatar teacher-avatar">
+                                        <i class="fas fa-chalkboard-teacher"></i>
+                                    </div>
+                                    <div class="speech-bubble">
+                                        <p><strong>Teacher:</strong> What's your favourite subject? Why?</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="answer-box">
+                                    <p><strong>Answer structure:</strong> My favourite subject is [subject] because [reason].</p>
+                                    <div class="student-speak">
+                                        <i class="fas fa-user"></i> <strong>Your answer:</strong> 
+                                        <span id="student-subject">(Say your favourite subject and why)</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="dialog" style="margin-top: 20px;">
+                                    <div class="avatar teacher-avatar">
+                                        <i class="fas fa-chalkboard-teacher"></i>
+                                    </div>
+                                    <div class="speech-bubble">
+                                        <p><strong>Teacher:</strong> What do you do after school?</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="answer-box">
+                                    <p><strong>Answer structure:</strong> After school, I often [activity]. Sometimes I [another activity].</p>
+                                    <div class="student-speak">
+                                        <i class="fas fa-user"></i> <strong>Your answer:</strong> 
+                                        <span id="student-afterschool">(Say what you do after school)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Slide 4: Question Pool -->
+            <div class="slide" id="slide4">
+                <h1 class="slide-title">
+                    <i class="fas fa-comments"></i>
+                    Common Questions & Answers
+                </h1>
+                <div class="content">
+                    <div class="row">
+                        <div class="col">
+                            <h2 class="section-title">
+                                <i class="fas fa-user-circle"></i>
+                                Personal Questions
+                            </h2>
+                            
+                            <div class="interaction-box">
+                                <div class="question">
+                                    <i class="fas fa-question-circle"></i>
+                                    What's your name?
+                                    <span class="timer">15 sec</span>
+                                </div>
+                                <div class="answer-box">
+                                    <p><strong>Model answer:</strong> My name is Zhang Xiaoming. You can call me Mike.</p>
+                                    <button class="btn btn-practice" style="margin-top: 10px; padding: 8px 15px;" onclick="speakAnswer('My name is Zhang Xiaoming. You can call me Mike.')">
+                                        <i class="fas fa-volume-up"></i> Listen & Repeat
+                                    </button>
+                                </div>
+                                
+                                <div class="question" style="margin-top: 20px;">
+                                    <i class="fas fa-question-circle"></i>
+                                    Tell me about your family.
+                                    <span class="timer">30 sec</span>
+                                </div>
+                                <div class="answer-box">
+                                    <p><strong>Model answer:</strong> There are four people in my family: my parents, my sister and me. We are a close family.</p>
+                                    <button class="btn btn-practice" style="margin-top: 10px; padding: 8px 15px;" onclick="speakAnswer('There are four people in my family: my parents, my sister and me. We are a close family.')">
+                                        <i class="fas fa-volume-up"></i> Listen & Repeat
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col">
+                            <h2 class="section-title">
+                                <i class="fas fa-school"></i>
+                                School Questions
+                            </h2>
+                            
+                            <div class="interaction-box">
+                                <div class="question">
+                                    <i class="fas fa-question-circle"></i>
+                                    Do you like your school? Why?
+                                    <span class="timer">20 sec</span>
+                                </div>
+                                <div class="answer-box">
+                                    <p><strong>Model answer:</strong> Yes, I do. My school is clean and friendly. The teachers are helpful and I have many friends.</p>
+                                    <button class="btn btn-practice" style="margin-top: 10px; padding: 8px 15px;" onclick="speakAnswer('Yes, I do. My school is clean and friendly. The teachers are helpful and I have many friends.')">
+                                        <i class="fas fa-volume-up"></i> Listen & Repeat
+                                    </button>
+                                </div>
+                                
+                                <div class="question" style="margin-top: 20px;">
+                                    <i class="fas fa-question-circle"></i>
+                                    What's your teacher like?
+                                    <span class="timer">25 sec</span>
+                                </div>
+                                <div class="answer-box">
+                                    <p><strong>Model answer:</strong> My English teacher is kind and funny. She always makes our lessons interesting with games.</p>
+                                    <button class="btn btn-practice" style="margin-top: 10px; padding: 8px 15px;" onclick="speakAnswer('My English teacher is kind and funny. She always makes our lessons interesting with games.')">
+                                        <i class="fas fa-volume-up"></i> Listen & Repeat
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div style="text-align: center; margin-top: 20px;">
+                                <button class="btn btn-practice" onclick="randomQuestion()">
+                                    <i class="fas fa-random"></i> Random Question Challenge
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Slide 5: Mind Map -->
+            <div class="slide" id="slide5">
+                <h1 class="slide-title">
+                    <i class="fas fa-brain"></i>
+                    Speaking Mind Map
+                </h1>
+                <div class="content">
+                    <div style="text-align: center; margin-bottom: 20px;">
+                        <p style="font-size: 1.2rem; color: #4a6fa5;">Connect ideas to speak for 40-50 seconds!</p>
+                    </div>
+                    
+                    <div class="mind-map">
+                        <div class="mind-node">
+                            <i class="fas fa-user" style="font-size: 1.5rem; color: #4a6fa5; margin-bottom: 10px;"></i>
+                            <h3>Name & Age</h3>
+                            <p style="font-size: 0.9rem; color: #666; margin-top: 5px;">
+                                My name is...<br>
+                                I'm ... years old
+                            </p>
+                        </div>
+                        
+                        <div class="mind-node">
+                            <i class="fas fa-home" style="font-size: 1.5rem; color: #4a6fa5; margin-bottom: 10px;"></i>
+                            <h3>Home & Family</h3>
+                            <p style="font-size: 0.9rem; color: #666; margin-top: 5px;">
+                                I live in...<br>
+                                With my...
+                            </p>
+                        </div>
+                        
+                        <div class="mind-node">
+                            <i class="fas fa-school" style="font-size: 1.5rem; color: #4a6fa5; margin-bottom: 10px;"></i>
+                            <h3>School Name</h3>
+                            <p style="font-size: 0.9rem; color: #666; margin-top: 5px;">
+                                I study at...<br>
+                                My school is...
+                            </p>
+                        </div>
+                        
+                        <div class="mind-node center">
+                            <i class="fas fa-microphone" style="font-size: 2rem; margin-bottom: 10px;"></i>
+                            <h3>ABOUT ME & SCHOOL</h3>
+                            <p style="font-size: 0.9rem; margin-top: 5px;">
+                                40-50 seconds
+                            </p>
+                        </div>
+                        
+                        <div class="mind-node">
+                            <i class="fas fa-book" style="font-size: 1.5rem; color: #4a6fa5; margin-bottom: 10px;"></i>
+                            <h3>Subjects</h3>
+                            <p style="font-size: 0.9rem; color: #666; margin-top: 5px;">
+                                My favourite is...<br>
+                                Because...
+                            </p>
+                        </div>
+                        
+                        <div class="mind-node">
+                            <i class="fas fa-users" style="font-size: 1.5rem; color: #4a6fa5; margin-bottom: 10px;"></i>
+                            <h3>Friends & Teachers</h3>
+                            <p style="font-size: 0.9rem; color: #666; margin-top: 5px;">
+                                My teacher is...<br>
+                                My classmates are...
+                            </p>
+                        </div>
+                        
+                        <div class="mind-node">
+                            <i class="fas fa-futbol" style="font-size: 1.5rem; color: #4a6fa5; margin-bottom: 10px;"></i>
+                            <h3>After School</h3>
+                            <p style="font-size: 0.9rem; color: #666; margin-top: 5px;">
+                                I often...<br>
+                                I like... because...
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="interaction-box" style="margin-top: 30px;">
+                        <h3 class="section-title">
+                            <i class="fas fa-tasks"></i>
+                            Your Turn: Build Your Answer
+                        </h3>
+                        <p>Use the mind map to plan your 40-50 second answer. Start with your name and age, then add information about your home, school, subjects, and activities.</p>
+                        
+                        <div style="display: flex; gap: 15px; margin-top: 20px;">
+                            <div style="flex: 1; text-align: center;">
+                                <button class="btn btn-practice" onclick="startTimer(40, 'timer1')">
+                                    <i class="fas fa-play-circle"></i> Start 40-Second Timer
+                                </button>
+                                <div id="timer1" style="font-size: 1.8rem; font-weight: bold; color: #e74c3c; margin-top: 10px;">40s</div>
+                            </div>
+                            
+                            <div style="flex: 1; text-align: center;">
+                                <button class="btn btn-practice" onclick="startTimer(50, 'timer2')">
+                                    <i class="fas fa-play-circle"></i> Start 50-Second Timer
+                                </button>
+                                <div id="timer2" style="font-size: 1.8rem; font-weight: bold; color: #e74c3c; margin-top: 10px;">50s</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Slide 6: Interactive Game -->
+            <div class="slide" id="slide6">
+                <h1 class="slide-title">
+                    <i class="fas fa-gamepad"></i>
+                    Vocabulary Game
+                </h1>
+                <div class="content">
+                    <div class="row">
+                        <div class="col">
+                            <h2 class="section-title">
+                                <i class="fas fa-dice"></i>
+                                Sentence Builder
+                            </h2>
+                            <p>Make a complete sentence using these words:</p>
+                            
+                            <div id="word-pool" style="display: flex; flex-wrap: wrap; gap: 10px; margin: 20px 0; min-height: 60px; padding: 15px; background-color: #f8f9fa; border-radius: 8px;">
+                                <span class="vocab-item draggable" draggable="true">My</span>
+                                <span class="vocab-item draggable" draggable="true">favourite</span>
+                                <span class="vocab-item draggable" draggable="true">subject</span>
+                                <span class="vocab-item draggable" draggable="true">is</span>
+                                <span class="vocab-item draggable" draggable="true">English</span>
+                                <span class="vocab-item draggable" draggable="true">because</span>
+                                <span class="vocab-item draggable" draggable="true">it's</span>
+                                <span class="vocab-item draggable" draggable="true">interesting</span>
+                            </div>
+                            
+                            <p>Drag words to the box below to build your sentence:</p>
+                            
+                            <div id="
