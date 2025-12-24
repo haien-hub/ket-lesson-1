@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>千语 KET Speaking 1v1｜T1 About Me & School（学生课堂版）</title>
+  <title>KET Speaking 1v1 · T1 About Me & School (Student Slides)</title>
   <style>
     :root{
       --bg1:#F7FBFF;
@@ -29,7 +29,7 @@
     html,body{height:100%}
     body{
       margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans SC", "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
       background:
         radial-gradient(1100px 700px at 15% 10%, rgba(77,150,255,.18), transparent 55%),
         radial-gradient(1000px 700px at 85% 15%, rgba(251,113,133,.16), transparent 55%),
@@ -40,7 +40,7 @@
     }
 
     #deck{height:100vh;width:100vw;position:relative}
-    .slide{height:100vh;width:100vw;padding:52px 60px 92px;display:none}
+    .slide{height:100vh;width:100vw;padding:50px 56px 92px;display:none}
     .slide.active{display:block}
 
     .topbar{
@@ -73,7 +73,7 @@
       user-select:none;
     }
 
-    .grid{display:grid;grid-template-columns:1.06fr .94fr;gap:16px;height: calc(100vh - 52px - 92px - 14px);}
+    .grid{display:grid;grid-template-columns:1.06fr .94fr;gap:16px;height: calc(100vh - 50px - 92px - 14px);}
     .grid.one{grid-template-columns:1fr}
 
     .card{
@@ -133,10 +133,9 @@
     }
     .yourturn ul{margin:8px 0 0;padding-left:18px;color:var(--muted);line-height:1.6}
 
-    /* Illustration blocks */
     .illustration{
       width:100%;
-      max-height: 210px;
+      max-height: 230px;
       border-radius: 20px;
       border:1px solid var(--border);
       background: linear-gradient(120deg, rgba(77,150,255,.10), rgba(251,113,133,.08), rgba(34,197,94,.08));
@@ -154,7 +153,7 @@
       margin-top:10px;
     }
     @media (max-width: 980px){
-      .slide{padding:46px 18px 92px}
+      .slide{padding:46px 16px 92px}
       .grid{grid-template-columns:1fr}
       .cards{grid-template-columns: repeat(2, 1fr)}
     }
@@ -166,7 +165,7 @@
       padding:12px;
       cursor:pointer;
       position:relative;
-      min-height: 120px;
+      min-height: 118px;
       overflow:hidden;
       user-select:none;
       transition: transform .08s ease;
@@ -178,7 +177,6 @@
 
     .wTop{display:flex;align-items:center;justify-content:space-between;gap:8px}
     .wWord{font-size:18px;color:var(--text)}
-    .wCn{font-size:14px;color:var(--muted)}
     .wHint{margin-top:8px;font-size:14px;color:var(--muted);line-height:1.5}
     .badge2{
       padding:6px 10px;border-radius:999px;
@@ -188,11 +186,12 @@
       font-size:12px;
     }
     .badge2.blue{background: rgba(77,150,255,.12);border-color: rgba(77,150,255,.22)}
+    .badge2.purple{background: rgba(139,92,246,.12);border-color: rgba(139,92,246,.22)}
     .badge2.green{background: rgba(34,197,94,.12);border-color: rgba(34,197,94,.22)}
     .badge2.pink{background: rgba(251,113,133,.12);border-color: rgba(251,113,133,.22)}
     .iconSvg{width:26px;height:26px;flex:0 0 auto}
 
-    /* Reveal answers */
+    /* Reveal (keep minimal) */
     details{
       border-radius:16px;
       border:1px solid rgba(77,150,255,.22);
@@ -223,7 +222,7 @@
     /* Timer */
     .timerWrap{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:10px}
     .timerRing{
-      width:240px;height:240px;border-radius:50%;
+      width:230px;height:230px;border-radius:50%;
       background: conic-gradient(var(--blue) var(--p), rgba(31,42,68,.10) 0);
       display:grid;place-items:center;
       border:1px solid var(--border);
@@ -236,7 +235,7 @@
       border:1px solid var(--border);
     }
     .timerTime{position:relative;z-index:2;text-align:center}
-    .timerTime .num{margin:0;font-size:62px;color:var(--text)}
+    .timerTime .num{margin:0;font-size:58px;color:var(--text)}
     .timerTime .small{margin:0;font-size:14px;color:var(--muted)}
     .btnRow{display:flex;gap:10px;flex-wrap:wrap}
     button{
@@ -272,7 +271,7 @@
     .navBtn.secondary{background: rgba(251,113,133,.12);border-color: rgba(251,113,133,.20)}
     .navBtn:disabled{opacity:.45;cursor:not-allowed}
     .navCenter{
-      display:flex;align-items:center;gap:10px;min-width:220px;justify-content:center;
+      display:flex;align-items:center;gap:10px;min-width:240px;justify-content:center;
       color:var(--muted);font-size:14px;text-align:center;
     }
     .dots{display:flex;gap:6px;align-items:center}
@@ -290,37 +289,60 @@
       backdrop-filter: blur(8px);
       user-select:none;
     }
+
+    .twoCols{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px}
+    .miniCard{
+      border-radius:18px;border:1px solid var(--border);
+      background: rgba(255,255,255,.86);
+      box-shadow: 0 12px 26px rgba(31,42,68,.08);
+      padding:12px;
+    }
+    .bigQ{font-size:20px;color:var(--text);margin:0}
+    .prompt{color:var(--muted);font-size:14px;line-height:1.55;margin-top:6px}
+
+    .choiceRow{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
+    .chipBtn{
+      padding:10px 12px;border-radius:999px;border:1px solid rgba(31,42,68,.12);
+      background: rgba(255,255,255,.86);
+      cursor:pointer;
+      user-select:none;
+    }
+    .chipBtn.good{border-color:rgba(34,197,94,.24); background: rgba(34,197,94,.10)}
+    .chipBtn.hot{border-color:rgba(251,113,133,.24); background: rgba(251,113,133,.10)}
   </style>
 </head>
+
 <body>
-  <div id="help">翻页：底部按钮｜键盘 ←/→｜手机左右滑动｜卡片：点击翻面（看例句）</div>
+  <div id="help">Navigate: Bottom buttons · ←/→ · swipe · Click cards to flip</div>
 
   <div id="deck">
-    <!-- ========== SLIDE 1: Title ========== -->
+
+    <!-- 1 -->
     <section class="slide active" data-title="Welcome">
       <div class="topbar">
-        <div class="chip"><span class="dot"></span> KET Speaking 1v1 · Lesson 1</div>
+        <div class="chip"><span class="dot"></span> KET Speaking · 1-to-1 · Lesson 1</div>
         <div class="counter" data-counter>1 / 26</div>
       </div>
+
       <div class="grid one">
         <div class="card">
           <h1>🏫 About Me & School</h1>
-          <div class="sub">今天我们学会：用英语介绍自己和学校（KET Part 1 常考）</div>
+          <div class="sub">Talk for <b>40–50 seconds</b> · <b>6+ sentences</b> · <b>2× because</b></div>
 
           <div class="illustration" aria-label="School illustration">
-            <svg viewBox="0 0 900 240" width="100%" height="210" role="img">
+            <svg viewBox="0 0 900 250" width="100%" height="230" role="img">
               <defs>
                 <linearGradient id="gWelcome" x1="0" x2="1">
                   <stop offset="0" stop-color="#4D96FF" stop-opacity=".22"/>
                   <stop offset="1" stop-color="#FB7185" stop-opacity=".18"/>
                 </linearGradient>
               </defs>
-              <rect x="0" y="0" width="900" height="240" fill="url(#gWelcome)"/>
+              <rect x="0" y="0" width="900" height="250" fill="url(#gWelcome)"/>
               <g fill="#fff" opacity=".85">
                 <circle cx="140" cy="70" r="22"/><circle cx="170" cy="62" r="28"/><circle cx="205" cy="72" r="22"/>
                 <circle cx="700" cy="80" r="18"/><circle cx="728" cy="72" r="24"/><circle cx="760" cy="82" r="18"/>
               </g>
-              <g transform="translate(330,60)">
+              <g transform="translate(330,65)">
                 <rect x="0" y="55" width="240" height="130" rx="18" fill="#ffffff" opacity=".92" stroke="rgba(31,42,68,.12)"/>
                 <rect x="90" y="105" width="60" height="80" rx="10" fill="#F3F8FF" stroke="rgba(31,42,68,.10)"/>
                 <rect x="24" y="85" width="45" height="35" rx="8" fill="#FFF7ED" stroke="rgba(31,42,68,.10)"/>
@@ -328,13 +350,13 @@
                 <polygon points="120,10 260,65 -20,65" fill="#FFD93D" opacity=".88" stroke="rgba(31,42,68,.10)"/>
                 <text x="120" y="95" text-anchor="middle" font-size="20" fill="#1F2A44">SCHOOL</text>
               </g>
-              <g transform="translate(190,160)">
+              <g transform="translate(190,170)">
                 <circle cx="0" cy="0" r="22" fill="#fff" stroke="rgba(31,42,68,.12)"/>
                 <rect x="-18" y="25" width="36" height="50" rx="12" fill="#22C55E" opacity=".70" stroke="rgba(31,42,68,.10)"/>
                 <circle cx="-7" cy="-6" r="3" fill="#1F2A44"/><circle cx="7" cy="-6" r="3" fill="#1F2A44"/>
                 <path d="M-8 6 Q0 14 8 6" fill="none" stroke="#1F2A44" stroke-width="3" stroke-linecap="round"/>
               </g>
-              <g transform="translate(720,165)">
+              <g transform="translate(720,175)">
                 <circle cx="0" cy="0" r="22" fill="#fff" stroke="rgba(31,42,68,.12)"/>
                 <rect x="-18" y="25" width="36" height="50" rx="12" fill="#8B5CF6" opacity=".65" stroke="rgba(31,42,68,.10)"/>
                 <circle cx="-7" cy="-6" r="3" fill="#1F2A44"/><circle cx="7" cy="-6" r="3" fill="#1F2A44"/>
@@ -344,59 +366,59 @@
           </div>
 
           <div class="yourturn">
-            <div class="label">🎤 Your Turn（开口 10 秒）</div>
+            <div class="label">🎤 Speak Now</div>
             <ul>
-              <li>说：Hello! Nice to meet you.</li>
-              <li>再说：I’m happy today. / I’m great today.</li>
+              <li>Say: “Hello! Nice to meet you.”</li>
+              <li>Say: “I’m ready!”</li>
             </ul>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ========== SLIDE 2: Mission ========== -->
-    <section class="slide" data-title="Today’s Mission">
+    <!-- 2 -->
+    <section class="slide" data-title="Mission">
       <div class="topbar">
-        <div class="chip"><span class="dot"></span> Mission</div>
+        <div class="chip"><span class="dot"></span> Today’s Mission</div>
         <div class="counter" data-counter>2 / 26</div>
       </div>
+
       <div class="grid">
         <div class="card">
-          <h2>🎯 今天的目标（KET口试可用）</h2>
-          <div class="big">你要能连续说 40–50 秒：介绍自己 + 学校 + 科目 + 课后活动</div>
+          <h2>🎯 Mission</h2>
+          <div class="big">Speak for <b>40–50 seconds</b> about you & your school.</div>
           <div class="pillRow">
-            <div class="pill green">≥6句</div>
-            <div class="pill yellow">≥2个 because</div>
-            <div class="pill purple">用2个 Power-up 形容词</div>
-            <div class="pill">用1个词块（chunk）</div>
+            <div class="pill green">6+ sentences</div>
+            <div class="pill yellow">2× because</div>
+            <div class="pill purple">2× power words</div>
+            <div class="pill">1× chunk</div>
           </div>
 
           <div class="yourturn">
-            <div class="label">🎤 Your Turn（大声读）</div>
+            <div class="label">🎤 Speak Now</div>
             <ul>
-              <li>I will speak for 40 to 50 seconds.</li>
-              <li>I will use two “because”.</li>
+              <li>Repeat: “I will speak for 40 to 50 seconds.”</li>
+              <li>Repeat: “I will use two because.”</li>
             </ul>
           </div>
         </div>
+
         <div class="card alt">
-          <h3>今天会练很多次（不用怕）</h3>
-          <div class="panel">
-            规则：每次回答至少 2 句（Answer + Detail/Reason）<br>
-            如果你只说 1 句，老师会说：One more sentence, please!
-          </div>
-          <div class="illustration" style="max-height:200px">
-            <svg viewBox="0 0 900 210" width="100%" height="200" role="img" aria-label="Speak bubbles">
-              <rect width="900" height="210" rx="26" fill="rgba(255,255,255,.70)"/>
-              <g transform="translate(260,110)">
+          <h3>Game Rule</h3>
+          <div class="panel">Every answer = <b>2 sentences</b> (Answer + Detail).</div>
+
+          <div class="illustration" style="max-height:210px">
+            <svg viewBox="0 0 900 220" width="100%" height="210" role="img" aria-label="Speak bubbles">
+              <rect width="900" height="220" rx="26" fill="rgba(255,255,255,.70)"/>
+              <g transform="translate(250,110)">
                 <path d="M0-55h240a22 22 0 0 1 22 22v45a22 22 0 0 1-22 22H70l-30 22 10-22H0a22 22 0 0 1-22-22v-45a22 22 0 0 1 22-22Z"
                       fill="rgba(77,150,255,.14)" stroke="rgba(77,150,255,.22)"/>
-                <text x="120" y="-10" text-anchor="middle" font-size="22" fill="#1F2A44">Speak!</text>
+                <text x="120" y="-10" text-anchor="middle" font-size="22" fill="#1F2A44">Answer</text>
               </g>
               <g transform="translate(520,120)">
                 <path d="M0-45h280a22 22 0 0 1 22 22v40a22 22 0 0 1-22 22H110l-30 22 10-22H0a22 22 0 0 1-22-22v-40a22 22 0 0 1 22-22Z"
                       fill="rgba(34,197,94,.14)" stroke="rgba(34,197,94,.22)"/>
-                <text x="140" y="-6" text-anchor="middle" font-size="18" fill="#1F2A44">Two sentences!</text>
+                <text x="140" y="-6" text-anchor="middle" font-size="18" fill="#1F2A44">+ One more!</text>
               </g>
             </svg>
           </div>
@@ -404,174 +426,169 @@
       </div>
     </section>
 
-    <!-- ========== SLIDE 3: Warm-up model ========== -->
-    <section class="slide" data-title="Warm-up Imitation">
+    <!-- 3 -->
+    <section class="slide" data-title="Warm-up">
       <div class="topbar">
-        <div class="chip"><span class="dot"></span> Warm-up</div>
+        <div class="chip"><span class="dot"></span> Warm-up (Imitate)</div>
         <div class="counter" data-counter>3 / 26</div>
       </div>
+
       <div class="grid">
         <div class="card">
-          <h2>⚡ 跟我说（先模仿）</h2>
-          <div class="mono">Teacher:
-My name is Alex. I’m 12 years old.
+          <h2>⚡ Imitate (2 times)</h2>
+          <div class="mono">My name is Alex. I’m 12 years old.
 I study at Sunshine School because it’s friendly.</div>
 
           <div class="yourturn">
-            <div class="label">🎤 Your Turn（2轮）</div>
+            <div class="label">🎤 Speak Now</div>
             <ul>
-              <li>Round 1：用你的信息说 2–3 句</li>
-              <li>Round 2：加一句 because（原因要完整）</li>
+              <li>Round 1: 2–3 sentences (your info)</li>
+              <li>Round 2: add <b>because</b></li>
             </ul>
           </div>
-
-          <details>
-            <summary>点我看“原因句”例子（because…）</summary>
-            <div class="ans">
-              because it’s interesting / because my teacher is helpful / because it helps me speak better
-            </div>
-          </details>
         </div>
+
         <div class="card alt">
-          <h3>小挑战：选一个词，放进句子</h3>
-          <div class="pillRow">
-            <div class="pill yellow">friendly</div>
-            <div class="pill purple">useful</div>
-            <div class="pill green">comfortable</div>
-            <div class="pill pink">interesting</div>
-          </div>
+          <h3>Pick 1 “Power Word”</h3>
+          <div class="choiceRow" id="pwPick"></div>
           <div class="yourturn">
-            <div class="label">🎤 Your Turn</div>
-            <ul>
-              <li>说：My school is ____ because ____.</li>
-            </ul>
+            <div class="label">🎤 Speak Now</div>
+            <ul><li>Say: “My school is ___ because ___.”</li></ul>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ========== SLIDE 4: Personal vocab 1/2 (6) ========== -->
-    <section class="slide" data-title="Personal Words 1">
+    <!-- 4 -->
+    <section class="slide" data-title="Personal Cards A">
       <div class="topbar">
-        <div class="chip"><span class="dot"></span> Personal Info Words</div>
+        <div class="chip"><span class="dot"></span> Personal Words (A)</div>
         <div class="counter" data-counter>4 / 26</div>
       </div>
+
       <div class="grid">
         <div class="card">
-          <h2>🏷️ 个人信息 Core（1/2）</h2>
-          <div class="sub">点击卡片翻面：看例句。每张卡都要开口说一次。</div>
-
-          <div class="cards" id="p1"></div>
+          <h2>🏷️ Personal Words</h2>
+          <div class="sub">Click → flip → speak.</div>
+          <div class="cards" id="personalA"></div>
 
           <div class="yourturn">
-            <div class="label">🎤 Your Turn（连说 3 句）</div>
+            <div class="label">🎤 Speak Now</div>
             <ul>
-              <li>My name is ___. I’m ___ years old.</li>
-              <li>I live in ___.</li>
+              <li>Say 3 sentences using 3 cards.</li>
+              <li>One sentence must have <b>because</b>.</li>
             </ul>
           </div>
         </div>
+
         <div class="card alt">
-          <h3>图片提示：名牌 + 时钟</h3>
-          <div class="illustration" style="max-height:210px">
-            <svg viewBox="0 0 900 220" width="100%" height="210" role="img" aria-label="name and age icons">
-              <rect width="900" height="220" rx="26" fill="rgba(255,255,255,.70)"/>
-              <g transform="translate(200,60)">
-                <rect x="0" y="0" width="240" height="120" rx="20" fill="rgba(77,150,255,.14)" stroke="rgba(77,150,255,.22)"/>
-                <text x="120" y="52" text-anchor="middle" font-size="22" fill="#1F2A44">NAME</text>
-                <text x="120" y="92" text-anchor="middle" font-size="18" fill="#5B6B86">My name is…</text>
+          <h3>Picture Prompt</h3>
+          <div class="illustration" style="max-height:230px">
+            <svg viewBox="0 0 900 240" width="100%" height="230" role="img" aria-label="name and city icons">
+              <rect width="900" height="240" rx="26" fill="rgba(255,255,255,.70)"/>
+              <g transform="translate(170,70)">
+                <rect x="0" y="0" width="260" height="120" rx="20" fill="rgba(77,150,255,.14)" stroke="rgba(77,150,255,.22)"/>
+                <text x="130" y="56" text-anchor="middle" font-size="22" fill="#1F2A44">NAME</text>
+                <text x="130" y="94" text-anchor="middle" font-size="16" fill="#5B6B86">My name is…</text>
               </g>
-              <g transform="translate(560,55)">
-                <circle cx="95" cy="65" r="65" fill="rgba(251,191,36,.18)" stroke="rgba(31,42,68,.12)"/>
-                <circle cx="95" cy="65" r="52" fill="#fff" stroke="rgba(31,42,68,.10)"/>
-                <path d="M95 32v38l22 14" stroke="#4D96FF" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
-                <text x="95" y="155" text-anchor="middle" font-size="18" fill="#5B6B86">I’m … years old</text>
+              <g transform="translate(520,60)">
+                <rect x="0" y="0" width="260" height="140" rx="20" fill="rgba(34,197,94,.14)" stroke="rgba(34,197,94,.22)"/>
+                <rect x="26" y="52" width="58" height="80" rx="12" fill="#fff" opacity=".92"/>
+                <rect x="96" y="30" width="64" height="102" rx="12" fill="#fff" opacity=".92"/>
+                <rect x="172" y="60" width="58" height="72" rx="12" fill="#fff" opacity=".92"/>
+                <text x="130" y="26" text-anchor="middle" font-size="16" fill="#5B6B86">city</text>
               </g>
             </svg>
           </div>
-          <div class="panel">说慢一点没关系：清楚 > 快。</div>
         </div>
       </div>
     </section>
 
-    <!-- ========== SLIDE 5: Personal vocab 2/2 (6) ========== -->
-    <section class="slide" data-title="Personal Words 2">
+    <!-- 5 -->
+    <section class="slide" data-title="Personal Cards B">
       <div class="topbar">
-        <div class="chip"><span class="dot"></span> Personal Info Words</div>
+        <div class="chip"><span class="dot"></span> Personal Words (B)</div>
         <div class="counter" data-counter>5 / 26</div>
       </div>
+
       <div class="grid">
         <div class="card">
-          <h2>🏷️ 个人信息 Core（2/2）</h2>
-          <div class="sub">继续点卡片翻面（看例句）</div>
-
-          <div class="cards" id="p2"></div>
+          <h2>🏷️ Personal Words</h2>
+          <div class="sub">Click → flip → speak.</div>
+          <div class="cards" id="personalB"></div>
 
           <div class="yourturn">
-            <div class="label">🎤 Your Turn（2句必须有 because）</div>
+            <div class="label">🎤 Speak Now</div>
             <ul>
-              <li>I like ___ because it’s ___.</li>
-              <li>My hobby is ___ because ___.</li>
+              <li>Answer 2 questions with 2 sentences each.</li>
+              <li>Try: “I live in…” / “I live with…”</li>
             </ul>
           </div>
         </div>
+
         <div class="card alt">
-          <h3>小贴士：live in / live with / come from</h3>
-          <div class="panel">
-            live in + 城市/地方<br>
-            live with + 人<br>
-            come from + 城市/国家
-          </div>
-          <details>
-            <summary>点我看例句</summary>
-            <div class="ans">
-              I live in Shanghai. I live with my parents. I come from China.
+          <h3>Mini Drill</h3>
+          <div class="twoCols">
+            <div class="miniCard">
+              <p class="bigQ">Live in …</p>
+              <div class="prompt">City / place</div>
             </div>
-          </details>
+            <div class="miniCard">
+              <p class="bigQ">Live with …</p>
+              <div class="prompt">People</div>
+            </div>
+          </div>
+
+          <div class="yourturn">
+            <div class="label">🎤 Speak Now</div>
+            <ul>
+              <li>Say 2 sentences: one “live in”, one “live with”.</li>
+            </ul>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- ========== SLIDE 6: School vocab 1/2 (8) ========== -->
-    <section class="slide" data-title="School Words 1">
+    <!-- 6 -->
+    <section class="slide" data-title="School Cards A">
       <div class="topbar">
-        <div class="chip"><span class="dot"></span> School Words</div>
+        <div class="chip"><span class="dot"></span> School Words (A)</div>
         <div class="counter" data-counter>6 / 26</div>
       </div>
+
       <div class="grid">
         <div class="card">
-          <h2>🏫 学校信息 Core（1/2）</h2>
-          <div class="sub">点卡片翻面：例句 + 提问。每张说 1 句。</div>
-          <div class="cards" id="s1"></div>
+          <h2>🏫 School Words</h2>
+          <div class="sub">Click → flip → speak.</div>
+          <div class="cards" id="schoolA"></div>
 
           <div class="yourturn">
-            <div class="label">🎤 Your Turn（快速造句 4句）</div>
+            <div class="label">🎤 Speak Now</div>
             <ul>
-              <li>I’m a student at ___.</li>
-              <li>I study English, maths and ___.</li>
-              <li>My classroom is ___.</li>
-              <li>I have a timetable.</li>
+              <li>Make 4 short sentences using 4 cards.</li>
+              <li>Add 1 power word (friendly / helpful / interesting…)</li>
             </ul>
           </div>
         </div>
+
         <div class="card alt">
-          <h3>图片提示：教室 + 课表</h3>
-          <div class="illustration" style="max-height:210px">
-            <svg viewBox="0 0 900 220" width="100%" height="210" role="img" aria-label="classroom and timetable">
-              <rect width="900" height="220" rx="26" fill="rgba(255,255,255,.70)"/>
-              <g transform="translate(140,55)">
-                <rect x="0" y="0" width="270" height="130" rx="20" fill="rgba(34,197,94,.14)" stroke="rgba(34,197,94,.22)"/>
-                <rect x="26" y="26" width="220" height="56" rx="12" fill="#fff" stroke="rgba(31,42,68,.10)"/>
-                <text x="135" y="62" text-anchor="middle" font-size="18" fill="#1F2A44">classroom</text>
-                <rect x="26" y="92" width="220" height="20" rx="10" fill="rgba(34,197,94,.18)"/>
+          <h3>Picture Prompt</h3>
+          <div class="illustration" style="max-height:230px">
+            <svg viewBox="0 0 900 240" width="100%" height="230" role="img" aria-label="classroom and timetable">
+              <rect width="900" height="240" rx="26" fill="rgba(255,255,255,.70)"/>
+              <g transform="translate(150,65)">
+                <rect x="0" y="0" width="260" height="130" rx="20" fill="rgba(34,197,94,.14)" stroke="rgba(34,197,94,.22)"/>
+                <rect x="26" y="26" width="210" height="56" rx="12" fill="#fff" opacity=".92"/>
+                <text x="130" y="62" text-anchor="middle" font-size="18" fill="#1F2A44">classroom</text>
+                <rect x="26" y="92" width="210" height="22" rx="11" fill="rgba(34,197,94,.18)"/>
               </g>
-              <g transform="translate(520,50)">
-                <rect x="0" y="0" width="240" height="140" rx="20" fill="rgba(77,150,255,.14)" stroke="rgba(77,150,255,.22)"/>
-                <text x="120" y="40" text-anchor="middle" font-size="18" fill="#1F2A44">timetable</text>
+              <g transform="translate(520,60)">
+                <rect x="0" y="0" width="250" height="140" rx="20" fill="rgba(77,150,255,.14)" stroke="rgba(77,150,255,.22)"/>
+                <text x="125" y="40" text-anchor="middle" font-size="18" fill="#1F2A44">timetable</text>
                 <g opacity=".9">
-                  <rect x="24" y="56" width="192" height="18" rx="9" fill="#fff"/>
-                  <rect x="24" y="82" width="192" height="18" rx="9" fill="#fff"/>
-                  <rect x="24" y="108" width="192" height="18" rx="9" fill="#fff"/>
+                  <rect x="24" y="56" width="202" height="18" rx="9" fill="#fff"/>
+                  <rect x="24" y="82" width="202" height="18" rx="9" fill="#fff"/>
+                  <rect x="24" y="108" width="202" height="18" rx="9" fill="#fff"/>
                 </g>
               </g>
             </svg>
@@ -580,42 +597,44 @@ I study at Sunshine School because it’s friendly.</div>
       </div>
     </section>
 
-    <!-- ========== SLIDE 7: School vocab 2/2 (8) ========== -->
-    <section class="slide" data-title="School Words 2">
+    <!-- 7 -->
+    <section class="slide" data-title="School Cards B">
       <div class="topbar">
-        <div class="chip"><span class="dot"></span> School Words</div>
+        <div class="chip"><span class="dot"></span> School Words (B)</div>
         <div class="counter" data-counter>7 / 26</div>
       </div>
+
       <div class="grid">
         <div class="card">
-          <h2>🏫 学校信息 Core（2/2）</h2>
-          <div class="sub">继续翻卡片。每张说 1 句。</div>
-          <div class="cards" id="s2"></div>
+          <h2>🏫 School Words</h2>
+          <div class="sub">Click → flip → speak.</div>
+          <div class="cards" id="schoolB"></div>
 
           <div class="yourturn">
-            <div class="label">🎤 Your Turn（选3个词，说3句）</div>
+            <div class="label">🎤 Speak Now</div>
             <ul>
-              <li>用：library / playground / club / uniform / classmates / break / homework / exam</li>
-              <li>至少 1 句加 because</li>
+              <li>Say 3 sentences about your school places.</li>
+              <li>Try: library / playground / club</li>
             </ul>
           </div>
         </div>
+
         <div class="card alt">
-          <h3>图片提示：图书馆 + 操场</h3>
-          <div class="illustration" style="max-height:210px">
-            <svg viewBox="0 0 900 220" width="100%" height="210" role="img" aria-label="library and playground">
-              <rect width="900" height="220" rx="26" fill="rgba(255,255,255,.70)"/>
-              <g transform="translate(150,60)">
-                <rect x="0" y="0" width="260" height="120" rx="20" fill="rgba(77,150,255,.14)" stroke="rgba(77,150,255,.22)"/>
+          <h3>Picture Prompt</h3>
+          <div class="illustration" style="max-height:230px">
+            <svg viewBox="0 0 900 240" width="100%" height="230" role="img" aria-label="library and playground">
+              <rect width="900" height="240" rx="26" fill="rgba(255,255,255,.70)"/>
+              <g transform="translate(150,70)">
+                <rect x="0" y="0" width="260" height="130" rx="20" fill="rgba(77,150,255,.14)" stroke="rgba(77,150,255,.22)"/>
                 <path d="M50 28h160v70H50z" fill="#fff" opacity=".9"/>
                 <path d="M70 42h120M70 58h120M70 74h120" stroke="#4D96FF" stroke-width="6" stroke-linecap="round"/>
-                <text x="130" y="110" text-anchor="middle" font-size="16" fill="#5B6B86">library</text>
+                <text x="130" y="118" text-anchor="middle" font-size="16" fill="#5B6B86">library</text>
               </g>
-              <g transform="translate(520,60)">
-                <rect x="0" y="0" width="260" height="120" rx="20" fill="rgba(34,197,94,.14)" stroke="rgba(34,197,94,.22)"/>
-                <circle cx="85" cy="60" r="28" fill="#fff" opacity=".9"/>
-                <path d="M180 90 Q210 50 240 90" fill="none" stroke="#22C55E" stroke-width="8" stroke-linecap="round"/>
-                <text x="130" y="110" text-anchor="middle" font-size="16" fill="#5B6B86">playground</text>
+              <g transform="translate(520,70)">
+                <rect x="0" y="0" width="260" height="130" rx="20" fill="rgba(34,197,94,.14)" stroke="rgba(34,197,94,.22)"/>
+                <circle cx="85" cy="68" r="28" fill="#fff" opacity=".9"/>
+                <path d="M180 100 Q210 54 240 100" fill="none" stroke="#22C55E" stroke-width="8" stroke-linecap="round"/>
+                <text x="130" y="118" text-anchor="middle" font-size="16" fill="#5B6B86">playground</text>
               </g>
             </svg>
           </div>
@@ -623,51 +642,45 @@ I study at Sunshine School because it’s friendly.</div>
       </div>
     </section>
 
-    <!-- ========== SLIDE 8: Power-up adjectives ========== -->
-    <section class="slide" data-title="Power-up Words">
+    <!-- 8 -->
+    <section class="slide" data-title="Power Words">
       <div class="topbar">
-        <div class="chip"><span class="dot"></span> Power-up</div>
+        <div class="chip"><span class="dot"></span> Power Words</div>
         <div class="counter" data-counter>8 / 26</div>
       </div>
+
       <div class="grid">
         <div class="card">
-          <h2>⚡ Power-up 形容词（10）</h2>
-          <div class="sub">目标：今天至少用 2 个 Power-up。</div>
-
+          <h2>⚡ Power Words (10)</h2>
           <div class="pillRow" id="powerPills"></div>
 
           <div class="yourturn">
-            <div class="label">🎤 Your Turn（升级句子 6次）</div>
+            <div class="label">🎤 Speak Now</div>
             <ul>
-              <li>说：My school is ____.</li>
-              <li>再说：My teacher is ____ and ____.</li>
-              <li>再说：English is ____ because ____.</li>
+              <li>Pick 2 power words and say 2 sentences.</li>
+              <li>Example: “My teacher is ___.” “My school is ___.”</li>
             </ul>
           </div>
-
-          <details>
-            <summary>点我看“更自然的连接”</summary>
-            <div class="ans">and / but / also / because / so / then</div>
-          </details>
         </div>
+
         <div class="card alt">
-          <h3>图片提示：表情词</h3>
-          <div class="illustration" style="max-height:210px">
-            <svg viewBox="0 0 900 220" width="100%" height="210" role="img" aria-label="emoji adjectives">
-              <rect width="900" height="220" rx="26" fill="rgba(255,255,255,.70)"/>
-              <g transform="translate(170,110)">
+          <h3>Emoji Picture Prompt</h3>
+          <div class="illustration" style="max-height:230px">
+            <svg viewBox="0 0 900 240" width="100%" height="230" role="img" aria-label="emoji adjectives">
+              <rect width="900" height="240" rx="26" fill="rgba(255,255,255,.70)"/>
+              <g transform="translate(170,120)">
                 <circle cx="0" cy="0" r="46" fill="rgba(251,191,36,.22)" stroke="rgba(31,42,68,.12)"/>
                 <circle cx="-14" cy="-10" r="6" fill="#1F2A44"/><circle cx="14" cy="-10" r="6" fill="#1F2A44"/>
                 <path d="M-18 10 Q0 26 18 10" fill="none" stroke="#1F2A44" stroke-width="6" stroke-linecap="round"/>
                 <text x="0" y="78" text-anchor="middle" font-size="16" fill="#5B6B86">friendly</text>
               </g>
-              <g transform="translate(450,110)">
+              <g transform="translate(450,120)">
                 <circle cx="0" cy="0" r="46" fill="rgba(77,150,255,.18)" stroke="rgba(31,42,68,.12)"/>
                 <circle cx="-14" cy="-10" r="6" fill="#1F2A44"/><circle cx="14" cy="-10" r="6" fill="#1F2A44"/>
-                <path d="M-20 18 Q0 6 20 18" fill="none" stroke="#1F2A44" stroke-width="6" stroke-linecap="round"/>
+                <path d="M-22 18 Q0 6 22 18" fill="none" stroke="#1F2A44" stroke-width="6" stroke-linecap="round"/>
                 <text x="0" y="78" text-anchor="middle" font-size="16" fill="#5B6B86">boring</text>
               </g>
-              <g transform="translate(730,110)">
+              <g transform="translate(730,120)">
                 <circle cx="0" cy="0" r="46" fill="rgba(34,197,94,.18)" stroke="rgba(31,42,68,.12)"/>
                 <circle cx="-14" cy="-10" r="6" fill="#1F2A44"/><circle cx="14" cy="-10" r="6" fill="#1F2A44"/>
                 <path d="M-22 10 Q0 30 22 10" fill="none" stroke="#1F2A44" stroke-width="6" stroke-linecap="round"/>
@@ -679,96 +692,96 @@ I study at Sunshine School because it’s friendly.</div>
       </div>
     </section>
 
-    <!-- ========== SLIDE 9: Chunks ========== -->
-    <section class="slide" data-title="Chunks (Word Partners)">
+    <!-- 9 -->
+    <section class="slide" data-title="Chunks">
       <div class="topbar">
-        <div class="chip"><span class="dot"></span> Chunks</div>
+        <div class="chip"><span class="dot"></span> Chunks (Say Fast)</div>
         <div class="counter" data-counter>9 / 26</div>
       </div>
+
       <div class="grid">
         <div class="card">
-          <h2>🧩 词块（Chunk）= 一起背更快</h2>
-          <div class="sub">点击卡片翻面：看例句。每个词块说 1 句。</div>
+          <h2>🧩 Chunks (6)</h2>
+          <div class="sub">Click → flip → say a sentence.</div>
           <div class="cards" id="chunks"></div>
 
           <div class="yourturn">
-            <div class="label">🎤 Your Turn（3句连说）</div>
+            <div class="label">🎤 Speak Now</div>
             <ul>
-              <li>用 3 个词块各说 1 句（共 3 句）</li>
-              <li>至少 1 句加 because</li>
+              <li>Pick 3 chunks → 3 sentences.</li>
+              <li>One sentence must have <b>because</b>.</li>
             </ul>
           </div>
         </div>
+
         <div class="card alt">
-          <h3>小游戏：随机抽一个词块</h3>
-          <div class="panel" id="randChunk">点击下面按钮抽一个词块</div>
+          <h3>Random Chunk</h3>
+          <div class="panel" id="randChunk">Click to pick a chunk.</div>
           <div class="pillRow">
-            <button onclick="randomChunk()">抽词块</button>
-            <button onclick="randomChunk()">再抽一次</button>
+            <button onclick="randomChunk()">Pick</button>
+            <button onclick="randomChunk()">Pick again</button>
           </div>
           <div class="yourturn">
-            <div class="label">🎤 Your Turn</div>
-            <ul><li>用抽到的词块说 2 句（第二句加细节）</li></ul>
+            <div class="label">🎤 Speak Now</div>
+            <ul><li>Say 2 sentences with the chunk (add 1 detail).</li></ul>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ========== SLIDE 10: Key sentences set (12) ========== -->
-    <section class="slide" data-title="Key Sentence Patterns">
+    <!-- 10 -->
+    <section class="slide" data-title="Sentence Magic">
       <div class="topbar">
-        <div class="chip"><span class="dot"></span> Sentence Patterns</div>
+        <div class="chip"><span class="dot"></span> Sentence Magic</div>
         <div class="counter" data-counter>10 / 26</div>
       </div>
+
       <div class="grid">
         <div class="card">
-          <h2>🧱 重点句型（12）</h2>
-          <div class="sub">先照着说 → 再替换成你的信息（每句至少说 1 次）</div>
-          <div class="mono">1) My name is ___.
-2) I’m ___ years old.
-3) I live in ___.
-4) I live with ___.
-5) I come from ___.
-6) I’m a student at ___.
-7) I study at ___ School.
-8) My school is big/clean/friendly.
-9) I study English, maths and ___.
-10) My favourite subject is ___ because ___. (and because ___)
-11) After school, I often ___.
-12) I’m good at ___ / I’m not good at ___.</div>
+          <h2>🧱 12 Key Sentences</h2>
+          <div class="mono">1) I’m a student at ___.
+2) I study at ___ School.
+3) My school is big/clean/friendly.
+4) I study English, maths and ___.
+5) My favourite subject is ___ because ___.
+6) I usually have ___ lessons on ___.
+7) My teacher is ___ and ___.
+8) After school, I often ___.
+9) I’m good at ___ / I’m not good at ___.
+10) I have lessons / I have a break.
+11) I do homework at home.
+12) I get along with my classmates.</div>
 
           <div class="yourturn">
-            <div class="label">🎤 Your Turn（重点）</div>
+            <div class="label">🎤 Speak Now</div>
             <ul>
-              <li>选 6 句连起来说（不要停）</li>
-              <li>第10句必须做到 because x2</li>
+              <li>Choose 6 lines → speak as a mini story.</li>
+              <li>Line 5: use <b>because</b> (twice if you can).</li>
             </ul>
           </div>
         </div>
+
         <div class="card alt">
-          <h3>because x2 句子模板</h3>
-          <div class="panel">
-            My favourite subject is ___ because ___. And because ___.
+          <h3>Because ×2 (upgrade)</h3>
+          <div class="panel">My favourite subject is ___ because ___. And because ___.</div>
+          <div class="yourturn">
+            <div class="label">🎤 Speak Now</div>
+            <ul><li>Make your own because×2 sentence.</li></ul>
           </div>
-          <details>
-            <summary>点我看例子</summary>
-            <div class="ans">
-              My favourite subject is English because it’s useful. And because my teacher is helpful.
-            </div>
-          </details>
         </div>
       </div>
     </section>
 
-    <!-- ========== SLIDE 11: High-score expressions (6) ========== -->
-    <section class="slide" data-title="High-score Expressions">
+    <!-- 11 -->
+    <section class="slide" data-title="High-score Lines">
       <div class="topbar">
-        <div class="chip"><span class="dot"></span> High-score</div>
+        <div class="chip"><span class="dot"></span> High-score Lines</div>
         <div class="counter" data-counter>11 / 26</div>
       </div>
+
       <div class="grid">
         <div class="card">
-          <h2>⭐ 高分表达（6）</h2>
+          <h2>⭐ High-score Lines (6)</h2>
           <div class="mono">1) My full name is ___, but you can call me ___.
 2) What I like most is ___.
 3) It helps me ___.
@@ -777,27 +790,22 @@ I study at Sunshine School because it’s friendly.</div>
 6) If I have time, I ___.</div>
 
           <div class="yourturn">
-            <div class="label">🎤 Your Turn（必须完成）</div>
+            <div class="label">🎤 Speak Now</div>
             <ul>
-              <li>任意选 3 个高分表达，说 3 句</li>
-              <li>其中 1 句必须加 because</li>
+              <li>Use 3 lines → 3 sentences.</li>
+              <li>One sentence must have <b>because</b>.</li>
             </ul>
           </div>
-
-          <details>
-            <summary>点我看“例句包”</summary>
-            <div class="ans">
-              What I like most is English. It helps me speak better. I feel proud when I get good marks.
-            </div>
-          </details>
         </div>
+
         <div class="card alt">
-          <h3>图片提示：奖杯 + 星星</h3>
-          <div class="illustration" style="max-height:210px">
-            <svg viewBox="0 0 900 220" width="100%" height="210" role="img" aria-label="trophy">
-              <rect width="900" height="220" rx="26" fill="rgba(255,255,255,.70)"/>
-              <g transform="translate(450,112)">
-                <path d="M-60-55h120v18c0 40-28 72-60 72s-60-32-60-72v-18Z" fill="rgba(251,191,36,.24)" stroke="rgba(31,42,68,.12)"/>
+          <h3>Picture Prompt</h3>
+          <div class="illustration" style="max-height:230px">
+            <svg viewBox="0 0 900 240" width="100%" height="230" role="img" aria-label="trophy">
+              <rect width="900" height="240" rx="26" fill="rgba(255,255,255,.70)"/>
+              <g transform="translate(450,120)">
+                <path d="M-60-55h120v18c0 40-28 72-60 72s-60-32-60-72v-18Z"
+                      fill="rgba(251,191,36,.24)" stroke="rgba(31,42,68,.12)"/>
                 <rect x="-28" y="35" width="56" height="20" rx="10" fill="rgba(77,150,255,.16)" stroke="rgba(77,150,255,.22)"/>
                 <rect x="-46" y="55" width="92" height="18" rx="9" fill="rgba(34,197,94,.16)" stroke="rgba(34,197,94,.22)"/>
                 <path d="M-78-50h-26c0 32 18 54 42 54" fill="none" stroke="rgba(31,42,68,.16)" stroke-width="10" stroke-linecap="round"/>
@@ -806,106 +814,106 @@ I study at Sunshine School because it’s friendly.</div>
               </g>
             </svg>
           </div>
-          <div class="panel">用 1–2 个高分表达，会显得更自然、更高级。</div>
         </div>
       </div>
     </section>
 
-    <!-- ========== SLIDE 12: Structure (7 steps) ========== -->
-    <section class="slide" data-title="7-step Structure">
+    <!-- 12 -->
+    <section class="slide" data-title="7-step Map">
       <div class="topbar">
-        <div class="chip"><span class="dot"></span> Speaking Structure</div>
+        <div class="chip"><span class="dot"></span> 7-step Map</div>
         <div class="counter" data-counter>12 / 26</div>
       </div>
+
       <div class="grid">
         <div class="card">
-          <h2>🗺️ 7步结构（按顺序说就不卡）</h2>
-          <div class="mono">1) 姓名年龄 → My name is… / I’m… years old.
-2) 居住与家庭 → I live in… / I live with… / I come from…
-3) 学校概况 → I’m a student at… / My school is…
-4) 最爱科目 → My favourite subject is… because… and because…
-5) 课后活动 → After school, I often…
-6) 能力/兴趣 → I’m good at… / I’m interested in… too.
-7) 感受收尾 → I feel… when…</div>
+          <h2>🗺️ 7-step Map</h2>
+          <div class="mono">1) Name + Age
+2) Live (in / with / from)
+3) School (student / school)
+4) Favourite subject (because ×2)
+5) After school
+6) Good at / Interested in
+7) Feeling (I feel… when…)</div>
 
           <div class="yourturn">
-            <div class="label">🎤 Your Turn（先短后长）</div>
+            <div class="label">🎤 Speak Now</div>
             <ul>
-              <li>先只说“标题”7个（1句话一个标题）</li>
-              <li>再把第4步说完整（because x2）</li>
+              <li>Say step 1 → step 7 (one sentence per step).</li>
+              <li>Step 4 must have because ×2.</li>
             </ul>
           </div>
         </div>
+
         <div class="card alt">
-          <h3>图片提示：路线图</h3>
-          <div class="illustration" style="max-height:210px">
-            <svg viewBox="0 0 900 220" width="100%" height="210" role="img" aria-label="map path">
-              <rect width="900" height="220" rx="26" fill="rgba(255,255,255,.70)"/>
-              <path d="M120 170 C220 80, 300 200, 390 110 S560 60, 650 120 S760 200, 820 80"
+          <h3>Picture Prompt</h3>
+          <div class="illustration" style="max-height:230px">
+            <svg viewBox="0 0 900 240" width="100%" height="230" role="img" aria-label="map path">
+              <rect width="900" height="240" rx="26" fill="rgba(255,255,255,.70)"/>
+              <path d="M120 180 C220 80, 300 210, 390 120 S560 70, 650 130 S760 210, 820 90"
                     fill="none" stroke="rgba(77,150,255,.30)" stroke-width="14" stroke-linecap="round"/>
               <g fill="#fff" stroke="rgba(31,42,68,.12)" stroke-width="2">
-                <circle cx="120" cy="170" r="18"/><circle cx="260" cy="110" r="18"/><circle cx="390" cy="110" r="18"/>
-                <circle cx="520" cy="80" r="18"/><circle cx="650" cy="120" r="18"/><circle cx="760" cy="170" r="18"/>
-                <circle cx="820" cy="80" r="18"/>
+                <circle cx="120" cy="180" r="18"/><circle cx="260" cy="120" r="18"/><circle cx="390" cy="120" r="18"/>
+                <circle cx="520" cy="90" r="18"/><circle cx="650" cy="130" r="18"/><circle cx="760" cy="180" r="18"/>
+                <circle cx="820" cy="90" r="18"/>
               </g>
-              <text x="120" y="175" text-anchor="middle" font-size="14" fill="#1F2A44">1</text>
-              <text x="260" y="115" text-anchor="middle" font-size="14" fill="#1F2A44">2</text>
-              <text x="390" y="115" text-anchor="middle" font-size="14" fill="#1F2A44">3</text>
-              <text x="520" y="85" text-anchor="middle" font-size="14" fill="#1F2A44">4</text>
-              <text x="650" y="125" text-anchor="middle" font-size="14" fill="#1F2A44">5</text>
-              <text x="760" y="175" text-anchor="middle" font-size="14" fill="#1F2A44">6</text>
-              <text x="820" y="85" text-anchor="middle" font-size="14" fill="#1F2A44">7</text>
+              <text x="120" y="185" text-anchor="middle" font-size="14" fill="#1F2A44">1</text>
+              <text x="260" y="125" text-anchor="middle" font-size="14" fill="#1F2A44">2</text>
+              <text x="390" y="125" text-anchor="middle" font-size="14" fill="#1F2A44">3</text>
+              <text x="520" y="95" text-anchor="middle" font-size="14" fill="#1F2A44">4</text>
+              <text x="650" y="135" text-anchor="middle" font-size="14" fill="#1F2A44">5</text>
+              <text x="760" y="185" text-anchor="middle" font-size="14" fill="#1F2A44">6</text>
+              <text x="820" y="95" text-anchor="middle" font-size="14" fill="#1F2A44">7</text>
             </svg>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ========== SLIDE 13: Exam Q Personal (6) ========== -->
-    <section class="slide" data-title="Exam Q: Personal (6)">
+    <!-- 13 -->
+    <section class="slide" data-title="Exam Q · Personal">
       <div class="topbar">
-        <div class="chip"><span class="dot"></span> KET Questions</div>
+        <div class="chip"><span class="dot"></span> Exam Q (Personal)</div>
         <div class="counter" data-counter>13 / 26</div>
       </div>
+
       <div class="grid">
         <div class="card">
-          <h2>❓ 个人信息常考题（6题）</h2>
-          <div class="panel">
-            规则：每题至少 2 句（Answer + Detail）。<br>
-            点开答案只做参考，你要用自己的信息说。
+          <h2>❓ Exam Questions (Personal)</h2>
+          <div class="panel">Rule: 2 sentences each.</div>
+
+          <div class="twoCols">
+            <div class="miniCard"><p class="bigQ">1) What’s your name?</p><div class="prompt">Add a nickname line.</div></div>
+            <div class="miniCard"><p class="bigQ">2) How old are you?</p><div class="prompt">Add “I’m a student.”</div></div>
+            <div class="miniCard"><p class="bigQ">3) Where do you live?</p><div class="prompt">Add 1 detail about the city.</div></div>
+            <div class="miniCard"><p class="bigQ">4) Who do you live with?</p><div class="prompt">Add 1 family detail.</div></div>
+            <div class="miniCard"><p class="bigQ">5) Where are you from?</p><div class="prompt">Add “It’s in…”</div></div>
+            <div class="miniCard"><p class="bigQ">6) What do you like doing?</p><div class="prompt">Use because.</div></div>
           </div>
 
-          <details><summary>1) What’s your name?</summary><div class="ans">My name is ___. My full name is ___, but you can call me ___.</div></details>
-          <details><summary>2) How old are you?</summary><div class="ans">I’m ___ years old. I’m a student.</div></details>
-          <details><summary>3) Where do you live?</summary><div class="ans">I live in ___. It’s a nice city.</div></details>
-          <details><summary>4) Who do you live with?</summary><div class="ans">I live with my parents. We usually have dinner together.</div></details>
-          <details><summary>5) Where are you from?</summary><div class="ans">I come from ___. It’s in China.</div></details>
-          <details><summary>6) What do you like doing in your free time?</summary><div class="ans">I like ___ because it’s ___. It helps me relax.</div></details>
-
           <div class="yourturn">
-            <div class="label">🎤 Your Turn（连答3题）</div>
+            <div class="label">🎤 Speak Now</div>
             <ul>
-              <li>任选 3 题，连续回答（不要停）</li>
-              <li>至少 1 题要有 because</li>
+              <li>Answer 3 questions (no stopping).</li>
+              <li>At least 1 because.</li>
             </ul>
           </div>
         </div>
+
         <div class="card alt">
-          <h3>图片提示：家 + 城市</h3>
-          <div class="illustration" style="max-height:210px">
-            <svg viewBox="0 0 900 220" width="100%" height="210" role="img" aria-label="home and city">
-              <rect width="900" height="220" rx="26" fill="rgba(255,255,255,.70)"/>
-              <g transform="translate(180,70)">
+          <h3>Picture Prompt</h3>
+          <div class="illustration" style="max-height:230px">
+            <svg viewBox="0 0 900 240" width="100%" height="230" role="img" aria-label="home and city">
+              <rect width="900" height="240" rx="26" fill="rgba(255,255,255,.70)"/>
+              <g transform="translate(200,70)">
                 <polygon points="0,60 90,0 180,60" fill="rgba(251,113,133,.18)" stroke="rgba(251,113,133,.22)"/>
-                <rect x="20" y="60" width="140" height="90" rx="16" fill="#fff" stroke="rgba(31,42,68,.10)"/>
-                <rect x="80" y="98" width="40" height="52" rx="10" fill="rgba(77,150,255,.12)" stroke="rgba(77,150,255,.20)"/>
-                <text x="90" y="170" text-anchor="middle" font-size="16" fill="#5B6B86">live with</text>
+                <rect x="20" y="60" width="140" height="100" rx="16" fill="#fff" stroke="rgba(31,42,68,.10)"/>
+                <rect x="78" y="104" width="44" height="56" rx="10" fill="rgba(77,150,255,.12)" stroke="rgba(77,150,255,.20)"/>
               </g>
-              <g transform="translate(560,55)">
-                <rect x="0" y="70" width="60" height="90" rx="12" fill="rgba(77,150,255,.14)" stroke="rgba(77,150,255,.22)"/>
-                <rect x="74" y="40" width="64" height="120" rx="12" fill="rgba(34,197,94,.14)" stroke="rgba(34,197,94,.22)"/>
-                <rect x="152" y="60" width="58" height="100" rx="12" fill="rgba(251,191,36,.16)" stroke="rgba(251,191,36,.26)"/>
-                <text x="110" y="190" text-anchor="middle" font-size="16" fill="#5B6B86">city</text>
+              <g transform="translate(560,65)">
+                <rect x="0" y="70" width="60" height="95" rx="12" fill="rgba(77,150,255,.14)" stroke="rgba(77,150,255,.22)"/>
+                <rect x="74" y="40" width="64" height="125" rx="12" fill="rgba(34,197,94,.14)" stroke="rgba(34,197,94,.22)"/>
+                <rect x="152" y="60" width="58" height="105" rx="12" fill="rgba(251,191,36,.16)" stroke="rgba(251,191,36,.26)"/>
               </g>
             </svg>
           </div>
@@ -913,85 +921,89 @@ I study at Sunshine School because it’s friendly.</div>
       </div>
     </section>
 
-    <!-- ========== SLIDE 14: Exam Q School (6) ========== -->
-    <section class="slide" data-title="Exam Q: School (6)">
+    <!-- 14 -->
+    <section class="slide" data-title="Exam Q · School">
       <div class="topbar">
-        <div class="chip"><span class="dot"></span> KET Questions</div>
+        <div class="chip"><span class="dot"></span> Exam Q (School)</div>
         <div class="counter" data-counter>14 / 26</div>
       </div>
+
       <div class="grid">
         <div class="card">
-          <h2>❓ 学校信息常考题（6题）</h2>
+          <h2>❓ Exam Questions (School)</h2>
+          <div class="panel">Rule: 2 sentences each.</div>
 
-          <details><summary>1) What school do you go to?</summary><div class="ans">I go to ___ School. It’s a big school in the city centre.</div></details>
-          <details><summary>2) What subjects do you study?</summary><div class="ans">I study English, maths, science and PE. English is my favourite.</div></details>
-          <details><summary>3) What’s your favourite subject? Why?</summary><div class="ans">My favourite subject is English because it helps me talk with foreigners. And because the lessons are interesting.</div></details>
-          <details><summary>4) Do you like your school? Why?</summary><div class="ans">Yes, I do. My school is clean and friendly. The teachers are helpful.</div></details>
-          <details><summary>5) What’s your teacher like?</summary><div class="ans">My English teacher is kind and funny. She makes lessons interesting with games.</div></details>
-          <details><summary>6) What do you do after school?</summary><div class="ans">After school, I often go to an English club. Then I do homework at home.</div></details>
+          <div class="twoCols">
+            <div class="miniCard"><p class="bigQ">1) What school do you go to?</p><div class="prompt">Add location (in the city centre).</div></div>
+            <div class="miniCard"><p class="bigQ">2) What subjects do you study?</p><div class="prompt">Use “and”.</div></div>
+            <div class="miniCard"><p class="bigQ">3) Favourite subject? Why?</p><div class="prompt">Use because ×2.</div></div>
+            <div class="miniCard"><p class="bigQ">4) Do you like your school? Why?</p><div class="prompt">Use 1 power word.</div></div>
+            <div class="miniCard"><p class="bigQ">5) What’s your teacher like?</p><div class="prompt">Use 2 power words.</div></div>
+            <div class="miniCard"><p class="bigQ">6) What do you do after school?</p><div class="prompt">Use a chunk.</div></div>
+          </div>
 
           <div class="yourturn">
-            <div class="label">🎤 Your Turn（必须）</div>
+            <div class="label">🎤 Speak Now</div>
             <ul>
-              <li>回答第3题（because x2）</li>
-              <li>再任选 2 题回答（每题至少2句）</li>
+              <li>Answer Q3 + any 2 more.</li>
+              <li>Q3 must be because ×2.</li>
             </ul>
           </div>
         </div>
-        <div class="card alt">
-          <h3>加分题（Bonus）</h3>
-          <details><summary>Bonus A) What do you do at break time?</summary><div class="ans">At break time, I usually chat with my classmates. Sometimes we play in the playground.</div></details>
-          <details><summary>Bonus B) Is your school big or small?</summary><div class="ans">My school is quite big. It has a large playground and a library with many books.</div></details>
 
+        <div class="card alt">
+          <h3>Quick Role Prompt</h3>
+          <div class="panel">Teacher: “Tell me about your school!”</div>
           <div class="yourturn">
-            <div class="label">🎤 Your Turn（选1题）</div>
-            <ul><li>任选一个Bonus题回答（至少2句）</li></ul>
+            <div class="label">🎤 Speak Now</div>
+            <ul>
+              <li>Speak 5 sentences (school only).</li>
+              <li>Include: subject + after school.</li>
+            </ul>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ========== SLIDE 15: Role-play ========== -->
-    <section class="slide" data-title="Role-play: New Classmate">
+    <!-- 15 -->
+    <section class="slide" data-title="Role-play">
       <div class="topbar">
         <div class="chip"><span class="dot"></span> Role-play</div>
         <div class="counter" data-counter>15 / 26</div>
       </div>
+
       <div class="grid">
         <div class="card">
-          <h2>🎭 角色扮演：新同学来啦</h2>
-          <div class="panel">
-            场景：你遇到一个新同学。你要介绍自己和学校。<br>
-            你必须用：2个重点句型 + 1个高分表达 + 2个 because
-          </div>
+          <h2>🎭 Role-play: New Classmate</h2>
+          <div class="panel">Teacher: “Hi! I’m new here. Tell me about you and your school!”</div>
 
           <div class="yourturn">
-            <div class="label">🎤 Your Turn（说 30 秒）</div>
+            <div class="label">🎤 Speak Now</div>
             <ul>
-              <li>先说：名字年龄 + 学校</li>
-              <li>再说：最爱科目（because x2）</li>
-              <li>最后说：课后活动 + 感受</li>
+              <li>Speak 30–35 seconds.</li>
+              <li>Use: 2 power words + 1 chunk + because ×2.</li>
             </ul>
           </div>
 
           <details>
-            <summary>点我看“开头句”示例</summary>
+            <summary>Starter line (click)</summary>
             <div class="ans">Hi! My name is ___. I’m ___ years old. I study at ___ School.</div>
           </details>
         </div>
+
         <div class="card alt">
-          <h3>卡通新同学</h3>
-          <div class="illustration" style="max-height:210px">
-            <svg viewBox="0 0 900 220" width="100%" height="210" role="img" aria-label="new classmate avatar">
-              <rect width="900" height="220" rx="26" fill="rgba(255,255,255,.70)"/>
-              <g transform="translate(450,108)">
+          <h3>Cartoon Buddy</h3>
+          <div class="illustration" style="max-height:230px">
+            <svg viewBox="0 0 900 240" width="100%" height="230" role="img" aria-label="new classmate avatar">
+              <rect width="900" height="240" rx="26" fill="rgba(255,255,255,.70)"/>
+              <g transform="translate(450,120)">
                 <circle cx="0" cy="-10" r="44" fill="#fff" stroke="rgba(31,42,68,.12)"/>
                 <path d="M-30 -40 Q0 -64 30 -40" fill="none" stroke="#FB7185" stroke-width="10" stroke-linecap="round"/>
                 <circle cx="-14" cy="-16" r="5" fill="#1F2A44"/>
                 <circle cx="14" cy="-16" r="5" fill="#1F2A44"/>
                 <path d="M-16 6 Q0 22 16 6" fill="none" stroke="#1F2A44" stroke-width="5" stroke-linecap="round"/>
-                <rect x="-60" y="42" width="120" height="76" rx="24" fill="rgba(77,150,255,.18)" stroke="rgba(77,150,255,.22)"/>
-                <text x="0" y="88" text-anchor="middle" font-size="18" fill="#1F2A44">New classmate</text>
+                <rect x="-66" y="42" width="132" height="82" rx="24" fill="rgba(77,150,255,.18)" stroke="rgba(77,150,255,.22)"/>
+                <text x="0" y="92" text-anchor="middle" font-size="18" fill="#1F2A44">New buddy</text>
               </g>
             </svg>
           </div>
@@ -999,15 +1011,16 @@ I study at Sunshine School because it’s friendly.</div>
       </div>
     </section>
 
-    <!-- ========== SLIDE 16: Build your 6-7 sentence script ========== -->
-    <section class="slide" data-title="Make Your Script">
+    <!-- 16 -->
+    <section class="slide" data-title="Build Your Talk">
       <div class="topbar">
-        <div class="chip"><span class="dot"></span> Make Your Script</div>
+        <div class="chip"><span class="dot"></span> Build Your Talk</div>
         <div class="counter" data-counter>16 / 26</div>
       </div>
+
       <div class="grid">
         <div class="card">
-          <h2>🧱 你的专属小稿（直接用来口试）</h2>
+          <h2>🧱 Your 7-step Talk</h2>
           <div class="mono">1) My name is ___. I’m ___ years old.
 2) I live in ___. I live with ___.
 3) I study at ___ School. My school is ___ and ___.
@@ -1017,42 +1030,38 @@ I study at Sunshine School because it’s friendly.</div>
 7) I feel ___ when ___.</div>
 
           <div class="yourturn">
-            <div class="label">🎤 Your Turn（先慢后快）</div>
+            <div class="label">🎤 Speak Now</div>
             <ul>
-              <li>先慢速读一遍（清楚）</li>
-              <li>再正常语速说一遍（自然）</li>
+              <li>Say it once (slow).</li>
+              <li>Say it again (natural).</li>
             </ul>
           </div>
         </div>
+
         <div class="card alt">
-          <h3>快速自检（你有做到吗？）</h3>
-          <div class="pillRow">
-            <div class="pill green">≥6句</div>
-            <div class="pill yellow">≥2 because</div>
-            <div class="pill purple">≥2 Power-up</div>
-            <div class="pill">≥1 chunk</div>
+          <h3>Mini Challenge</h3>
+          <div class="panel">Swap one sentence with a “high-score line”.</div>
+          <div class="yourturn">
+            <div class="label">🎤 Speak Now</div>
+            <ul>
+              <li>Use: “What I like most is …” OR “It helps me …”</li>
+            </ul>
           </div>
-          <div class="panel" style="margin-top:10px">
-            Power-up 提示：friendly / helpful / interesting / useful / comfortable
-          </div>
-          <details>
-            <summary>点我看“chunk提示”</summary>
-            <div class="ans">my favourite subject / after-school club / from Monday to Friday / have a break / do homework at home / get along with my classmates</div>
-          </details>
         </div>
       </div>
     </section>
 
-    <!-- ========== SLIDE 17: Timer 30s ========== -->
+    <!-- 17 -->
     <section class="slide" data-title="Timer 30s">
       <div class="topbar">
         <div class="chip"><span class="dot"></span> Timer Practice</div>
         <div class="counter" data-counter>17 / 26</div>
       </div>
+
       <div class="grid">
         <div class="card">
-          <h2>⏳ 30秒练习（热身）</h2>
-          <div class="panel">目标：说 4–5 句，至少 1 个 because</div>
+          <h2>⏳ Timer: 30 seconds</h2>
+          <div class="panel">Goal: 4–5 sentences + 1 because</div>
 
           <div class="timerWrap">
             <div class="timerRing pulse" id="ring30" style="--p:0deg;">
@@ -1063,22 +1072,20 @@ I study at Sunshine School because it’s friendly.</div>
             </div>
             <div>
               <div class="btnRow">
-                <button class="primary" onclick="startTimer('30',30)">Start 30s</button>
+                <button class="primary" onclick="startTimer('30',30)">Start</button>
                 <button onclick="pauseTimer()">Pause</button>
                 <button class="warn" onclick="resetTimer()">Reset</button>
               </div>
               <div class="yourturn">
-                <div class="label">🎤 Your Turn</div>
-                <ul>
-                  <li>不停顿，一口气说</li>
-                  <li>结束后说：I used … because.</li>
-                </ul>
+                <div class="label">🎤 Speak Now</div>
+                <ul><li>Speak without stopping.</li></ul>
               </div>
             </div>
           </div>
         </div>
+
         <div class="card alt">
-          <h3>句子启动器（卡住就用）</h3>
+          <h3>Sentence Starters</h3>
           <div class="mono">Let me think…
 I think…
 Also, …
@@ -1089,16 +1096,17 @@ After school, …</div>
       </div>
     </section>
 
-    <!-- ========== SLIDE 18: Timer 40s ========== -->
+    <!-- 18 -->
     <section class="slide" data-title="Timer 40s">
       <div class="topbar">
         <div class="chip"><span class="dot"></span> Timer Practice</div>
         <div class="counter" data-counter>18 / 26</div>
       </div>
+
       <div class="grid">
         <div class="card">
-          <h2>⏳ 40秒练习（接近考试）</h2>
-          <div class="panel">目标：≥6句，≥2 because（建议都放在 favourite subject）</div>
+          <h2>⏳ Timer: 40 seconds</h2>
+          <div class="panel">Goal: 6+ sentences + because ×2</div>
 
           <div class="timerWrap">
             <div class="timerRing pulse" id="ring40" style="--p:0deg;">
@@ -1109,43 +1117,44 @@ After school, …</div>
             </div>
             <div>
               <div class="btnRow">
-                <button class="primary" onclick="startTimer('40',40)">Start 40s</button>
+                <button class="primary" onclick="startTimer('40',40)">Start</button>
                 <button onclick="pauseTimer()">Pause</button>
                 <button class="warn" onclick="resetTimer()">Reset</button>
               </div>
               <div class="yourturn">
-                <div class="label">🎤 Your Turn</div>
+                <div class="label">🎤 Speak Now</div>
                 <ul>
-                  <li>必须用 2 个 Power-up</li>
-                  <li>必须用 1 个 chunk</li>
+                  <li>Use 2 power words.</li>
+                  <li>Use 1 chunk.</li>
                 </ul>
               </div>
             </div>
           </div>
         </div>
+
         <div class="card alt">
-          <h3>because原因库（挑2个）</h3>
+          <h3>Because Ideas</h3>
           <div class="pillRow">
             <div class="pill">because it’s useful</div>
             <div class="pill">because it’s interesting</div>
             <div class="pill">because my teacher is helpful</div>
             <div class="pill">because I like games</div>
           </div>
-          <div class="panel" style="margin-top:10px">你也可以说自己的真实原因（更自然）。</div>
         </div>
       </div>
     </section>
 
-    <!-- ========== SLIDE 19: Timer 50s (final) ========== -->
-    <section class="slide" data-title="Timer 50s Final">
+    <!-- 19 -->
+    <section class="slide" data-title="Timer 50s">
       <div class="topbar">
-        <div class="chip"><span class="dot"></span> Final Challenge</div>
+        <div class="chip"><span class="dot"></span> Final Timer</div>
         <div class="counter" data-counter>19 / 26</div>
       </div>
+
       <div class="grid">
         <div class="card">
-          <h2>🏆 50秒终极挑战</h2>
-          <div class="panel">目标：40–50秒连续说（≥6句 + ≥2 because + ≥2 Power-up + ≥1 chunk）</div>
+          <h2>🏆 Timer: 50 seconds (Final)</h2>
+          <div class="panel">Goal: 40–50s · 6+ sentences · because ×2</div>
 
           <div class="timerWrap">
             <div class="timerRing pulse" id="ring50" style="--p:0deg;">
@@ -1156,219 +1165,179 @@ After school, …</div>
             </div>
             <div>
               <div class="btnRow">
-                <button class="primary" onclick="startTimer('50',50)">Start 50s</button>
+                <button class="primary" onclick="startTimer('50',50)">Start</button>
                 <button onclick="pauseTimer()">Pause</button>
                 <button class="warn" onclick="resetTimer()">Reset</button>
               </div>
               <div class="yourturn">
-                <div class="label">🎤 Your Turn（结束自检）</div>
+                <div class="label">🎤 Speak Now</div>
                 <ul>
-                  <li>说：I used 2 because.</li>
-                  <li>说：I used 2 power-up words.</li>
+                  <li>Speak as a story (7 steps).</li>
+                  <li>Smile 🙂 and speak clearly.</li>
                 </ul>
               </div>
             </div>
           </div>
         </div>
+
         <div class="card alt">
-          <h3>Checklist（你达标了吗）</h3>
+          <h3>Mini Checklist</h3>
           <div class="pillRow">
-            <div class="pill green">≥6句</div>
-            <div class="pill yellow">≥2 because</div>
-            <div class="pill purple">≥2 Power-up</div>
-            <div class="pill">≥1 chunk</div>
+            <div class="pill green">6+ sentences</div>
+            <div class="pill yellow">2× because</div>
+            <div class="pill purple">2× power words</div>
+            <div class="pill">1× chunk</div>
           </div>
-          <details>
-            <summary>点我看“Power-up列表”</summary>
-            <div class="ans">friendly / helpful / strict / interesting / boring / difficult / easy / useful / popular / comfortable</div>
-          </details>
+          <div class="illustration" style="max-height:230px">
+            <svg viewBox="0 0 900 240" width="100%" height="230" role="img" aria-label="celebration">
+              <rect width="900" height="240" rx="26" fill="rgba(255,255,255,.70)"/>
+              <g transform="translate(450,120)">
+                <circle cx="0" cy="0" r="64" fill="rgba(34,197,94,.14)" stroke="rgba(34,197,94,.22)"/>
+                <text x="0" y="8" text-anchor="middle" font-size="26" fill="#1F2A44">👏</text>
+                <text x="0" y="88" text-anchor="middle" font-size="18" fill="#5B6B86">You did it!</text>
+              </g>
+            </svg>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- ========== SLIDE 20: Error Fix Game (student-facing) ========== -->
+    <!-- 20 -->
     <section class="slide" data-title="Fix It Game">
       <div class="topbar">
         <div class="chip"><span class="dot"></span> Fix It!</div>
         <div class="counter" data-counter>20 / 26</div>
       </div>
+
       <div class="grid">
         <div class="card">
-          <h2>🛠️ Fix It（改错游戏）</h2>
-          <div class="panel">看句子：如果不对，你要改成正确句子并读出来。</div>
+          <h2>🛠️ Fix It! (Say the correct sentence)</h2>
+          <div class="panel">Read → Fix → Say it.</div>
 
-          <details><summary>1) I live with Beijing.</summary><div class="ans">✅ I live in Beijing. / ✅ I live with my parents.</div></details>
-          <details><summary>2) I study in Sunshine School.</summary><div class="ans">✅ I study at Sunshine School.</div></details>
-          <details><summary>3) My favourite subject is English because useful.</summary><div class="ans">✅ My favourite subject is English because it’s useful.</div></details>
-          <details><summary>4) I study English maths science.（缺and）</summary><div class="ans">✅ I study English, maths and science.</div></details>
+          <details><summary>1) I live with Beijing.</summary><div class="ans">I live in Beijing. / I live with my parents.</div></details>
+          <details><summary>2) I study in Sunshine School.</summary><div class="ans">I study at Sunshine School.</div></details>
+          <details><summary>3) My favourite subject is English because useful.</summary><div class="ans">My favourite subject is English because it’s useful.</div></details>
+          <details><summary>4) I study English maths science.</summary><div class="ans">I study English, maths and science.</div></details>
 
           <div class="yourturn">
-            <div class="label">🎤 Your Turn</div>
+            <div class="label">🎤 Speak Now</div>
             <ul>
-              <li>任选 2 题：先读错句 → 再说正确句</li>
-              <li>每题再加 1 句细节（Tell me more）</li>
+              <li>Pick 2 → fix → add 1 detail sentence.</li>
             </ul>
           </div>
         </div>
+
         <div class="card alt">
-          <h3>加分：用Power-up再说一遍</h3>
-          <div class="panel">把简单句升级：clean / friendly / helpful / interesting / useful</div>
+          <h3>Upgrade!</h3>
+          <div class="panel">Add 2 power words: friendly / helpful / interesting / useful / comfortable</div>
           <div class="yourturn">
-            <div class="label">🎤 Your Turn</div>
-            <ul><li>说：My school is ___ and ___.</li></ul>
+            <div class="label">🎤 Speak Now</div>
+            <ul><li>Say: “My school is ___ and ___.”</li></ul>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ========== SLIDE 21: Homework ========== -->
-    <section class="slide" data-title="Homework">
+    <!-- 21 -->
+    <section class="slide" data-title="Picture Talk">
       <div class="topbar">
-        <div class="chip"><span class="dot"></span> Homework</div>
+        <div class="chip"><span class="dot"></span> Picture Talk</div>
         <div class="counter" data-counter>21 / 26</div>
       </div>
+
       <div class="grid">
         <div class="card">
-          <h2>🎧 课后作业（一定要做）</h2>
-          <div class="panel">
-            录制 40–50 秒音频：About Me & School<br>
-            必须：≥6句；≥2 because；≥2 Power-up；≥1 chunk；结构7步法
-          </div>
+          <h2>🖼️ Picture Talk (2 sentences each)</h2>
+          <div class="sub">What is it? Why do you like it?</div>
 
-          <div class="yourturn">
-            <div class="label">🎤 Your Turn（复述作业要求）</div>
-            <ul>
-              <li>How many seconds?</li>
-              <li>How many “because”?</li>
-            </ul>
-          </div>
-
-          <details>
-            <summary>点我看作业“参考结构”</summary>
-            <div class="ans">Name+Age → Live/Family → School → Favourite subject (because x2) → After school → Good at/Interested in → Feel</div>
-          </details>
-        </div>
-        <div class="card alt">
-          <h3>Good job! 🌟</h3>
-          <div class="illustration" style="max-height:210px">
-            <svg viewBox="0 0 900 220" width="100%" height="210" role="img" aria-label="stars">
-              <rect width="900" height="220" rx="26" fill="rgba(255,255,255,.70)"/>
-              <g fill="rgba(251,191,36,.28)" stroke="rgba(251,191,36,.32)">
-                <path d="M180 70l12 28 30 3-22 19 7 29-27-16-27 16 7-29-22-19 30-3Z"/>
-                <path d="M450 40l16 36 38 4-28 24 9 37-35-21-35 21 9-37-28-24 38-4Z"/>
-                <path d="M710 80l12 28 30 3-22 19 7 29-27-16-27 16 7-29-22-19 30-3Z"/>
-              </g>
-              <text x="450" y="188" text-anchor="middle" font-size="22" fill="#1F2A44">See you next time!</text>
-            </svg>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ========== EXTRA SLIDES for “more practice & more pictures” ========== -->
-    <!-- 22: Picture prompts (school scenes) -->
-    <section class="slide" data-title="Picture Prompts">
-      <div class="topbar">
-        <div class="chip"><span class="dot"></span> Picture Prompts</div>
-        <div class="counter" data-counter>22 / 26</div>
-      </div>
-      <div class="grid">
-        <div class="card">
-          <h2>🖼️ 看图说话（练流畅）</h2>
-          <div class="sub">看图后立刻说 2 句：What is it? + Why do you like it?</div>
-
-          <div class="illustration" style="max-height:220px">
-            <svg viewBox="0 0 900 230" width="100%" height="220" role="img" aria-label="school scenes">
-              <rect width="900" height="230" rx="26" fill="rgba(255,255,255,.70)"/>
-              <!-- library -->
-              <g transform="translate(120,60)">
-                <rect x="0" y="0" width="210" height="130" rx="18" fill="rgba(77,150,255,.14)" stroke="rgba(77,150,255,.22)"/>
-                <rect x="26" y="26" width="160" height="70" rx="12" fill="#fff" opacity=".92"/>
+          <div class="illustration" style="max-height:240px">
+            <svg viewBox="0 0 900 250" width="100%" height="240" role="img" aria-label="school scenes">
+              <rect width="900" height="250" rx="26" fill="rgba(255,255,255,.70)"/>
+              <g transform="translate(120,65)">
+                <rect x="0" y="0" width="210" height="140" rx="18" fill="rgba(77,150,255,.14)" stroke="rgba(77,150,255,.22)"/>
+                <rect x="26" y="26" width="160" height="76" rx="12" fill="#fff" opacity=".92"/>
                 <path d="M52 42h110M52 60h110M52 78h110" stroke="#4D96FF" stroke-width="6" stroke-linecap="round"/>
-                <text x="105" y="118" text-anchor="middle" font-size="16" fill="#5B6B86">library</text>
+                <text x="105" y="126" text-anchor="middle" font-size="16" fill="#5B6B86">library</text>
               </g>
-              <!-- playground -->
-              <g transform="translate(360,60)">
-                <rect x="0" y="0" width="210" height="130" rx="18" fill="rgba(34,197,94,.14)" stroke="rgba(34,197,94,.22)"/>
-                <circle cx="70" cy="72" r="26" fill="#fff" opacity=".92"/>
-                <path d="M120 96 Q150 50 180 96" fill="none" stroke="#22C55E" stroke-width="8" stroke-linecap="round"/>
-                <text x="105" y="118" text-anchor="middle" font-size="16" fill="#5B6B86">playground</text>
+              <g transform="translate(360,65)">
+                <rect x="0" y="0" width="210" height="140" rx="18" fill="rgba(34,197,94,.14)" stroke="rgba(34,197,94,.22)"/>
+                <circle cx="70" cy="78" r="26" fill="#fff" opacity=".92"/>
+                <path d="M120 108 Q150 56 180 108" fill="none" stroke="#22C55E" stroke-width="8" stroke-linecap="round"/>
+                <text x="105" y="126" text-anchor="middle" font-size="16" fill="#5B6B86">playground</text>
               </g>
-              <!-- club -->
-              <g transform="translate(600,60)">
-                <rect x="0" y="0" width="210" height="130" rx="18" fill="rgba(251,113,133,.12)" stroke="rgba(251,113,133,.22)"/>
-                <circle cx="72" cy="68" r="16" fill="#fff" opacity=".95"/>
-                <circle cx="105" cy="60" r="16" fill="#fff" opacity=".95"/>
-                <circle cx="138" cy="68" r="16" fill="#fff" opacity=".95"/>
-                <rect x="60" y="84" width="105" height="22" rx="11" fill="#fff" opacity=".92"/>
-                <text x="105" y="118" text-anchor="middle" font-size="16" fill="#5B6B86">club</text>
+              <g transform="translate(600,65)">
+                <rect x="0" y="0" width="210" height="140" rx="18" fill="rgba(251,113,133,.12)" stroke="rgba(251,113,133,.22)"/>
+                <circle cx="72" cy="76" r="16" fill="#fff" opacity=".95"/>
+                <circle cx="105" cy="68" r="16" fill="#fff" opacity=".95"/>
+                <circle cx="138" cy="76" r="16" fill="#fff" opacity=".95"/>
+                <rect x="60" y="96" width="105" height="24" rx="12" fill="#fff" opacity=".92"/>
+                <text x="105" y="126" text-anchor="middle" font-size="16" fill="#5B6B86">club</text>
               </g>
             </svg>
           </div>
 
           <div class="yourturn">
-            <div class="label">🎤 Your Turn（每张图 2 句）</div>
+            <div class="label">🎤 Speak Now</div>
             <ul>
-              <li>Library：I go to the library because ____.</li>
-              <li>Playground：I like the playground because ____.</li>
-              <li>Club：I join a club because ____.</li>
+              <li>Library: “I go to the library because …” + 1 more sentence</li>
+              <li>Playground: “I like the playground because …” + 1 more sentence</li>
+              <li>Club: “I join a club because …” + 1 more sentence</li>
             </ul>
           </div>
         </div>
+
         <div class="card alt">
-          <h3>连接词加分</h3>
-          <div class="pillRow">
-            <div class="pill">and</div>
-            <div class="pill">also</div>
-            <div class="pill">but</div>
-            <div class="pill">because</div>
-            <div class="pill">then</div>
+          <h3>Extra Challenge</h3>
+          <div class="panel">Use “and / also / then” to connect.</div>
+          <div class="yourturn">
+            <div class="label">🎤 Speak Now</div>
+            <ul><li>Make 1 connected sentence with “and/also/then”.</li></ul>
           </div>
-          <div class="panel" style="margin-top:10px">每次多说 1 句，你会越来越流畅。</div>
         </div>
       </div>
     </section>
 
-    <!-- 23: Mini Q&A speed round -->
+    <!-- 22 -->
     <section class="slide" data-title="Speed Q&A">
       <div class="topbar">
         <div class="chip"><span class="dot"></span> Speed Q&A</div>
-        <div class="counter" data-counter>23 / 26</div>
+        <div class="counter" data-counter>22 / 26</div>
       </div>
+
       <div class="grid">
         <div class="card">
-          <h2>⚡ 速度问答（每题 2 句）</h2>
-          <div class="panel">老师问 → 你立刻答。每题至少 2 句。</div>
+          <h2>⚡ Speed Q&A (2 sentences)</h2>
+          <div class="panel">Teacher asks → you answer fast.</div>
           <div class="pillRow">
-            <button onclick="spinQuestion()">抽一道题</button>
-            <button onclick="spinQuestion()">再抽一道</button>
+            <button onclick="spinQuestion()">Pick a question</button>
+            <button onclick="spinQuestion()">Pick again</button>
           </div>
-          <div class="panel" id="spinQ" style="margin-top:10px">点击“抽一道题”开始</div>
+          <div class="panel" id="spinQ" style="margin-top:10px">Click “Pick a question”.</div>
 
           <details>
-            <summary>点我看“万能第二句”模板</summary>
+            <summary>Magic second sentence (click)</summary>
             <div class="ans">I like it because ___. / It helps me ___. / I feel ___ when ___.</div>
           </details>
 
           <div class="yourturn">
-            <div class="label">🎤 Your Turn</div>
+            <div class="label">🎤 Speak Now</div>
             <ul>
-              <li>连续答 4 题（每题 2 句）</li>
-              <li>至少 2 题要用 because</li>
+              <li>Answer 6 questions (2 sentences each).</li>
+              <li>Use because at least 3 times.</li>
             </ul>
           </div>
         </div>
+
         <div class="card alt">
-          <h3>小奖励</h3>
-          <div class="panel">完成 4 题：你获得 ⭐⭐⭐⭐</div>
-          <div class="illustration" style="max-height:210px">
-            <svg viewBox="0 0 900 220" width="100%" height="210" role="img" aria-label="stars row">
-              <rect width="900" height="220" rx="26" fill="rgba(255,255,255,.70)"/>
+          <h3>Star Challenge</h3>
+          <div class="panel">If you use 3 because → ⭐⭐⭐</div>
+          <div class="illustration" style="max-height:230px">
+            <svg viewBox="0 0 900 240" width="100%" height="230" role="img" aria-label="stars">
+              <rect width="900" height="240" rx="26" fill="rgba(255,255,255,.70)"/>
               <g fill="rgba(251,191,36,.28)" stroke="rgba(251,191,36,.32)">
-                <path d="M170 110l12 28 30 3-22 19 7 29-27-16-27 16 7-29-22-19 30-3Z"/>
-                <path d="M340 110l12 28 30 3-22 19 7 29-27-16-27 16 7-29-22-19 30-3Z"/>
-                <path d="M510 110l12 28 30 3-22 19 7 29-27-16-27 16 7-29-22-19 30-3Z"/>
-                <path d="M680 110l12 28 30 3-22 19 7 29-27-16-27 16 7-29-22-19 30-3Z"/>
+                <path d="M260 120l12 28 30 3-22 19 7 29-27-16-27 16 7-29-22-19 30-3Z"/>
+                <path d="M450 90l16 36 38 4-28 24 9 37-35-21-35 21 9-37-28-24 38-4Z"/>
+                <path d="M640 120l12 28 30 3-22 19 7 29-27-16-27 16 7-29-22-19 30-3Z"/>
               </g>
             </svg>
           </div>
@@ -1376,123 +1345,169 @@ After school, …</div>
       </div>
     </section>
 
-    <!-- 24: Pronunciation mini -->
-    <section class="slide" data-title="Say It Clearly">
+    <!-- 23 -->
+    <section class="slide" data-title="Pronunciation">
       <div class="topbar">
-        <div class="chip"><span class="dot"></span> Pronunciation</div>
-        <div class="counter" data-counter>24 / 26</div>
+        <div class="chip"><span class="dot"></span> Say It Clearly</div>
+        <div class="counter" data-counter>23 / 26</div>
       </div>
+
       <div class="grid">
         <div class="card">
-          <h2>🔤 说清楚（少儿友好）</h2>
-          <div class="panel">
-            今天常用词：teacher / subject / homework / library / classmates<br>
-            目标：读清楚尾音、读慢一点
-          </div>
-
-          <div class="mono">teacher  /ˈtiːtʃə(r)/
-subject  /ˈsʌbdʒekt/
-homework /ˈhəʊmwɜːk/
-library  /ˈlaɪbrəri/
-classmates /ˈklɑːsmeɪts/</div>
+          <h2>🔤 Say It Clearly</h2>
+          <div class="mono">teacher / subject / homework / library / classmates</div>
 
           <div class="yourturn">
-            <div class="label">🎤 Your Turn（跟读 2 遍）</div>
+            <div class="label">🎤 Speak Now</div>
             <ul>
-              <li>每个词读 2 遍</li>
-              <li>再用其中 3 个词各造 1 句</li>
+              <li>Repeat each word 2 times.</li>
+              <li>Use 3 words → 3 short sentences.</li>
             </ul>
           </div>
         </div>
+
         <div class="card alt">
-          <h3>句子练习（直接读）</h3>
+          <h3>Read & Speak</h3>
           <div class="mono">My teacher is helpful.
 My favourite subject is English because it’s useful.
 I do homework at home after school.
 I get along with my classmates.</div>
+          <div class="yourturn">
+            <div class="label">🎤 Speak Now</div>
+            <ul><li>Read once → then say it from memory.</li></ul>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- 25: Quick review game -->
-    <section class="slide" data-title="Review Game">
+    <!-- 24 -->
+    <section class="slide" data-title="Random Word Game">
       <div class="topbar">
-        <div class="chip"><span class="dot"></span> Review Game</div>
-        <div class="counter" data-counter>25 / 26</div>
+        <div class="chip"><span class="dot"></span> Random Word Game</div>
+        <div class="counter" data-counter>24 / 26</div>
       </div>
+
       <div class="grid">
         <div class="card">
-          <h2>🎮 复习游戏：选一个，说两句</h2>
-          <div class="panel">点击按钮随机给你一个词。你要说 2 句（第二句加原因/细节）。</div>
+          <h2>🎮 Random Word → 2 Sentences</h2>
+          <div class="panel">Click → you speak 2 sentences (second sentence = detail).</div>
           <div class="pillRow">
-            <button onclick="randomWord()">抽一个词</button>
-            <button onclick="randomWord()">再抽一次</button>
+            <button onclick="randomWord()">Pick a word</button>
+            <button onclick="randomWord()">Pick again</button>
           </div>
-          <div class="panel" id="randWord" style="margin-top:10px">点击“抽一个词”开始</div>
+          <div class="panel" id="randWord" style="margin-top:10px">Click “Pick a word”.</div>
 
           <details>
-            <summary>点我看“万能两句模板”</summary>
+            <summary>Template (click)</summary>
             <div class="ans">I have/like/go to ___. It’s ___ because ___.</div>
           </details>
 
           <div class="yourturn">
-            <div class="label">🎤 Your Turn</div>
+            <div class="label">🎤 Speak Now</div>
             <ul>
-              <li>连续抽 5 次，每次说 2 句</li>
-              <li>至少 2 次用 Power-up 形容词</li>
+              <li>Pick 5 words → 10 sentences total.</li>
+              <li>Use 2 power words.</li>
             </ul>
           </div>
         </div>
+
         <div class="card alt">
-          <h3>你已经会很多了！</h3>
-          <div class="panel">最后再来一次 40–50 秒输出，你就完成今天的课。</div>
-          <div class="pillRow">
-            <div class="pill green">结构7步</div>
-            <div class="pill yellow">because x2</div>
-            <div class="pill purple">Power-up x2</div>
+          <h3>More Pictures</h3>
+          <div class="illustration" style="max-height:230px">
+            <svg viewBox="0 0 900 240" width="100%" height="230" role="img" aria-label="icons row">
+              <rect width="900" height="240" rx="26" fill="rgba(255,255,255,.70)"/>
+              <g transform="translate(120,80)" opacity=".95">
+                <rect x="0" y="0" width="150" height="110" rx="20" fill="rgba(77,150,255,.14)" stroke="rgba(77,150,255,.22)"/>
+                <text x="75" y="62" text-anchor="middle" font-size="18" fill="#1F2A44">teacher</text>
+              </g>
+              <g transform="translate(300,80)" opacity=".95">
+                <rect x="0" y="0" width="150" height="110" rx="20" fill="rgba(34,197,94,.14)" stroke="rgba(34,197,94,.22)"/>
+                <text x="75" y="62" text-anchor="middle" font-size="18" fill="#1F2A44">subject</text>
+              </g>
+              <g transform="translate(480,80)" opacity=".95">
+                <rect x="0" y="0" width="150" height="110" rx="20" fill="rgba(251,191,36,.16)" stroke="rgba(251,191,36,.26)"/>
+                <text x="75" y="62" text-anchor="middle" font-size="18" fill="#1F2A44">homework</text>
+              </g>
+              <g transform="translate(660,80)" opacity=".95">
+                <rect x="0" y="0" width="150" height="110" rx="20" fill="rgba(251,113,133,.12)" stroke="rgba(251,113,133,.22)"/>
+                <text x="75" y="62" text-anchor="middle" font-size="18" fill="#1F2A44">club</text>
+              </g>
+            </svg>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 26: Goodbye (end) -->
-    <section class="slide" data-title="Goodbye">
+    <!-- 25 -->
+    <section class="slide" data-title="Final 2-Round">
+      <div class="topbar">
+        <div class="chip"><span class="dot"></span> Final Practice</div>
+        <div class="counter" data-counter>25 / 26</div>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <h2>🏁 Final Practice (2 rounds)</h2>
+          <div class="panel">Round 1: 40s · Round 2: 50s</div>
+
+          <div class="yourturn">
+            <div class="label">🎤 Speak Now</div>
+            <ul>
+              <li>Round 1: use because ×2</li>
+              <li>Round 2: add 2 power words + 1 chunk</li>
+            </ul>
+          </div>
+
+          <div class="pillRow">
+            <div class="pill yellow">because ×2</div>
+            <div class="pill purple">power ×2</div>
+            <div class="pill">chunk ×1</div>
+          </div>
+        </div>
+
+        <div class="card alt">
+          <h3>Quick Self-check</h3>
+          <div class="panel">Say: “I used two because.” / “I used two power words.”</div>
+          <div class="illustration" style="max-height:230px">
+            <svg viewBox="0 0 900 240" width="100%" height="230" role="img" aria-label="check">
+              <rect width="900" height="240" rx="26" fill="rgba(255,255,255,.70)"/>
+              <g transform="translate(450,120)">
+                <circle cx="0" cy="0" r="70" fill="rgba(34,197,94,.14)" stroke="rgba(34,197,94,.22)"/>
+                <path d="M-26 0l18 18 38-42" fill="none" stroke="#22C55E" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+                <text x="0" y="96" text-anchor="middle" font-size="18" fill="#5B6B86">Great!</text>
+              </g>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 26 -->
+    <section class="slide" data-title="Bye">
       <div class="topbar">
         <div class="chip"><span class="dot"></span> End</div>
         <div class="counter" data-counter>26 / 26</div>
       </div>
+
       <div class="grid one">
         <div class="card">
-          <h1>🎉 Great work!</h1>
-          <div class="sub">你今天练会了：词汇 + 句型 + 高分表达 + 40–50秒输出。</div>
+          <h1>🎉 Great job!</h1>
+          <div class="sub">You practiced a lot. See you next time!</div>
 
-          <div class="pillRow">
-            <div class="pill green">Core 28</div>
-            <div class="pill purple">Power-up 10</div>
-            <div class="pill">Chunks 6</div>
-            <div class="pill yellow">because x2</div>
+          <div class="illustration" style="max-height:230px">
+            <svg viewBox="0 0 900 240" width="100%" height="230" role="img" aria-label="celebration">
+              <rect width="900" height="240" rx="26" fill="rgba(255,255,255,.70)"/>
+              <g transform="translate(450,120)">
+                <circle cx="0" cy="0" r="64" fill="rgba(77,150,255,.14)" stroke="rgba(77,150,255,.22)"/>
+                <text x="0" y="10" text-anchor="middle" font-size="28" fill="#1F2A44">👋</text>
+                <text x="0" y="92" text-anchor="middle" font-size="18" fill="#5B6B86">Bye!</text>
+              </g>
+            </svg>
           </div>
 
           <div class="yourturn">
-            <div class="label">🎤 Your Turn（最后一句）</div>
-            <ul>
-              <li>说：Thank you! See you next time!</li>
-            </ul>
-          </div>
-
-          <div class="illustration" style="max-height:210px">
-            <svg viewBox="0 0 900 220" width="100%" height="210" role="img" aria-label="celebration">
-              <rect width="900" height="220" rx="26" fill="rgba(255,255,255,.70)"/>
-              <g transform="translate(450,110)">
-                <circle cx="0" cy="0" r="64" fill="rgba(34,197,94,.14)" stroke="rgba(34,197,94,.22)"/>
-                <text x="0" y="8" text-anchor="middle" font-size="26" fill="#1F2A44">👏</text>
-                <text x="0" y="88" text-anchor="middle" font-size="18" fill="#5B6B86">You did it!</text>
-              </g>
-              <g fill="rgba(251,191,36,.28)" stroke="rgba(251,191,36,.32)">
-                <path d="M160 70l10 22 24 3-18 16 6 23-22-13-22 13 6-23-18-16 24-3Z"/>
-                <path d="M740 70l10 22 24 3-18 16 6 23-22-13-22 13 6-23-18-16 24-3Z"/>
-              </g>
-            </svg>
+            <div class="label">🎤 Speak Now</div>
+            <ul><li>Say: “Thank you! Bye!”</li></ul>
           </div>
         </div>
       </div>
@@ -1500,23 +1515,22 @@ I get along with my classmates.</div>
 
     <!-- Bottom Navigation -->
     <div id="navBar" role="navigation">
-      <button class="navBtn secondary" id="btnPrev" type="button">⬅ 上一页</button>
+      <button class="navBtn secondary" id="btnPrev" type="button">⬅ Prev</button>
       <div class="navCenter">
         <span id="navTitle">Welcome</span>
         <span class="dots" id="dots"></span>
       </div>
-      <button class="navBtn" id="btnNext" type="button">下一页 ➡</button>
+      <button class="navBtn" id="btnNext" type="button">Next ➡</button>
     </div>
   </div>
 
   <script>
-    // ---------------- Slide Navigation ----------------
+    // -------- Navigation --------
     const slides = Array.from(document.querySelectorAll('.slide'));
     const navTitle = document.getElementById('navTitle');
     const dots = document.getElementById('dots');
     const btnPrev = document.getElementById('btnPrev');
     const btnNext = document.getElementById('btnNext');
-
     let idx = 0;
 
     function buildDots(){
@@ -1526,7 +1540,6 @@ I get along with my classmates.</div>
         slides.forEach((_,i)=>{
           const d=document.createElement('span');
           d.className='dot2'+(i===idx?' on':'');
-          d.title = String(i+1);
           d.addEventListener('click', ()=>show(i));
           dots.appendChild(d);
         });
@@ -1559,7 +1572,6 @@ I get along with my classmates.</div>
     }
     function next(){ show(idx+1); }
     function prev(){ show(idx-1); }
-
     btnPrev.addEventListener('click', prev);
     btnNext.addEventListener('click', next);
 
@@ -1582,70 +1594,68 @@ I get along with my classmates.</div>
 
     show(0);
 
-    // ---------------- Flashcard Data & Rendering ----------------
+    // -------- Icons --------
     function icon(type){
-      // simple inline SVG icons
       const common = 'fill="none" stroke="rgba(31,42,68,.35)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"';
       if(type==='tag') return `<svg class="iconSvg" viewBox="0 0 24 24"><path ${common} d="M4 7.5C4 6.1 5.1 5 6.5 5h11C19 5 20 6.1 20 7.5v9C20 17.9 18.9 19 17.5 19h-11C5.1 19 4 17.9 4 16.5v-9Z"/><path d="M7 9h10" stroke="#4D96FF" stroke-width="1.8"/><path d="M7 12h7" stroke="#FB7185" stroke-width="1.8"/></svg>`;
       if(type==='clock') return `<svg class="iconSvg" viewBox="0 0 24 24"><path ${common} d="M12 22a10 10 0 1 0-10-10 10 10 0 0 0 10 10Z"/><path d="M12 6v6l4 2" stroke="#4D96FF" stroke-width="1.8"/></svg>`;
       if(type==='pin') return `<svg class="iconSvg" viewBox="0 0 24 24"><path ${common} d="M12 21s7-4.4 7-10.2A7 7 0 0 0 5 10.8C5 16.6 12 21 12 21Z"/><circle cx="12" cy="11" r="2.6" fill="#22C55E" opacity=".35"/></svg>`;
       if(type==='home') return `<svg class="iconSvg" viewBox="0 0 24 24"><path ${common} d="M3 11l9-7 9 7"/><path ${common} d="M5 10v10h14V10"/><path d="M10 20v-6h4v6" stroke="#FB7185" stroke-width="1.8"/></svg>`;
-      if(type==='heart') return `<svg class="iconSvg" viewBox="0 0 24 24"><path ${common} d="M12 21s-7-4.5-7-10a4 4 0 0 1 7-2 4 4 0 0 1 7 2c0 5.5-7 10-7 10Z"/><path d="M12 21s-7-4.5-7-10" stroke="#FB7185" stroke-width="1.6"/></svg>`;
+      if(type==='heart') return `<svg class="iconSvg" viewBox="0 0 24 24"><path ${common} d="M12 21s-7-4.5-7-10a4 4 0 0 1 7-2 4 4 0 0 1 7 2c0 5.5-7 10-7 10Z"/></svg>`;
       if(type==='school') return `<svg class="iconSvg" viewBox="0 0 24 24"><path ${common} d="M4 10.5 12 6l8 4.5v8.2a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8.2Z"/><path d="M9 20v-6h6v6" stroke="#4D96FF" stroke-width="1.8"/></svg>`;
       if(type==='book') return `<svg class="iconSvg" viewBox="0 0 24 24"><path ${common} d="M6 4h10a2 2 0 0 1 2 2v14H8a2 2 0 0 0-2 2V4Z"/><path d="M8 7h8" stroke="#22C55E" stroke-width="1.8"/></svg>`;
       if(type==='teacher') return `<svg class="iconSvg" viewBox="0 0 24 24"><path ${common} d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4Z"/><path ${common} d="M4 20a8 8 0 0 1 16 0"/></svg>`;
       if(type==='list') return `<svg class="iconSvg" viewBox="0 0 24 24"><path ${common} d="M7 6h14M7 12h14M7 18h14"/><path d="M4 6h.01M4 12h.01M4 18h.01" stroke="#8B5CF6" stroke-width="3" stroke-linecap="round"/></svg>`;
-      if(type==='ball') return `<svg class="iconSvg" viewBox="0 0 24 24"><path ${common} d="M12 22a10 10 0 1 0-10-10 10 10 0 0 0 10 10Z"/><path d="M2 12h20" stroke="#22C55E" stroke-width="1.8"/><path d="M12 2a14 14 0 0 1 0 20" stroke="#4D96FF" stroke-width="1.8"/></svg>`;
+      if(type==='ball') return `<svg class="iconSvg" viewBox="0 0 24 24"><path ${common} d="M12 22a10 10 0 1 0-10-10 10 10 0 0 0 10 10Z"/><path d="M2 12h20" stroke="#22C55E" stroke-width="1.8"/></svg>`;
       if(type==='shirt') return `<svg class="iconSvg" viewBox="0 0 24 24"><path ${common} d="M8 4 12 6l4-2 4 3-3 4v10H7V11L4 7Z"/></svg>`;
       if(type==='group') return `<svg class="iconSvg" viewBox="0 0 24 24"><path ${common} d="M16 11a3 3 0 1 0-3-3 3 3 0 0 0 3 3Z"/><path ${common} d="M8 12a3 3 0 1 0-3-3 3 3 0 0 0 3 3Z"/><path ${common} d="M2 20a6 6 0 0 1 10 0"/><path ${common} d="M12 20a6 6 0 0 1 10 0"/></svg>`;
       if(type==='bell') return `<svg class="iconSvg" viewBox="0 0 24 24"><path ${common} d="M12 22a2 2 0 0 0 2-2H10a2 2 0 0 0 2 2Z"/><path ${common} d="M18 16H6l1-2v-4a5 5 0 0 1 10 0v4l1 2Z"/></svg>`;
       if(type==='pencil') return `<svg class="iconSvg" viewBox="0 0 24 24"><path ${common} d="M12 20h9"/><path ${common} d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>`;
-      if(type==='badge') return `<svg class="iconSvg" viewBox="0 0 24 24"><path ${common} d="M12 2 15 7l6 1-4 4 1 6-6-3-6 3 1-6-4-4 6-1Z"/></svg>`;
-      if(type==='chat') return `<svg class="iconSvg" viewBox="0 0 24 24"><path ${common} d="M4 5h16v10H8l-4 4Z"/><path d="M7 9h10" stroke="#4D96FF" stroke-width="1.8"/></svg>`;
       return `<svg class="iconSvg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="rgba(77,150,255,.18)"/></svg>`;
     }
 
+    // -------- Card Data (minimal Chinese removed) --------
     const personal = [
-      {w:"name", cn:"名字", q:"What’s your name?", a:"My name is ___.", ic:"tag"},
-      {w:"full name", cn:"全名", q:"What’s your full name?", a:"My full name is ___, but you can call me ___.", ic:"tag"},
-      {w:"age", cn:"年龄", q:"How old are you?", a:"I’m ___ years old.", ic:"clock"},
-      {w:"years old", cn:"…岁", q:"Say it!", a:"I’m ___ years old.", ic:"clock"},
-      {w:"live", cn:"居住", q:"Where do you live?", a:"I live in ___.", ic:"pin"},
-      {w:"come from", cn:"来自", q:"Where do you come from?", a:"I come from ___.", ic:"pin"},
-      {w:"city", cn:"城市", q:"Which city?", a:"My city is ___.", ic:"pin"},
-      {w:"family", cn:"家庭", q:"Tell me about your family.", a:"I live with my family.", ic:"home"},
-      {w:"parents", cn:"父母", q:"Do you live with your parents?", a:"Yes, I live with my parents.", ic:"home"},
-      {w:"brother", cn:"兄弟", q:"Do you have a brother?", a:"Yes, I have a brother.", ic:"group"},
-      {w:"sister", cn:"姐妹", q:"Do you have a sister?", a:"Yes, I have a sister.", ic:"group"},
-      {w:"hobby", cn:"爱好", q:"What’s your hobby?", a:"My hobby is ___ because ___.", ic:"heart"},
+      {w:"name", q:"What’s your name?", a:"My name is ___.", ic:"tag"},
+      {w:"full name", q:"What’s your full name?", a:"My full name is ___, but you can call me ___.", ic:"tag"},
+      {w:"age", q:"How old are you?", a:"I’m ___ years old.", ic:"clock"},
+      {w:"years old", q:"Say it!", a:"I’m ___ years old.", ic:"clock"},
+      {w:"live (in)", q:"Where do you live?", a:"I live in ___.", ic:"pin"},
+      {w:"come from", q:"Where are you from?", a:"I come from ___.", ic:"pin"},
+      {w:"family", q:"Who do you live with?", a:"I live with my family.", ic:"home"},
+      {w:"parents", q:"Who do you live with?", a:"I live with my parents.", ic:"home"},
+      {w:"brother", q:"Do you have a brother?", a:"Yes, I have a brother.", ic:"group"},
+      {w:"sister", q:"Do you have a sister?", a:"Yes, I have a sister.", ic:"group"},
+      {w:"hobby", q:"What do you like doing?", a:"I like ___ because ___.", ic:"heart"},
+      {w:"free time", q:"What do you do in your free time?", a:"In my free time, I ___ because ___.", ic:"heart"},
     ];
 
     const school = [
-      {w:"student", cn:"学生", q:"Are you a student?", a:"Yes, I’m a student.", ic:"school"},
-      {w:"school", cn:"学校", q:"Do you like your school?", a:"Yes, my school is friendly.", ic:"school"},
-      {w:"class", cn:"班级", q:"What class are you in?", a:"I’m in Class ___.", ic:"group"},
-      {w:"classroom", cn:"教室", q:"Is your classroom big?", a:"My classroom is comfortable.", ic:"school"},
-      {w:"teacher", cn:"老师", q:"What’s your teacher like?", a:"My teacher is helpful.", ic:"teacher"},
-      {w:"subject", cn:"科目", q:"What’s your favourite subject?", a:"My favourite subject is ___.", ic:"book"},
-      {w:"lesson", cn:"课程", q:"How many lessons do you have?", a:"I have ___ lessons.", ic:"list"},
-      {w:"timetable", cn:"课程表", q:"Do you like your timetable?", a:"Yes, it’s good.", ic:"list"},
-      {w:"homework", cn:"作业", q:"Do you have homework?", a:"Yes, I do homework at home.", ic:"pencil"},
-      {w:"break", cn:"课间休息", q:"What do you do at break?", a:"I chat with classmates.", ic:"bell"},
-      {w:"library", cn:"图书馆", q:"Do you go to the library?", a:"Yes, I read there.", ic:"book"},
-      {w:"playground", cn:"操场", q:"Do you play in the playground?", a:"Yes, I play there.", ic:"ball"},
-      {w:"exam", cn:"考试", q:"Do you like exams?", a:"Not really, but I try.", ic:"badge"},
-      {w:"club", cn:"社团", q:"Do you join a club?", a:"Yes, I go to an after-school club.", ic:"chat"},
-      {w:"uniform", cn:"校服", q:"Do you wear a uniform?", a:"Yes, I wear a uniform at school.", ic:"shirt"},
-      {w:"classmates", cn:"同学", q:"Do you get along with classmates?", a:"Yes, I get along with my classmates.", ic:"group"},
+      {w:"student", q:"Are you a student?", a:"Yes, I’m a student.", ic:"school"},
+      {w:"school", q:"Do you like your school?", a:"Yes, my school is ___.", ic:"school"},
+      {w:"class", q:"What class are you in?", a:"I’m in Class ___.", ic:"group"},
+      {w:"classroom", q:"Describe your classroom.", a:"My classroom is ___.", ic:"school"},
+      {w:"teacher", q:"What’s your teacher like?", a:"My teacher is ___ and ___.", ic:"teacher"},
+      {w:"subject", q:"What subjects do you study?", a:"I study English, maths and ___.", ic:"book"},
+      {w:"lesson", q:"How many lessons?", a:"I have ___ lessons on ___.", ic:"list"},
+      {w:"timetable", q:"Do you like your timetable?", a:"Yes, it’s ___.", ic:"list"},
+      {w:"homework", q:"Do you have homework?", a:"I do homework at home.", ic:"pencil"},
+      {w:"break", q:"What do you do at break time?", a:"I chat with classmates.", ic:"bell"},
+      {w:"library", q:"Do you go to the library?", a:"I go to the library to ___.", ic:"book"},
+      {w:"playground", q:"What do you do in the playground?", a:"I play ___ in the playground.", ic:"ball"},
+      {w:"exam", q:"Do you like exams?", a:"I try my best in exams.", ic:"list"},
+      {w:"club", q:"Do you join a club?", a:"I go to an after-school club.", ic:"heart"},
+      {w:"uniform", q:"Do you wear a uniform?", a:"Yes, I wear a uniform.", ic:"shirt"},
+      {w:"classmates", q:"Do you get along with classmates?", a:"I get along with my classmates.", ic:"group"},
     ];
 
     const chunks = [
-      {w:"my favourite subject", cn:"我最喜欢的科目", q:"Say a sentence:", a:"My favourite subject is ___ because ___.", ic:"book"},
-      {w:"after-school club", cn:"课后社团", q:"Say a sentence:", a:"I go to an after-school club.", ic:"chat"},
-      {w:"from Monday to Friday", cn:"从周一到周五", q:"Say a sentence:", a:"I have lessons from Monday to Friday.", ic:"list"},
-      {w:"have lessons / have a break", cn:"上课/休息", q:"Say a sentence:", a:"We have lessons and then we have a break.", ic:"bell"},
-      {w:"do homework at home", cn:"在家做作业", q:"Say a sentence:", a:"I do homework at home after school.", ic:"pencil"},
-      {w:"get along with my classmates", cn:"和同学相处融洽", q:"Say a sentence:", a:"I get along with my classmates because they are friendly.", ic:"group"},
+      {w:"my favourite subject", q:"Make a sentence:", a:"My favourite subject is ___ because ___.", ic:"book"},
+      {w:"after-school club", q:"Make a sentence:", a:"I go to an after-school club.", ic:"heart"},
+      {w:"from Monday to Friday", q:"Make a sentence:", a:"I have lessons from Monday to Friday.", ic:"list"},
+      {w:"have lessons / have a break", q:"Make a sentence:", a:"We have lessons and then we have a break.", ic:"bell"},
+      {w:"do homework at home", q:"Make a sentence:", a:"I do homework at home after school.", ic:"pencil"},
+      {w:"get along with my classmates", q:"Make a sentence:", a:"I get along with my classmates because they are friendly.", ic:"group"},
     ];
 
     function makeFlipCard(item, tagText, tagClass){
@@ -1658,12 +1668,11 @@ I get along with my classmates.</div>
               ${icon(item.ic)}
               <div>
                 <div class="wWord">${item.w}</div>
-                <div class="wCn">${item.cn}</div>
+                <div class="wHint">Click to flip</div>
               </div>
             </div>
             <div class="badge2 ${tagClass||''}">${tagText}</div>
           </div>
-          <div class="wHint">点击翻面：看例句</div>
         </div>
         <div class="back">
           <div class="wTop">
@@ -1671,13 +1680,13 @@ I get along with my classmates.</div>
               ${icon(item.ic)}
               <div>
                 <div class="wWord">${item.q}</div>
-                <div class="wCn">现在轮到你回答</div>
+                <div class="wHint">Say it!</div>
               </div>
             </div>
-            <div class="badge2 green">Say it!</div>
+            <div class="badge2 green">Speak</div>
           </div>
           <div class="wHint">${item.a}</div>
-          <div class="wHint" style="margin-top:8px;color:rgba(31,42,68,.65)">再加一句：because… / also…</div>
+          <div class="wHint" style="margin-top:8px;color:rgba(31,42,68,.65)">Add 1 more sentence.</div>
         </div>
       `;
       el.addEventListener('click', ()=>el.classList.toggle('on'));
@@ -1685,30 +1694,38 @@ I get along with my classmates.</div>
     }
 
     function render(){
-      // personal split 6+6
-      const p1 = document.getElementById('p1');
-      const p2 = document.getElementById('p2');
-      personal.slice(0,6).forEach(x=>p1.appendChild(makeFlipCard(x,'Core','blue')));
-      personal.slice(6,12).forEach(x=>p2.appendChild(makeFlipCard(x,'Core','blue')));
+      const pa = document.getElementById('personalA');
+      const pb = document.getElementById('personalB');
+      personal.slice(0,6).forEach(x=>pa.appendChild(makeFlipCard(x,'Core','blue')));
+      personal.slice(6,12).forEach(x=>pb.appendChild(makeFlipCard(x,'Core','blue')));
 
-      // school split 8+8
-      const s1 = document.getElementById('s1');
-      const s2 = document.getElementById('s2');
-      school.slice(0,8).forEach(x=>s1.appendChild(makeFlipCard(x,'Core','purple')));
-      school.slice(8,16).forEach(x=>s2.appendChild(makeFlipCard(x,'Core','purple')));
+      const sa = document.getElementById('schoolA');
+      const sb = document.getElementById('schoolB');
+      school.slice(0,8).forEach(x=>sa.appendChild(makeFlipCard(x,'Core','purple')));
+      school.slice(8,16).forEach(x=>sb.appendChild(makeFlipCard(x,'Core','purple')));
 
-      // chunks
       const c = document.getElementById('chunks');
-      chunks.forEach((x,i)=>c.appendChild(makeFlipCard(x, i<5 ? 'Chunk' : 'Bonus','pink')));
+      chunks.forEach(x=>c.appendChild(makeFlipCard(x,'Chunk','pink')));
 
-      // power-up pills
-      const power = ["friendly 友好的","helpful 乐于助人的","strict 严格的","interesting 有趣的","boring 无聊的","difficult 困难的","easy 容易的","useful 有用的","popular 受欢迎的","comfortable 舒适的"];
+      const power = ["friendly","helpful","strict","interesting","boring","difficult","easy","useful","popular","comfortable"];
       const powerPills = document.getElementById('powerPills');
       power.forEach((t,i)=>{
         const div = document.createElement('div');
         div.className = 'pill ' + (i%4===0?'yellow':i%4===1?'green':i%4===2?'purple':'pink');
         div.textContent = t;
         powerPills.appendChild(div);
+      });
+
+      const pwPick = document.getElementById('pwPick');
+      ["friendly","helpful","interesting","useful","comfortable","popular"].forEach((w,i)=>{
+        const b = document.createElement('div');
+        b.className = 'chipBtn ' + (i%2===0?'good':'hot');
+        b.textContent = w;
+        b.addEventListener('click', ()=>{
+          Array.from(pwPick.children).forEach(x=>x.style.outline='none');
+          b.style.outline = '3px solid rgba(77,150,255,.25)';
+        });
+        pwPick.appendChild(b);
       });
     }
     render();
@@ -1717,7 +1734,7 @@ I get along with my classmates.</div>
     window.randomChunk = function(){
       const box = document.getElementById('randChunk');
       const pick = chunks[Math.floor(Math.random()*chunks.length)];
-      box.innerHTML = `抽到：${pick.w}（${pick.cn}）<br>现在说两句：<br>1) ${pick.a}<br>2) Tell me more.`;
+      box.innerHTML = `<b>${pick.w}</b><br>Say 2 sentences:<br>1) ${pick.a}<br>2) Add a detail.`;
     }
 
     // Speed Q&A random
@@ -1739,7 +1756,7 @@ I get along with my classmates.</div>
     window.spinQuestion = function(){
       const el = document.getElementById('spinQ');
       const q = qPool[Math.floor(Math.random()*qPool.length)];
-      el.textContent = "Question: " + q + "  (Answer 2 sentences!)";
+      el.innerHTML = `<b>${q}</b><br>Answer 2 sentences!`;
     }
 
     // Random word practice
@@ -1747,10 +1764,10 @@ I get along with my classmates.</div>
     window.randomWord = function(){
       const el = document.getElementById('randWord');
       const w = allWords[Math.floor(Math.random()*allWords.length)];
-      el.textContent = "Your word: " + w + "  → Say 2 sentences!";
+      el.innerHTML = `<b>${w}</b> → Say 2 sentences (2nd = detail).`;
     }
 
-    // ---------------- Timer (single shared control) ----------------
+    // -------- Timer (single shared control) --------
     let timer = {running:false, t:0, total:0, elTime:null, elRing:null, raf:null, lastTick:0};
 
     function setRingProgress(ringEl, progress01){
