@@ -1,272 +1,2205 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>KET Oral Fun: Me & School</title>
+  <title>KET Speaking 1v1 · T1 About Me & School (Student Slides)</title>
   <style>
-    :root {
-      /* 更加明亮的少儿配色 */
-      --bg-main: #F0F9FF;
-      --primary-blue: #3FC1C9;
-      --soft-pink: #FC5185;
-      --lemon: #F5D033;
-      --grass: #43D854;
-      --text: #364F6B;
-      --card-shadow: 0 10px 25px rgba(63,193,201,0.15);
-      --radius: 24px;
+    :root{
+      --bg1:#F7FBFF;
+      --bg2:#FFF7FB;
+      --card:#FFFFFF;
+      --text:#1F2A44;
+      --muted:#5B6B86;
+
+      --blue:#4D96FF;
+      --purple:#8B5CF6;
+      --green:#22C55E;
+      --yellow:#FBBF24;
+      --pink:#FB7185;
+
+      --border: rgba(31,42,68,.12);
+      --shadow: 0 14px 35px rgba(31,42,68,.10);
+      --radius: 22px;
+
+      --p: 0deg;
     }
 
-    * { box-sizing: border-box; font-family: 'Segoe UI', Rounded, sans-serif; }
-    body { 
-        margin: 0; background: var(--bg-main); color: var(--text); overflow: hidden; 
-        background-image: radial-gradient(#3fc1c922 2px, transparent 2px);
-        background-size: 30px 30px;
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+      background:
+        radial-gradient(1100px 700px at 15% 10%, rgba(77,150,255,.18), transparent 55%),
+        radial-gradient(1000px 700px at 85% 15%, rgba(251,113,133,.16), transparent 55%),
+        radial-gradient(900px 600px at 60% 90%, rgba(34,197,94,.12), transparent 55%),
+        linear-gradient(120deg, var(--bg1), var(--bg2));
+      color:var(--text);
+      overflow:hidden;
     }
 
-    /* 顶部导航与奖励系统 */
-    .header {
-        position: fixed; top: 0; width: 100%; height: 60px;
-        display: flex; align-items: center; justify-content: space-between;
-        padding: 0 25px; background: rgba(255,255,255,0.9);
-        backdrop-filter: blur(10px); z-index: 100; border-bottom: 2px solid #eee;
-    }
-    .star-counter { display: flex; align-items: center; gap: 8px; cursor: pointer; }
-    .star-btn { font-size: 24px; transition: transform 0.2s; }
-    .star-btn:active { transform: scale(1.4); }
+    #deck{height:100vh;width:100vw;position:relative}
+    .slide{height:100vh;width:100vw;padding:50px 56px 92px;display:none}
+    .slide.active{display:block}
 
-    /* 幻灯片容器 */
-    #deck { height: 100vh; display: flex; align-items: center; justify-content: center; }
-    .slide { 
-        width: 90%; height: 80%; display: none; 
-        grid-template-columns: 1fr 1fr; gap: 30px; padding: 40px;
-        background: white; border-radius: var(--radius); box-shadow: var(--card-shadow);
+    .topbar{
+      display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px;
     }
-    .slide.active { display: grid; animation: popIn 0.5s cubic-bezier(0.18, 0.89, 0.32, 1.28); }
-    @keyframes popIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+    .chip{
+      display:inline-flex;align-items:center;gap:10px;
+      padding:10px 14px;border-radius:999px;
+      background: rgba(255,255,255,.78);
+      border:1px solid var(--border);
+      box-shadow: var(--shadow);
+      color:var(--muted);
+      font-size:14px;
+      backdrop-filter: blur(8px);
+      user-select:none;
+    }
+    .chip .dot{
+      width:10px;height:10px;border-radius:50%;
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      box-shadow: 0 0 0 4px rgba(77,150,255,.18);
+    }
+    .counter{
+      padding:10px 12px;border-radius:16px;
+      background: rgba(255,255,255,.78);
+      border:1px solid var(--border);
+      box-shadow: var(--shadow);
+      color:var(--muted);
+      font-size:14px;
+      backdrop-filter: blur(8px);
+      user-select:none;
+    }
 
-    /* 全局组件样式 */
-    h1 { color: var(--primary-blue); font-size: 36px; margin: 0 0 15px; }
-    .mission-box { background: var(--lemon); padding: 15px; border-radius: 15px; font-weight: bold; border: 2px dashed #333; }
-    .interactive-card { 
-        border: 2px solid #F0F0F0; border-radius: 20px; padding: 20px; 
-        transition: 0.3s; cursor: pointer; text-align: center;
-    }
-    .interactive-card:hover { border-color: var(--primary-blue); background: #F9FFFF; }
-    
-    /* 外教提示区 */
-    .teacher-bar {
-        position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%);
-        width: 80%; background: #364F6B; color: white; padding: 10px 25px;
-        border-radius: 50px; font-size: 14px; display: flex; align-items: center; gap: 15px;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.2); z-index: 99;
-    }
-    .ft-tag { background: var(--soft-pink); padding: 2px 10px; border-radius: 5px; font-weight: bold; }
+    .grid{display:grid;grid-template-columns:1.06fr .94fr;gap:16px;height: calc(100vh - 50px - 92px - 14px);}
+    .grid.one{grid-template-columns:1fr}
 
-    /* 底部控制栏 */
-    .controls {
-        position: fixed; bottom: 0; width: 100%; height: 70px;
-        background: white; display: flex; align-items: center; justify-content: center; gap: 40px;
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,.98), rgba(255,255,255,.92));
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:16px 16px 14px;
+      overflow:auto;
     }
-    .nav-btn {
-        padding: 10px 25px; border-radius: 50px; border: none;
-        background: var(--primary-blue); color: white; font-weight: bold; cursor: pointer;
+    .card.alt{
+      background: linear-gradient(180deg, rgba(243,248,255,.92), rgba(255,255,255,.92));
     }
-    .nav-btn:disabled { background: #ccc; }
 
-    /* 词汇翻牌增强 */
-    .cards-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
-    .vocab-flip {
-        perspective: 1000px; height: 120px;
-    }
-    .flip-inner {
-        position: relative; width: 100%; height: 100%; transition: transform 0.6s;
-        transform-style: preserve-3d; cursor: pointer;
-    }
-    .vocab-flip.on .flip-inner { transform: rotateY(180deg); }
-    .flip-front, .flip-back {
-        position: absolute; width: 100%; height: 100%; backface-visibility: hidden;
-        border-radius: 15px; display: flex; flex-direction: column; align-items: center; justify-content: center;
-        border: 2px solid var(--primary-blue); background: white;
-    }
-    .flip-back { transform: rotateY(180deg); background: var(--primary-blue); color: white; }
+    h1,h2,h3{margin:0 0 10px}
+    h1{font-size:34px}
+    h2{font-size:24px}
+    h3{font-size:18px;color:var(--muted)}
+    .sub{color:var(--muted);font-size:16px;line-height:1.55}
+    .big{font-size:18px;line-height:1.65;color:var(--text)}
+    .mini{font-size:14px;color:var(--muted);line-height:1.55}
 
-    /* 计时器圈动画 */
-    .timer-ring {
-        width: 200px; height: 200px; border-radius: 50%;
-        border: 10px solid #eee; display: flex; align-items: center; justify-content: center;
-        font-size: 48px; font-weight: bold; position: relative;
+    .pillRow{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
+    .pill{
+      padding:10px 12px;border-radius:16px;
+      background: rgba(77,150,255,.12);
+      border:1px solid rgba(77,150,255,.20);
+      color:var(--text);
+      font-size:14px;
+      user-select:none;
     }
-    .timer-ring::after {
-        content: ''; position: absolute; inset: -10px; border-radius: 50%;
-        border: 10px solid var(--soft-pink); border-top-color: transparent;
-        animation: spin 1s linear infinite; display: none;
-    }
-    .timer-ring.active::after { display: block; }
+    .pill.green{background: rgba(34,197,94,.12);border-color: rgba(34,197,94,.22)}
+    .pill.yellow{background: rgba(251,191,36,.14);border-color: rgba(251,191,36,.26)}
+    .pill.purple{background: rgba(139,92,246,.12);border-color: rgba(139,92,246,.22)}
+    .pill.pink{background: rgba(251,113,133,.12);border-color: rgba(251,113,133,.22)}
 
+    .panel{
+      border-radius:18px;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.80);
+      padding:12px 12px;
+      line-height:1.6;
+      color:var(--muted);
+    }
+
+    .yourturn{
+      margin-top:12px;
+      border-radius:18px;
+      border:2px dashed rgba(77,150,255,.24);
+      background: rgba(255,255,255,.86);
+      padding:12px 12px;
+    }
+    .yourturn .label{
+      display:flex;align-items:center;gap:10px;
+      font-size:16px;color:var(--text);
+      margin-bottom:6px;
+    }
+    .yourturn ul{margin:8px 0 0;padding-left:18px;color:var(--muted);line-height:1.6}
+
+    .illustration{
+      width:100%;
+      max-height: 230px;
+      border-radius: 20px;
+      border:1px solid var(--border);
+      background: linear-gradient(120deg, rgba(77,150,255,.10), rgba(251,113,133,.08), rgba(34,197,94,.08));
+      box-shadow: var(--shadow);
+      display:flex;align-items:center;justify-content:center;
+      overflow:hidden;
+      margin-top:10px;
+    }
+
+    /* Flashcards */
+    .cards{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:12px;
+      margin-top:10px;
+    }
+    @media (max-width: 980px){
+      .slide{padding:46px 16px 92px}
+      .grid{grid-template-columns:1fr}
+      .cards{grid-template-columns: repeat(2, 1fr)}
+    }
+    .cardFlip{
+      border-radius:18px;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.86);
+      box-shadow: 0 12px 26px rgba(31,42,68,.08);
+      padding:12px;
+      cursor:pointer;
+      position:relative;
+      min-height: 118px;
+      overflow:hidden;
+      user-select:none;
+      transition: transform .08s ease;
+    }
+    .cardFlip:active{transform: translateY(1px)}
+    .cardFlip .front, .cardFlip .back{display:none}
+    .cardFlip:not(.on) .front{display:block}
+    .cardFlip.on .back{display:block}
+
+    .wTop{display:flex;align-items:center;justify-content:space-between;gap:8px}
+    .wWord{font-size:18px;color:var(--text)}
+    .wHint{margin-top:8px;font-size:14px;color:var(--muted);line-height:1.5}
+    .badge2{
+      padding:6px 10px;border-radius:999px;
+      background: rgba(251,191,36,.16);
+      border:1px solid rgba(251,191,36,.26);
+      color:var(--text);
+      font-size:12px;
+    }
+    .badge2.blue{background: rgba(77,150,255,.12);border-color: rgba(77,150,255,.22)}
+    .badge2.purple{background: rgba(139,92,246,.12);border-color: rgba(139,92,246,.22)}
+    .badge2.green{background: rgba(34,197,94,.12);border-color: rgba(34,197,94,.22)}
+    .badge2.pink{background: rgba(251,113,133,.12);border-color: rgba(251,113,133,.22)}
+    .iconSvg{width:26px;height:26px;flex:0 0 auto}
+
+    /* Reveal */
+    details{
+      border-radius:16px;
+      border:1px solid rgba(77,150,255,.22);
+      background: rgba(77,150,255,.08);
+      padding:10px 12px;
+      margin-top:10px;
+    }
+    summary{
+      cursor:pointer;
+      color:var(--text);
+      font-size:14px;
+      user-select:none;
+    }
+    details .ans{margin-top:8px;color:var(--muted);line-height:1.6;font-size:14px}
+
+    /* Mono blocks */
+    .mono{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size:14px;color:var(--text);
+      background: rgba(77,150,255,.08);
+      border:1px solid rgba(77,150,255,.18);
+      border-radius:16px;
+      padding:12px;
+      line-height:1.6;
+      white-space:pre-wrap;
+    }
+
+    /* Timer */
+    .timerWrap{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:10px}
+    .timerRing{
+      width:230px;height:230px;border-radius:50%;
+      background: conic-gradient(var(--blue) var(--p), rgba(31,42,68,.10) 0);
+      display:grid;place-items:center;
+      border:1px solid var(--border);
+      box-shadow:var(--shadow);
+      position:relative;overflow:hidden;
+    }
+    .timerRing::after{
+      content:"";position:absolute;inset:16px;border-radius:50%;
+      background: rgba(255,255,255,.88);
+      border:1px solid var(--border);
+    }
+    .timerTime{position:relative;z-index:2;text-align:center}
+    .timerTime .num{margin:0;font-size:58px;color:var(--text)}
+    .timerTime .small{margin:0;font-size:14px;color:var(--muted)}
+    .btnRow{display:flex;gap:10px;flex-wrap:wrap}
+    button{
+      appearance:none;border:none;cursor:pointer;
+      padding:12px 14px;border-radius:14px;
+      background: rgba(255,255,255,.90);
+      border:1px solid var(--border);
+      color:var(--text);
+      font-size:14px;
+    }
+    button.primary{background: rgba(34,197,94,.14);border-color: rgba(34,197,94,.22)}
+    button.warn{background: rgba(251,113,133,.14);border-color: rgba(251,113,133,.22)}
+    button:active{transform: translateY(1px)}
+    .pulse{animation:pulse 1.2s ease-in-out infinite}
+    @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.02)}}
+
+    /* Bottom nav */
+    #navBar{
+      position:absolute;left:18px;right:18px;bottom:14px;height:52px;
+      border-radius:18px;
+      background: rgba(255,255,255,.84);
+      border:1px solid var(--border);
+      box-shadow: var(--shadow);
+      display:flex;align-items:center;justify-content:space-between;
+      padding: 8px 10px;gap:10px;
+      backdrop-filter: blur(8px);
+      user-select:none;
+    }
+    .navBtn{
+      padding:10px 12px;border-radius:14px;border:1px solid rgba(77,150,255,.20);
+      background: rgba(77,150,255,.12);cursor:pointer;font-size:14px;
+    }
+    .navBtn.secondary{background: rgba(251,113,133,.12);border-color: rgba(251,113,133,.20)}
+    .navBtn:disabled{opacity:.45;cursor:not-allowed}
+    .navCenter{
+      display:flex;align-items:center;gap:10px;min-width:240px;justify-content:center;
+      color:var(--muted);font-size:14px;text-align:center;
+    }
+    .dots{display:flex;gap:6px;align-items:center}
+    .dot2{width:8px;height:8px;border-radius:999px;background: rgba(31,42,68,.18);cursor:pointer}
+    .dot2.on{background: linear-gradient(135deg, var(--blue), var(--purple));}
+
+    #help{
+      position:fixed;top:12px;left:12px;z-index:99;
+      padding:10px 12px;border-radius:16px;
+      background: rgba(255,255,255,.82);
+      border:1px solid var(--border);
+      box-shadow: var(--shadow);
+      color:var(--muted);
+      font-size:13px;
+      backdrop-filter: blur(8px);
+      user-select:none;
+    }
+
+    .twoCols{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px}
+    .miniCard{
+      border-radius:18px;border:1px solid var(--border);
+      background: rgba(255,255,255,.86);
+      box-shadow: 0 12px 26px rgba(31,42,68,.08);
+      padding:12px;
+    }
+    .bigQ{font-size:20px;color:var(--text);margin:0}
+    .prompt{color:var(--muted);font-size:14px;line-height:1.55;margin-top:6px}
+
+    .choiceRow{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
+    .chipBtn{
+      padding:10px 12px;border-radius:999px;border:1px solid rgba(31,42,68,.12);
+      background: rgba(255,255,255,.86);
+      cursor:pointer;
+      user-select:none;
+    }
+    .chipBtn.good{border-color:rgba(34,197,94,.24); background: rgba(34,197,94,.10)}
+    .chipBtn.hot{border-color:rgba(251,113,133,.24); background: rgba(251,113,133,.10)}
+
+    /* Drag-and-build */
+    .buildArea{
+      border-radius:18px;border:1px solid rgba(77,150,255,.22);
+      background: rgba(77,150,255,.08);
+      padding:12px;
+      margin-top:10px;
+    }
+    .buildLine{
+      display:flex;flex-wrap:wrap;gap:8px;
+      min-height:44px;
+      padding:10px;
+      border-radius:16px;
+      border:1px dashed rgba(31,42,68,.16);
+      background: rgba(255,255,255,.80);
+    }
+    .tile{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid rgba(31,42,68,.12);
+      background: rgba(255,255,255,.90);
+      cursor:pointer;
+      user-select:none;
+      font-size:14px;
+    }
+    .tile:active{transform: translateY(1px)}
+    .tile.b{border-color: rgba(77,150,255,.24); background: rgba(77,150,255,.10)}
+    .tile.g{border-color: rgba(34,197,94,.24); background: rgba(34,197,94,.10)}
+    .tile.y{border-color: rgba(251,191,36,.28); background: rgba(251,191,36,.12)}
+    .tile.p{border-color: rgba(139,92,246,.24); background: rgba(139,92,246,.10)}
+    .tile.r{border-color: rgba(251,113,133,.24); background: rgba(251,113,133,.10)}
+
+    .tile.small{padding:8px 10px;font-size:13px}
+    .tile.remove{border-color: rgba(251,113,133,.22); background: rgba(251,113,133,.10)}
+    .tile.disabled{opacity:.45;cursor:not-allowed}
+
+    .tileGroup{margin-top:10px}
+    .tileGroupTitle{display:flex;align-items:center;justify-content:space-between;margin:6px 0 4px}
+    .tileGroupTitle span{color:var(--muted);font-size:13px}
+    .tileRow{display:flex;flex-wrap:wrap;gap:8px}
+
+    .meter{
+      margin-top:10px;
+      display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+      color:var(--muted);font-size:14px;
+    }
+    .meter .tag{
+      padding:8px 10px;border-radius:999px;
+      border:1px solid rgba(31,42,68,.12);
+      background: rgba(255,255,255,.86);
+      color:var(--text);
+      font-size:13px;
+    }
   </style>
 </head>
-<body>
 
-  <div class="header">
-    <div style="font-weight:bold; color:var(--primary-blue)">KET Oral: About Me & School</div>
-    <div class="star-counter" onclick="addStar()">
-        <span id="starCount" style="font-weight:bold; font-size:20px; color:var(--lemon)">0</span>
-        <span class="star-btn">⭐</span>
+<body>
+  <div id="help">Navigate: Bottom buttons · ←/→ · swipe · Click cards to flip</div>
+
+  <div id="deck">
+
+    <!-- 1 -->
+    <section class="slide active" data-title="Welcome">
+      <div class="topbar">
+        <div class="chip"><span class="dot"></span> KET Speaking · 1-to-1 · Lesson 1</div>
+        <div class="counter" data-counter>1 / 999</div>
+      </div>
+
+      <div class="grid one">
+        <div class="card">
+          <h1>🏫 About Me & School</h1>
+          <div class="sub">Talk for <b>40–50 seconds</b> · <b>6+ sentences</b> · <b>2× because</b></div>
+
+          <div class="illustration" aria-label="School illustration">
+            <svg viewBox="0 0 900 250" width="100%" height="230" role="img">
+              <defs>
+                <linearGradient id="gWelcome" x1="0" x2="1">
+                  <stop offset="0" stop-color="#4D96FF" stop-opacity=".22"/>
+                  <stop offset="1" stop-color="#FB7185" stop-opacity=".18"/>
+                </linearGradient>
+              </defs>
+              <rect x="0" y="0" width="900" height="250" fill="url(#gWelcome)"/>
+              <g fill="#fff" opacity=".85">
+                <circle cx="140" cy="70" r="22"/><circle cx="170" cy="62" r="28"/><circle cx="205" cy="72" r="22"/>
+                <circle cx="700" cy="80" r="18"/><circle cx="728" cy="72" r="24"/><circle cx="760" cy="82" r="18"/>
+              </g>
+              <g transform="translate(330,65)">
+                <rect x="0" y="55" width="240" height="130" rx="18" fill="#ffffff" opacity=".92" stroke="rgba(31,42,68,.12)"/>
+                <rect x="90" y="105" width="60" height="80" rx="10" fill="#F3F8FF" stroke="rgba(31,42,68,.10)"/>
+                <rect x="24" y="85" width="45" height="35" rx="8" fill="#FFF7ED" stroke="rgba(31,42,68,.10)"/>
+                <rect x="171" y="85" width="45" height="35" rx="8" fill="#FFF7ED" stroke="rgba(31,42,68,.10)"/>
+                <polygon points="120,10 260,65 -20,65" fill="#FFD93D" opacity=".88" stroke="rgba(31,42,68,.10)"/>
+                <text x="120" y="95" text-anchor="middle" font-size="20" fill="#1F2A44">SCHOOL</text>
+              </g>
+              <g transform="translate(190,170)">
+                <circle cx="0" cy="0" r="22" fill="#fff" stroke="rgba(31,42,68,.12)"/>
+                <rect x="-18" y="25" width="36" height="50" rx="12" fill="#22C55E" opacity=".70" stroke="rgba(31,42,68,.10)"/>
+                <circle cx="-7" cy="-6" r="3" fill="#1F2A44"/><circle cx="7" cy="-6" r="3" fill="#1F2A44"/>
+                <path d="M-8 6 Q0 14 8 6" fill="none" stroke="#1F2A44" stroke-width="3" stroke-linecap="round"/>
+              </g>
+              <g transform="translate(720,175)">
+                <circle cx="0" cy="0" r="22" fill="#fff" stroke="rgba(31,42,68,.12)"/>
+                <rect x="-18" y="25" width="36" height="50" rx="12" fill="#8B5CF6" opacity=".65" stroke="rgba(31,42,68,.10)"/>
+                <circle cx="-7" cy="-6" r="3" fill="#1F2A44"/><circle cx="7" cy="-6" r="3" fill="#1F2A44"/>
+                <path d="M-8 6 Q0 14 8 6" fill="none" stroke="#1F2A44" stroke-width="3" stroke-linecap="round"/>
+              </g>
+            </svg>
+          </div>
+
+          <div class="yourturn">
+            <div class="label">🎤 Speak Now</div>
+            <ul>
+              <li>Say: “Hello! Nice to meet you.”</li>
+              <li>Say: “I’m ready!”</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2 -->
+    <section class="slide" data-title="Mission">
+      <div class="topbar">
+        <div class="chip"><span class="dot"></span> Today’s Mission</div>
+        <div class="counter" data-counter>2 / 999</div>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <h2>🎯 Mission</h2>
+          <div class="big">Speak for <b>40–50 seconds</b> about you & your school.</div>
+          <div class="pillRow">
+            <div class="pill green">6+ sentences</div>
+            <div class="pill yellow">2× because</div>
+            <div class="pill purple">2× power words</div>
+            <div class="pill">1× chunk</div>
+          </div>
+
+          <div class="yourturn">
+            <div class="label">🎤 Speak Now</div>
+            <ul>
+              <li>Repeat: “I will speak for 40 to 50 seconds.”</li>
+              <li>Repeat: “I will use two because.”</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card alt">
+          <h3>Game Rule</h3>
+          <div class="panel">Every answer = <b>2 sentences</b> (Answer + Detail).</div>
+
+          <div class="illustration" style="max-height:210px">
+            <svg viewBox="0 0 900 220" width="100%" height="210" role="img" aria-label="Speak bubbles">
+              <rect width="900" height="220" rx="26" fill="rgba(255,255,255,.70)"/>
+              <g transform="translate(250,110)">
+                <path d="M0-55h240a22 22 0 0 1 22 22v45a22 22 0 0 1-22 22H70l-30 22 10-22H0a22 22 0 0 1-22-22v-45a22 22 0 0 1 22-22Z"
+                      fill="rgba(77,150,255,.14)" stroke="rgba(77,150,255,.22)"/>
+                <text x="120" y="-10" text-anchor="middle" font-size="22" fill="#1F2A44">Answer</text>
+              </g>
+              <g transform="translate(520,120)">
+                <path d="M0-45h280a22 22 0 0 1 22 22v40a22 22 0 0 1-22 22H110l-30 22 10-22H0a22 22 0 0 1-22-22v-40a22 22 0 0 1 22-22Z"
+                      fill="rgba(34,197,94,.14)" stroke="rgba(34,197,94,.22)"/>
+                <text x="140" y="-6" text-anchor="middle" font-size="18" fill="#1F2A44">+ One more!</text>
+              </g>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3 -->
+    <section class="slide" data-title="Warm-up">
+      <div class="topbar">
+        <div class="chip"><span class="dot"></span> Warm-up (Imitate)</div>
+        <div class="counter" data-counter>3 / 999</div>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <h2>⚡ Imitate (2 times)</h2>
+          <div class="mono">My name is Alex. I’m 12 years old.
+I study at Sunshine School because it’s friendly.</div>
+
+          <div class="yourturn">
+            <div class="label">🎤 Speak Now</div>
+            <ul>
+              <li>Round 1: 2–3 sentences (your info)</li>
+              <li>Round 2: add <b>because</b></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card alt">
+          <h3>Pick 1 “Power Word”</h3>
+          <div class="choiceRow" id="pwPick"></div>
+          <div class="yourturn">
+            <div class="label">🎤 Speak Now</div>
+            <ul><li>Say: “My school is ___ because ___.”</li></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4 -->
+    <section class="slide" data-title="Personal Words A">
+      <div class="topbar">
+        <div class="chip"><span class="dot"></span> Personal Words (A)</div>
+        <div class="counter" data-counter>4 / 999</div>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <h2>🏷️ Personal Words</h2>
+          <div class="sub">Click → flip → speak.</div>
+          <div class="cards" id="personalA"></div>
+
+          <div class="yourturn">
+            <div class="label">🎤 Speak Now</div>
+            <ul>
+              <li>Say 3 sentences using 3 cards.</li>
+              <li>One sentence must have <b>because</b>.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card alt">
+          <h3>Picture Prompt</h3>
+          <div class="illustration" style="max-height:230px">
+            <svg viewBox="0 0 900 240" width="100%" height="230" role="img" aria-label="name and city icons">
+              <rect width="900" height="240" rx="26" fill="rgba(255,255,255,.70)"/>
+              <g transform="translate(170,70)">
+                <rect x="0" y="0" width="260" height="120" rx="20" fill="rgba(77,150,255,.14)" stroke="rgba(77,150,255,.22)"/>
+                <text x="130" y="56" text-anchor="middle" font-size="22" fill="#1F2A44">NAME</text>
+                <text x="130" y="94" text-anchor="middle" font-size="16" fill="#5B6B86">My name is…</text>
+              </g>
+              <g transform="translate(520,60)">
+                <rect x="0" y="0" width="260" height="140" rx="20" fill="rgba(34,197,94,.14)" stroke="rgba(34,197,94,.22)"/>
+                <rect x="26" y="52" width="58" height="80" rx="12" fill="#fff" opacity=".92"/>
+                <rect x="96" y="30" width="64" height="102" rx="12" fill="#fff" opacity=".92"/>
+                <rect x="172" y="60" width="58" height="72" rx="12" fill="#fff" opacity=".92"/>
+                <text x="130" y="26" text-anchor="middle" font-size="16" fill="#5B6B86">city</text>
+              </g>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5 -->
+    <section class="slide" data-title="Personal Words B">
+      <div class="topbar">
+        <div class="chip"><span class="dot"></span> Personal Words (B)</div>
+        <div class="counter" data-counter>5 / 999</div>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <h2>🏷️ Personal Words</h2>
+          <div class="sub">Click → flip → speak.</div>
+          <div class="cards" id="personalB"></div>
+
+          <div class="yourturn">
+            <div class="label">🎤 Speak Now</div>
+            <ul>
+              <li>Answer 2 questions with 2 sentences each.</li>
+              <li>Try: “I live in…” / “I live with…”</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card alt">
+          <h3>Mini Drill</h3>
+          <div class="twoCols">
+            <div class="miniCard">
+              <p class="bigQ">Live in …</p>
+              <div class="prompt">City / place</div>
+            </div>
+            <div class="miniCard">
+              <p class="bigQ">Live with …</p>
+              <div class="prompt">People</div>
+            </div>
+          </div>
+
+          <div class="yourturn">
+            <div class="label">🎤 Speak Now</div>
+            <ul>
+              <li>Say 2 sentences: one “live in”, one “live with”.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6 -->
+    <section class="slide" data-title="School Words A">
+      <div class="topbar">
+        <div class="chip"><span class="dot"></span> School Words (A)</div>
+        <div class="counter" data-counter>6 / 999</div>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <h2>🏫 School Words</h2>
+          <div class="sub">Click → flip → speak.</div>
+          <div class="cards" id="schoolA"></div>
+
+          <div class="yourturn">
+            <div class="label">🎤 Speak Now</div>
+            <ul>
+              <li>Make 4 short sentences using 4 cards.</li>
+              <li>Add 1 power word (friendly / helpful / interesting…)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card alt">
+          <h3>Picture Prompt</h3>
+          <div class="illustration" style="max-height:230px">
+            <svg viewBox="0 0 900 240" width="100%" height="230" role="img" aria-label="classroom and timetable">
+              <rect width="900" height="240" rx="26" fill="rgba(255,255,255,.70)"/>
+              <g transform="translate(150,65)">
+                <rect x="0" y="0" width="260" height="130" rx="20" fill="rgba(34,197,94,.14)" stroke="rgba(34,197,94,.22)"/>
+                <rect x="26" y="26" width="210" height="56" rx="12" fill="#fff" opacity=".92"/>
+                <text x="130" y="62" text-anchor="middle" font-size="18" fill="#1F2A44">classroom</text>
+                <rect x="26" y="92" width="210" height="22" rx="11" fill="rgba(34,197,94,.18)"/>
+              </g>
+              <g transform="translate(520,60)">
+                <rect x="0" y="0" width="250" height="140" rx="20" fill="rgba(77,150,255,.14)" stroke="rgba(77,150,255,.22)"/>
+                <text x="125" y="40" text-anchor="middle" font-size="18" fill="#1F2A44">timetable</text>
+                <g opacity=".9">
+                  <rect x="24" y="56" width="202" height="18" rx="9" fill="#fff"/>
+                  <rect x="24" y="82" width="202" height="18" rx="9" fill="#fff"/>
+                  <rect x="24" y="108" width="202" height="18" rx="9" fill="#fff"/>
+                </g>
+              </g>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7 -->
+    <section class="slide" data-title="School Words B">
+      <div class="topbar">
+        <div class="chip"><span class="dot"></span> School Words (B)</div>
+        <div class="counter" data-counter>7 / 999</div>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <h2>🏫 School Words</h2>
+          <div class="sub">Click → flip → speak.</div>
+          <div class="cards" id="schoolB"></div>
+
+          <div class="yourturn">
+            <div class="label">🎤 Speak Now</div>
+            <ul>
+              <li>Say 3 sentences about your school places.</li>
+              <li>Try: library / playground / club</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card alt">
+          <h3>Picture Prompt</h3>
+          <div class="illustration" style="max-height:230px">
+            <svg viewBox="0 0 900 240" width="100%" height="230" role="img" aria-label="library and playground">
+              <rect width="900" height="240" rx="26" fill="rgba(255,255,255,.70)"/>
+              <g transform="translate(150,70)">
+                <rect x="0" y="0" width="260" height="130" rx="20" fill="rgba(77,150,255,.14)" stroke="rgba(77,150,255,.22)"/>
+                <path d="M50 28h160v70H50z" fill="#fff" opacity=".9"/>
+                <path d="M70 42h120M70 58h120M70 74h120" stroke="#4D96FF" stroke-width="6" stroke-linecap="round"/>
+                <text x="130" y="118" text-anchor="middle" font-size="16" fill="#5B6B86">library</text>
+              </g>
+              <g transform="translate(520,70)">
+                <rect x="0" y="0" width="260" height="130" rx="20" fill="rgba(34,197,94,.14)" stroke="rgba(34,197,94,.22)"/>
+                <circle cx="85" cy="68" r="28" fill="#fff" opacity=".9"/>
+                <path d="M180 100 Q210 54 240 100" fill="none" stroke="#22C55E" stroke-width="8" stroke-linecap="round"/>
+                <text x="130" y="118" text-anchor="middle" font-size="16" fill="#5B6B86">playground</text>
+              </g>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8 -->
+    <section class="slide" data-title="Power Words">
+      <div class="topbar">
+        <div class="chip"><span class="dot"></span> Power Words</div>
+        <div class="counter" data-counter>8 / 999</div>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <h2>⚡ Power Words (10)</h2>
+          <div class="pillRow" id="powerPills"></div>
+
+          <div class="yourturn">
+            <div class="label">🎤 Speak Now</div>
+            <ul>
+              <li>Pick 2 power words and say 2 sentences.</li>
+              <li>Example: “My teacher is ___.” “My school is ___.”</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card alt">
+          <h3>Emoji Picture Prompt</h3>
+          <div class="illustration" style="max-height:230px">
+            <svg viewBox="0 0 900 240" width="100%" height="230" role="img" aria-label="emoji adjectives">
+              <rect width="900" height="240" rx="26" fill="rgba(255,255,255,.70)"/>
+              <g transform="translate(170,120)">
+                <circle cx="0" cy="0" r="46" fill="rgba(251,191,36,.22)" stroke="rgba(31,42,68,.12)"/>
+                <circle cx="-14" cy="-10" r="6" fill="#1F2A44"/><circle cx="14" cy="-10" r="6" fill="#1F2A44"/>
+                <path d="M-18 10 Q0 26 18 10" fill="none" stroke="#1F2A44" stroke-width="6" stroke-linecap="round"/>
+                <text x="0" y="78" text-anchor="middle" font-size="16" fill="#5B6B86">friendly</text>
+              </g>
+              <g transform="translate(450,120)">
+                <circle cx="0" cy="0" r="46" fill="rgba(77,150,255,.18)" stroke="rgba(31,42,68,.12)"/>
+                <circle cx="-14" cy="-10" r="6" fill="#1F2A44"/><circle cx="14" cy="-10" r="6" fill="#1F2A44"/>
+                <path d="M-22 18 Q0 6 22 18" fill="none" stroke="#1F2A44" stroke-width="6" stroke-linecap="round"/>
+                <text x="0" y="78" text-anchor="middle" font-size="16" fill="#5B6B86">boring</text>
+              </g>
+              <g transform="translate(730,120)">
+                <circle cx="0" cy="0" r="46" fill="rgba(34,197,94,.18)" stroke="rgba(31,42,68,.12)"/>
+                <circle cx="-14" cy="-10" r="6" fill="#1F2A44"/><circle cx="14" cy="-10" r="6" fill="#1F2A44"/>
+                <path d="M-22 10 Q0 30 22 10" fill="none" stroke="#1F2A44" stroke-width="6" stroke-linecap="round"/>
+                <text x="0" y="78" text-anchor="middle" font-size="16" fill="#5B6B86">useful</text>
+              </g>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9 -->
+    <section class="slide" data-title="Chunks">
+      <div class="topbar">
+        <div class="chip"><span class="dot"></span> Chunks (Say Fast)</div>
+        <div class="counter" data-counter>9 / 999</div>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <h2>🧩 Chunks (6)</h2>
+          <div class="sub">Click → flip → say a sentence.</div>
+          <div class="cards" id="chunks"></div>
+
+          <div class="yourturn">
+            <div class="label">🎤 Speak Now</div>
+            <ul>
+              <li>Pick 3 chunks → 3 sentences.</li>
+              <li>One sentence must have <b>because</b>.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card alt">
+          <h3>Random Chunk</h3>
+          <div class="panel" id="randChunk">Click to pick a chunk.</div>
+          <div class="pillRow">
+            <button onclick="randomChunk()">Pick</button>
+            <button onclick="randomChunk()">Pick again</button>
+          </div>
+          <div class="yourturn">
+            <div class="label">🎤 Speak Now</div>
+            <ul><li>Say 2 sentences with the chunk (add 1 detail).</li></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10 -->
+    <section class="slide" data-title="Sentence Magic">
+      <div class="topbar">
+        <div class="chip"><span class="dot"></span> Sentence Magic</div>
+        <div class="counter" data-counter>10 / 999</div>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <h2>🧱 12 Key Sentences</h2>
+          <div class="mono">1) I’m a student at ___.
+2) I study at ___ School.
+3) My school is big/clean/friendly.
+4) I study English, maths and ___.
+5) My favourite subject is ___ because ___.
+6) I usually have ___ lessons on ___.
+7) My teacher is ___ and ___.
+8) After school, I often ___.
+9) I’m good at ___ / I’m not good at ___.
+10) I have lessons / I have a break.
+11) I do homework at home.
+12) I get along with my classmates.</div>
+
+          <div class="yourturn">
+            <div class="label">🎤 Speak Now</div>
+            <ul>
+              <li>Choose 6 lines → speak as a mini story.</li>
+              <li>Line 5: use <b>because</b> (twice if you can).</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card alt">
+          <h3>Because ×2 (upgrade)</h3>
+          <div class="panel">My favourite subject is ___ because ___. And because ___.</div>
+          <div class="yourturn">
+            <div class="label">🎤 Speak Now</div>
+            <ul><li>Make your own because×2 sentence.</li></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11 (NEW) -->
+    <section class="slide" data-title="Drag & Build">
+      <div class="topbar">
+        <div class="chip"><span class="dot"></span> Drag-and-build (Tap tiles)</div>
+        <div class="counter" data-counter>11 / 999</div>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <h2>🧩 Build a sentence</h2>
+          <div class="sub">Tap tiles → make 1 sentence. Tap a word in the sentence to remove it.</div>
+
+          <div class="buildArea">
+            <div class="mini"><b>Sentence</b></div>
+            <div class="buildLine" id="buildLine"></div>
+
+            <div class="meter">
+              <div class="tag" id="becauseCount">because: 0</div>
+              <div class="tag" id="wordCount">words: 0</div>
+              <button class="primary" onclick="buildRandom()">Random</button>
+              <button onclick="buildUndo()">Undo</button>
+              <button class="warn" onclick="buildClear()">Clear</button>
+            </div>
+          </div>
+
+          <div class="yourturn">
+            <div class="label">🎤 Speak Now</div>
+            <ul>
+              <li>Read the sentence.</li>
+              <li>Add ONE more sentence (detail).</li>
+              <li>Try to use <b>because</b>.</li>
+            </ul>
+          </div>
+
+          <details>
+            <summary>Starter ideas</summary>
+            <div class="ans">My favourite subject is English because it’s interesting. It helps me speak better.</div>
+          </details>
+        </div>
+
+        <div class="card alt">
+          <h3>Tiles</h3>
+
+          <div class="tileGroup">
+            <div class="tileGroupTitle"><span>Starters</span></div>
+            <div class="tileRow" id="tilesStart"></div>
+          </div>
+
+          <div class="tileGroup">
+            <div class="tileGroupTitle"><span>Words</span></div>
+            <div class="tileRow" id="tilesWords"></div>
+          </div>
+
+          <div class="tileGroup">
+            <div class="tileGroupTitle"><span>Connect</span></div>
+            <div class="tileRow" id="tilesConnect"></div>
+          </div>
+
+          <div class="tileGroup">
+            <div class="tileGroupTitle"><span>Reasons / Details</span></div>
+            <div class="tileRow" id="tilesReason"></div>
+          </div>
+
+          <div class="yourturn">
+            <div class="label">🎤 Speak Now</div>
+            <ul>
+              <li>Build a new sentence in 15 seconds.</li>
+              <li>Then say it naturally.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 12 -->
+    <section class="slide" data-title="High-score Lines">
+      <div class="topbar">
+        <div class="chip"><span class="dot"></span> High-score Lines</div>
+        <div class="counter" data-counter>12 / 999</div>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <h2>⭐ High-score Lines (6)</h2>
+          <div class="mono">1) My full name is ___, but you can call me ___.
+2) What I like most is ___.
+3) It helps me ___.
+4) I feel ___ when ___.
+5) I’m interested in ___.
+6) If I have time, I ___.</div>
+
+          <div class="yourturn">
+            <div class="label">🎤 Speak Now</div>
+            <ul>
+              <li>Use 3 lines → 3 sentences.</li>
+              <li>One sentence must have <b>because</b>.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card alt">
+          <h3>Picture Prompt</h3>
+          <div class="illustration" style="max-height:230px">
+            <svg viewBox="0 0 900 240" width="100%" height="230" role="img" aria-label="trophy">
+              <rect width="900" height="240" rx="26" fill="rgba(255,255,255,.70)"/>
+              <g transform="translate(450,120)">
+                <path d="M-60-55h120v18c0 40-28 72-60 72s-60-32-60-72v-18Z"
+                      fill="rgba(251,191,36,.24)" stroke="rgba(31,42,68,.12)"/>
+                <rect x="-28" y="35" width="56" height="20" rx="10" fill="rgba(77,150,255,.16)" stroke="rgba(77,150,255,.22)"/>
+                <rect x="-46" y="55" width="92" height="18" rx="9" fill="rgba(34,197,94,.16)" stroke="rgba(34,197,94,.22)"/>
+                <path d="M-78-50h-26c0 32 18 54 42 54" fill="none" stroke="rgba(31,42,68,.16)" stroke-width="10" stroke-linecap="round"/>
+                <path d="M78-50h26c0 32-18 54-42 54" fill="none" stroke="rgba(31,42,68,.16)" stroke-width="10" stroke-linecap="round"/>
+                <text x="0" y="-6" text-anchor="middle" font-size="18" fill="#1F2A44">High-score</text>
+              </g>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 13 -->
+    <section class="slide" data-title="7-step Map">
+      <div class="topbar">
+        <div class="chip"><span class="dot"></span> 7-step Map</div>
+        <div class="counter" data-counter>13 / 999</div>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <h2>🗺️ 7-step Map</h2>
+          <div class="mono">1) Name + Age
+2) Live (in / with / from)
+3) School (student / school)
+4) Favourite subject (because ×2)
+5) After school
+6) Good at / Interested in
+7) Feeling (I feel… when…)</div>
+
+          <div class="yourturn">
+            <div class="label">🎤 Speak Now</div>
+            <ul>
+              <li>Say step 1 → step 7 (one sentence per step).</li>
+              <li>Step 4 must have because ×2.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card alt">
+          <h3>Picture Prompt</h3>
+          <div class="illustration" style="max-height:230px">
+            <svg viewBox="0 0 900 240" width="100%" height="230" role="img" aria-label="map path">
+              <rect width="900" height="240" rx="26" fill="rgba(255,255,255,.70)"/>
+              <path d="M120 180 C220 80, 300 210, 390 120 S560 70, 650 130 S760 210, 820 90"
+                    fill="none" stroke="rgba(77,150,255,.30)" stroke-width="14" stroke-linecap="round"/>
+              <g fill="#fff" stroke="rgba(31,42,68,.12)" stroke-width="2">
+                <circle cx="120" cy="180" r="18"/><circle cx="260" cy="120" r="18"/><circle cx="390" cy="120" r="18"/>
+                <circle cx="520" cy="90" r="18"/><circle cx="650" cy="130" r="18"/><circle cx="760" cy="180" r="18"/>
+                <circle cx="820" cy="90" r="18"/>
+              </g>
+              <text x="120" y="185" text-anchor="middle" font-size="14" fill="#1F2A44">1</text>
+              <text x="260" y="125" text-anchor="middle" font-size="14" fill="#1F2A44">2</text>
+              <text x="390" y="125" text-anchor="middle" font-size="14" fill="#1F2A44">3</text>
+              <text x="520" y="95" text-anchor="middle" font-size="14" fill="#1F2A44">4</text>
+              <text x="650" y="135" text-anchor="middle" font-size="14" fill="#1F2A44">5</text>
+              <text x="760" y="185" text-anchor="middle" font-size="14" fill="#1F2A44">6</text>
+              <text x="820" y="95" text-anchor="middle" font-size="14" fill="#1F2A44">7</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 14 -->
+    <section class="slide" data-title="Exam Q · Personal">
+      <div class="topbar">
+        <div class="chip"><span class="dot"></span> Exam Q (Personal)</div>
+        <div class="counter" data-counter>14 / 999</div>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <h2>❓ Exam Questions (Personal)</h2>
+          <div class="panel">Rule: 2 sentences each.</div>
+
+          <div class="twoCols">
+            <div class="miniCard"><p class="bigQ">1) What’s your name?</p><div class="prompt">Add a nickname line.</div></div>
+            <div class="miniCard"><p class="bigQ">2) How old are you?</p><div class="prompt">Add “I’m a student.”</div></div>
+            <div class="miniCard"><p class="bigQ">3) Where do you live?</p><div class="prompt">Add 1 city detail.</div></div>
+            <div class="miniCard"><p class="bigQ">4) Who do you live with?</p><div class="prompt">Add 1 detail.</div></div>
+            <div class="miniCard"><p class="bigQ">5) Where are you from?</p><div class="prompt">Add “It’s in…”</div></div>
+            <div class="miniCard"><p class="bigQ">6) What do you like doing?</p><div class="prompt">Use because.</div></div>
+          </div>
+
+          <div class="yourturn">
+            <div class="label">🎤 Speak Now</div>
+            <ul>
+              <li>Answer 3 questions (no stopping).</li>
+              <li>At least 1 because.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card alt">
+          <h3>Picture Prompt</h3>
+          <div class="illustration" style="max-height:230px">
+            <svg viewBox="0 0 900 240" width="100%" height="230" role="img" aria-label="home and city">
+              <rect width="900" height="240" rx="26" fill="rgba(255,255,255,.70)"/>
+              <g transform="translate(200,70)">
+                <polygon points="0,60 90,0 180,60" fill="rgba(251,113,133,.18)" stroke="rgba(251,113,133,.22)"/>
+                <rect x="20" y="60" width="140" height="100" rx="16" fill="#fff" stroke="rgba(31,42,68,.10)"/>
+                <rect x="78" y="104" width="44" height="56" rx="10" fill="rgba(77,150,255,.12)" stroke="rgba(77,150,255,.20)"/>
+              </g>
+              <g transform="translate(560,65)">
+                <rect x="0" y="70" width="60" height="95" rx="12" fill="rgba(77,150,255,.14)" stroke="rgba(77,150,255,.22)"/>
+                <rect x="74" y="40" width="64" height="125" rx="12" fill="rgba(34,197,94,.14)" stroke="rgba(34,197,94,.22)"/>
+                <rect x="152" y="60" width="58" height="105" rx="12" fill="rgba(251,191,36,.16)" stroke="rgba(251,191,36,.26)"/>
+              </g>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 15 -->
+    <section class="slide" data-title="Exam Q · School">
+      <div class="topbar">
+        <div class="chip"><span class="dot"></span> Exam Q (School)</div>
+        <div class="counter" data-counter>15 / 999</div>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <h2>❓ Exam Questions (School)</h2>
+          <div class="panel">Rule: 2 sentences each.</div>
+
+          <div class="twoCols">
+            <div class="miniCard"><p class="bigQ">1) What school do you go to?</p><div class="prompt">Add location.</div></div>
+            <div class="miniCard"><p class="bigQ">2) What subjects do you study?</p><div class="prompt">Use “and”.</div></div>
+            <div class="miniCard"><p class="bigQ">3) Favourite subject? Why?</p><div class="prompt">Because ×2.</div></div>
+            <div class="miniCard"><p class="bigQ">4) Do you like your school? Why?</p><div class="prompt">Use 1 power word.</div></div>
+            <div class="miniCard"><p class="bigQ">5) What’s your teacher like?</p><div class="prompt">Use 2 power words.</div></div>
+            <div class="miniCard"><p class="bigQ">6) What do you do after school?</p><div class="prompt">Use a chunk.</div></div>
+          </div>
+
+          <div class="yourturn">
+            <div class="label">🎤 Speak Now</div>
+            <ul>
+              <li>Answer Q3 + any 2 more.</li>
+              <li>Q3 must be because ×2.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card alt">
+          <h3>Quick Role Prompt</h3>
+          <div class="panel">Teacher: “Tell me about your school!”</div>
+          <div class="yourturn">
+            <div class="label">🎤 Speak Now</div>
+            <ul>
+              <li>Speak 5 sentences (school only).</li>
+              <li>Include: subject + after school.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 16 -->
+    <section class="slide" data-title="Role-play">
+      <div class="topbar">
+        <div class="chip"><span class="dot"></span> Role-play</div>
+        <div class="counter" data-counter>16 / 999</div>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <h2>🎭 Role-play: New Classmate</h2>
+          <div class="panel">Teacher: “Hi! I’m new here. Tell me about you and your school!”</div>
+
+          <div class="yourturn">
+            <div class="label">🎤 Speak Now</div>
+            <ul>
+              <li>Speak 30–35 seconds.</li>
+              <li>Use: 2 power words + 1 chunk + because ×2.</li>
+            </ul>
+          </div>
+
+          <details>
+            <summary>Starter line (click)</summary>
+            <div class="ans">Hi! My name is ___. I’m ___ years old. I study at ___ School.</div>
+          </details>
+        </div>
+
+        <div class="card alt">
+          <h3>Cartoon Buddy</h3>
+          <div class="illustration" style="max-height:230px">
+            <svg viewBox="0 0 900 240" width="100%" height="230" role="img" aria-label="new classmate avatar">
+              <rect width="900" height="240" rx="26" fill="rgba(255,255,255,.70)"/>
+              <g transform="translate(450,120)">
+                <circle cx="0" cy="-10" r="44" fill="#fff" stroke="rgba(31,42,68,.12)"/>
+                <path d="M-30 -40 Q0 -64 30 -40" fill="none" stroke="#FB7185" stroke-width="10" stroke-linecap="round"/>
+                <circle cx="-14" cy="-16" r="5" fill="#1F2A44"/>
+                <circle cx="14" cy="-16" r="5" fill="#1F2A44"/>
+                <path d="M-16 6 Q0 22 16 6" fill="none" stroke="#1F2A44" stroke-width="5" stroke-linecap="round"/>
+                <rect x="-66" y="42" width="132" height="82" rx="24" fill="rgba(77,150,255,.18)" stroke="rgba(77,150,255,.22)"/>
+                <text x="0" y="92" text-anchor="middle" font-size="18" fill="#1F2A44">New buddy</text>
+              </g>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 17 -->
+    <section class="slide" data-title="Build Your Talk">
+      <div class="topbar">
+        <div class="chip"><span class="dot"></span> Build Your Talk</div>
+        <div class="counter" data-counter>17 / 999</div>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <h2>🧱 Your 7-step Talk</h2>
+          <div class="mono">1) My name is ___. I’m ___ years old.
+2) I live in ___. I live with ___.
+3) I study at ___ School. My school is ___ and ___.
+4) My favourite subject is ___ because ___. And because ___.
+5) After school, I often ___.
+6) I’m good at ___. I’m interested in ___ too.
+7) I feel ___ when ___.</div>
+
+          <div class="yourturn">
+            <div class="label">🎤 Speak Now</div>
+            <ul>
+              <li>Say it once (slow).</li>
+              <li>Say it again (natural).</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card alt">
+          <h3>Mini Challenge</h3>
+          <div class="panel">Swap one sentence with a “high-score line”.</div>
+          <div class="yourturn">
+            <div class="label">🎤 Speak Now</div>
+            <ul>
+              <li>Use: “What I like most is …” OR “It helps me …”</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 18 -->
+    <section class="slide" data-title="Timer 30s">
+      <div class="topbar">
+        <div class="chip"><span class="dot"></span> Timer Practice</div>
+        <div class="counter" data-counter>18 / 999</div>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <h2>⏳ Timer: 30 seconds</h2>
+          <div class="panel">Goal: 4–5 sentences + 1 because</div>
+
+          <div class="timerWrap">
+            <div class="timerRing pulse" id="ring30" style="--p:0deg;">
+              <div class="timerTime">
+                <p class="num" id="time30">30</p>
+                <p class="small">seconds</p>
+              </div>
+            </div>
+            <div>
+              <div class="btnRow">
+                <button class="primary" onclick="startTimer('30',30)">Start</button>
+                <button onclick="pauseTimer()">Pause</button>
+                <button class="warn" onclick="resetTimer()">Reset</button>
+              </div>
+              <div class="yourturn">
+                <div class="label">🎤 Speak Now</div>
+                <ul><li>Speak without stopping.</li></ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card alt">
+          <h3>Sentence Starters</h3>
+          <div class="mono">Let me think…
+I think…
+Also, …
+And …
+Because …
+After school, …</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 19 -->
+    <section class="slide" data-title="Timer 40s">
+      <div class="topbar">
+        <div class="chip"><span class="dot"></span> Timer Practice</div>
+        <div class="counter" data-counter>19 / 999</div>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <h2>⏳ Timer: 40 seconds</h2>
+          <div class="panel">Goal: 6+ sentences + because ×2</div>
+
+          <div class="timerWrap">
+            <div class="timerRing pulse" id="ring40" style="--p:0deg;">
+              <div class="timerTime">
+                <p class="num" id="time40">40</p>
+                <p class="small">seconds</p>
+              </div>
+            </div>
+            <div>
+              <div class="btnRow">
+                <button class="primary" onclick="startTimer('40',40)">Start</button>
+                <button onclick="pauseTimer()">Pause</button>
+                <button class="warn" onclick="resetTimer()">Reset</button>
+              </div>
+              <div class="yourturn">
+                <div class="label">🎤 Speak Now</div>
+                <ul>
+                  <li>Use 2 power words.</li>
+                  <li>Use 1 chunk.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card alt">
+          <h3>Because Ideas</h3>
+          <div class="pillRow">
+            <div class="pill">because it’s useful</div>
+            <div class="pill">because it’s interesting</div>
+            <div class="pill">because my teacher is helpful</div>
+            <div class="pill">because I like games</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 20 -->
+    <section class="slide" data-title="Timer 50s">
+      <div class="topbar">
+        <div class="chip"><span class="dot"></span> Final Timer</div>
+        <div class="counter" data-counter>20 / 999</div>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <h2>🏆 Timer: 50 seconds (Final)</h2>
+          <div class="panel">Goal: 40–50s · 6+ sentences · because ×2</div>
+
+          <div class="timerWrap">
+            <div class="timerRing pulse" id="ring50" style="--p:0deg;">
+              <div class="timerTime">
+                <p class="num" id="time50">50</p>
+                <p class="small">seconds</p>
+              </div>
+            </div>
+            <div>
+              <div class="btnRow">
+                <button class="primary" onclick="startTimer('50',50)">Start</button>
+                <button onclick="pauseTimer()">Pause</button>
+                <button class="warn" onclick="resetTimer()">Reset</button>
+              </div>
+              <div class="yourturn">
+                <div class="label">🎤 Speak Now</div>
+                <ul>
+                  <li>Speak as a story (7 steps).</li>
+                  <li>Smile 🙂 and speak clearly.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card alt">
+          <h3>Mini Checklist</h3>
+          <div class="pillRow">
+            <div class="pill green">6+ sentences</div>
+            <div class="pill yellow">2× because</div>
+            <div class="pill purple">2× power words</div>
+            <div class="pill">1× chunk</div>
+          </div>
+          <div class="illustration" style="max-height:230px">
+            <svg viewBox="0 0 900 240" width="100%" height="230" role="img" aria-label="celebration">
+              <rect width="900" height="240" rx="26" fill="rgba(255,255,255,.70)"/>
+              <g transform="translate(450,120)">
+                <circle cx="0" cy="0" r="64" fill="rgba(34,197,94,.14)" stroke="rgba(34,197,94,.22)"/>
+                <text x="0" y="8" text-anchor="middle" font-size="26" fill="#1F2A44">👏</text>
+                <text x="0" y="88" text-anchor="middle" font-size="18" fill="#5B6B86">You did it!</text>
+              </g>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 21 -->
+    <section class="slide" data-title="Fix It!">
+      <div class="topbar">
+        <div class="chip"><span class="dot"></span> Fix It!</div>
+        <div class="counter" data-counter>21 / 999</div>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <h2>🛠️ Fix It! (Say the correct sentence)</h2>
+          <div class="panel">Read → Fix → Say it.</div>
+
+          <details><summary>1) I live with Beijing.</summary><div class="ans">I live in Beijing. / I live with my parents.</div></details>
+          <details><summary>2) I study in Sunshine School.</summary><div class="ans">I study at Sunshine School.</div></details>
+          <details><summary>3) My favourite subject is English because useful.</summary><div class="ans">My favourite subject is English because it’s useful.</div></details>
+          <details><summary>4) I study English maths science.</summary><div class="ans">I study English, maths and science.</div></details>
+
+          <div class="yourturn">
+            <div class="label">🎤 Speak Now</div>
+            <ul>
+              <li>Pick 2 → fix → add 1 detail sentence.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card alt">
+          <h3>Upgrade!</h3>
+          <div class="panel">Add 2 power words: friendly / helpful / interesting / useful / comfortable</div>
+          <div class="yourturn">
+            <div class="label">🎤 Speak Now</div>
+            <ul><li>Say: “My school is ___ and ___.”</li></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 22 -->
+    <section class="slide" data-title="Picture Talk">
+      <div class="topbar">
+        <div class="chip"><span class="dot"></span> Picture Talk</div>
+        <div class="counter" data-counter>22 / 999</div>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <h2>🖼️ Picture Talk (2 sentences each)</h2>
+          <div class="sub">What is it? Why do you like it?</div>
+
+          <div class="illustration" style="max-height:240px">
+            <svg viewBox="0 0 900 250" width="100%" height="240" role="img" aria-label="school scenes">
+              <rect width="900" height="250" rx="26" fill="rgba(255,255,255,.70)"/>
+              <g transform="translate(120,65)">
+                <rect x="0" y="0" width="210" height="140" rx="18" fill="rgba(77,150,255,.14)" stroke="rgba(77,150,255,.22)"/>
+                <rect x="26" y="26" width="160" height="76" rx="12" fill="#fff" opacity=".92"/>
+                <path d="M52 42h110M52 60h110M52 78h110" stroke="#4D96FF" stroke-width="6" stroke-linecap="round"/>
+                <text x="105" y="126" text-anchor="middle" font-size="16" fill="#5B6B86">library</text>
+              </g>
+              <g transform="translate(360,65)">
+                <rect x="0" y="0" width="210" height="140" rx="18" fill="rgba(34,197,94,.14)" stroke="rgba(34,197,94,.22)"/>
+                <circle cx="70" cy="78" r="26" fill="#fff" opacity=".92"/>
+                <path d="M120 108 Q150 56 180 108" fill="none" stroke="#22C55E" stroke-width="8" stroke-linecap="round"/>
+                <text x="105" y="126" text-anchor="middle" font-size="16" fill="#5B6B86">playground</text>
+              </g>
+              <g transform="translate(600,65)">
+                <rect x="0" y="0" width="210" height="140" rx="18" fill="rgba(251,113,133,.12)" stroke="rgba(251,113,133,.22)"/>
+                <circle cx="72" cy="76" r="16" fill="#fff" opacity=".95"/>
+                <circle cx="105" cy="68" r="16" fill="#fff" opacity=".95"/>
+                <circle cx="138" cy="76" r="16" fill="#fff" opacity=".95"/>
+                <rect x="60" y="96" width="105" height="24" rx="12" fill="#fff" opacity=".92"/>
+                <text x="105" y="126" text-anchor="middle" font-size="16" fill="#5B6B86">club</text>
+              </g>
+            </svg>
+          </div>
+
+          <div class="yourturn">
+            <div class="label">🎤 Speak Now</div>
+            <ul>
+              <li>Library: “I go to the library because …” + 1 more sentence</li>
+              <li>Playground: “I like the playground because …” + 1 more sentence</li>
+              <li>Club: “I join a club because …” + 1 more sentence</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card alt">
+          <h3>Extra Challenge</h3>
+          <div class="panel">Use “and / also / then” to connect.</div>
+          <div class="yourturn">
+            <div class="label">🎤 Speak Now</div>
+            <ul><li>Make 1 connected sentence with “and/also/then”.</li></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 23 (NEW) -->
+    <section class="slide" data-title="Picture Spinner">
+      <div class="topbar">
+        <div class="chip"><span class="dot"></span> Picture Spinner</div>
+        <div class="counter" data-counter>23 / 999</div>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <h2>🎡 Spin a picture</h2>
+          <div class="panel">Rule: <b>2 sentences</b> every time.</div>
+
+          <div class="pillRow">
+            <button class="primary" onclick="spinPic()">Spin</button>
+            <button onclick="spinPic()">Spin again</button>
+          </div>
+
+          <div class="panel" id="picLabel" style="margin-top:10px">Click “Spin”.</div>
+
+          <div class="illustration" id="picStage" style="max-height:260px; margin-top:10px"></div>
+
+          <div class="yourturn">
+            <div class="label">🎤 Speak Now</div>
+            <ul>
+              <li>Sentence 1: “This is the ___.” / “I go to the ___.”</li>
+              <li>Sentence 2: “I like it because ___.”</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card alt">
+          <h3>Bonus</h3>
+          <div class="panel">Add 1 power word: friendly / helpful / interesting / comfortable / popular</div>
+          <details>
+            <summary>Example</summary>
+            <div class="ans">This is the library. I like it because it’s quiet and comfortable.</div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- 24 -->
+    <section class="slide" data-title="Speed Q&A">
+      <div class="topbar">
+        <div class="chip"><span class="dot"></span> Speed Q&A</div>
+        <div class="counter" data-counter>24 / 999</div>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <h2>⚡ Speed Q&A (2 sentences)</h2>
+          <div class="panel">Teacher asks → you answer fast.</div>
+          <div class="pillRow">
+            <button onclick="spinQuestion()">Pick a question</button>
+            <button onclick="spinQuestion()">Pick again</button>
+          </div>
+          <div class="panel" id="spinQ" style="margin-top:10px">Click “Pick a question”.</div>
+
+          <details>
+            <summary>Magic second sentence (click)</summary>
+            <div class="ans">I like it because ___. / It helps me ___. / I feel ___ when ___.</div>
+          </details>
+
+          <div class="yourturn">
+            <div class="label">🎤 Speak Now</div>
+            <ul>
+              <li>Answer 6 questions (2 sentences each).</li>
+              <li>Use because at least 3 times.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card alt">
+          <h3>Star Challenge</h3>
+          <div class="panel">If you use 3 because → ⭐⭐⭐</div>
+          <div class="illustration" style="max-height:230px">
+            <svg viewBox="0 0 900 240" width="100%" height="230" role="img" aria-label="stars">
+              <rect width="900" height="240" rx="26" fill="rgba(255,255,255,.70)"/>
+              <g fill="rgba(251,191,36,.28)" stroke="rgba(251,191,36,.32)">
+                <path d="M260 120l12 28 30 3-22 19 7 29-27-16-27 16 7-29-22-19 30-3Z"/>
+                <path d="M450 90l16 36 38 4-28 24 9 37-35-21-35 21 9-37-28-24 38-4Z"/>
+                <path d="M640 120l12 28 30 3-22 19 7 29-27-16-27 16 7-29-22-19 30-3Z"/>
+              </g>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 25 -->
+    <section class="slide" data-title="Say It Clearly">
+      <div class="topbar">
+        <div class="chip"><span class="dot"></span> Say It Clearly</div>
+        <div class="counter" data-counter>25 / 999</div>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <h2>🔤 Say It Clearly</h2>
+          <div class="mono">teacher / subject / homework / library / classmates</div>
+
+          <div class="yourturn">
+            <div class="label">🎤 Speak Now</div>
+            <ul>
+              <li>Repeat each word 2 times.</li>
+              <li>Use 3 words → 3 short sentences.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card alt">
+          <h3>Read & Speak</h3>
+          <div class="mono">My teacher is helpful.
+My favourite subject is English because it’s useful.
+I do homework at home after school.
+I get along with my classmates.</div>
+          <div class="yourturn">
+            <div class="label">🎤 Speak Now</div>
+            <ul><li>Read once → then say it from memory.</li></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 26 -->
+    <section class="slide" data-title="Random Word Game">
+      <div class="topbar">
+        <div class="chip"><span class="dot"></span> Random Word Game</div>
+        <div class="counter" data-counter>26 / 999</div>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <h2>🎮 Random Word → 2 Sentences</h2>
+          <div class="panel">Click → you speak 2 sentences (second sentence = detail).</div>
+          <div class="pillRow">
+            <button onclick="randomWord()">Pick a word</button>
+            <button onclick="randomWord()">Pick again</button>
+          </div>
+          <div class="panel" id="randWord" style="margin-top:10px">Click “Pick a word”.</div>
+
+          <details>
+            <summary>Template (click)</summary>
+            <div class="ans">I have/like/go to ___. It’s ___ because ___.</div>
+          </details>
+
+          <div class="yourturn">
+            <div class="label">🎤 Speak Now</div>
+            <ul>
+              <li>Pick 5 words → 10 sentences total.</li>
+              <li>Use 2 power words.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card alt">
+          <h3>More Pictures</h3>
+          <div class="illustration" style="max-height:230px">
+            <svg viewBox="0 0 900 240" width="100%" height="230" role="img" aria-label="icons row">
+              <rect width="900" height="240" rx="26" fill="rgba(255,255,255,.70)"/>
+              <g transform="translate(120,80)" opacity=".95">
+                <rect x="0" y="0" width="150" height="110" rx="20" fill="rgba(77,150,255,.14)" stroke="rgba(77,150,255,.22)"/>
+                <text x="75" y="62" text-anchor="middle" font-size="18" fill="#1F2A44">teacher</text>
+              </g>
+              <g transform="translate(300,80)" opacity=".95">
+                <rect x="0" y="0" width="150" height="110" rx="20" fill="rgba(34,197,94,.14)" stroke="rgba(34,197,94,.22)"/>
+                <text x="75" y="62" text-anchor="middle" font-size="18" fill="#1F2A44">subject</text>
+              </g>
+              <g transform="translate(480,80)" opacity=".95">
+                <rect x="0" y="0" width="150" height="110" rx="20" fill="rgba(251,191,36,.16)" stroke="rgba(251,191,36,.26)"/>
+                <text x="75" y="62" text-anchor="middle" font-size="18" fill="#1F2A44">homework</text>
+              </g>
+              <g transform="translate(660,80)" opacity=".95">
+                <rect x="0" y="0" width="150" height="110" rx="20" fill="rgba(251,113,133,.12)" stroke="rgba(251,113,133,.22)"/>
+                <text x="75" y="62" text-anchor="middle" font-size="18" fill="#1F2A44">club</text>
+              </g>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 27 -->
+    <section class="slide" data-title="Final Practice">
+      <div class="topbar">
+        <div class="chip"><span class="dot"></span> Final Practice</div>
+        <div class="counter" data-counter>27 / 999</div>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <h2>🏁 Final Practice (2 rounds)</h2>
+          <div class="panel">Round 1: 40s · Round 2: 50s</div>
+
+          <div class="yourturn">
+            <div class="label">🎤 Speak Now</div>
+            <ul>
+              <li>Round 1: because ×2</li>
+              <li>Round 2: + 2 power words + 1 chunk</li>
+            </ul>
+          </div>
+
+          <div class="pillRow">
+            <div class="pill yellow">because ×2</div>
+            <div class="pill purple">power ×2</div>
+            <div class="pill">chunk ×1</div>
+          </div>
+        </div>
+
+        <div class="card alt">
+          <h3>Quick Self-check</h3>
+          <div class="panel">Say: “I used two because.” / “I used two power words.”</div>
+          <div class="illustration" style="max-height:230px">
+            <svg viewBox="0 0 900 240" width="100%" height="230" role="img" aria-label="check">
+              <rect width="900" height="240" rx="26" fill="rgba(255,255,255,.70)"/>
+              <g transform="translate(450,120)">
+                <circle cx="0" cy="0" r="70" fill="rgba(34,197,94,.14)" stroke="rgba(34,197,94,.22)"/>
+                <path d="M-26 0l18 18 38-42" fill="none" stroke="#22C55E" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+                <text x="0" y="96" text-anchor="middle" font-size="18" fill="#5B6B86">Great!</text>
+              </g>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 28 -->
+    <section class="slide" data-title="Bye">
+      <div class="topbar">
+        <div class="chip"><span class="dot"></span> End</div>
+        <div class="counter" data-counter>28 / 999</div>
+      </div>
+
+      <div class="grid one">
+        <div class="card">
+          <h1>🎉 Great job!</h1>
+          <div class="sub">You practiced a lot. See you next time!</div>
+
+          <div class="illustration" style="max-height:230px">
+            <svg viewBox="0 0 900 240" width="100%" height="230" role="img" aria-label="celebration">
+              <rect width="900" height="240" rx="26" fill="rgba(255,255,255,.70)"/>
+              <g transform="translate(450,120)">
+                <circle cx="0" cy="0" r="64" fill="rgba(77,150,255,.14)" stroke="rgba(77,150,255,.22)"/>
+                <text x="0" y="10" text-anchor="middle" font-size="28" fill="#1F2A44">👋</text>
+                <text x="0" y="92" text-anchor="middle" font-size="18" fill="#5B6B86">Bye!</text>
+              </g>
+            </svg>
+          </div>
+
+          <div class="yourturn">
+            <div class="label">🎤 Speak Now</div>
+            <ul><li>Say: “Thank you! Bye!”</li></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bottom Navigation -->
+    <div id="navBar" role="navigation">
+      <button class="navBtn secondary" id="btnPrev" type="button">⬅ Prev</button>
+      <div class="navCenter">
+        <span id="navTitle">Welcome</span>
+        <span class="dots" id="dots"></span>
+      </div>
+      <button class="navBtn" id="btnNext" type="button">Next ➡</button>
     </div>
   </div>
 
-  <div id="deck">
-    <section class="slide active" data-ft="Greet the student! Ask: 'How are you?' and high-five 🤚">
-        <div style="display: flex; flex-direction: column; justify-content: center;">
-            <h1>👋 Hello!</h1>
-            <p style="font-size: 24px;">Welcome to KET Speaking!</p>
-            <div class="mission-box">🎯 Today's Mission: Talk for 50 seconds!</div>
-        </div>
-        <div>
-            
-            <div class="interactive-card" style="margin-top:20px;" onclick="this.style.background='#ffeaa7'">
-                🗣️ "I'm ready! Let's go!"
-            </div>
-        </div>
-    </section>
-
-    <section class="slide" data-ft="Click the cards! Let the student say the word, then flip to check.">
-        <div>
-            <h1>📦 Personal Words</h1>
-            <p>Click and Reveal!</p>
-            <div class="cards-container" id="vocabBox">
-                </div>
-        </div>
-        <div>
-            
-            <div style="margin-top:20px;" class="mission-box">
-                Can you find "Family"? <br>
-                Who do you live with?
-            </div>
-        </div>
-    </section>
-
-    <section class="slide" data-ft="Help the student expand! 'I like English' -> 'I like English BECAUSE...' ">
-        <div>
-            <h1>✨ Magic Word</h1>
-            <div style="font-size: 50px; text-align: center; color: var(--soft-pink); font-weight: bold;">BECAUSE</div>
-            <div class="interactive-card" style="margin-top:20px; text-align: left;">
-                "I like my school..." <br>
-                ⬇️ <br>
-                "I like my school <b>because</b> it is big!"
-            </div>
-        </div>
-        <div>
-           
-            <div class="mission-box" style="background:var(--primary-blue); color:white; border:none;">
-                🗣️ Your Turn! <br>
-                "I like PE because..."
-            </div>
-        </div>
-    </section>
-
-    <section class="slide" data-ft="Final Test! Don't interrupt. Use the timer. Give stars after! 🏆">
-        <div style="text-align:center">
-            <h1>🏆 Final Challenge</h1>
-            <div class="timer-ring" id="finalTimer">50</div>
-            <div style="margin-top:20px;">
-                <button class="nav-btn" onclick="startFinalTimer(50)">START!</button>
-            </div>
-        </div>
-        <div>
-            <div class="mission-box">
-                📝 Checklist:<br>
-                1. Name & Age<br>
-                2. Live (where/who)<br>
-                3. School & Subject<br>
-                4. Why? (Because!)
-            </div>
-            
-        </div>
-    </section>
-  </div>
-
-  <div class="teacher-bar">
-    <span class="ft-tag">FT PROP</span>
-    <span id="ftScript">Greet the student! Ask: 'How are you?' and high-five 🤚</span>
-  </div>
-
-  <div class="controls">
-    <button class="nav-btn" id="prevBtn" onclick="prevSlide()">PREV</button>
-    <div id="pageDots"></div>
-    <button class="nav-btn" id="nextBtn" onclick="nextSlide()">NEXT</button>
-  </div>
-
   <script>
-    let currentSlide = 0;
-    const slides = document.querySelectorAll('.slide');
-    const ftScript = document.getElementById('ftScript');
-    let stars = 0;
+    // -------- Navigation --------
+    const slides = Array.from(document.querySelectorAll('.slide'));
+    const navTitle = document.getElementById('navTitle');
+    const dots = document.getElementById('dots');
+    const btnPrev = document.getElementById('btnPrev');
+    const btnNext = document.getElementById('btnNext');
+    let idx = 0;
 
-    // 奖励系统
-    function addStar() {
-        stars++;
-        document.getElementById('starCount').innerText = stars;
-        // 简单的粒子效果或声音可以在这里增加
+    function buildDots(){
+      dots.innerHTML = "";
+      const maxDots = 12;
+      if (slides.length <= maxDots){
+        slides.forEach((_,i)=>{
+          const d=document.createElement('span');
+          d.className='dot2'+(i===idx?' on':'');
+          d.addEventListener('click', ()=>show(i));
+          dots.appendChild(d);
+        });
+      } else {
+        for(let i=0;i<maxDots;i++){
+          const d=document.createElement('span');
+          d.className='dot2'+(i===Math.floor(idx*(maxDots-1)/(slides.length-1))?' on':'');
+          d.addEventListener('click', ()=>{
+            const target = Math.round(i*(slides.length-1)/(maxDots-1));
+            show(target);
+          });
+          dots.appendChild(d);
+        }
+      }
     }
 
-    // 导航
-    function showSlide(n) {
-        slides[currentSlide].classList.remove('active');
-        currentSlide = n;
-        slides[currentSlide].classList.add('active');
-        
-        // 更新外教提示
-        ftScript.innerText = slides[currentSlide].dataset.ft;
-        
-        // 控制按钮状态
-        document.getElementById('prevBtn').disabled = currentSlide === 0;
-        document.getElementById('nextBtn').disabled = currentSlide === slides.length - 1;
+    function updateCounters(){
+      const c = slides[idx].querySelector('[data-counter]');
+      if (c) c.textContent = `${idx+1} / ${slides.length}`;
+      navTitle.textContent = slides[idx].dataset.title || `Slide ${idx+1}`;
+      btnPrev.disabled = idx === 0;
+      btnNext.disabled = idx === slides.length - 1;
+      buildDots();
     }
 
-    function nextSlide() { if(currentSlide < slides.length - 1) showSlide(currentSlide + 1); }
-    function prevSlide() { if(currentSlide > 0) showSlide(currentSlide - 1); }
+    function show(i){
+      idx = Math.max(0, Math.min(slides.length - 1, i));
+      slides.forEach((s,k)=>s.classList.toggle('active', k===idx));
+      updateCounters();
+    }
+    function next(){ show(idx+1); }
+    function prev(){ show(idx-1); }
+    btnPrev.addEventListener('click', prev);
+    btnNext.addEventListener('click', next);
 
-    // 词汇翻牌数据
-    const vocabs = [
-        {f: "🏠 Home", b: "I live in..."},
-        {f: "👨‍👩‍👦 Family", b: "I live with..."},
-        {f: "🎨 Hobby", b: "I like..."},
-        {f: "🎒 School", b: "My school is..."},
-        {f: "📖 Subject", b: "My favorite is..."},
-        {f: "👤 Name", b: "Call me..."}
-    ];
-
-    const vocabBox = document.getElementById('vocabBox');
-    vocabs.forEach(item => {
-        const div = document.createElement('div');
-        div.className = 'vocab-flip';
-        div.innerHTML = `
-            <div class="flip-inner" onclick="this.parentElement.classList.toggle('on')">
-                <div class="flip-front"><b>${item.f}</b></div>
-                <div class="flip-back"><span>${item.b}</span></div>
-            </div>
-        `;
-        vocabBox.appendChild(div);
+    window.addEventListener('keydown', (e)=>{
+      const k = e.key.toLowerCase();
+      if (k === 'arrowright' || k === ' ' || k === 'd') next();
+      if (k === 'arrowleft' || k === 'a') prev();
     });
 
-    // 计时器
-    function startFinalTimer(sec) {
-        const ring = document.getElementById('finalTimer');
-        ring.classList.add('active');
-        let timeLeft = sec;
-        const timer = setInterval(() => {
-            timeLeft--;
-            ring.innerText = timeLeft;
-            if(timeLeft <= 0) {
-                clearInterval(timer);
-                ring.classList.remove('active');
-                ring.innerText = "🎉";
-                alert("Time's Up! Great Job!");
-            }
-        }, 1000);
+    // swipe
+    let touchX=null;
+    window.addEventListener('touchstart', e => touchX = e.changedTouches[0].clientX, {passive:true});
+    window.addEventListener('touchend', e => {
+      if(touchX===null) return;
+      const dx = e.changedTouches[0].clientX - touchX;
+      if(dx < -50) next();
+      if(dx > 50) prev();
+      touchX=null;
+    }, {passive:true});
+
+    show(0);
+
+    // -------- Icons --------
+    function icon(type){
+      const common = 'fill="none" stroke="rgba(31,42,68,.35)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"';
+      if(type==='tag') return `<svg class="iconSvg" viewBox="0 0 24 24"><path ${common} d="M4 7.5C4 6.1 5.1 5 6.5 5h11C19 5 20 6.1 20 7.5v9C20 17.9 18.9 19 17.5 19h-11C5.1 19 4 17.9 4 16.5v-9Z"/><path d="M7 9h10" stroke="#4D96FF" stroke-width="1.8"/><path d="M7 12h7" stroke="#FB7185" stroke-width="1.8"/></svg>`;
+      if(type==='clock') return `<svg class="iconSvg" viewBox="0 0 24 24"><path ${common} d="M12 22a10 10 0 1 0-10-10 10 10 0 0 0 10 10Z"/><path d="M12 6v6l4 2" stroke="#4D96FF" stroke-width="1.8"/></svg>`;
+      if(type==='pin') return `<svg class="iconSvg" viewBox="0 0 24 24"><path ${common} d="M12 21s7-4.4 7-10.2A7 7 0 0 0 5 10.8C5 16.6 12 21 12 21Z"/><circle cx="12" cy="11" r="2.6" fill="#22C55E" opacity=".35"/></svg>`;
+      if(type==='home') return `<svg class="iconSvg" viewBox="0 0 24 24"><path ${common} d="M3 11l9-7 9 7"/><path ${common} d="M5 10v10h14V10"/><path d="M10 20v-6h4v6" stroke="#FB7185" stroke-width="1.8"/></svg>`;
+      if(type==='heart') return `<svg class="iconSvg" viewBox="0 0 24 24"><path ${common} d="M12 21s-7-4.5-7-10a4 4 0 0 1 7-2 4 4 0 0 1 7 2c0 5.5-7 10-7 10Z"/></svg>`;
+      if(type==='school') return `<svg class="iconSvg" viewBox="0 0 24 24"><path ${common} d="M4 10.5 12 6l8 4.5v8.2a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8.2Z"/><path d="M9 20v-6h6v6" stroke="#4D96FF" stroke-width="1.8"/></svg>`;
+      if(type==='book') return `<svg class="iconSvg" viewBox="0 0 24 24"><path ${common} d="M6 4h10a2 2 0 0 1 2 2v14H8a2 2 0 0 0-2 2V4Z"/><path d="M8 7h8" stroke="#22C55E" stroke-width="1.8"/></svg>`;
+      if(type==='teacher') return `<svg class="iconSvg" viewBox="0 0 24 24"><path ${common} d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4Z"/><path ${common} d="M4 20a8 8 0 0 1 16 0"/></svg>`;
+      if(type==='list') return `<svg class="iconSvg" viewBox="0 0 24 24"><path ${common} d="M7 6h14M7 12h14M7 18h14"/><path d="M4 6h.01M4 12h.01M4 18h.01" stroke="#8B5CF6" stroke-width="3" stroke-linecap="round"/></svg>`;
+      if(type==='ball') return `<svg class="iconSvg" viewBox="0 0 24 24"><path ${common} d="M12 22a10 10 0 1 0-10-10 10 10 0 0 0 10 10Z"/><path d="M2 12h20" stroke="#22C55E" stroke-width="1.8"/></svg>`;
+      if(type==='shirt') return `<svg class="iconSvg" viewBox="0 0 24 24"><path ${common} d="M8 4 12 6l4-2 4 3-3 4v10H7V11L4 7Z"/></svg>`;
+      if(type==='group') return `<svg class="iconSvg" viewBox="0 0 24 24"><path ${common} d="M16 11a3 3 0 1 0-3-3 3 3 0 0 0 3 3Z"/><path ${common} d="M8 12a3 3 0 1 0-3-3 3 3 0 0 0 3 3Z"/><path ${common} d="M2 20a6 6 0 0 1 10 0"/><path ${common} d="M12 20a6 6 0 0 1 10 0"/></svg>`;
+      if(type==='bell') return `<svg class="iconSvg" viewBox="0 0 24 24"><path ${common} d="M12 22a2 2 0 0 0 2-2H10a2 2 0 0 0 2 2Z"/><path ${common} d="M18 16H6l1-2v-4a5 5 0 0 1 10 0v4l1 2Z"/></svg>`;
+      if(type==='pencil') return `<svg class="iconSvg" viewBox="0 0 24 24"><path ${common} d="M12 20h9"/><path ${common} d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>`;
+      return `<svg class="iconSvg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="rgba(77,150,255,.18)"/></svg>`;
     }
+
+    // -------- Card Data (aligned + less repetition) --------
+    const personal = [
+      {w:"name", q:"What’s your name?", a:"My name is ___.", ic:"tag"},
+      {w:"full name", q:"What’s your full name?", a:"My full name is ___, but you can call me ___.", ic:"tag"},
+      {w:"nickname", q:"Do you have a nickname?", a:"You can call me ___.", ic:"tag"},
+      {w:"age", q:"How old are you?", a:"I’m ___ years old.", ic:"clock"},
+      {w:"years old", q:"Say it!", a:"I’m ___ years old.", ic:"clock"},
+      {w:"live in", q:"Where do you live?", a:"I live in ___.", ic:"pin"},
+      {w:"live with", q:"Who do you live with?", a:"I live with my family.", ic:"home"},
+      {w:"come from", q:"Where are you from?", a:"I come from ___.", ic:"pin"},
+      {w:"city", q:"Describe your city.", a:"My city is ___ and ___.", ic:"pin"},
+      {w:"family", q:"Who’s in your family?", a:"There are ___ people in my family.", ic:"group"},
+      {w:"free time", q:"What do you do in your free time?", a:"In my free time, I ___ because ___.", ic:"heart"},
+      {w:"hobby", q:"What’s your hobby?", a:"My hobby is ___ because ___.", ic:"heart"},
+    ];
+
+    const school = [
+      {w:"student", q:"Are you a student?", a:"Yes, I’m a student.", ic:"school"},
+      {w:"school", q:"Do you like your school?", a:"Yes, my school is ___.", ic:"school"},
+      {w:"class", q:"What class are you in?", a:"I’m in Class ___.", ic:"group"},
+      {w:"classroom", q:"Describe your classroom.", a:"My classroom is ___.", ic:"school"},
+      {w:"teacher", q:"What’s your teacher like?", a:"My teacher is ___ and ___.", ic:"teacher"},
+      {w:"subject", q:"What subjects do you study?", a:"I study English, maths and ___.", ic:"book"},
+      {w:"lesson", q:"How many lessons?", a:"I have ___ lessons on ___.", ic:"list"},
+      {w:"timetable", q:"Do you like your timetable?", a:"Yes, it’s ___.", ic:"list"},
+      {w:"homework", q:"Do you have homework?", a:"I do homework at home.", ic:"pencil"},
+      {w:"break", q:"What do you do at break time?", a:"I chat with classmates.", ic:"bell"},
+      {w:"library", q:"Do you go to the library?", a:"I go to the library to ___.", ic:"book"},
+      {w:"playground", q:"What do you do in the playground?", a:"I play ___ in the playground.", ic:"ball"},
+      {w:"exam", q:"Do you have exams?", a:"I try my best in exams.", ic:"list"},
+      {w:"club", q:"Do you join a club?", a:"I go to an after-school club.", ic:"heart"},
+      {w:"uniform", q:"Do you wear a uniform?", a:"Yes, I wear a uniform.", ic:"shirt"},
+      {w:"classmates", q:"Do you get along with classmates?", a:"I get along with my classmates.", ic:"group"},
+    ];
+
+    const chunks = [
+      {w:"my favourite subject", q:"Make a sentence:", a:"My favourite subject is ___ because ___.", ic:"book"},
+      {w:"after-school club", q:"Make a sentence:", a:"I go to an after-school club.", ic:"heart"},
+      {w:"from Monday to Friday", q:"Make a sentence:", a:"I have lessons from Monday to Friday.", ic:"list"},
+      {w:"have lessons / have a break", q:"Make a sentence:", a:"We have lessons and then we have a break.", ic:"bell"},
+      {w:"do homework at home", q:"Make a sentence:", a:"I do homework at home after school.", ic:"pencil"},
+      {w:"get along with my classmates", q:"Make a sentence:", a:"I get along with my classmates because they are friendly.", ic:"group"},
+    ];
+
+    function makeFlipCard(item, tagText, tagClass){
+      const el = document.createElement('div');
+      el.className = 'cardFlip';
+      el.innerHTML = `
+        <div class="front">
+          <div class="wTop">
+            <div style="display:flex;align-items:center;gap:10px">
+              ${icon(item.ic)}
+              <div>
+                <div class="wWord">${item.w}</div>
+                <div class="wHint">Click to flip</div>
+              </div>
+            </div>
+            <div class="badge2 ${tagClass||''}">${tagText}</div>
+          </div>
+        </div>
+        <div class="back">
+          <div class="wTop">
+            <div style="display:flex;align-items:center;gap:10px">
+              ${icon(item.ic)}
+              <div>
+                <div class="wWord">${item.q}</div>
+                <div class="wHint">Say it!</div>
+              </div>
+            </div>
+            <div class="badge2 green">Speak</div>
+          </div>
+          <div class="wHint">${item.a}</div>
+          <div class="wHint" style="margin-top:8px;color:rgba(31,42,68,.65)">Add 1 more sentence.</div>
+        </div>
+      `;
+      el.addEventListener('click', ()=>el.classList.toggle('on'));
+      return el;
+    }
+
+    function render(){
+      const pa = document.getElementById('personalA');
+      const pb = document.getElementById('personalB');
+      personal.slice(0,6).forEach(x=>pa.appendChild(makeFlipCard(x,'Core','blue')));
+      personal.slice(6,12).forEach(x=>pb.appendChild(makeFlipCard(x,'Core','blue')));
+
+      const sa = document.getElementById('schoolA');
+      const sb = document.getElementById('schoolB');
+      school.slice(0,8).forEach(x=>sa.appendChild(makeFlipCard(x,'Core','purple')));
+      school.slice(8,16).forEach(x=>sb.appendChild(makeFlipCard(x,'Core','purple')));
+
+      const c = document.getElementById('chunks');
+      chunks.forEach(x=>c.appendChild(makeFlipCard(x,'Chunk','pink')));
+
+      const power = ["friendly","helpful","strict","interesting","boring","difficult","easy","useful","popular","comfortable"];
+      const powerPills = document.getElementById('powerPills');
+      power.forEach((t,i)=>{
+        const div = document.createElement('div');
+        div.className = 'pill ' + (i%4===0?'yellow':i%4===1?'green':i%4===2?'purple':'pink');
+        div.textContent = t;
+        powerPills.appendChild(div);
+      });
+
+      const pwPick = document.getElementById('pwPick');
+      ["friendly","helpful","interesting","useful","comfortable","popular"].forEach((w,i)=>{
+        const b = document.createElement('div');
+        b.className = 'chipBtn ' + (i%2===0?'good':'hot');
+        b.textContent = w;
+        b.addEventListener('click', ()=>{
+          Array.from(pwPick.children).forEach(x=>x.style.outline='none');
+          b.style.outline = '3px solid rgba(77,150,255,.25)';
+        });
+        pwPick.appendChild(b);
+      });
+    }
+    render();
+
+    // -------- Random chunk / Q / word --------
+    window.randomChunk = function(){
+      const box = document.getElementById('randChunk');
+      const pick = chunks[Math.floor(Math.random()*chunks.length)];
+      box.innerHTML = `<b>${pick.w}</b><br>Say 2 sentences:<br>1) ${pick.a}<br>2) Add a detail.`;
+    }
+
+    const qPool = [
+      "What’s your name?",
+      "How old are you?",
+      "Where do you live?",
+      "Who do you live with?",
+      "Where are you from?",
+      "What do you like doing in your free time?",
+      "What school do you go to?",
+      "What subjects do you study?",
+      "What’s your favourite subject? Why?",
+      "Do you like your school? Why?",
+      "What’s your teacher like?",
+      "What do you do after school?",
+      "What do you do at break time?"
+    ];
+    window.spinQuestion = function(){
+      const el = document.getElementById('spinQ');
+      const q = qPool[Math.floor(Math.random()*qPool.length)];
+      el.innerHTML = `<b>${q}</b><br>Answer 2 sentences!`;
+    }
+
+    const allWords = [...personal.map(x=>x.w), ...school.map(x=>x.w), ...chunks.map(x=>x.w)];
+    window.randomWord = function(){
+      const el = document.getElementById('randWord');
+      const w = allWords[Math.floor(Math.random()*allWords.length)];
+      el.innerHTML = `<b>${w}</b> → Say 2 sentences (2nd = detail).`;
+    }
+
+    // -------- Timer (single shared control) --------
+    let timer = {running:false, t:0, total:0, elTime:null, elRing:null, raf:null, lastTick:0};
+
+    function setRingProgress(ringEl, progress01){
+      const deg = Math.max(0, Math.min(1, progress01)) * 360;
+      ringEl.style.setProperty('--p', deg + 'deg');
+    }
+
+    window.startTimer = function(key, seconds){
+      const timeEl = document.getElementById('time' + key);
+      const ringEl = document.getElementById('ring' + key);
+      if (!timeEl || !ringEl) return;
+
+      timer.running = true;
+      timer.total = seconds;
+      timer.t = seconds;
+      timer.elTime = timeEl;
+      timer.elRing = ringEl;
+      timer.lastTick = performance.now();
+
+      timeEl.textContent = String(seconds);
+      setRingProgress(ringEl, 0);
+
+      if (timer.raf) cancelAnimationFrame(timer.raf);
+      timer.raf = requestAnimationFrame(loop);
+    }
+
+    window.pauseTimer = function(){ timer.running = false; }
+
+    window.resetTimer = function(){
+      timer.running = false;
+      if (!timer.elTime || !timer.elRing) return;
+      timer.elTime.textContent = String(timer.total || 0);
+      setRingProgress(timer.elRing, 0);
+      timer.elRing.classList.add('pulse');
+    }
+
+    function loop(now){
+      timer.raf = requestAnimationFrame(loop);
+      if (!timer.running) return;
+
+      const dt = (now - timer.lastTick) / 1000;
+      timer.lastTick = now;
+
+      timer.t -= dt;
+      const tShow = Math.max(0, Math.ceil(timer.t));
+      timer.elTime.textContent = String(tShow);
+
+      const elapsed = (timer.total - timer.t);
+      setRingProgress(timer.elRing, elapsed / timer.total);
+
+      if (timer.t <= 0){
+        timer.running = false;
+        timer.elTime.textContent = "0";
+        setRingProgress(timer.elRing, 1);
+        timer.elRing.classList.remove('pulse');
+        void timer.elRing.offsetWidth;
+        timer.elRing.classList.add('pulse');
+      }
+    }
+
+    // -------- Drag-and-build logic --------
+    const build = {tokens:[]};
+
+    const tilesStart = [
+      "My name is", "I’m", "I live in", "I live with", "I come from",
+      "I study at", "My school is", "My favourite subject is", "After school, I often",
+      "I get along with my classmates", "I do homework at home", "I feel"
+    ];
+    const tilesWords = [
+      "Sunshine School", "English", "maths", "science", "PE",
+      "the library", "the playground", "an after-school club",
+      "my family", "my parents", "my classmates",
+      "happy", "proud", "excited", "relaxed"
+    ];
+    const tilesConnect = ["because", "and", "also", "then", "when"];
+    const tilesReason = [
+      "it’s interesting", "it’s useful", "it’s easy for me", "my teacher is helpful",
+      "I like games", "it helps me speak better", "I get good marks",
+      "it’s comfortable", "it’s popular"
+    ];
+
+    function mountTiles(){
+      const mount = (id, arr, cls) => {
+        const el = document.getElementById(id);
+        arr.forEach(t=>{
+          const b = document.createElement('span');
+          b.className = 'tile ' + cls;
+          b.textContent = t;
+          b.addEventListener('click', ()=>buildAdd(t));
+          el.appendChild(b);
+        });
+      };
+      mount('tilesStart', tilesStart, 'b');
+      mount('tilesWords', tilesWords, 'g');
+      mount('tilesConnect', tilesConnect, 'p');
+      mount('tilesReason', tilesReason, 'y');
+    }
+    mountTiles();
+
+    function buildRender(){
+      const line = document.getElementById('buildLine');
+      const bc = document.getElementById('becauseCount');
+      const wc = document.getElementById('wordCount');
+      if(!line || !bc || !wc) return;
+
+      line.innerHTML = "";
+      build.tokens.forEach((t,i)=>{
+        const s = document.createElement('span');
+        s.className = 'tile small remove';
+        s.textContent = t;
+        s.title = "Tap to remove";
+        s.addEventListener('click', ()=>buildRemove(i));
+        line.appendChild(s);
+      });
+
+      const becauseN = build.tokens.filter(x=>x.toLowerCase()==='because').length;
+      const wordsN = build.tokens.length;
+
+      bc.textContent = `because: ${becauseN}`;
+      wc.textContent = `words: ${wordsN}`;
+
+      if (becauseN >= 2){
+        bc.style.borderColor = "rgba(34,197,94,.30)";
+        bc.style.background = "rgba(34,197,94,.10)";
+      } else {
+        bc.style.borderColor = "rgba(31,42,68,.12)";
+        bc.style.background = "rgba(255,255,255,.86)";
+      }
+    }
+
+    function buildAdd(t){
+      build.tokens.push(t);
+      buildRender();
+    }
+    function buildRemove(i){
+      build.tokens.splice(i,1);
+      buildRender();
+    }
+    window.buildUndo = function(){
+      build.tokens.pop();
+      buildRender();
+    }
+    window.buildClear = function(){
+      build.tokens = [];
+      buildRender();
+    }
+    window.buildRandom = function(){
+      // a simple random template:
+      const starters = ["My favourite subject is","I study at","After school, I often","My school is"];
+      const s = starters[Math.floor(Math.random()*starters.length)];
+      const w = tilesWords[Math.floor(Math.random()*tilesWords.length)];
+      const r = tilesReason[Math.floor(Math.random()*tilesReason.length)];
+      build.tokens = [s, w, "because", r];
+      // sometimes add extra because
+      if(Math.random()<0.45){
+        const r2 = tilesReason[Math.floor(Math.random()*tilesReason.length)];
+        build.tokens.push("and","because", r2);
+      }
+      buildRender();
+    }
+    buildRender();
+
+    // -------- Picture spinner --------
+    const picScenes = [
+      {
+        key:"school",
+        label:"Picture: SCHOOL",
+        svg: `
+          <svg viewBox="0 0 900 260" width="100%" height="250" role="img" aria-label="school">
+            <rect width="900" height="260" rx="26" fill="rgba(255,255,255,.75)"/>
+            <g transform="translate(310,55)">
+              <polygon points="140,0 290,70 -10,70" fill="rgba(251,191,36,.24)" stroke="rgba(31,42,68,.12)"/>
+              <rect x="20" y="70" width="240" height="150" rx="18" fill="#fff" stroke="rgba(31,42,68,.10)"/>
+              <rect x="112" y="120" width="56" height="100" rx="10" fill="rgba(77,150,255,.12)" stroke="rgba(77,150,255,.20)"/>
+              <rect x="50" y="100" width="48" height="40" rx="8" fill="rgba(34,197,94,.12)" stroke="rgba(34,197,94,.20)"/>
+              <rect x="192" y="100" width="48" height="40" rx="8" fill="rgba(34,197,94,.12)" stroke="rgba(34,197,94,.20)"/>
+              <text x="140" y="110" text-anchor="middle" font-size="20" fill="#1F2A44">SCHOOL</text>
+            </g>
+          </svg>`
+      },
+      {
+        key:"classroom",
+        label:"Picture: CLASSROOM",
+        svg: `
+          <svg viewBox="0 0 900 260" width="100%" height="250" role="img" aria-label="classroom">
+            <rect width="900" height="260" rx="26" fill="rgba(255,255,255,.75)"/>
+            <g transform="translate(190,70)">
+              <rect x="0" y="0" width="520" height="160" rx="22" fill="rgba(34,197,94,.14)" stroke="rgba(34,197,94,.22)"/>
+              <rect x="30" y="28" width="460" height="60" rx="16" fill="#fff" opacity=".92"/>
+              <text x="260" y="66" text-anchor="middle" font-size="20" fill="#1F2A44">classroom</text>
+              <g opacity=".95">
+                <rect x="60" y="108" width="120" height="34" rx="12" fill="rgba(77,150,255,.14)" stroke="rgba(77,150,255,.22)"/>
+                <rect x="200" y="108" width="120" height="34" rx="12" fill="rgba(77,150,255,.14)" stroke="rgba(77,150,255,.22)"/>
+                <rect x="340" y="108" width="120" height="34" rx="12" fill="rgba(77,150,255,.14)" stroke="rgba(77,150,255,.22)"/>
+              </g>
+            </g>
+          </svg>`
+      },
+      {
+        key:"library",
+        label:"Picture: LIBRARY",
+        svg: `
+          <svg viewBox="0 0 900 260" width="100%" height="250" role="img" aria-label="library">
+            <rect width="900" height="260" rx="26" fill="rgba(255,255,255,.75)"/>
+            <g transform="translate(220,70)">
+              <rect x="0" y="0" width="460" height="160" rx="22" fill="rgba(77,150,255,.14)" stroke="rgba(77,150,255,.22)"/>
+              <rect x="36" y="36" width="388" height="88" rx="16" fill="#fff" opacity=".92"/>
+              <path d="M70 60h320M70 80h320M70 100h320" stroke="#4D96FF" stroke-width="8" stroke-linecap="round"/>
+              <text x="230" y="146" text-anchor="middle" font-size="18" fill="#1F2A44">library</text>
+            </g>
+          </svg>`
+      },
+      {
+        key:"club",
+        label:"Picture: CLUB",
+        svg: `
+          <svg viewBox="0 0 900 260" width="100%" height="250" role="img" aria-label="club">
+            <rect width="900" height="260" rx="26" fill="rgba(255,255,255,.75)"/>
+            <g transform="translate(210,70)">
+              <rect x="0" y="0" width="480" height="160" rx="22" fill="rgba(251,113,133,.12)" stroke="rgba(251,113,133,.22)"/>
+              <circle cx="170" cy="78" r="22" fill="#fff" opacity=".95"/>
+              <circle cx="240" cy="66" r="22" fill="#fff" opacity=".95"/>
+              <circle cx="310" cy="78" r="22" fill="#fff" opacity=".95"/>
+              <rect x="140" y="110" width="220" height="34" rx="17" fill="#fff" opacity=".92"/>
+              <text x="240" y="134" text-anchor="middle" font-size="18" fill="#1F2A44">club</text>
+            </g>
+          </svg>`
+      },
+      {
+        key:"break",
+        label:"Picture: BREAK TIME",
+        svg: `
+          <svg viewBox="0 0 900 260" width="100%" height="250" role="img" aria-label="break time">
+            <rect width="900" height="260" rx="26" fill="rgba(255,255,255,.75)"/>
+            <g transform="translate(230,65)">
+              <rect x="0" y="0" width="440" height="170" rx="24" fill="rgba(251,191,36,.14)" stroke="rgba(251,191,36,.26)"/>
+              <g transform="translate(95,60)">
+                <circle cx="0" cy="0" r="24" fill="#fff" stroke="rgba(31,42,68,.12)"/>
+                <circle cx="-7" cy="-6" r="3" fill="#1F2A44"/><circle cx="7" cy="-6" r="3" fill="#1F2A44"/>
+                <path d="M-10 8 Q0 16 10 8" fill="none" stroke="#1F2A44" stroke-width="4" stroke-linecap="round"/>
+              </g>
+              <g transform="translate(220,60)">
+                <circle cx="0" cy="0" r="24" fill="#fff" stroke="rgba(31,42,68,.12)"/>
+                <circle cx="-7" cy="-6" r="3" fill="#1F2A44"/><circle cx="7" cy="-6" r="3" fill="#1F2A44"/>
+                <path d="M-10 8 Q0 16 10 8" fill="none" stroke="#1F2A44" stroke-width="4" stroke-linecap="round"/>
+              </g>
+              <g transform="translate(345,60)">
+                <circle cx="0" cy="0" r="24" fill="#fff" stroke="rgba(31,42,68,.12)"/>
+                <circle cx="-7" cy="-6" r="3" fill="#1F2A44"/><circle cx="7" cy="-6" r="3" fill="#1F2A44"/>
+                <path d="M-10 8 Q0 16 10 8" fill="none" stroke="#1F2A44" stroke-width="4" stroke-linecap="round"/>
+              </g>
+              <text x="220" y="142" text-anchor="middle" font-size="18" fill="#1F2A44">break time</text>
+            </g>
+          </svg>`
+      }
+    ];
+
+    window.spinPic = function(){
+      const label = document.getElementById('picLabel');
+      const stage = document.getElementById('picStage');
+      const p = picScenes[Math.floor(Math.random()*picScenes.length)];
+      label.innerHTML = `<b>${p.label}</b><br>Say 2 sentences (2nd = because).`;
+      stage.innerHTML = p.svg;
+    }
+
   </script>
 </body>
 </html>
