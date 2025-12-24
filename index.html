@@ -1,442 +1,1687 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KET Oral Course: About Me & School</title>
-    <style>
-        :root {
-            --primary: #2980b9;
-            --secondary: #27ae60;
-            --accent: #e67e22;
-            --danger: #e74c3c;
-            --bg-light: #f4f7f6;
-            --sidebar-w: 240px;
-            --teacher-note-h: 110px;
-        }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>千语 KET Speaking 1v1｜T1 About Me & School</title>
+  <style>
+    :root{
+      --bg:#0b1220;
+      --card:#0f1b33;
+      --card2:#132245;
+      --text:#e9f0ff;
+      --muted:#b9c7ee;
+      --accent:#7dd3fc;
+      --accent2:#a78bfa;
+      --good:#34d399;
+      --warn:#fbbf24;
+      --bad:#fb7185;
+      --shadow: 0 18px 50px rgba(0,0,0,.35);
+      --radius: 22px;
+      --noteBg: rgba(0,0,0,.35);
+      --noteBorder: rgba(255,255,255,.12);
+      --p: 0deg;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans SC", "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+      background: radial-gradient(1200px 700px at 20% 15%, rgba(125,211,252,.18), transparent 55%),
+                  radial-gradient(1000px 700px at 80% 25%, rgba(167,139,250,.18), transparent 55%),
+                  radial-gradient(900px 600px at 60% 90%, rgba(52,211,153,.10), transparent 55%),
+                  var(--bg);
+      color:var(--text);
+      overflow:hidden;
+    }
 
-        body, html { margin: 0; padding: 0; height: 100%; font-family: 'Segoe UI', Arial, sans-serif; overflow: hidden; background: #333; }
+    /* Deck */
+    #deck{
+      height:100vh;
+      width:100vw;
+      position:relative;
+    }
+    .slide{
+      height:100vh;
+      width:100vw;
+      padding: 56px 64px 96px;
+      display:none;
+    }
+    .slide.active{display:block}
 
-        /* Main Container */
-        .wrapper { display: flex; height: 100vh; width: 100vw; background: white; }
+    /* Layout */
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      margin-bottom:18px;
+    }
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 14px;
+      border-radius:999px;
+      background: rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.12);
+      box-shadow: 0 8px 30px rgba(0,0,0,.22);
+      color:var(--muted);
+      font-size:14px;
+    }
+    .badge .dot{
+      width:10px;height:10px;border-radius:50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+    }
+    .counter{
+      color:var(--muted);
+      font-size:14px;
+      padding:10px 12px;
+      border-radius:14px;
+      background: rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.10);
+    }
 
-        /* Sidebar Navigation */
-        .sidebar { width: var(--sidebar-w); background: #2c3e50; color: white; display: flex; flex-direction: column; z-index: 10; overflow-y: auto; }
-        .sidebar-header { padding: 20px; text-align: center; background: #1a252f; font-weight: bold; color: #f1c40f; }
-        .nav-item { padding: 12px 20px; cursor: pointer; border-left: 4px solid transparent; font-size: 14px; transition: 0.2s; border-bottom: 1px solid #34495e; }
-        .nav-item:hover { background: #34495e; }
-        .nav-item.active { background: #34495e; border-left-color: #f1c40f; color: #f1c40f; }
+    .grid{
+      display:grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap:18px;
+      height: calc(100vh - 56px - 96px - 18px);
+    }
+    .grid.one{
+      grid-template-columns: 1fr;
+    }
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 18px 18px 16px;
+      overflow:auto;
+    }
+    .card h1,.card h2,.card h3{
+      margin:0 0 10px;
+      letter-spacing:.2px;
+    }
+    .card h1{font-size:34px}
+    .card h2{font-size:24px}
+    .card h3{font-size:18px;color:var(--muted)}
+    .sub{
+      color:var(--muted);
+      line-height:1.5;
+      font-size:16px;
+    }
+    .big{
+      font-size:18px;
+      line-height:1.6;
+      color:var(--text);
+    }
 
-        /* Content Area */
-        .main-content { flex: 1; display: flex; flex-direction: column; position: relative; background: var(--bg-light); }
-        
-        /* Slides Area */
-        .slide-container { flex: 1; position: relative; padding: 40px; box-sizing: border-box; overflow-y: auto; }
-        .slide { display: none; height: 100%; flex-direction: column; animation: slideIn 0.3s ease-out; }
-        .slide.active { display: flex; }
-        @keyframes slideIn { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
+    .pillRow{
+      display:flex;flex-wrap:wrap;gap:10px;margin-top:10px
+    }
+    .pill{
+      padding:10px 12px;
+      border-radius:14px;
+      background: rgba(125,211,252,.10);
+      border:1px solid rgba(125,211,252,.25);
+      color:var(--text);
+      font-size:14px;
+    }
+    .pill.alt{
+      background: rgba(167,139,250,.10);
+      border-color: rgba(167,139,250,.25);
+    }
+    .pill.ok{
+      background: rgba(52,211,153,.10);
+      border-color: rgba(52,211,153,.25);
+    }
+    .pill.warn{
+      background: rgba(251,191,36,.10);
+      border-color: rgba(251,191,36,.25);
+    }
 
-        /* Teacher Notes Bar */
-        .teacher-notes-bar { height: var(--teacher-note-h); background: #fff3cd; border-top: 2px solid #ffeeba; padding: 15px 30px; box-sizing: border-box; display: flex; align-items: flex-start; }
-        .teacher-notes-bar::before { content: "👨‍🏫 FT Instruction:"; font-weight: bold; color: #856404; margin-right: 15px; white-space: nowrap; }
-        .note-content { font-size: 15px; color: #856404; line-height: 1.4; }
+    .taskBox{
+      margin-top:12px;
+      padding:14px 14px;
+      border-radius:18px;
+      background: rgba(255,255,255,.05);
+      border:1px dashed rgba(255,255,255,.18);
+    }
+    .taskBox .tTitle{
+      display:flex;align-items:center;gap:10px;
+      color:var(--text);
+      font-size:16px;
+      margin-bottom:8px;
+    }
+    .taskBox ul{
+      margin: 8px 0 0;
+      padding-left:18px;
+      color:var(--muted);
+      line-height:1.55;
+    }
+    .mini{
+      font-size:14px;color:var(--muted)
+    }
 
-        /* Components */
-        h1 { color: var(--primary); margin-top: 0; border-bottom: 3px solid var(--accent); display: inline-block; padding-bottom: 5px; }
-        .card-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-top: 20px; }
-        .vocab-card { background: white; border: 2px solid #ddd; border-radius: 10px; padding: 15px; text-align: center; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-        .vocab-card:hover { border-color: var(--primary); transform: translateY(-3px); }
-        .vocab-card strong { display: block; color: var(--primary); font-size: 1.1em; }
-        .vocab-card span { font-size: 0.85em; color: #666; display: block; margin-top: 5px; }
+    table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      overflow:hidden;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.18);
+    }
+    th,td{
+      padding:10px 12px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      vertical-align:top;
+      font-size:14px;
+    }
+    th{
+      text-align:left;
+      color:var(--text);
+      background: rgba(255,255,255,.06);
+    }
+    tr:last-child td{border-bottom:none}
+    .col2{
+      display:grid;grid-template-columns:1fr 1fr;gap:12px
+    }
+    .callout{
+      padding:12px 12px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      color:var(--muted);
+      line-height:1.55;
+      font-size:14px;
+    }
+    .callout .tag{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:7px 10px;
+      border-radius:999px;
+      background: rgba(52,211,153,.10);
+      border:1px solid rgba(52,211,153,.25);
+      color:var(--text);
+      margin-bottom:8px;
+    }
+    .callout .tag.warn{
+      background: rgba(251,191,36,.10);
+      border-color: rgba(251,191,36,.25);
+    }
+    .callout .tag.bad{
+      background: rgba(251,113,133,.10);
+      border-color: rgba(251,113,133,.25);
+    }
+    .kbd{
+      padding:2px 8px;
+      border-radius:10px;
+      border:1px solid rgba(255,255,255,.18);
+      background: rgba(0,0,0,.20);
+      color: var(--text);
+      font-size:13px;
+    }
 
-        .pattern-box { background: white; border-radius: 12px; padding: 20px; margin-bottom: 15px; border-left: 6px solid var(--secondary); box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
-        .pattern-box strong { color: var(--danger); }
+    /* Teacher note box fixed bottom */
+    .teacher-note{
+      position:absolute;
+      left: 64px;
+      right: 64px;
+      bottom: 20px;
+      padding: 12px 14px;
+      border-radius: 18px;
+      background: var(--noteBg);
+      border:1px solid var(--noteBorder);
+      box-shadow: 0 10px 24px rgba(0,0,0,.28);
+      color: var(--muted);
+      font-size: 14px;
+      line-height:1.5;
+      display:flex;
+      align-items:flex-start;
+      gap:10px;
+    }
+    .teacher-note .icon{font-size:18px;line-height:1}
 
-        .mindmap { display: flex; justify-content: space-around; align-items: center; margin-top: 30px; }
-        .node { background: #fff; border: 2px solid var(--primary); padding: 15px; border-radius: 50px; font-weight: bold; }
-        .arrow { font-size: 24px; color: #bdc3c7; }
+    /* Timer */
+    .timerWrap{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      margin-top:10px;
+      flex-wrap:wrap;
+    }
+    .timerRing{
+      width: 240px;
+      height: 240px;
+      border-radius:50%;
+      background: conic-gradient(var(--accent) var(--p), rgba(255,255,255,.10) 0);
+      display:grid;
+      place-items:center;
+      border: 1px solid rgba(255,255,255,.14);
+      box-shadow: var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+    .timerRing::after{
+      content:"";
+      position:absolute;
+      inset:16px;
+      border-radius:50%;
+      background: rgba(0,0,0,.35);
+      border:1px solid rgba(255,255,255,.10);
+    }
+    .timerTime{
+      position:relative;
+      z-index:2;
+      text-align:center;
+    }
+    .timerTime .num{
+      font-size:62px;
+      letter-spacing:1px;
+      margin:0;
+    }
+    .timerTime .small{
+      margin:0;
+      color:var(--muted);
+      font-size:14px;
+    }
+    .btnRow{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    button{
+      appearance:none;
+      border:none;
+      padding:12px 14px;
+      border-radius:14px;
+      background: rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.16);
+      color:var(--text);
+      cursor:pointer;
+      font-size:14px;
+    }
+    button:hover{background: rgba(255,255,255,.12)}
+    button.primary{
+      background: linear-gradient(135deg, rgba(125,211,252,.28), rgba(167,139,250,.28));
+      border:1px solid rgba(255,255,255,.20);
+    }
+    button.good{
+      background: rgba(52,211,153,.18);
+      border-color: rgba(52,211,153,.28);
+    }
+    button.bad{
+      background: rgba(251,113,133,.18);
+      border-color: rgba(251,113,133,.28);
+    }
+    .pulse{
+      animation: pulse 1.2s ease-in-out infinite;
+    }
+    @keyframes pulse{
+      0%,100%{transform: scale(1)}
+      50%{transform: scale(1.02)}
+    }
 
-        /* Timer */
-        .timer-display { font-size: 60px; font-weight: bold; color: var(--danger); text-align: center; margin: 20px 0; font-family: monospace; }
-        .timer-btn { background: var(--primary); color: white; border: none; padding: 10px 30px; border-radius: 50px; cursor: pointer; font-size: 18px; align-self: center; }
+    /* Fun stickers */
+    .stickerRow{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+    .sticker{
+      padding:10px 12px;
+      border-radius:16px;
+      background: rgba(0,0,0,.18);
+      border:1px solid rgba(255,255,255,.14);
+      color:var(--text);
+      font-size:14px;
+      transform: rotate(-1.2deg);
+    }
+    .sticker:nth-child(2){transform: rotate(1.5deg)}
+    .sticker:nth-child(3){transform: rotate(-2deg)}
+    .sticker .e{font-size:16px;margin-right:6px}
+    .mono{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size:14px;
+      color:var(--text);
+      background: rgba(0,0,0,.22);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:16px;
+      padding:12px 12px;
+      line-height:1.55;
+      white-space:pre-wrap;
+    }
 
-        .hidden-box { background: #eee; color: #eee; cursor: pointer; padding: 2px 5px; border-radius: 4px; }
-        .hidden-box:hover { background: transparent; color: #333; }
-
-        .highlight-goal { font-size: 1.3em; background: #e8f4fd; padding: 15px; border-radius: 10px; border: 1px dashed var(--primary); }
-
-        /* Bottom Controls */
-        .nav-btns { position: absolute; bottom: calc(var(--teacher-note-h) + 20px); right: 40px; display: flex; gap: 10px; }
-        .control-btn { background: #ecf0f1; border: 1px solid #bdc3c7; padding: 8px 15px; border-radius: 5px; cursor: pointer; }
-        .control-btn:hover { background: #bdc3c7; }
-
-    </style>
+    /* Help overlay */
+    #help{
+      position:fixed;
+      top:16px; left:16px;
+      padding:10px 12px;
+      border-radius:16px;
+      background: rgba(0,0,0,.30);
+      border:1px solid rgba(255,255,255,.12);
+      color:var(--muted);
+      font-size:13px;
+      z-index:99;
+      user-select:none;
+    }
+  </style>
 </head>
 <body>
+  <div id="help">导航：<span class="kbd">←</span>/<span class="kbd">→</span> 或 <span class="kbd">A</span>/<span class="kbd">D</span> ｜计时页点 Start</div>
 
-<div class="wrapper">
-    <div class="sidebar">
-        <div class="sidebar-header">KET ORAL - L1</div>
-        <div class="nav-item active" onclick="jump(0)">1. Title Page</div>
-        <div class="nav-item" onclick="jump(1)">2. Lesson Mission</div>
-        <div class="nav-item" onclick="jump(2)">3. Warm-up</div>
-        <div class="nav-item" onclick="jump(3)">4. Learning Goals</div>
-        <div class="nav-item" onclick="jump(4)">5. Vocab: Personal Info</div>
-        <div class="nav-item" onclick="jump(5)">6. Vocab: School Info</div>
-        <div class="nav-item" onclick="jump(6)">7. Vocab: Power-up</div>
-        <div class="nav-item" onclick="jump(7)">8. Chunks & Scenarios</div>
-        <div class="nav-item" onclick="jump(8)">9. Sentence: Persona</div>
-        <div class="nav-item" onclick="jump(9)">10. Sentence: School</div>
-        <div class="nav-item" onclick="jump(10)">11. High Score Exp 1</div>
-        <div class="nav-item" onclick="jump(11)">12. High Score Exp 2</div>
-        <div class="nav-item" onclick="jump(12)">13. Mind Map Logic</div>
-        <div class="nav-item" onclick="jump(13)">14. Q&A: Personal</div>
-        <div class="nav-item" onclick="jump(14)">15. Q&A: School</div>
-        <div class="nav-item" onclick="jump(15)">16. Role Play: New Friend</div>
-        <div class="nav-item" onclick="jump(16)">17. 30s Speed Test</div>
-        <div class="nav-item" onclick="jump(17)">18. 40s Challenge</div>
-        <div class="nav-item" onclick="jump(18)">19. 50s Final Mission</div>
-        <div class="nav-item" onclick="jump(19)">20. Error Correction</div>
-        <div class="nav-item" onclick="jump(20)">21. Summary</div>
-        <div class="nav-item" onclick="jump(21)">22. Homework</div>
-    </div>
+  <div id="deck">
 
-    <div class="main-content">
-        <div class="slide-container">
-            
-            <div class="slide active">
-                <div style="text-align: center; margin-top: 100px;">
-                    <h1 style="font-size: 3.5em; border:none;">About Me & School</h1>
-                    <p style="font-size: 1.5em; color: #7f8c8d;">KET Speaking Part 1 · Lesson 1</p>
-                    <div style="font-size: 6em; margin: 30px;">🏫 👋 👦</div>
-                    <p><strong>Duration:</strong> 25-45 Mins | <strong>Student:</strong> KET Candidate</p>
-                </div>
+    <!-- 1 -->
+    <section class="slide active" data-title="标题页">
+      <div class="topbar">
+        <div class="badge"><span class="dot"></span> 千语 KET Speaking 1v1 · Lesson 1</div>
+        <div class="counter">1 / 28</div>
+      </div>
+      <div class="grid one">
+        <div class="card">
+          <h1>🏫 T1 About Me & School</h1>
+          <p class="sub">时长：30分钟｜目标学生：KET备考（A2）｜形式：1对1外教口语课</p>
+
+          <div class="stickerRow">
+            <div class="sticker"><span class="e">🎯</span>目标：能谈自己与学校</div>
+            <div class="sticker"><span class="e">🗣️</span>高频开口：每页都有任务</div>
+            <div class="sticker"><span class="e">⭐</span>对齐KET评分点</div>
+          </div>
+
+          <div class="taskBox">
+            <div class="tTitle">🎤 学生开口任务（10秒）</div>
+            <ul>
+              <li>说：Hello! I’m … Nice to meet you.</li>
+              <li>外教追问：How are you today?</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="teacher-note"><div class="icon">📣</div>
+        <div>开场热情、语速慢一点。先让学生完成10秒开口，再进入任务页。</div>
+      </div>
+    </section>
+
+    <!-- 2 -->
+    <section class="slide" data-title="课程任务页">
+      <div class="topbar">
+        <div class="badge"><span class="dot"></span> Today’s Mission</div>
+        <div class="counter">2 / 28</div>
+      </div>
+      <div class="grid">
+        <div class="card">
+          <h2>🎯 本节课核心任务</h2>
+          <p class="big">完成 40–50 秒连续表达：About Me & School</p>
+          <div class="pillRow">
+            <div class="pill ok">≥6 句</div>
+            <div class="pill warn">≥2 个 because</div>
+            <div class="pill alt">结构：个人 → 学校 → 课后</div>
+          </div>
+
+          <div class="taskBox">
+            <div class="tTitle">🎤 学生开口任务</div>
+            <ul>
+              <li>学生朗读目标：I will speak for 40–50 seconds.</li>
+              <li>外教追问：How many “because” do we need today?</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card">
+          <h3>对齐KET评分点</h3>
+          <div class="callout">
+            <div class="tag">✅ Fluency 流畅度</div>
+            句子不断、停顿少，能用 then / also / because 连接。
+          </div>
+          <div style="height:10px"></div>
+          <div class="callout">
+            <div class="tag">✅ Lexis 词汇多样性</div>
+            用 Power-up（friendly/useful/interesting…）替换普通词。
+          </div>
+          <div style="height:10px"></div>
+          <div class="callout">
+            <div class="tag">✅ Grammar 语法准确</div>
+            be动词、一般现在时、because后接完整原因句。
+          </div>
+          <div style="height:10px"></div>
+          <div class="callout">
+            <div class="tag">✅ Topic 话题相关</div>
+            个人信息+学校信息+科目偏好+课后活动。
+          </div>
+        </div>
+      </div>
+      <div class="teacher-note"><div class="icon">🧭</div>
+        <div>明确今天的“终点”。反复强调：40–50秒、≥6句、≥2 because。</div>
+      </div>
+    </section>
+
+    <!-- 3 -->
+    <section class="slide" data-title="热身互动">
+      <div class="topbar">
+        <div class="badge"><span class="dot"></span> Warm-up</div>
+        <div class="counter">3 / 28</div>
+      </div>
+      <div class="grid">
+        <div class="card">
+          <h2>⚡ 快速开口：外教示范 → 学生模仿</h2>
+          <div class="mono">Teacher model:
+My name is Alex. I’m 12 years old.
+I study at Sunshine School.</div>
+
+          <div class="taskBox">
+            <div class="tTitle">🎤 学生任务（2轮）</div>
+            <ul>
+              <li>Round 1：学生照结构说 2–3 句（用自己信息）</li>
+              <li>Round 2：加一句 because（例：because my school is friendly）</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card">
+          <h3>趣味加成</h3>
+          <div class="callout">
+            <div class="tag warn">🎲 随机挑战</div>
+            外教随机给一个词：friendly / useful / interesting。学生必须把这个词放进句子里。
+          </div>
+          <div style="height:10px"></div>
+          <div class="callout">
+            <div class="tag">✅ 小目标</div>
+            两轮都要“完整句子”，不要只说单词。
+          </div>
+        </div>
+      </div>
+      <div class="teacher-note"><div class="icon">🎧</div>
+        <div>先示范，再让学生模仿。听到错误先不打断，完成后再纠音1点、语法1点。</div>
+      </div>
+    </section>
+
+    <!-- 4 -->
+    <section class="slide" data-title="学习目标">
+      <div class="topbar">
+        <div class="badge"><span class="dot"></span> Learning Goals</div>
+        <div class="counter">4 / 28</div>
+      </div>
+      <div class="grid">
+        <div class="card">
+          <h2>📌 本节学习目标</h2>
+          <div class="callout">
+            ① 掌握 28个 Core 词汇（个人信息12 + 学校信息16）+ 10个 Power-up<br>
+            ② 熟练使用 12个重点句型 + 6个高分表达<br>
+            ③ 完成 3 轮开口练习（跟读 / 替换 / 自由表达）<br>
+            ④ 达成 40–50秒输出（≥6句，≥2 because）
+          </div>
+
+          <div class="taskBox">
+            <div class="tTitle">🎤 学生开口任务</div>
+            <ul>
+              <li>学生说：Today I will use 2 “because”.</li>
+              <li>外教追问：Which topic first—Me or School?</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card">
+          <h3>3轮开口安排</h3>
+          <div class="pillRow">
+            <div class="pill ok">Round 1：跟读模仿</div>
+            <div class="pill alt">Round 2：替换填空</div>
+            <div class="pill warn">Round 3：计时输出</div>
+          </div>
+          <div style="height:10px"></div>
+          <div class="callout">
+            课堂规则：每次回答至少 2 句（Answer + Detail/Reason）
+          </div>
+        </div>
+      </div>
+      <div class="teacher-note"><div class="icon">✅</div>
+        <div>让学生口头复述目标，建立“我要完成任务”的心理预期。</div>
+      </div>
+    </section>
+
+    <!-- 5 -->
+    <section class="slide" data-title="词汇：个人信息Core(12)">
+      <div class="topbar">
+        <div class="badge"><span class="dot"></span> Vocabulary</div>
+        <div class="counter">5 / 28</div>
+      </div>
+      <div class="grid">
+        <div class="card">
+          <h2>🏷️ 个人信息 Core（12）</h2>
+          <table>
+            <tr><th>Word</th><th>中文</th><th>外教引导问题</th></tr>
+            <tr><td>name</td><td>名字</td><td>What’s your name?</td></tr>
+            <tr><td>full name</td><td>全名</td><td>What’s your full name?</td></tr>
+            <tr><td>age</td><td>年龄</td><td>How old are you?</td></tr>
+            <tr><td>years old</td><td>…岁</td><td>I’m… years old. (Say it.)</td></tr>
+            <tr><td>live</td><td>居住</td><td>Where do you live?</td></tr>
+            <tr><td>come from</td><td>来自</td><td>Where do you come from?</td></tr>
+            <tr><td>city</td><td>城市</td><td>Which city?</td></tr>
+            <tr><td>family</td><td>家庭</td><td>Tell me about your family.</td></tr>
+            <tr><td>parents</td><td>父母</td><td>Do you live with your parents?</td></tr>
+            <tr><td>brother</td><td>兄弟</td><td>Do you have a brother?</td></tr>
+            <tr><td>sister</td><td>姐妹</td><td>Do you have a sister?</td></tr>
+            <tr><td>hobby</td><td>爱好</td><td>What’s your hobby?</td></tr>
+          </table>
+
+          <div class="taskBox">
+            <div class="tTitle">🎤 学生开口任务（12连问快答）</div>
+            <ul>
+              <li>外教逐行提问，学生用该词回答（每题至少1句）</li>
+              <li>做完后选3题，加 because 扩展成2句</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card">
+          <h3>趣味图标提示</h3>
+          <div class="pillRow">
+            <div class="pill">🏷️ name</div>
+            <div class="pill">🎂 age</div>
+            <div class="pill">🏠 live</div>
+            <div class="pill">🗺️ come from</div>
+            <div class="pill">👨‍👩‍👧 family</div>
+            <div class="pill">🎨 hobby</div>
+          </div>
+          <div style="height:10px"></div>
+          <div class="callout">
+            小技巧：学生回答后，外教立刻追问 “Why?” 或 “Tell me more.” 逼出第2句。
+          </div>
+        </div>
+      </div>
+      <div class="teacher-note"><div class="icon">🔁</div>
+        <div>先领读每个词3遍（慢-正常-快），再逐词提问，确保学生每个词都开口。</div>
+      </div>
+    </section>
+
+    <!-- 6 -->
+    <section class="slide" data-title="词汇：学校信息Core(16)">
+      <div class="topbar">
+        <div class="badge"><span class="dot"></span> Vocabulary</div>
+        <div class="counter">6 / 28</div>
+      </div>
+      <div class="grid">
+        <div class="card">
+          <h2>🏫 学校信息 Core（16）</h2>
+          <table>
+            <tr><th>Word</th><th>中文</th><th>外教引导问题</th></tr>
+            <tr><td>student</td><td>学生</td><td>Are you a student?</td></tr>
+            <tr><td>school</td><td>学校</td><td>Do you like your school?</td></tr>
+            <tr><td>class</td><td>班级</td><td>What class are you in?</td></tr>
+            <tr><td>classroom</td><td>教室</td><td>Is your classroom big?</td></tr>
+            <tr><td>teacher</td><td>老师</td><td>What’s your teacher like?</td></tr>
+            <tr><td>subject</td><td>科目</td><td>What subjects do you study?</td></tr>
+            <tr><td>lesson</td><td>课程</td><td>How many lessons do you have?</td></tr>
+            <tr><td>timetable</td><td>课程表</td><td>Do you like your timetable?</td></tr>
+            <tr><td>homework</td><td>作业</td><td>Do you have much homework?</td></tr>
+            <tr><td>break</td><td>课间休息</td><td>What do you do at break time?</td></tr>
+            <tr><td>library</td><td>图书馆</td><td>Do you go to the library?</td></tr>
+            <tr><td>playground</td><td>操场</td><td>Do you play in the playground?</td></tr>
+            <tr><td>exam</td><td>考试</td><td>Do you like exams?</td></tr>
+            <tr><td>club</td><td>社团</td><td>Do you join a club?</td></tr>
+            <tr><td>uniform</td><td>校服</td><td>Do you wear a uniform?</td></tr>
+            <tr><td>classmates</td><td>同学</td><td>Do you get along with classmates?</td></tr>
+          </table>
+
+          <div class="taskBox">
+            <div class="tTitle">🎤 学生开口任务（快速造句）</div>
+            <ul>
+              <li>外教随机点5个词，学生每个词造1句（每句≥6词）</li>
+              <li>其中至少1句要包含 because</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card">
+          <h3>卡通图标</h3>
+          <div class="pillRow">
+            <div class="pill">📚 library</div>
+            <div class="pill">⏰ break</div>
+            <div class="pill">🧑‍🏫 teacher</div>
+            <div class="pill">🗓️ timetable</div>
+            <div class="pill">🧩 club</div>
+            <div class="pill">👕 uniform</div>
+          </div>
+          <div style="height:10px"></div>
+          <div class="callout">
+            句子支架：I have… / I like… / I go to… / My … is …
+          </div>
+        </div>
+      </div>
+      <div class="teacher-note"><div class="icon">🧠</div>
+        <div>不要只让学生读词。每个词至少输出一句话，才能转化为口试可用材料。</div>
+      </div>
+    </section>
+
+    <!-- 7 -->
+    <section class="slide" data-title="词汇：Power-up(10)">
+      <div class="topbar">
+        <div class="badge"><span class="dot"></span> Power-up</div>
+        <div class="counter">7 / 28</div>
+      </div>
+      <div class="grid">
+        <div class="card">
+          <h2>⚡ Power-up（10）让表达更高级</h2>
+          <table>
+            <tr><th>Word</th><th>中文</th><th>可放进句子</th></tr>
+            <tr><td>friendly</td><td>友好的</td><td>My school is friendly.</td></tr>
+            <tr><td>helpful</td><td>乐于助人的</td><td>The teachers are helpful.</td></tr>
+            <tr><td>strict</td><td>严格的</td><td>My teacher is strict but nice.</td></tr>
+            <tr><td>interesting</td><td>有趣的</td><td>English lessons are interesting.</td></tr>
+            <tr><td>boring</td><td>无聊的</td><td>Maths is sometimes boring.</td></tr>
+            <tr><td>difficult</td><td>困难的</td><td>Science is difficult for me.</td></tr>
+            <tr><td>easy</td><td>容易的</td><td>PE is easy and fun.</td></tr>
+            <tr><td>useful</td><td>有用的</td><td>English is useful.</td></tr>
+            <tr><td>popular</td><td>受欢迎的</td><td>Basketball is popular in my class.</td></tr>
+            <tr><td>comfortable</td><td>舒适的</td><td>My classroom is comfortable.</td></tr>
+          </table>
+
+          <div class="taskBox">
+            <div class="tTitle">🎤 学生开口任务（升级挑战）</div>
+            <ul>
+              <li>外教说名词：school / teacher / subject / classroom</li>
+              <li>学生选1个Power-up造句（至少8句轮转）</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card">
+          <h3>趣味表情包</h3>
+          <div class="pillRow">
+            <div class="pill">interesting ✨</div>
+            <div class="pill">boring 😴</div>
+            <div class="pill">strict 🧱</div>
+            <div class="pill">helpful 🤝</div>
+          </div>
+          <div style="height:10px"></div>
+          <div class="callout">外教可用句：Try again, but use a Power-up word.</div>
+        </div>
+      </div>
+      <div class="teacher-note"><div class="icon">⭐</div>
+        <div>每个Power-up都必须“套进完整句子”输出一次，学生才会在口试中用得出来。</div>
+      </div>
+    </section>
+
+    <!-- 8 -->
+    <section class="slide" data-title="趣味词汇游戏">
+      <div class="topbar">
+        <div class="badge"><span class="dot"></span> Fun Game</div>
+        <div class="counter">8 / 28</div>
+      </div>
+      <div class="grid">
+        <div class="card">
+          <h2>🎮 Guess & Say（猜词开口）</h2>
+          <p class="sub">规则：外教描述（不说单词）→ 学生猜词 → 学生用该词说完整句子</p>
+
+          <div class="col2">
+            <div class="callout">
+              <div class="tag warn">外教描述例</div>
+              “You read books there.”<br>
+              “You wear it at school.”<br>
+              “You play there after class.”
             </div>
-
-            <div class="slide">
-                <h1>🚀 Today's Big Mission</h1>
-                <div class="highlight-goal" style="margin-top: 50px;">
-                    <p><strong>The Final Task:</strong> Talk about yourself and your school for <strong>40-50 seconds</strong> continuously!</p>
-                    <hr>
-                    <p>✅ At least 6 sentences</p>
-                    <p>✅ At least 2 "Because" connectors</p>
-                    <p>✅ Fluent and confident!</p>
-                </div>
+            <div class="callout">
+              <div class="tag">学生输出模板</div>
+              I think it is _____.<br>
+              I go to the _____ after school.<br>
+              I like it because it is _____.
             </div>
+          </div>
 
-            <div class="slide">
-                <h1>👋 Warm-up: Mimic Me!</h1>
-                <div style="display:flex; justify-content: space-around; align-items: center; height: 100%;">
-                    <div style="text-align:center;">
-                        <div style="font-size: 4em;">👨‍🏫</div>
-                        <p><strong>Teacher Says:</strong><br>"Hi! I'm [Teacher Name].<br>I'm from [UK]. I love English!"</p>
-                    </div>
-                    <div style="font-size: 3em;">➡️</div>
-                    <div style="text-align:center;">
-                        <div style="font-size: 4em;">👦</div>
-                        <p><strong>Your Turn:</strong><br>"Hi! I'm [Your Name].<br>I'm from [China]. I love..."</p>
-                    </div>
-                </div>
+          <div class="taskBox">
+            <div class="tTitle">🎤 学生开口任务</div>
+            <ul>
+              <li>至少猜 3 个词，每个词必须造 2 句</li>
+              <li>其中至少 2 句包含 because</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card">
+          <h3>奖励机制（趣味性）</h3>
+          <div class="callout">
+            每猜对一个词：⭐ +1<br>
+            每说出一个 Power-up：⭐ +1<br>
+            每说出一个 because：⭐ +1
+          </div>
+          <div style="height:10px"></div>
+          <div class="callout">
+            小贴士：学生卡住时，外教给首字母或图标提示（📚=library）
+          </div>
+        </div>
+      </div>
+      <div class="teacher-note"><div class="icon">🎯</div>
+        <div>游戏的核心不是“猜对”，而是“猜对后必须输出句子”，每次至少2句，逼频次。</div>
+      </div>
+    </section>
+
+    <!-- 9 -->
+    <section class="slide" data-title="词块1">
+      <div class="topbar">
+        <div class="badge"><span class="dot"></span> Chunks</div>
+        <div class="counter">9 / 28</div>
+      </div>
+      <div class="grid">
+        <div class="card">
+          <h2>🧩 词块搭配（1/2）</h2>
+          <table>
+            <tr><th>Chunk</th><th>中文</th><th>场景示例</th><th>学生任务</th></tr>
+            <tr>
+              <td>my favourite subject</td><td>我最喜欢的科目</td>
+              <td>My favourite subject is English.</td>
+              <td>用自己的科目说1句</td>
+            </tr>
+            <tr>
+              <td>after-school club</td><td>课后社团</td>
+              <td>I go to an after-school club.</td>
+              <td>说1句（加频率词）</td>
+            </tr>
+            <tr>
+              <td>from Monday to Friday</td><td>从周一到周五</td>
+              <td>I have lessons from Monday to Friday.</td>
+              <td>说1句（加数量）</td>
+            </tr>
+          </table>
+
+          <div class="taskBox">
+            <div class="tTitle">🎤 学生开口任务（3句连说）</div>
+            <ul>
+              <li>把上面3个词块各说1句（共3句）</li>
+              <li>第1句或第2句必须加 because</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card">
+          <h3>外教追问卡</h3>
+          <div class="callout">
+            Why? / How often? / Who with? / Where?
+          </div>
+          <div style="height:10px"></div>
+          <div class="callout">
+            目标：每个词块至少扩展到2句（Answer + Detail）
+          </div>
+        </div>
+      </div>
+      <div class="teacher-note"><div class="icon">🪄</div>
+        <div>词块一定要“带场景”。学生说完1句后立刻追问，让词块变成可用素材。</div>
+      </div>
+    </section>
+
+    <!-- 10 -->
+    <section class="slide" data-title="词块2">
+      <div class="topbar">
+        <div class="badge"><span class="dot"></span> Chunks</div>
+        <div class="counter">10 / 28</div>
+      </div>
+      <div class="grid">
+        <div class="card">
+          <h2>🧩 词块搭配（2/2）</h2>
+          <table>
+            <tr><th>Chunk</th><th>中文</th><th>场景示例</th><th>学生任务</th></tr>
+            <tr>
+              <td>have lessons / have a break</td><td>上课/休息</td>
+              <td>We have lessons and then we have a break.</td>
+              <td>说1句（加then）</td>
+            </tr>
+            <tr>
+              <td>do homework at home</td><td>在家做作业</td>
+              <td>I do homework at home after school.</td>
+              <td>说1句（加时间）</td>
+            </tr>
+            <tr>
+              <td>get along with my classmates</td><td>和同学相处融洽</td>
+              <td>I get along with my classmates.</td>
+              <td>说2句（加原因）</td>
+            </tr>
+          </table>
+
+          <div class="taskBox">
+            <div class="tTitle">🎤 学生开口任务（迷你对话 4轮）</div>
+            <ul>
+              <li>外教问：Do you get along with your classmates?</li>
+              <li>学生答2句（第二句必须 because）</li>
+              <li>外教追问：What do you do with them?</li>
+              <li>学生再答2句</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card">
+          <h3>趣味对话头像</h3>
+          <div class="callout">
+            🧑‍🏫 Teacher: “Tell me more!”<br>
+            🧑‍🎓 Student: “Because…”
+          </div>
+          <div style="height:10px"></div>
+          <div class="callout">外教可给提示词：play games / help each other / study together</div>
+        </div>
+      </div>
+      <div class="teacher-note"><div class="icon">🗣️</div>
+        <div>迷你对话要快节奏：每轮不超过10秒，让学生形成“问答反应速度”。</div>
+      </div>
+    </section>
+
+    <!-- 11 -->
+    <section class="slide" data-title="句型：个人信息(1/2)">
+      <div class="topbar">
+        <div class="badge"><span class="dot"></span> Key Sentences</div>
+        <div class="counter">11 / 28</div>
+      </div>
+      <div class="grid">
+        <div class="card">
+          <h2>🧱 重点句型 · 个人信息（1/2）</h2>
+          <table>
+            <tr><th>句型</th><th>外教示范</th><th>学生替换</th></tr>
+            <tr><td>My name is ___.</td><td>My name is Alex.</td><td>My name is ___.</td></tr>
+            <tr><td>I’m ___ years old.</td><td>I’m 12 years old.</td><td>I’m ___ years old.</td></tr>
+            <tr><td>My full name is ___, but you can call me ___.</td><td>My full name is Li Hua, but you can call me Lily.</td><td>My full name is ___, but you can call me ___.</td></tr>
+          </table>
+
+          <div class="taskBox">
+            <div class="tTitle">🎤 学生开口任务（跟读→替换）</div>
+            <ul>
+              <li>外教读1次，学生跟读1次（每句2遍）</li>
+              <li>学生用自己信息替换再读1次</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card">
+          <h3>外教小技巧</h3>
+          <div class="callout">
+            如果学生只读得像背诵：外教加追问 “How do you spell your name?”（可选，不强制）
+          </div>
+          <div style="height:10px"></div>
+          <div class="callout">
+            纠音重点：name / years / full
+          </div>
+        </div>
+      </div>
+      <div class="teacher-note"><div class="icon">👆</div>
+        <div>替换练习：外教指着空格，学生填入自己的信息并朗读。完成后追问1次增加第2句。</div>
+      </div>
+    </section>
+
+    <!-- 12 -->
+    <section class="slide" data-title="句型：个人信息(2/2)">
+      <div class="topbar">
+        <div class="badge"><span class="dot"></span> Key Sentences</div>
+        <div class="counter">12 / 28</div>
+      </div>
+      <div class="grid">
+        <div class="card">
+          <h2>🧱 重点句型 · 个人信息（2/2）</h2>
+          <table>
+            <tr><th>句型</th><th>外教示范</th><th>学生替换</th></tr>
+            <tr><td>I live in ___.</td><td>I live in Beijing.</td><td>I live in ___.</td></tr>
+            <tr><td>I live with ___.</td><td>I live with my parents.</td><td>I live with ___.</td></tr>
+            <tr><td>I come from ___.</td><td>I come from China.</td><td>I come from ___.</td></tr>
+          </table>
+
+          <div class="taskBox">
+            <div class="tTitle">🎤 学生开口任务（3句连说）</div>
+            <ul>
+              <li>把 live in + live with + come from 连成 3 句一口气说完</li>
+              <li>再加 1 句 because（例：because my city is beautiful）</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card">
+          <h3>易错对比（提前埋伏）</h3>
+          <div class="callout">
+            live in = 住在（城市/地区）<br>
+            live with = 和…住（人）<br>
+            例：I live in Shanghai. I live with my parents.
+          </div>
+        </div>
+      </div>
+      <div class="teacher-note"><div class="icon">🧩</div>
+        <div>让学生把3句连起来说，训练流畅度。之后加 because 做扩展，避免1句结束。</div>
+      </div>
+    </section>
+
+    <!-- 13 -->
+    <section class="slide" data-title="句型：学校信息(1/2)">
+      <div class="topbar">
+        <div class="badge"><span class="dot"></span> Key Sentences</div>
+        <div class="counter">13 / 28</div>
+      </div>
+      <div class="grid">
+        <div class="card">
+          <h2>🧱 重点句型 · 学校信息（1/2）</h2>
+          <table>
+            <tr><th>句型</th><th>外教示范</th><th>学生替换</th></tr>
+            <tr><td>I’m a student at ___.</td><td>I’m a student at Sunshine School.</td><td>I’m a student at ___.</td></tr>
+            <tr><td>I study at ___ School.</td><td>I study at Happy Primary School.</td><td>I study at ___ School.</td></tr>
+            <tr><td>My school is big/clean/friendly.</td><td>My school is clean and friendly.</td><td>My school is ___ and ___.</td></tr>
+            <tr><td>I study English, maths and ___.</td><td>I study English, maths and science.</td><td>I study English, maths and ___.</td></tr>
+          </table>
+
+          <div class="taskBox">
+            <div class="tTitle">🎤 学生开口任务（替换+扩展）</div>
+            <ul>
+              <li>每句替换读1次</li>
+              <li>第3句必须用1个 Power-up（friendly/comfortable…）</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card">
+          <h3>外教追问</h3>
+          <div class="callout">
+            Where is your school? / Is it in the city centre? / Do you like it?
+          </div>
+          <div style="height:10px"></div>
+          <div class="callout">
+            纠错：study at（不是 study in）
+          </div>
+        </div>
+      </div>
+      <div class="teacher-note"><div class="icon">🧱</div>
+        <div>示范→学生跟读→学生替换。每两句追问一次，把句型变成真实对话。</div>
+      </div>
+    </section>
+
+    <!-- 14 -->
+    <section class="slide" data-title="句型：学校信息(2/2)">
+      <div class="topbar">
+        <div class="badge"><span class="dot"></span> Key Sentences</div>
+        <div class="counter">14 / 28</div>
+      </div>
+      <div class="grid">
+        <div class="card">
+          <h2>🧱 重点句型 · 学校信息（2/2）</h2>
+          <table>
+            <tr><th>句型</th><th>外教示范</th><th>学生替换</th></tr>
+            <tr>
+              <td>My favourite subject is ___ because ___.</td>
+              <td>My favourite subject is English because it’s useful.</td>
+              <td>My favourite subject is ___ because ___.</td>
+            </tr>
+            <tr>
+              <td>I usually have ___ lessons on ___.</td>
+              <td>I usually have 6 lessons on Monday.</td>
+              <td>I usually have ___ lessons on ___.</td>
+            </tr>
+            <tr>
+              <td>My teacher is ___ and ___.</td>
+              <td>My teacher is helpful and funny.</td>
+              <td>My teacher is ___ and ___.</td>
+            </tr>
+          </table>
+
+          <div class="taskBox">
+            <div class="tTitle">🎤 学生开口任务（Because x2挑战）</div>
+            <ul>
+              <li>把 favourite subject 句子说两遍</li>
+              <li>第二遍必须加第2个 because（because… and because…）</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card">
+          <h3>可用原因库（给学生灵感）</h3>
+          <div class="pillRow">
+            <div class="pill">because it’s useful</div>
+            <div class="pill">because it’s interesting</div>
+            <div class="pill">because I like games</div>
+            <div class="pill">because the teacher is helpful</div>
+          </div>
+          <div style="height:10px"></div>
+          <div class="callout">外教让学生从原因库选2个，再自己补1个更个人化原因。</div>
+        </div>
+      </div>
+      <div class="teacher-note"><div class="icon">🧨</div>
+        <div>这一页是今天的“because核心页”。务必让学生完成 because x2 输出。</div>
+      </div>
+    </section>
+
+    <!-- 15 -->
+    <section class="slide" data-title="句型：课后&能力(补齐12)">
+      <div class="topbar">
+        <div class="badge"><span class="dot"></span> Key Sentences</div>
+        <div class="counter">15 / 28</div>
+      </div>
+      <div class="grid">
+        <div class="card">
+          <h2>🧱 重点句型 · 课后活动&能力（补齐12句型）</h2>
+          <table>
+            <tr><th>句型</th><th>外教示范</th><th>学生替换</th></tr>
+            <tr><td>After school, I often ___.</td><td>After school, I often go to an English club.</td><td>After school, I often ___.</td></tr>
+            <tr><td>I’m good at ___ / I’m not good at ___.</td><td>I’m good at English. I’m not good at maths.</td><td>I’m good at ___ / I’m not good at ___.</td></tr>
+            <tr><td>At break time, I usually ___.</td><td>At break time, I usually chat with classmates.</td><td>At break time, I usually ___.</td></tr>
+            <tr><td>I do homework at home.</td><td>I do homework at home after dinner.</td><td>I do homework at home ___.</td></tr>
+          </table>
+
+          <div class="taskBox">
+            <div class="tTitle">🎤 学生开口任务（Speed Round 8轮）</div>
+            <ul>
+              <li>外教指一句的空格，学生立刻补全并朗读（每轮5秒）</li>
+              <li>至少2轮加入 because 扩展到2句</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card">
+          <h3>趣味元素：闪电速度</h3>
+          <div class="callout">
+            ⚡ 规则：5秒内说完，否则重来一次。<br>
+            ⭐ 每成功一次加1星。
+          </div>
+        </div>
+      </div>
+      <div class="teacher-note"><div class="icon">⏱️</div>
+        <div>快节奏替换练习能显著提高流利度。学生说完后给1个“更好的词”升级即可。</div>
+      </div>
+    </section>
+
+    <!-- 16 -->
+    <section class="slide" data-title="高分表达(1/2)">
+      <div class="topbar">
+        <div class="badge"><span class="dot"></span> High-score Expressions</div>
+        <div class="counter">16 / 28</div>
+      </div>
+      <div class="grid">
+        <div class="card">
+          <h2>⭐ 高分表达（1/2）外教拆解 → 学生应用</h2>
+          <table>
+            <tr><th>表达</th><th>中文</th><th>外教拆解</th><th>学生应用</th></tr>
+            <tr>
+              <td>My full name is ___, but you can call me ___.</td>
+              <td>我的全名是…但你可以叫我…</td>
+              <td>full name=全名；call me=昵称</td>
+              <td>用自己的名字说1次</td>
+            </tr>
+            <tr>
+              <td>What I like most is ___.</td>
+              <td>我最喜欢的是…</td>
+              <td>用于“最喜欢的科目/活动”</td>
+              <td>说1次（subject或activity）</td>
+            </tr>
+            <tr>
+              <td>It helps me ___.</td>
+              <td>它帮助我…</td>
+              <td>讲“科目/社团”的好处</td>
+              <td>说1次（加because）</td>
+            </tr>
+          </table>
+
+          <div class="taskBox">
+            <div class="tTitle">🎤 学生开口任务</div>
+            <ul>
+              <li>每个表达用自己的信息说1次（共3次）</li>
+              <li>第3个表达必须再加1句原因（because…）</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card">
+          <h3>外教提示：不要只背句子</h3>
+          <div class="callout">
+            让学生每个表达后再补一句细节：<br>
+            for example… / after school… / with my friends…
+          </div>
+        </div>
+      </div>
+      <div class="teacher-note"><div class="icon">🔍</div>
+        <div>拆解1次即可，重点是学生“应用”。每个表达至少输出2句更容易得分。</div>
+      </div>
+    </section>
+
+    <!-- 17 -->
+    <section class="slide" data-title="高分表达(2/2)">
+      <div class="topbar">
+        <div class="badge"><span class="dot"></span> High-score Expressions</div>
+        <div class="counter">17 / 28</div>
+      </div>
+      <div class="grid">
+        <div class="card">
+          <h2>⭐ 高分表达（2/2）外教拆解 → 学生应用</h2>
+          <table>
+            <tr><th>表达</th><th>中文</th><th>外教拆解</th><th>学生应用</th></tr>
+            <tr>
+              <td>I feel ___ when ___.</td>
+              <td>当…我感到…</td>
+              <td>情绪词：happy/proud/relaxed</td>
+              <td>说1次</td>
+            </tr>
+            <tr>
+              <td>I’m interested in ___.</td>
+              <td>我对…感兴趣</td>
+              <td>比 I like 更高级</td>
+              <td>说1次</td>
+            </tr>
+            <tr>
+              <td>If I have time, I ___.</td>
+              <td>如果有时间，我会…</td>
+              <td>条件句，适合结尾加分</td>
+              <td>说1次（加because可选）</td>
+            </tr>
+          </table>
+
+          <div class="taskBox">
+            <div class="tTitle">🎤 学生开口任务（情境卡 2轮）</div>
+            <ul>
+              <li>外教给情境：exam / club / homework</li>
+              <li>学生必须用至少2个高分表达回答（每轮2–3句）</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card">
+          <h3>趣味情绪表情</h3>
+          <div class="pillRow">
+            <div class="pill">😊 happy</div>
+            <div class="pill">😌 relaxed</div>
+            <div class="pill">😎 proud</div>
+          </div>
+          <div style="height:10px"></div>
+          <div class="callout">
+            外教追问：Why do you feel proud?（逼出because）
+          </div>
+        </div>
+      </div>
+      <div class="teacher-note"><div class="icon">🎭</div>
+        <div>让学生把表达用在“真实场景”。每轮至少2句，避免一句结束。</div>
+      </div>
+    </section>
+
+    <!-- 18 -->
+    <section class="slide" data-title="表达结构页(思维导图)">
+      <div class="topbar">
+        <div class="badge"><span class="dot"></span> Structure</div>
+        <div class="counter">18 / 28</div>
+      </div>
+      <div class="grid">
+        <div class="card">
+          <h2>🗺️ 40–50秒表达结构（按这个说就稳）</h2>
+          <div class="mono">About Me & School（顺序）
+1) 姓名年龄：My name is… I’m… years old.
+2) 居住与家庭：I live in… I live with… / I come from…
+3) 学校概况：I’m a student at… My school is…
+4) 最爱科目：My favourite subject is… because… and because…
+5) 课后活动：After school, I often…
+6) 能力/兴趣：I’m good at… I’m interested in… too.
+7) 感受收尾：I feel… when…</div>
+
+          <div class="taskBox">
+            <div class="tTitle">🎤 学生开口任务（7步标题口头过一遍）</div>
+            <ul>
+              <li>学生按顺序读出7个标题（不需要长句）</li>
+              <li>外教说：Today we talk about ourselves first, then our school!</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card">
+          <h3>小提示</h3>
+          <div class="callout">
+            结构就是“防卡顿工具”。<br>
+            学生每说完一步，外教点头并用手势提示下一步。
+          </div>
+          <div style="height:10px"></div>
+          <div class="callout">
+            记住：Because 至少 2 次（建议都放在 favourite subject 处）
+          </div>
+        </div>
+      </div>
+      <div class="teacher-note"><div class="icon">🧭</div>
+        <div>让学生用手指着结构一步步说。先只说标题，再把标题扩成完整句子。</div>
+      </div>
+    </section>
+
+    <!-- 19 -->
+    <section class="slide" data-title="脚手架模板：填空输出">
+      <div class="topbar">
+        <div class="badge"><span class="dot"></span> Build Your Answer</div>
+        <div class="counter">19 / 28</div>
+      </div>
+      <div class="grid">
+        <div class="card">
+          <h2>🧱 填空脚手架（先会这个，再自由发挥）</h2>
+          <div class="mono">1) My name is ___. I’m ___ years old.
+2) I live in ___. I live with ___.
+3) I study at ___ School. My school is ___ and ___.
+4) My favourite subject is ___ because ___. And because ___.
+5) After school, I often ___.
+6) I’m good at ___. I’m interested in ___ too.
+7) I feel ___ when ___.</div>
+
+          <div class="taskBox">
+            <div class="tTitle">🎤 学生开口任务（1轮）</div>
+            <ul>
+              <li>学生按模板说一遍（目标：≥7句）</li>
+              <li>外教只记录：1个语法错 + 1个发音错 + 1个可升级词</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Because检查</h3>
+          <div class="callout">
+            because 后面要是原因句：<br>
+            because it is useful / because I like games / because my teacher is helpful
+          </div>
+          <div style="height:10px"></div>
+          <div class="callout">外教追问：Tell me one more reason.</div>
+        </div>
+      </div>
+      <div class="teacher-note"><div class="icon">📝</div>
+        <div>先让学生“说出来”，再优化。不要让学生先写太久。口语课以开口为主。</div>
+      </div>
+    </section>
+
+    <!-- 20 -->
+    <section class="slide" data-title="常考问题：个人信息(1/2)">
+      <div class="topbar">
+        <div class="badge"><span class="dot"></span> Exam Q&A</div>
+        <div class="counter">20 / 28</div>
+      </div>
+      <div class="grid">
+        <div class="card">
+          <h2>❓ 常考问题练习 · 个人信息（1/2）</h2>
+          <table>
+            <tr><th>Question</th><th>参考答案（可替换）</th></tr>
+            <tr><td>1) What’s your name?</td><td>My name is ___. You can call me ___.</td></tr>
+            <tr><td>2) How old are you?</td><td>I’m ___ years old. I’m a student.</td></tr>
+            <tr><td>3) Where do you live?</td><td>I live in ___. It’s a nice city.</td></tr>
+          </table>
+
+          <div class="taskBox">
+            <div class="tTitle">🎤 学生开口任务（流程固定）</div>
+            <ul>
+              <li>外教提问 → 学生回答（每题至少2句）</li>
+              <li>外教纠错：发音/语法 1点即可</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card">
+          <h3>外教追问卡（每题追1次）</h3>
+          <div class="callout">
+            Q1追问：How do you spell it?（可选）<br>
+            Q2追问：Which grade are you in?（可选）<br>
+            Q3追问：Do you like your city? Why?
+          </div>
+        </div>
+      </div>
+      <div class="teacher-note"><div class="icon">🧪</div>
+        <div>严格执行：每题至少2句。学生只说1句时，用提示：One more sentence, please.</div>
+      </div>
+    </section>
+
+    <!-- 21 -->
+    <section class="slide" data-title="常考问题：个人信息(2/2)">
+      <div class="topbar">
+        <div class="badge"><span class="dot"></span> Exam Q&A</div>
+        <div class="counter">21 / 28</div>
+      </div>
+      <div class="grid">
+        <div class="card">
+          <h2>❓ 常考问题练习 · 个人信息（2/2）</h2>
+          <table>
+            <tr><th>Question</th><th>参考答案（可替换）</th></tr>
+            <tr><td>4) Who do you live with?</td><td>I live with my parents. We have dinner together.</td></tr>
+            <tr><td>5) Where are you from?</td><td>I come from ___. It’s in China.</td></tr>
+            <tr><td>6) What do you like doing in your free time?</td><td>I like ___ because it’s ___. It helps me relax.</td></tr>
+          </table>
+
+          <div class="taskBox">
+            <div class="tTitle">🎤 学生开口任务</div>
+            <ul>
+              <li>每题必须出现 because（至少1次）</li>
+              <li>外教每题追问：Why? / How often?</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card">
+          <h3>纠错重点</h3>
+          <div class="callout">
+            live with 后面是人：my parents / my brother<br>
+            come from 后面是地方：a city / China
+          </div>
+          <div style="height:10px"></div>
+          <div class="callout">
+            外教升级建议：like → interested in / really enjoy（可选）
+          </div>
+        </div>
+      </div>
+      <div class="teacher-note"><div class="icon">🗣️</div>
+        <div>本页强制“because输出”。学生忘了 because 就让他重答一次。</div>
+      </div>
+    </section>
+
+    <!-- 22 -->
+    <section class="slide" data-title="常考问题：学校(1/2)">
+      <div class="topbar">
+        <div class="badge"><span class="dot"></span> Exam Q&A</div>
+        <div class="counter">22 / 28</div>
+      </div>
+      <div class="grid">
+        <div class="card">
+          <h2>❓ 常考问题练习 · 学校信息（1/2）</h2>
+          <table>
+            <tr><th>Question</th><th>参考答案（可替换）</th></tr>
+            <tr><td>1) What school do you go to?</td><td>I go to ___ School. It’s a big school in the city centre.</td></tr>
+            <tr><td>2) Is your school big or small?</td><td>My school is quite big. It has a playground and a library.</td></tr>
+            <tr><td>3) What subjects do you study?</td><td>I study English, maths and ___. English is my favourite.</td></tr>
+          </table>
+
+          <div class="taskBox">
+            <div class="tTitle">🎤 学生开口任务</div>
+            <ul>
+              <li>每题至少2句（Answer + Detail）</li>
+              <li>第3题必须列出至少3个科目</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card">
+          <h3>外教追问卡</h3>
+          <div class="callout">
+            Q1追问：Where is it?（near your home?）<br>
+            Q2追问：Do you like it? Why?<br>
+            Q3追问：Which one is difficult for you?
+          </div>
+          <div style="height:10px"></div>
+          <div class="callout">
+            纠错：I study English, maths and science（逗号用and结尾）
+          </div>
+        </div>
+      </div>
+      <div class="teacher-note"><div class="icon">🏫</div>
+        <div>让学生把地点细节说出来（city centre/near my home），话题更真实、更有分。</div>
+      </div>
+    </section>
+
+    <!-- 23 -->
+    <section class="slide" data-title="常考问题：学校(2/2)">
+      <div class="topbar">
+        <div class="badge"><span class="dot"></span> Exam Q&A</div>
+        <div class="counter">23 / 28</div>
+      </div>
+      <div class="grid">
+        <div class="card">
+          <h2>❓ 常考问题练习 · 学校信息（2/2）</h2>
+          <table>
+            <tr><th>Question</th><th>参考答案（可替换）</th></tr>
+            <tr><td>4) What’s your favourite subject? Why?</td><td>My favourite subject is English because it helps me talk with foreigners. I also like reading English stories.</td></tr>
+            <tr><td>5) What’s your teacher like?</td><td>My English teacher is kind and funny. She makes lessons interesting with games.</td></tr>
+            <tr><td>6) What do you do after school?</td><td>After school, I often go to an English club. Then I do homework at home.</td></tr>
+          </table>
+
+          <div class="taskBox">
+            <div class="tTitle">🎤 学生开口任务（植入词块）</div>
+            <ul>
+              <li>第4题必须做到 because x2（两条原因）</li>
+              <li>第6题必须用 after-school club 或 do homework at home</li>
+              <li>额外加分：加入 get along with my classmates</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card">
+          <h3>外教纠错流程（固定）</h3>
+          <div class="callout">
+            1) 先肯定：Good! / Nice answer!<br>
+            2) 改1个点：Try “I study at…”<br>
+            3) 再让学生重说一遍（立刻复述）
+          </div>
+        </div>
+      </div>
+      <div class="teacher-note"><div class="icon">🔁</div>
+        <div>纠错后一定要“立刻重说”。不重说等于没学会。每题最多改1处。</div>
+      </div>
+    </section>
+
+    <!-- 24 -->
+    <section class="slide" data-title="角色扮演">
+      <div class="topbar">
+        <div class="badge"><span class="dot"></span> Role-play</div>
+        <div class="counter">24 / 28</div>
+      </div>
+      <div class="grid">
+        <div class="card">
+          <h2>🎭 角色扮演：新同学来啦</h2>
+          <div class="callout">
+            🧑‍🎓 外教扮演新同学：<br>
+            “Hi! I’m your new classmate. Can you tell me about yourself and your school?”
+          </div>
+          <div style="height:10px"></div>
+
+          <div class="callout">
+            提示卡（学生必须做到）：<br>
+            1) 至少 2 个重点句型（如 I study at… / My favourite subject…）<br>
+            2) 至少 1 个高分表达（如 My full name is… / It helps me…）<br>
+            3) 至少 2 个 because
+          </div>
+
+          <div class="taskBox">
+            <div class="tTitle">🎤 学生开口任务</div>
+            <ul>
+              <li>完成一次完整自我介绍（外教可中途追问1–2次）</li>
+              <li>结束后学生自己说：I used 2 because.（自检）</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card">
+          <h3>趣味头像</h3>
+          <div class="callout">
+            😄 New classmate: “Really? Why?”<br>
+            🤔 New classmate: “What about your favourite subject?”
+          </div>
+          <div style="height:10px"></div>
+          <div class="callout">
+            外教建议追问顺序：Name → School → Favourite subject → After school
+          </div>
+        </div>
+      </div>
+      <div class="teacher-note"><div class="icon">🤝</div>
+        <div>先用一句示范开场，再让学生说。追问只用简单问句，保证学生多说而不是你多说。</div>
+      </div>
+    </section>
+
+    <!-- 25 -->
+    <section class="slide" data-title="计时器30秒">
+      <div class="topbar">
+        <div class="badge"><span class="dot"></span> Timer Practice</div>
+        <div class="counter">25 / 28</div>
+      </div>
+      <div class="grid">
+        <div class="card">
+          <h2>⏳ 计时练习 30秒（热身）</h2>
+          <div class="callout">
+            任务：说 4–5 句，至少 1 个 because（先跑起来）
+          </div>
+
+          <div class="timerWrap">
+            <div class="timerRing pulse" id="ring30" style="--p: 0deg;">
+              <div class="timerTime">
+                <p class="num" id="time30">30</p>
+                <p class="small">seconds</p>
+              </div>
             </div>
-
-            <div class="slide">
-                <h1>🎯 Learning Objectives</h1>
-                <ul style="font-size: 1.3em; line-height: 2em; margin-top: 30px;">
-                    <li>✨ Master 38 Core & Power-up Words</li>
-                    <li>🗣️ Use 12 Key Sentences & 6 High-score Phrases</li>
-                    <li>🧠 Structure your talk with Logic Maps</li>
-                    <li>🏆 Complete a 50-second continuous speech</li>
+            <div>
+              <div class="btnRow">
+                <button class="primary good" onclick="startTimer('30', 30)">Start 30s</button>
+                <button onclick="pauseTimer()">Pause</button>
+                <button class="bad" onclick="resetTimer()">Reset</button>
+              </div>
+              <div style="height:10px"></div>
+              <div class="taskBox">
+                <div class="tTitle">🎤 学生开口任务</div>
+                <ul>
+                  <li>学生连续说，不停顿</li>
+                  <li>外教只做记录，不打断</li>
                 </ul>
+              </div>
+              <p class="mini">提示：说完后外教只反馈 2 点（发音1点 + 句型升级1点）。</p>
             </div>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Checklist（30秒版）</h3>
+          <div class="pillRow">
+            <div class="pill ok">≥4句</div>
+            <div class="pill warn">≥1 because</div>
+            <div class="pill alt">结构尽量完整</div>
+          </div>
+          <div style="height:10px"></div>
+          <div class="callout">
+            外教记录栏：<br>
+            1) Pronunciation：_____<br>
+            2) Grammar：_____<br>
+            3) Upgrade word：_____
+          </div>
+        </div>
+      </div>
+      <div class="teacher-note"><div class="icon">🔇</div>
+        <div>计时期间不打断。结束后再反馈。让学生学会“持续输出”的考试节奏。</div>
+      </div>
+    </section>
 
-            <div class="slide">
-                <h1>1. Personal Information Core (12)</h1>
-                <div class="card-grid">
-                    <div class="vocab-card"><strong>name</strong><span>🏷️ What's your name?</span></div>
-                    <div class="vocab-card"><strong>age</strong><span>🎂 How old are you?</span></div>
-                    <div class="vocab-card"><strong>years old</strong><span>🔢 I'm 12 years old.</span></div>
-                    <div class="vocab-card"><strong>live</strong><span>🏠 Where do you live?</span></div>
-                    <div class="vocab-card"><strong>from</strong><span>🗺️ Where are you from?</span></div>
-                    <div class="vocab-card"><strong>home</strong><span>🏘️ At home...</span></div>
-                    <div class="vocab-card"><strong>family</strong><span>👨‍👩‍👧‍👦 Tell me about your family.</span></div>
-                    <div class="vocab-card"><strong>with</strong><span>🤝 I live with...</span></div>
-                    <div class="vocab-card"><strong>speak</strong><span>🗣️ I speak Chinese.</span></div>
-                    <div class="vocab-card"><strong>like</strong><span>❤️ What do you like?</span></div>
-                    <div class="vocab-card"><strong>favourite</strong><span>🌟 My favourite is...</span></div>
-                    <div class="vocab-card"><strong>hobby</strong><span>🎮 What's your hobby?</span></div>
-                </div>
-            </div>
+    <!-- 26 -->
+    <section class="slide" data-title="计时器40秒">
+      <div class="topbar">
+        <div class="badge"><span class="dot"></span> Timer Practice</div>
+        <div class="counter">26 / 28</div>
+      </div>
+      <div class="grid">
+        <div class="card">
+          <h2>⏳ 计时练习 40秒（接近考试）</h2>
+          <div class="callout">
+            任务：≥6 句，≥2 because，按结构：个人 → 学校 → 课后
+          </div>
 
-            <div class="slide">
-                <h1>2. School Information Core (16)</h1>
-                <div class="card-grid" style="grid-template-columns: repeat(4, 1fr); font-size: 0.9em;">
-                    <div class="vocab-card"><strong>student</strong></div><div class="vocab-card"><strong>school</strong></div><div class="vocab-card"><strong>class</strong></div><div class="vocab-card"><strong>classroom</strong></div>
-                    <div class="vocab-card"><strong>teacher</strong></div><div class="vocab-card"><strong>subject</strong></div><div class="vocab-card"><strong>lesson</strong></div><div class="vocab-card"><strong>timetable</strong></div>
-                    <div class="vocab-card"><strong>homework</strong></div><div class="vocab-card"><strong>break</strong></div><div class="vocab-card"><strong>library</strong></div><div class="vocab-card"><strong>playground</strong></div>
-                    <div class="vocab-card"><strong>exam</strong></div><div class="vocab-card"><strong>club</strong></div><div class="vocab-card"><strong>uniform</strong></div><div class="vocab-card"><strong>classmates</strong></div>
-                </div>
+          <div class="timerWrap">
+            <div class="timerRing pulse" id="ring40" style="--p: 0deg;">
+              <div class="timerTime">
+                <p class="num" id="time40">40</p>
+                <p class="small">seconds</p>
+              </div>
             </div>
+            <div>
+              <div class="btnRow">
+                <button class="primary good" onclick="startTimer('40', 40)">Start 40s</button>
+                <button onclick="pauseTimer()">Pause</button>
+                <button class="bad" onclick="resetTimer()">Reset</button>
+              </div>
+              <div style="height:10px"></div>
+              <div class="taskBox">
+                <div class="tTitle">🎤 学生开口任务</div>
+                <ul>
+                  <li>必须出现 2 个 because（建议都放在 favourite subject）</li>
+                  <li>外教用 F/V/G/T 速记（流畅/词汇/语法/话题）</li>
+                </ul>
+              </div>
+              <p class="mini">速记：F=___ V=___ G=___ T=___</p>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Because提示角</h3>
+          <div class="callout">
+            because it’s useful / interesting / my teacher is helpful / I like games
+          </div>
+          <div style="height:10px"></div>
+          <div class="callout">
+            外教结束后只做三步：<br>
+            1) 夸1点  2) 改1点  3) 让学生重说“最弱的2句”
+          </div>
+        </div>
+      </div>
+      <div class="teacher-note"><div class="icon">📊</div>
+        <div>40秒是关键练习。一定要检查：句数≥6 + because≥2 + 结构完整。</div>
+      </div>
+    </section>
 
-            <div class="slide">
-                <h1>3. Power-up Adjectives (10) 🌟</h1>
-                <div class="card-grid">
-                    <div class="vocab-card"><strong>friendly</strong><span>😊</span></div>
-                    <div class="vocab-card"><strong>helpful</strong><span>🤝</span></div>
-                    <div class="vocab-card"><strong>strict</strong><span>📏</span></div>
-                    <div class="vocab-card"><strong>interesting</strong><span>😮</span></div>
-                    <div class="vocab-card"><strong>boring</strong><span>😴</span></div>
-                    <div class="vocab-card"><strong>difficult</strong><span>🧩</span></div>
-                    <div class="vocab-card"><strong>easy</strong><span>✅</span></div>
-                    <div class="vocab-card"><strong>useful</strong><span>🛠️</span></div>
-                    <div class="vocab-card"><strong>popular</strong><span>🔥</span></div>
-                    <div class="vocab-card"><strong>comfortable</strong><span>🛋️</span></div>
-                </div>
-            </div>
+    <!-- 27 -->
+    <section class="slide" data-title="计时器50秒最终挑战">
+      <div class="topbar">
+        <div class="badge"><span class="dot"></span> Final Challenge</div>
+        <div class="counter">27 / 28</div>
+      </div>
+      <div class="grid">
+        <div class="card">
+          <h2>🏆 计时练习 50秒（最终挑战）</h2>
+          <div class="callout">
+            任务：40–50秒连续表达（今天目标强度）<br>
+            要求：≥6句，≥2 because，≥2 Power-up，≥1 词块，结构完整
+          </div>
 
-            <div class="slide">
-                <h1>🔗 Word Chunks & Scenarios</h1>
-                <div class="pattern-box">
-                    <strong>My name is... / You can call me...</strong><br>
-                    <em>S Task: "My name is Zhang Xiaoming, but you can call me Mike."</em>
-                </div>
-                <div class="pattern-box">
-                    <strong>Get along with my classmates</strong><br>
-                    <em>S Task: "I get along with all my classmates. They are friendly."</em>
-                </div>
-                <div class="pattern-box">
-                    <strong>From Monday to Friday</strong><br>
-                    <em>S Task: "I go to school from Monday to Friday."</em>
-                </div>
+          <div class="timerWrap">
+            <div class="timerRing pulse" id="ring50" style="--p: 0deg;">
+              <div class="timerTime">
+                <p class="num" id="time50">50</p>
+                <p class="small">seconds</p>
+              </div>
             </div>
+            <div>
+              <div class="btnRow">
+                <button class="primary good" onclick="startTimer('50', 50)">Start 50s</button>
+                <button onclick="pauseTimer()">Pause</button>
+                <button class="bad" onclick="resetTimer()">Reset</button>
+              </div>
+              <div style="height:10px"></div>
+              <div class="taskBox">
+                <div class="tTitle">🎤 学生开口任务（自检）</div>
+                <ul>
+                  <li>完成后学生自己说：I used… because / I used… Power-up.</li>
+                  <li>外教记录：少了哪个就再来一轮（只补缺口）</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Checklist（勾选）</h3>
+          <div class="pillRow">
+            <div class="pill ok">≥6句</div>
+            <div class="pill warn">≥2 because</div>
+            <div class="pill alt">≥2 Power-up</div>
+            <div class="pill">≥1 词块</div>
+            <div class="pill ok">结构完整</div>
+          </div>
+          <div style="height:10px"></div>
+          <div class="callout">
+            外教可选录音：用于课后反馈（不强制）。
+          </div>
+        </div>
+      </div>
+      <div class="teacher-note"><div class="icon">🏁</div>
+        <div>最终挑战后别讲太多。让学生先自评，再给2条高价值反馈：1条语法+1条词汇升级。</div>
+      </div>
+    </section>
 
-            <div class="slide">
-                <h1>🗣️ Key Sentences: All About Me</h1>
-                <div class="pattern-box">1. My name is ___. / You can call me ___.</div>
-                <div class="pattern-box">2. I’m ___ years old.</div>
-                <div class="pattern-box">3. I live with ___ in ___.</div>
-                <div class="pattern-box">4. I come from ___.</div>
-                <p><em>FT Note: Encourage student to swap the blanks with real info!</em></p>
-            </div>
+    <!-- 28 -->
+    <section class="slide" data-title="纠错+小结+作业">
+      <div class="topbar">
+        <div class="badge"><span class="dot"></span> Wrap-up</div>
+        <div class="counter">28 / 28</div>
+      </div>
+      <div class="grid">
+        <div class="card">
+          <h2>🛠️ 纠错反馈（常见错误 → 正确示例）</h2>
+          <table>
+            <tr><th>常见错误</th><th>正确说法</th><th>学生纠错任务</th></tr>
+            <tr>
+              <td>live in vs live with 混用</td>
+              <td>I live in Shanghai. / I live with my parents.</td>
+              <td>学生各造1句</td>
+            </tr>
+            <tr>
+              <td>I study in ___ School.</td>
+              <td>I study at ___ School.</td>
+              <td>学生重说1次</td>
+            </tr>
+            <tr>
+              <td>because + 单词（不完整）</td>
+              <td>because it’s useful / because I like games</td>
+              <td>把原因补成完整句</td>
+            </tr>
+            <tr>
+              <td>科目列举不清晰</td>
+              <td>I study English, maths and science.</td>
+              <td>学生列3科目</td>
+            </tr>
+          </table>
 
-            <div class="slide">
-                <h1>🗣️ Key Sentences: My School</h1>
-                <div class="pattern-box">5. My favourite subject is <strong>___ because ___</strong>.</div>
-                <div class="pattern-box">6. After school, I often <strong>___</strong>.</div>
-                <div class="pattern-box">7. I’m good at <strong>___</strong> / I’m not good at <strong>___</strong>.</div>
-                <div class="pattern-box">8. My school is <strong>big / clean / friendly</strong>.</div>
-            </div>
-
-            <div class="slide">
-                <h1>🌟 High Score Expressions (A)</h1>
-                <div class="pattern-box">
-                    <strong>"My full name is ___, but you can call me ___."</strong>
-                    <p style="font-size:0.8em; color:#666;">FT: "Full name" is official; "Call me" is for friends.</p>
-                </div>
-                <div class="pattern-box">
-                    <strong>"I’m from a small/big family with ___ people."</strong>
-                    <p style="font-size:0.8em; color:#666;">Makes your family description sound professional!</p>
-                </div>
-                <div class="pattern-box">
-                    <strong>"What I like most is ___."</strong>
-                    <p style="font-size:0.8em; color:#666;">Use this to show emphasis.</p>
-                </div>
-            </div>
-
-            <div class="slide">
-                <h1>🌟 High Score Expressions (B)</h1>
-                <div class="pattern-box"><strong>"It helps me ___."</strong> (e.g., It helps me learn English.)</div>
-                <div class="pattern-box"><strong>"I feel ___ when ___."</strong> (e.g., I feel happy when I play PE.)</div>
-                <div class="pattern-box"><strong>"If I have time, I ___."</strong> (e.g., If I have time, I read books.)</div>
-            </div>
-
-            <div class="slide">
-                <h1>🧠 Structure your Speech</h1>
-                <div class="mindmap">
-                    <div class="node">Identity 📛</div>
-                    <div class="arrow">➡️</div>
-                    <div class="node">Family 👨‍👩‍👧‍👦</div>
-                    <div class="arrow">➡️</div>
-                    <div class="node" style="background:var(--accent); color:white;">School 🏫</div>
-                    <div class="arrow">➡️</div>
-                    <div class="node">Activities ⚽</div>
-                </div>
-                <div style="text-align:center; margin-top:50px; font-size:1.4em; color:var(--primary);">
-                    "First, I'll tell you about me... then my school!"
-                </div>
-            </div>
-
-            <div class="slide">
-                <h1>❓ Exam Q&A: Personal Info</h1>
-                <div class="pattern-box"><strong>T: What's your name?</strong><br>S: My name is <span class="hidden-box">Zhang Xiaoming</span>. You can call me <span class="hidden-box">Mike</span>.</div>
-                <div class="pattern-box"><strong>T: Where do you live?</strong><br>S: I live in <span class="hidden-box">Beijing</span> with my <span class="hidden-box">parents</span>.</div>
-                <div class="pattern-box"><strong>T: Do you have any brothers or sisters?</strong><br>S: Yes, I have a <span class="hidden-box">younger sister</span>. She is <span class="hidden-box">ten</span>.</div>
-            </div>
-
-            <div class="slide">
-                <h1>❓ Exam Q&A: School Life</h1>
-                <div class="pattern-box"><strong>T: What subjects do you study?</strong><br>S: I study English, Maths, and <span class="hidden-box">Science</span>.</div>
-                <div class="pattern-box"><strong>T: What's your favourite subject? Why?</strong><br>S: My favourite is English <strong>because</strong> <span class="hidden-box">it is fun</span>.</div>
-                <div class="pattern-box"><strong>T: What do you do after school?</strong><br>S: I often <span class="hidden-box">play basketball</span> with my friends.</div>
-            </div>
-
-            <div class="slide">
-                <h1>🎭 Role Play: New Classmate</h1>
-                <div style="background: white; padding: 20px; border-radius: 15px; display: flex; align-items: center;">
-                    <div style="font-size: 5em; margin-right: 20px;">👱‍♂️</div>
-                    <div>
-                        <p><strong>Teacher:</strong> "Hi! I'm a new student. I don't know anyone here."</p>
-                        <p><strong>S Challenge:</strong> Introduce yourself and the school!</p>
-                        <p style="color:var(--accent);"><em>Tips: Use at least 2 key sentences and 1 high-score phrase!</em></p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="slide">
-                <h1>⏱️ Round 1: Personal Info (30s)</h1>
-                <p>Talk about your name, age, and family ONLY.</p>
-                <div class="timer-display" id="timer30">00:30</div>
-                <button class="timer-btn" onclick="startTimer(30, 'timer30')">Start 30s</button>
-            </div>
-
-            <div class="slide">
-                <h1>⏱️ Round 2: School Life (40s)</h1>
-                <p>Talk about your school, subjects, and teachers.</p>
-                <div class="timer-display" id="timer40">00:40</div>
-                <button class="timer-btn" onclick="startTimer(40, 'timer40')">Start 40s</button>
-            </div>
-
-            <div class="slide">
-                <h1>🏆 Final Mission: Complete Intro (50s)</h1>
-                <p>Full Introduction: Identity + Family + School + Activities</p>
-                <div style="font-size:0.9em; color:#666;">Checklist: ≥6 sentences | ≥2 "Because"</div>
-                <div class="timer-display" id="timer50">00:50</div>
-                <button class="timer-btn" onclick="startTimer(50, 'timer50')">START FINAL MISSION</button>
-            </div>
-
-            <div class="slide">
-                <h1>✍️ Correction & Feedback</h1>
-                <div style="display:flex; gap:20px; height: 80%;">
-                    <div style="flex:1; background:#ffecec; padding:20px; border-radius:10px;">
-                        <h3 style="color:var(--danger);">Common Errors</h3>
-                        <p>❌ I live with Beijing.</p>
-                        <p>❌ My school is very big and I like.</p>
-                        <textarea style="width:100%; height:150px; border:none; background:transparent;" placeholder="Type S errors here..."></textarea>
-                    </div>
-                    <div style="flex:1; background:#e8f8f5; padding:20px; border-radius:10px;">
-                        <h3 style="color:var(--secondary);">Great Usage</h3>
-                        <p>✅ My full name is...</p>
-                        <p>✅ It helps me to...</p>
-                        <textarea style="width:100%; height:150px; border:none; background:transparent;" placeholder="Type good phrases here..."></textarea>
-                    </div>
-                </div>
-            </div>
-
-            <div class="slide">
-                <h1>✅ Lesson Summary</h1>
-                <div class="card-grid">
-                    <div class="vocab-card" style="background:var(--secondary); color:white;"><strong>Words</strong><span>38 Mastered</span></div>
-                    <div class="vocab-card" style="background:var(--secondary); color:white;"><strong>Grammar</strong><span>Used "Because"</span></div>
-                    <div class="vocab-card" style="background:var(--secondary); color:white;"><strong>Logic</strong><span>Followed Map</span></div>
-                    <div class="vocab-card" style="background:var(--secondary); color:white;"><strong>Output</strong><span>50s Speech</span></div>
-                </div>
-                <h2 style="text-align:center; margin-top:50px;">Excellent Work Today! ⭐⭐⭐⭐⭐</h2>
-            </div>
-
-            <div class="slide">
-                <h1>📝 Homework</h1>
-                <div class="highlight-goal" style="margin-top:40px;">
-                    <h3>Your Task:</h3>
-                    <p>1. Practice your 50-second speech again.</p>
-                    <p>2. Record an audio or video of your introduction.</p>
-                    <p>3. Send it to your teacher before next class!</p>
-                </div>
-                <div style="text-align:center; margin-top:40px; font-size:3em;">👋 Goodbye!</div>
-            </div>
-
-            <div class="nav-btns">
-                <button class="control-btn" onclick="prev()">❮ PREV</button>
-                <button class="control-btn" onclick="next()">NEXT ❯</button>
-            </div>
+          <div class="taskBox">
+            <div class="tTitle">🎤 学生开口任务（纠错5句）</div>
+            <ul>
+              <li>外教读错句，学生改正并读出正确句（至少5句）</li>
+              <li>每改对一句，再加1句扩展（Tell me more）</li>
+            </ul>
+          </div>
         </div>
 
-        <div class="teacher-notes-bar">
-            <div class="note-content" id="teacher-note">
-                Use a warm tone to welcome the student. Ask about their day. Let's begin the KET journey!
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-    const slides = document.querySelectorAll('.slide');
-    const navItems = document.querySelectorAll('.nav-item');
-    const noteContent = document.getElementById('teacher-note');
-    let current = 0;
-
-    const notes = [
-        "Welcome the student with high energy! Check the mic and camera.",
-        "Explain the goal. Make them feel excited about the 50s challenge.",
-        "FT demo first. Use TPR (gestures). Encourage the student to mimic your energy.",
-        "Briefly review goals. High-five the camera!",
-        "Personal Core: Read words 3 times. Ask: 'What is your hobby?' to test usage.",
-        "School Core: Point to icons. Ask: 'Is your classroom big or small?'",
-        "Power-up: Focus on pronunciation. 'Strict' is often hard for kids.",
-        "Substitution Drill: Give 1 example, let student make 1 new sentence.",
-        "Sentence Intro: FT demos: 'I live with my cat'. S mimics.",
-        "Sentence School: Focus on 'BECAUSE'. Clap when they say 'Because'!",
-        "Explain the difference between 'Full name' and 'Nickname'.",
-        "Scaffold: Give a prompt 'If I have time...' and wait for them to finish.",
-        "Explain the logic sequence. 'First Me, Then Family, Then School'.",
-        "Q&A Practice: Treat it like a real exam. Note down any hesitation.",
-        "Ask 'Why?'. If they forget 'Because', remind them with a gesture.",
-        "Scenario: You are a shy transfer student. Ask S for help/info.",
-        "Timer Start: Encourage fluency. Don't correct errors yet.",
-        "Round 2: Challenge them to use at least one 'Power-up' adjective.",
-        "FINAL TEST: Silent during S's talk. Use a stopwatch. Praise at the end!",
-        "Summarize 2-3 key errors and 2-3 great things they said.",
-        "Celebrate! Give them 5 virtual stars.",
-        "Explain the recording task clearly. See you next time!"
-    ];
-
-    function jump(index) {
-        slides[current].classList.remove('active');
-        navItems[current].classList.remove('active');
-        current = index;
-        slides[current].classList.add('active');
-        navItems[current].classList.add('active');
-        noteContent.innerText = notes[current];
-    }
-
-    function next() {
-        if (current < slides.length - 1) jump(current + 1);
-    }
-
-    function prev() {
-        if (current > 0) jump(current - 1);
-    }
-
-    document.addEventListener('keydown', (e) => {
-        if (e.key === "ArrowRight") next();
-        if (e.key === "ArrowLeft") prev();
-    });
-
-    // Timer Function
-    function startTimer(seconds, displayId) {
-        let timeLeft = seconds;
-        const display = document.getElementById(displayId);
-        const interval = setInterval(() => {
-            if (timeLeft <= 0) {
-                clearInterval(interval);
-                display.innerText = "TIME'S UP! 🎉";
-            } else {
-                timeLeft--;
-                let m = Math.floor(timeLeft / 60);
-                let s = timeLeft % 60;
-                display.innerText = `${m < 10 ? '0' : ''}${m}:${s < 10 ? '0' : ''}${s}`;
-            }
-        }, 1000);
-    }
-</script>
-
-</body>
-</html>
+        <div class="card">
+          <h2>📌 课堂小结</h2>
+          <div class="callout">
+            今天学了：<br>
+            词汇：Core 28 + Power-up 10<br>
+            词块：6个<br>
+            句型：12个<br>
+            高分表达：6个<br>
+            结构：7步
