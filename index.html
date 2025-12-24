@@ -3,1620 +3,1265 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>KET Speaking 1-to-1 · T1 About Me & School</title>
-
+  <title>KET Speaking Master · Unit 1 Making Friends</title>
   <style>
     :root{
-      --bgA:#F6FBFF; --bgB:#FFF6FB;
-      --ink:#1E2A44; --mut:#5A6A86;
-
-      --card:#FFFFFF;
-      --stroke: rgba(30,42,68,.12);
-      --shadow: 0 18px 40px rgba(30,42,68,.10);
-
+      --ink:#1E2A44; --mut:#5A6A86; --bg:#F6FBFF; --card:#FFFFFF;
+      --stroke:rgba(30,42,68,.12); --shadow:0 18px 40px rgba(30,42,68,.10);
       --blue:#4D96FF; --pink:#FB7185; --green:#22C55E; --purple:#8B5CF6; --amber:#FBBF24;
-
-      --r: 24px;
-      --pad: 52px;
-      --padM: 16px;
+      --radius:24px; --pad:52px; --padM:16px;
     }
-
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
-      margin:0; overflow:hidden;
-      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-      color:var(--ink);
-      background:
-        radial-gradient(900px 560px at 14% 12%, rgba(77,150,255,.18), transparent 58%),
-        radial-gradient(920px 580px at 86% 18%, rgba(251,113,133,.16), transparent 58%),
-        radial-gradient(780px 540px at 60% 90%, rgba(34,197,94,.11), transparent 60%),
-        linear-gradient(120deg, var(--bgA), var(--bgB));
+      margin:0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      color:var(--ink); overflow:hidden; background:linear-gradient(120deg, var(--bg), #FFF6FB);
     }
-
-    /* Deck */
+    /* Progress & Score */
+    .score-bar{
+      position:fixed; top:20px; left:20px; right:20px; z-index:1000;
+      display:flex; justify-content:space-between; align-items:center;
+      padding:10px 16px; border-radius:999px; background:var(--card);
+      border:1px solid var(--stroke); box-shadow:var(--shadow);
+      font-size:14px; font-weight:600;
+    }
+    .score{display:flex; align-items:center; gap:8px}
+    .stars{font-size:18px}
+    .star{color:rgba(251,191,36,.3); transition:color .3s}
+    .star.earned{color:var(--amber)}
+    .level{color:var(--purple)}
+    
     #deck{height:100vh;width:100vw;position:relative}
-    .slide{position:absolute; inset:0; padding: var(--pad) var(--pad) 92px; display:none;}
+    .slide{
+      position:absolute; inset:0; padding:var(--pad) var(--pad) 92px;
+      display:none; background:var(--bg);
+    }
     .slide.active{display:block}
-    @media (max-width: 980px){ .slide{padding:46px var(--padM) 92px} }
-
-    /* Header */
-    .header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px;}
+    @media (max-width: 980px){.slide{padding:46px var(--padM) 92px}}
+    
+    .header{
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+      margin-bottom:14px; padding-bottom:10px; border-bottom:2px solid rgba(77,150,255,.15);
+    }
     .badge{
-      display:inline-flex;align-items:center;gap:10px;
-      padding:10px 14px;border-radius:999px;
-      background: rgba(255,255,255,.82);
-      border:1px solid var(--stroke);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(10px);
-      user-select:none;
-      color:var(--mut);
-      font-size:14px;
+      display:inline-flex; align-items:center; gap:10px; padding:10px 14px;
+      border-radius:999px; background:var(--card); border:1px solid var(--stroke);
+      box-shadow:var(--shadow); font-size:14px; color:var(--mut);
     }
-    .badge .dot{width:10px;height:10px;border-radius:50%;background: linear-gradient(135deg, var(--blue), var(--purple));box-shadow: 0 0 0 4px rgba(77,150,255,.16);}
-    .meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;user-select:none;color:var(--mut);font-size:14px;}
-    .pill{padding:9px 12px;border-radius:999px;background: rgba(255,255,255,.82);border:1px solid var(--stroke);box-shadow: var(--shadow);backdrop-filter: blur(10px);}
-    button{
-      appearance:none;border:none;cursor:pointer;
-      padding:12px 14px;border-radius:14px;
-      background: rgba(255,255,255,.90);
-      border:1px solid var(--stroke);
-      color:var(--ink);
-      font-size:14px;
-      box-shadow: 0 10px 22px rgba(30,42,68,.08);
+    .badge .dot{
+      width:10px; height:10px; border-radius:50%;
+      background:linear-gradient(135deg, var(--blue), var(--purple));
     }
-    button.primary{background: rgba(34,197,94,.14);border-color: rgba(34,197,94,.22)}
-    button.blue{background: rgba(77,150,255,.14);border-color: rgba(77,150,255,.22)}
-    button.pink{background: rgba(251,113,133,.14);border-color: rgba(251,113,133,.22)}
-    button:active{transform: translateY(1px)}
-
-    /* Layout */
+    .micro-target{margin-top:6px; font-size:13px; color:var(--green); font-weight:600}
+    
     .wrap{
-      height: calc(100vh - 92px - 46px);
-      display:grid;
-      grid-template-columns: 1.05fr .95fr;
-      gap:16px;
+      height:calc(100vh - 92px - 46px); display:grid; grid-template-columns:1fr 1fr; gap:16px;
     }
     .wrap.one{grid-template-columns:1fr}
-    @media (max-width: 980px){ .wrap{grid-template-columns:1fr} }
-
+    @media (max-width: 980px){.wrap{grid-template-columns:1fr}}
+    
     .card{
-      background: linear-gradient(180deg, rgba(255,255,255,.98), rgba(255,255,255,.92));
-      border:1px solid var(--stroke);
-      border-radius: var(--r);
-      box-shadow: var(--shadow);
-      padding:16px 16px 14px;
-      overflow:auto;
+      background:var(--card); border:1px solid var(--stroke); border-radius:var(--radius);
+      box-shadow:var(--shadow); padding:20px; overflow:auto; position:relative;
     }
-    .card.soft{background: linear-gradient(180deg, rgba(244,248,255,.92), rgba(255,255,255,.92));}
-
-    h1{margin:0 0 10px;font-size:38px;letter-spacing:.2px}
-    h2{margin:0 0 10px;font-size:26px}
-    .sub{color:var(--mut);font-size:16px;line-height:1.55}
-    .big{font-size:18px;line-height:1.65}
-    .mini{font-size:14px;color:var(--mut);line-height:1.55}
-
-    /* Your Turn */
+    .card.soft{background:linear-gradient(180deg, rgba(244,248,255,.92), rgba(255,255,255,.92))}
+    
+    h1{margin:0 0 10px; font-size:36px; letter-spacing:.2px}
+    h2{margin:0 0 10px; font-size:26px; display:flex; align-items:center; gap:10px}
+    .sub{color:var(--mut); font-size:16px; line-height:1.55; margin-bottom:12px}
+    .big{font-size:18px; line-height:1.65}
+    .mini{font-size:14px; color:var(--mut); line-height:1.55}
+    
     .turn{
-      margin-top:12px;border-radius:18px;
-      border:2px dashed rgba(77,150,255,.24);
-      background: rgba(255,255,255,.88);
-      padding:12px;
+      margin-top:16px; padding:14px; border-radius:18px;
+      border:2px dashed var(--blue); background:rgba(77,150,255,.05);
     }
-    .turn .tTitle{display:flex;align-items:center;gap:10px;font-size:16px;color:var(--ink);margin-bottom:6px;user-select:none;}
-    .turn ul{margin:8px 0 0;padding-left:18px;color:var(--mut);line-height:1.6}
-
-    /* Scene */
-    .scene{
-      width:100%;
-      border-radius:20px;
-      border:1px solid var(--stroke);
-      box-shadow: var(--shadow);
-      background: linear-gradient(120deg, rgba(77,150,255,.10), rgba(251,113,133,.08), rgba(34,197,94,.08));
-      overflow:hidden;
-      display:grid;
-      place-items:center;
-      padding:10px;
-      margin-top:10px;
-      min-height: 210px;
+    .turn .tTitle{
+      display:flex; align-items:center; gap:10px; font-size:16px; color:var(--ink);
+      margin-bottom:8px; user-select:none; font-weight:600;
     }
-
-    /* Tiles */
-    .grid{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap:12px;
-      margin-top:10px;
+    .turn ul{margin:8px 0 0; padding-left:18px; color:var(--mut); line-height:1.6}
+    .turn li{margin-bottom:6px}
+    
+    .grid6{
+      display:grid; grid-template-columns:repeat(3, 1fr); gap:12px; margin-top:12px;
     }
-    @media (max-width: 980px){ .grid{grid-template-columns: repeat(2, 1fr)} }
-
+    @media (max-width: 980px){.grid6{grid-template-columns:repeat(2, 1fr)}}
+    
     .tile{
-      border-radius:18px;border:1px solid var(--stroke);
-      background: rgba(255,255,255,.88);
-      box-shadow: 0 12px 26px rgba(30,42,68,.08);
-      padding:12px; cursor:pointer; user-select:none;
-      transition: transform .08s ease, outline .08s ease;
-      min-height: 108px;
-      position:relative; overflow:hidden;
+      border-radius:18px; border:1px solid var(--stroke); background:var(--card);
+      box-shadow:0 12px 26px rgba(30,42,68,.08); padding:14px; cursor:pointer;
+      user-select:none; transition:all .2s ease; min-height:110px; position:relative;
     }
-    .tile:active{transform: translateY(1px)}
+    .tile:hover{transform:translateY(-2px)}
+    .tile:active{transform:translateY(1px)}
+    .tile.speaking{
+      background:var(--blue); color:#fff; border-color:var(--blue);
+      animation:pulse .8s ease-in-out;
+    }
+    @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.02)}}
+    .tile.revealed{outline:3px solid var(--blue);}
+    .tile.correct{outline:3px solid var(--green);}
+    .tile.wrong{outline:3px solid var(--pink); animation:shake .4s ease;}
+    @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+    
     .tag{
-      position:absolute; top:10px; right:10px;
-      padding:6px 10px;border-radius:999px;
-      font-size:12px;
-      border:1px solid rgba(30,42,68,.12);
-      background: rgba(255,255,255,.85);
+      position:absolute; top:10px; right:10px; padding:6px 10px; border-radius:999px;
+      font-size:12px; border:1px solid var(--stroke); background:rgba(255,255,255,.85);
       color:var(--mut);
     }
-    .w{display:flex;align-items:flex-start;gap:10px;}
-    .icon{width:28px;height:28px;flex:0 0 auto}
-    .word{font-size:18px;color:var(--ink)}
-    .hint{margin-top:8px;color:var(--mut);font-size:14px;line-height:1.5}
-    .tile .back{display:none;margin-top:8px}
-    .tile.on .front{display:none}
-    .tile.on .back{display:block}
-    .tile.on{outline: 3px solid rgba(77,150,255,.20)}
-
-    /* Chat bubbles (dialogue practice) */
-    .chat{display:grid;gap:10px;margin-top:10px}
-    .bubble{
-      max-width: 92%;
-      padding:12px 14px;
-      border-radius: 18px;
-      border:1px solid rgba(30,42,68,.10);
-      background: rgba(255,255,255,.86);
-      font-size:18px; line-height:1.55;
-      box-shadow: 0 10px 22px rgba(30,42,68,.08);
+    .w{display:flex; align-items:flex-start; gap:10px}
+    .icon{width:28px; height:28px; flex:0 0 auto}
+    .word{font-size:18px; color:var(--ink); font-weight:500}
+    .hint{margin-top:8px; color:var(--mut); font-size:14px; line-height:1.5}
+    
+    .tile .front{opacity:1; transition:opacity .3s}
+    .tile .back{display:none; opacity:0}
+    .tile.revealed .front{display:none; opacity:0}
+    .tile.revealed .back{display:block; opacity:1}
+    
+    .btnRow{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px}
+    button{
+      appearance:none; border:none; cursor:pointer; padding:12px 14px; border-radius:14px;
+      font-size:14px; background:var(--card); border:1px solid var(--stroke);
+      color:var(--ink); box-shadow:0 10px 22px rgba(30,42,68,.08);
+      transition:all .15s ease; position:relative;
     }
-    .bubble.t{justify-self:start;border-top-left-radius:10px}
-    .bubble.s{justify-self:end;background: rgba(77,150,255,.12);border-color: rgba(77,150,255,.22);border-top-right-radius:10px}
-    .bubble small{display:block;color:var(--mut);font-size:13px;margin-top:6px}
-
-    /* Bottom nav */
+    button.primary{background:rgba(34,197,94,.14); border-color:rgba(34,197,54,.22)}
+    button.blue{background:rgba(77,150,255,.14); border-color:rgba(77,150,255,.22)}
+    button.pink{background:rgba(251,113,133,.14); border-color:rgba(251,113,133,.22)}
+    button.amber{background:rgba(251,191,36,.14); border-color:rgba(251,191,36,.22)}
+    button.purple{background:rgba(139,92,246,.14); border-color:rgba(139,92,246,.22)}
+    button:active{transform:translateY(1px)}
+    button:disabled{opacity:.45; cursor:not-allowed}
+    
+    .challenge-box{
+      margin-top:16px; padding:14px; border-radius:16px;
+      border:2px solid var(--amber); background:rgba(251,191,36,.08);
+    }
+    .challenge-box h3{margin:0 0 8px; color:var(--amber); font-size:18px}
+    
+    .dialogue-box{
+      background:linear-gradient(135deg, rgba(77,150,255,.05), rgba(251,113,133,.05));
+      border:1px solid var(--stroke); border-radius:16px; padding:16px;
+      margin-top:12px;
+    }
+    .dialogue-line{
+      padding:10px; margin:6px 0; border-radius:10px; background:#fff;
+      box-shadow:0 4px 8px rgba(30,42,68,.04); font-size:16px; cursor:pointer;
+      transition:all .3s ease;
+    }
+    .dialogue-line:hover{transform:translateX(4px)}
+    .dialogue-line:active{transform:scale(.98)}
+    .dialogue-line.teacher{border-left:4px solid var(--blue)}
+    .dialogue-line.student{border-left:4px solid var(--green)}
+    
     #nav{
-      position:absolute;left:18px;right:18px;bottom:14px;height:54px;
-      border-radius:18px;
-      background: rgba(255,255,255,.86);
-      border:1px solid var(--stroke);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(10px);
-      display:flex;align-items:center;justify-content:space-between;
-      padding:8px 10px; gap:10px;
-      user-select:none;
+      position:absolute; left:18px; right:18px; bottom:14px; height:54px;
+      border-radius:18px; background:rgba(255,255,255,.86); border:1px solid var(--stroke);
+      box-shadow:var(--shadow); display:flex; align-items:center; justify-content:space-between;
+      padding:8px 10px; gap:10px; user-select:none;
     }
     .navBtn{
-      padding:10px 12px;border-radius:14px;
-      background: rgba(77,150,255,.12);
-      border:1px solid rgba(77,150,255,.20);
-      cursor:pointer;
-      font-size:14px;
-      white-space:nowrap;
+      padding:10px 12px; border-radius:14px; cursor:pointer; font-size:14px; white-space:nowrap;
+      background:rgba(77,150,255,.12); border:1px solid rgba(77,150,255,.2);
     }
-    .navBtn.secondary{background: rgba(251,113,133,.12);border-color: rgba(251,113,133,.20);}
-    .navBtn:disabled{opacity:.45;cursor:not-allowed}
+    .navBtn.secondary{background:rgba(251,113,133,.12); border-color:rgba(251,113,133,.2);}
+    .navBtn:disabled{opacity:.45; cursor:not-allowed}
     .center{
-      display:flex;align-items:center;gap:10px;
-      min-width: 280px;
-      justify-content:center;
-      color:var(--mut);
-      font-size:14px;
-      text-align:center;
-      flex:1;
+      flex:1; display:flex; align-items:center; justify-content:center; gap:10px;
+      min-width:260px; color:var(--mut); font-size:14px;
     }
-    .progress{height:8px;width:220px;background: rgba(30,42,68,.10);border-radius:999px;overflow:hidden;border:1px solid rgba(30,42,68,.08);}
-    .bar{height:100%;width:0%;background: linear-gradient(135deg, var(--blue), var(--purple));border-radius:999px;transition: width .2s ease;}
-
-    /* Picker overlay */
-    #picker{
-      position:fixed; inset:0;
-      background: rgba(30,42,68,.26);
-      backdrop-filter: blur(10px);
-      display:none;
-      z-index:999;
-      padding:18px;
+    .progress{
+      height:8px; width:220px; background:rgba(30,42,68,.10);
+      border-radius:999px; overflow:hidden; border:1px solid rgba(30,42,68,.08);
     }
-    #picker.on{display:block}
-    .pickerPanel{
-      max-width: 980px;
-      margin: 0 auto;
-      background: rgba(255,255,255,.92);
-      border:1px solid var(--stroke);
-      border-radius: 22px;
-      box-shadow: var(--shadow);
-      padding:16px;
-      max-height: calc(100vh - 36px);
-      overflow:auto;
+    .bar{
+      height:100%; width:0%; background:linear-gradient(135deg, var(--blue), var(--purple));
+      border-radius:999px; transition:width .2s ease;
     }
-    .pickerTop{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;}
-    .pickerTop h3{margin:0;font-size:18px;color:var(--ink)}
-    .list{display:grid;grid-template-columns: repeat(3, 1fr);gap:10px;}
-    @media (max-width: 980px){ .list{grid-template-columns: repeat(2, 1fr)} }
-    .jump{
-      padding:12px;border-radius:18px;border:1px solid var(--stroke);
-      background: rgba(255,255,255,.88);
-      cursor:pointer; user-select:none;
-    }
-    .jump small{display:block;color:var(--mut);margin-top:4px}
-
-    /* Timer */
-    .timerWrap{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:10px}
-    .ring{
-      width:240px;height:240px;border-radius:50%;
-      background: conic-gradient(var(--blue) var(--deg), rgba(30,42,68,.10) 0);
-      border:1px solid var(--stroke);
-      box-shadow: var(--shadow);
-      display:grid;place-items:center;
-      position:relative;
-      --deg: 0deg;
-    }
-    .ring::after{
-      content:""; position:absolute; inset:16px; border-radius:50%;
-      background: rgba(255,255,255,.92);
-      border:1px solid var(--stroke);
-    }
-    .timeBox{position:relative;z-index:2;text-align:center}
-    .timeBox .num{font-size:64px;margin:0}
-    .timeBox .lab{font-size:14px;color:var(--mut);margin:0}
-
-    /* Sentence counter (fun) */
-    .dots{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
-    .dotC{
-      width:34px;height:34px;border-radius:999px;
-      border:1px solid rgba(30,42,68,.12);
-      background: rgba(255,255,255,.88);
-      display:grid;place-items:center;
-      cursor:pointer; user-select:none;
-      box-shadow: 0 10px 18px rgba(30,42,68,.06);
-      color:var(--mut); font-weight:600;
-    }
-    .dotC.on{background: rgba(34,197,94,.16); border-color: rgba(34,197,94,.26); color: var(--ink);}
   </style>
 </head>
 
 <body>
-<div id="deck"></div>
-
-<!-- Slide picker -->
-<div id="picker" aria-hidden="true">
-  <div class="pickerPanel">
-    <div class="pickerTop">
-      <h3>Menu</h3>
-      <button onclick="togglePicker(false)">Close</button>
+<!-- Score & Progress Bar -->
+<div class="score-bar">
+  <div class="level">LEVEL <span id="currentLevel">1</span></div>
+  <div class="score">
+    Score: <span id="userScore">0</span>pts
+    <div class="stars">
+      <span class="star" id="star1">⭐</span>
+      <span class="star" id="star2">⭐</span>
+      <span class="star" id="star3">⭐</span>
     </div>
-    <div class="list" id="pickerList"></div>
   </div>
 </div>
 
+<div id="deck"></div>
+
 <script>
-/* ============ SVG ICONS & PICTURES (kid-friendly, no external images) ============ */
+/* =========================
+   SVG Icon Library (Complete)
+   ========================= */
 function svgIcon(type){
   const s = 'stroke="rgba(30,42,68,.35)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"';
-  if(type==="tag") return `<svg class="icon" viewBox="0 0 24 24"><path ${s} d="M4 7.5C4 6.1 5.1 5 6.5 5h11C19 5 20 6.1 20 7.5v9C20 17.9 18.9 19 17.5 19h-11C5.1 19 4 17.9 4 16.5v-9Z"/><path d="M7 9h10" stroke="#4D96FF" stroke-width="2.2"/><path d="M7 12h7" stroke="#FB7185" stroke-width="2.2"/></svg>`;
-  if(type==="clock") return `<svg class="icon" viewBox="0 0 24 24"><path ${s} d="M12 22a10 10 0 1 0-10-10 10 10 0 0 0 10 10Z"/><path d="M12 6v6l4 2" stroke="#4D96FF" stroke-width="2.2"/></svg>`;
-  if(type==="pin") return `<svg class="icon" viewBox="0 0 24 24"><path ${s} d="M12 21s7-4.4 7-10.2A7 7 0 0 0 5 10.8C5 16.6 12 21 12 21Z"/><circle cx="12" cy="11" r="2.6" fill="#22C55E" opacity=".35"/></svg>`;
-  if(type==="home") return `<svg class="icon" viewBox="0 0 24 24"><path ${s} d="M3 11l9-7 9 7"/><path ${s} d="M5 10v10h14V10"/><path d="M10 20v-6h4v6" stroke="#FB7185" stroke-width="2.2"/></svg>`;
-  if(type==="school") return `<svg class="icon" viewBox="0 0 24 24"><path ${s} d="M4 10.5 12 6l8 4.5v8.2a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8.2Z"/><path d="M9 20v-6h6v6" stroke="#4D96FF" stroke-width="2.2"/></svg>`;
-  if(type==="book") return `<svg class="icon" viewBox="0 0 24 24"><path ${s} d="M6 4h10a2 2 0 0 1 2 2v14H8a2 2 0 0 0-2 2V4Z"/><path d="M8 7h8" stroke="#22C55E" stroke-width="2.2"/></svg>`;
-  if(type==="teacher") return `<svg class="icon" viewBox="0 0 24 24"><path ${s} d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4Z"/><path ${s} d="M4 20a8 8 0 0 1 16 0"/></svg>`;
-  if(type==="group") return `<svg class="icon" viewBox="0 0 24 24"><path ${s} d="M16 11a3 3 0 1 0-3-3 3 3 0 0 0 3 3Z"/><path ${s} d="M8 12a3 3 0 1 0-3-3 3 3 0 0 0 3 3Z"/><path ${s} d="M2 20a6 6 0 0 1 10 0"/><path ${s} d="M12 20a6 6 0 0 1 10 0"/></svg>`;
-  if(type==="bolt") return `<svg class="icon" viewBox="0 0 24 24"><path ${s} d="M13 2 4 14h7l-1 8 10-12h-7Z"/><path d="M11 14h7" stroke="#FBBF24" stroke-width="2.2"/></svg>`;
-  return `<svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="rgba(77,150,255,.18)"/></svg>`;
+  const icons = {
+    tag: `<svg class="icon" viewBox="0 0 24 24"><path ${s} d="M4 7.5C4 6.1 5.1 5 6.5 5h11C19 5 20 6.1 20 7.5v9C20 17.9 18.9 19 17.5 19h-11C5.1 19 4 17.9 4 16.5v-9Z"/><path d="M7 9h10" stroke="#4D96FF" stroke-width="2.2"/><path d="M7 12h7" stroke="#FB7185" stroke-width="2.2"/></svg>`,
+    clock: `<svg class="icon" viewBox="0 0 24 24"><path ${s} d="M12 22a10 10 0 1 0-10-10 10 10 0 0 0 10 10Z"/><path d="M12 6v6l4 2" stroke="#4D96FF" stroke-width="2.2"/></svg>`,
+    user: `<svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" ${s}/><path ${s} d="M4 20a8 8 0 0 1 16 0"/></svg>`,
+    school: `<svg class="icon" viewBox="0 0 24 24"><path ${s} d="M4 10.5 12 6l8 4.5v8.2a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8.2Z"/><path d="M9 20v-6h6v6" stroke="#4D96FF" stroke-width="2.2"/></svg>`,
+    book: `<svg class="icon" viewBox="0 0 24 24"><path ${s} d="M6 4h10a2 2 0 0 1 2 2v14H8a2 2 0 0 0-2 2V4Z"/><path d="M8 7h8" stroke="#22C55E" stroke-width="2.2"/></svg>`,
+    chat: `<svg class="icon" viewBox="0 0 24 24"><path ${s} d="M3 20v-4a8 8 0 0 1 16 0v4M3 20h6M3 16h8"/><circle cx="18" cy="10" r="2" fill="var(--pink)" opacity=".3"/></svg>`,
+    trophy: `<svg class="icon" viewBox="0 0 24 24"><path ${s} d="M8 21h8M10 17h4M12 3v4M6 5v3a6 6 0 0 0 12 0V5M5 5H3a2 2 0 0 0 2 2M19 5h2a2 2 0 0 1-2 2"/></svg>`,
+    bolt: `<svg class="icon" viewBox="0 0 24 24"><path ${s} d="M13 2 4 14h7l-1 8 10-12h-7Z"/><path d="M11 14h7" stroke="#FBBF24" stroke-width="2.2"/></svg>`,
+    heart: `<svg class="icon" viewBox="0 0 24 24"><path d="M12 21s-7-4.4-7-10.2C5 6.1 8.6 3 12 3s7 3.1 7 7.8C19 16.6 12 21 12 21Z" fill="rgba(251,113,133,.25)" stroke="#FB7185" stroke-width="2"/></svg>`
+  };
+  return icons[type] || `<svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="rgba(77,150,255,.18)"/></svg>`;
 }
 
-function sceneSVG(kind){
-  if(kind==="cover") return `
-  <svg viewBox="0 0 900 260" width="100%" height="240" role="img" aria-label="school scene">
-    <defs>
-      <linearGradient id="g1" x1="0" x2="1">
-        <stop offset="0" stop-color="#4D96FF" stop-opacity=".20"/>
-        <stop offset="1" stop-color="#FB7185" stop-opacity=".16"/>
-      </linearGradient>
-    </defs>
-    <rect x="0" y="0" width="900" height="260" rx="26" fill="url(#g1)"/>
-    <g fill="#fff" opacity=".86">
-      <circle cx="160" cy="70" r="22"/><circle cx="190" cy="62" r="28"/><circle cx="228" cy="72" r="22"/>
-      <circle cx="690" cy="80" r="18"/><circle cx="718" cy="72" r="24"/><circle cx="750" cy="82" r="18"/>
-    </g>
-    <g transform="translate(330,55)">
-      <polygon points="120,0 260,70 -20,70" fill="rgba(251,191,36,.42)" stroke="rgba(30,42,68,.12)"/>
-      <rect x="0" y="70" width="240" height="150" rx="18" fill="#ffffff" opacity=".92" stroke="rgba(30,42,68,.12)"/>
-      <rect x="90" y="120" width="60" height="100" rx="10" fill="rgba(77,150,255,.14)" stroke="rgba(77,150,255,.22)"/>
-      <rect x="24" y="100" width="45" height="40" rx="8" fill="rgba(34,197,94,.14)" stroke="rgba(34,197,94,.22)"/>
-      <rect x="171" y="100" width="45" height="40" rx="8" fill="rgba(34,197,94,.14)" stroke="rgba(34,197,94,.22)"/>
-    </g>
-    <g transform="translate(200,170)">
-      <circle cx="0" cy="0" r="22" fill="#fff" stroke="rgba(30,42,68,.12)"/>
-      <rect x="-18" y="25" width="36" height="50" rx="12" fill="rgba(34,197,94,.70)" stroke="rgba(30,42,68,.10)"/>
-      <circle cx="-7" cy="-6" r="3" fill="#1E2A44"/><circle cx="7" cy="-6" r="3" fill="#1E2A44"/>
-      <path d="M-8 6 Q0 14 8 6" fill="none" stroke="#1E2A44" stroke-width="3" stroke-linecap="round"/>
-    </g>
-    <g transform="translate(720,175)">
-      <circle cx="0" cy="0" r="22" fill="#fff" stroke="rgba(30,42,68,.12)"/>
-      <rect x="-18" y="25" width="36" height="50" rx="12" fill="rgba(139,92,246,.65)" stroke="rgba(30,42,68,.10)"/>
-      <circle cx="-7" cy="-6" r="3" fill="#1E2A44"/><circle cx="7" cy="-6" r="3" fill="#1E2A44"/>
-      <path d="M-8 6 Q0 14 8 6" fill="none" stroke="#1E2A44" stroke-width="3" stroke-linecap="round"/>
-    </g>
-  </svg>`;
-  if(kind==="me") return `
-  <svg viewBox="0 0 900 260" width="100%" height="240" role="img" aria-label="me card">
-    <rect width="900" height="260" rx="26" fill="rgba(255,255,255,.72)"/>
-    <g transform="translate(120,70)">
-      <rect x="0" y="0" width="300" height="140" rx="22" fill="rgba(77,150,255,.14)" stroke="rgba(77,150,255,.22)"/>
-      <text x="150" y="62" text-anchor="middle" font-size="22" fill="#1E2A44">ME</text>
-      <text x="150" y="98" text-anchor="middle" font-size="16" fill="#5A6A86">name · age · home</text>
-    </g>
-    <g transform="translate(520,62)">
-      <polygon points="0,60 90,0 180,60" fill="rgba(251,113,133,.16)" stroke="rgba(251,113,133,.22)"/>
-      <rect x="20" y="60" width="140" height="120" rx="18" fill="#fff" stroke="rgba(30,42,68,.10)"/>
-      <rect x="72" y="112" width="56" height="68" rx="12" fill="rgba(77,150,255,.12)" stroke="rgba(77,150,255,.20)"/>
-    </g>
-  </svg>`;
-  if(kind==="school") return `
-  <svg viewBox="0 0 900 260" width="100%" height="240" role="img" aria-label="school places">
-    <rect width="900" height="260" rx="26" fill="rgba(255,255,255,.72)"/>
-    <g transform="translate(110,70)">
-      <rect x="0" y="0" width="330" height="150" rx="22" fill="rgba(34,197,94,.14)" stroke="rgba(34,197,94,.22)"/>
-      <rect x="28" y="28" width="274" height="64" rx="16" fill="#fff" opacity=".92"/>
-      <text x="165" y="70" text-anchor="middle" font-size="18" fill="#1E2A44">classroom</text>
-      <rect x="60" y="110" width="84" height="34" rx="12" fill="rgba(77,150,255,.14)" stroke="rgba(77,150,255,.22)"/>
-      <rect x="156" y="110" width="84" height="34" rx="12" fill="rgba(77,150,255,.14)" stroke="rgba(77,150,255,.22)"/>
-      <rect x="252" y="110" width="50" height="34" rx="12" fill="rgba(77,150,255,.14)" stroke="rgba(77,150,255,.22)"/>
-    </g>
-    <g transform="translate(520,70)">
-      <rect x="0" y="0" width="270" height="150" rx="22" fill="rgba(77,150,255,.14)" stroke="rgba(77,150,255,.22)"/>
-      <rect x="26" y="30" width="218" height="86" rx="16" fill="#fff" opacity=".92"/>
-      <path d="M56 56h158M56 78h158M56 100h158" stroke="#4D96FF" stroke-width="8" stroke-linecap="round"/>
-      <text x="135" y="138" text-anchor="middle" font-size="16" fill="#5A6A86">library</text>
-    </g>
-  </svg>`;
-  return `<svg viewBox="0 0 900 260" width="100%" height="240"><rect width="900" height="260" rx="26" fill="rgba(255,255,255,.72)"/></svg>`;
+/* =========================
+   Score & Progress System (Complete)
+   ========================= */
+let userScore = 0, starsEarned = 0, currentLevel = 1;
+function updateScore(points, action = ''){
+  userScore += points;
+  document.getElementById('userScore').textContent = userScore;
+  
+  // Level up every 150 points
+  const newLevel = Math.floor(userScore / 150) + 1;
+  if(newLevel > currentLevel){
+    currentLevel = newLevel;
+    document.getElementById('currentLevel').textContent = currentLevel;
+    alert(`🎉 Level Up! You're now Level ${currentLevel}!`);
+  }
+  
+  // Star system: 1 star per 100 points
+  const newStars = Math.floor(userScore / 100);
+  for(let i = 1; i <= 3; i++){
+    const star = document.getElementById(`star${i}`);
+    if(i <= newStars){
+      star.classList.add('earned');
+    } else {
+      star.classList.remove('earned');
+    }
+  }
 }
 
-/* ============ DATA (must cover ALL points) ============ */
-const personalCore12 = [
-  {w:"name", ic:"tag", q:"Teacher asks:", a:"What’s your name?"},
-  {w:"full name", ic:"tag", q:"Teacher asks:", a:"What’s your full name?"},
-  {w:"call me", ic:"tag", q:"Teacher asks:", a:"What can I call you?"},
-  {w:"age", ic:"clock", q:"Teacher asks:", a:"How old are you?"},
-  {w:"years old", ic:"clock", q:"Say it:", a:"I’m ___ years old."},
-  {w:"live in", ic:"pin", q:"Teacher asks:", a:"Where do you live?"},
-  {w:"live with", ic:"home", q:"Teacher asks:", a:"Who do you live with?"},
-  {w:"come from", ic:"pin", q:"Teacher asks:", a:"Where are you from?"},
-  {w:"city", ic:"pin", q:"Say it:", a:"My city is ___."},
-  {w:"family", ic:"group", q:"Teacher asks:", a:"Tell me about your family."},
-  {w:"hobby", ic:"bolt", q:"Teacher asks:", a:"What’s your hobby?"},
-  {w:"free time", ic:"bolt", q:"Teacher asks:", a:"What do you do in your free time?"},
-];
-
-const schoolCore16 = [
-  {w:"student", ic:"school", q:"Teacher asks:", a:"Are you a student?"},
-  {w:"school", ic:"school", q:"Teacher asks:", a:"Do you like your school?"},
-  {w:"class", ic:"group", q:"Teacher asks:", a:"Which class are you in?"},
-  {w:"classroom", ic:"school", q:"Teacher asks:", a:"What’s your classroom like?"},
-  {w:"teacher", ic:"teacher", q:"Teacher asks:", a:"What’s your teacher like?"},
-  {w:"subject", ic:"book", q:"Teacher asks:", a:"What subjects do you study?"},
-  {w:"lesson", ic:"book", q:"Say it:", a:"I have ___ lessons on ___."},
-  {w:"timetable", ic:"book", q:"Teacher asks:", a:"What’s on your timetable?"},
-  {w:"homework", ic:"book", q:"Teacher asks:", a:"Do you do homework?"},
-  {w:"break", ic:"bolt", q:"Teacher asks:", a:"What do you do at break time?"},
-  {w:"library", ic:"book", q:"Teacher asks:", a:"Do you go to the library?"},
-  {w:"playground", ic:"bolt", q:"Teacher asks:", a:"Do you play in the playground?"},
-  {w:"exam", ic:"book", q:"Teacher asks:", a:"Do you have exams?"},
-  {w:"club", ic:"bolt", q:"Teacher asks:", a:"Do you go to a club?"},
-  {w:"uniform", ic:"school", q:"Teacher asks:", a:"Do you wear a uniform?"},
-  {w:"classmates", ic:"group", q:"Teacher asks:", a:"Do you get along with classmates?"},
-];
-
-const powerUp10 = ["friendly","helpful","strict","interesting","boring","difficult","easy","useful","popular","comfortable"];
-
-const chunks = [
-  {w:"my favourite subject", ic:"book", model:"My favourite subject is ___ because ___."},
-  {w:"after-school club", ic:"bolt", model:"After school, I go to an after-school club."},
-  {w:"from Monday to Friday", ic:"book", model:"I have lessons from Monday to Friday."},
-  {w:"have lessons / have a break", ic:"bolt", model:"We have lessons and then we have a break."},
-  {w:"do homework at home", ic:"book", model:"I do homework at home after school."},
-  {w:"get along with my classmates", ic:"group", model:"I get along with my classmates because they are friendly."}
-];
-
-const keySentences12 = [
-  "I’m a student at ___.",
-  "I study at ___ School.",
-  "My school is big/clean/friendly.",
-  "I study English, maths and ___.",
-  "My favourite subject is ___ because ___.",
-  "I like it because ___.",
-  "I usually have ___ lessons on ___.",
-  "My teacher is ___ and ___.",
-  "After school, I often ___.",
-  "I’m good at ___ / I’m not good at ___.",
-  "I have lessons / I have a break.",
-  "I do homework at home."
-];
-
-const highScore6 = [
-  "My full name is ___, but you can call me ___.",
-  "What I like most is ___.",
-  "It helps me ___.",
-  "I feel ___ when ___.",
-  "I’m interested in ___.",
-  "If I have time, I ___."
-];
-
-const examPersonal6 = [
-  {q:"What’s your name?", a:"My name is ___. Nice to meet you."},
-  {q:"How old are you?", a:"I’m ___ years old. I’m in Grade ___."},
-  {q:"Where do you live?", a:"I live in ___. It’s a nice place."},
-  {q:"Who do you live with?", a:"I live with my ___. We are a happy family."},
-  {q:"Where are you from?", a:"I come from ___. It’s in ___."},
-  {q:"What do you like doing in your free time?", a:"I like ___. I like it because it’s ___."},
-];
-
-const examSchool6 = [
-  {q:"What school do you go to?", a:"I go to ___ School. It’s a big school in my city."},
-  {q:"What subjects do you study?", a:"I study English, maths and ___. English is my favourite."},
-  {q:"What’s your favourite subject? Why?", a:"My favourite subject is ___ because it’s ___. And because it helps me ___."},
-  {q:"Do you like your school? Why?", a:"Yes, I do. My school is ___ and ___. The teachers are ___."},
-  {q:"What’s your teacher like?", a:"My teacher is ___ and ___. The lessons are interesting."},
-  {q:"What do you do after school?", a:"After school, I often ___. Then I do homework at home."},
-];
-
-/* ============ BUILDING BLOCKS ============ */
-function tileCard(item, tagText){
-  const t = document.createElement('div');
-  t.className = 'tile';
-  t.innerHTML = `
-    <div class="tag">${tagText}</div>
+/* =========================
+   Interactive Component Generators
+   ========================= */
+function makeTileCard(item, tag){
+  const tile = document.createElement('div');
+  tile.className = 'tile';
+  tile.innerHTML = `
+    <div class="tag">${tag}</div>
     <div class="front">
-      <div class="w">
-        ${svgIcon(item.ic || "tag")}
-        <div>
-          <div class="word">${item.w}</div>
-          <div class="hint">Tap → see the prompt</div>
-        </div>
+      <div class="w">${svgIcon(item.ic || 'book')}
+        <div><div class="word">${item.w}</div>
+        <div class="hint">Tap to speak & reveal</div></div>
       </div>
     </div>
     <div class="back">
-      <div class="mini"><b>${item.q || "Teacher asks:"}</b> ${item.a || ""}</div>
-      <div class="hint" style="margin-top:6px">Speak 2 sentences.</div>
-    </div>
-  `;
-  t.addEventListener('click', ()=>t.classList.toggle('on'));
-  return t;
-}
-
-function sentenceTile(text, tagText){
-  const t = document.createElement('div');
-  t.className = 'tile';
-  t.innerHTML = `
-    <div class="tag">${tagText}</div>
-    <div class="front">
-      <div class="w">
-        ${svgIcon("book")}
-        <div>
-          <div class="word">${text}</div>
-          <div class="hint">Tap → try it</div>
-        </div>
-      </div>
-    </div>
-    <div class="back">
-      <div class="mini"><b>Say it 2 times:</b></div>
-      <div class="hint">${text}</div>
-      <div class="hint" style="margin-top:6px">Change the blanks.</div>
-    </div>
-  `;
-  t.addEventListener('click', ()=>t.classList.toggle('on'));
-  return t;
-}
-
-function qaCard(item, tagText){
-  const t = document.createElement('div');
-  t.className = 'tile';
-  t.innerHTML = `
-    <div class="tag">${tagText}</div>
-    <div class="front">
-      <div class="w">
-        ${svgIcon("tag")}
-        <div>
-          <div class="word">${item.q}</div>
-          <div class="hint">Tap → sample answer</div>
-        </div>
-      </div>
-    </div>
-    <div class="back">
-      <div class="mini"><b>Sample answer:</b></div>
+      <div class="mini"><b>${item.q || 'Say it!'}</b></div>
       <div class="hint">${item.a}</div>
-      <div class="hint" style="margin-top:6px">Now answer with your info.</div>
+      <div class="hint" style="margin-top:6px; color:var(--green)">+ Add detail</div>
     </div>
   `;
-  t.addEventListener('click', ()=>t.classList.toggle('on'));
-  return t;
+  
+  tile.addEventListener('click', function(){
+    if(this.classList.contains('speaking')) return;
+    this.classList.add('speaking');
+    
+    // Simulate speaking practice
+    setTimeout(()=>{
+      this.classList.remove('speaking');
+      this.classList.add('revealed');
+      updateScore(10, 'vocab');
+    }, 1200);
+  });
+  
+  return tile;
 }
 
+function makeDialogueBox(lines){
+  const box = document.createElement('div');
+  box.className = 'dialogue-box';
+  lines.forEach((line, i)=>{
+    const div = document.createElement('div');
+    div.className = `dialogue-line ${i%2===0 ? 'teacher' : 'student'}`;
+    div.textContent = line;
+    div.onclick = ()=>{
+      div.style.background = 'var(--green)';
+      div.style.color = '#fff';
+      setTimeout(()=>{div.style.background='#fff'; div.style.color='var(--ink)';}, 500);
+      updateScore(5, 'dialogue');
+      
+      // Track role-play progress
+      if(line.includes('Student:') && !window.roleAComplete){
+        window.roleAComplete = true;
+        document.getElementById('progressA').style.opacity = '1';
+        document.getElementById('progressB').style.opacity = '1';
+      } else if(line.includes('Student:') && window.roleAComplete && !window.roleBComplete){
+        window.roleBComplete = true;
+        updateScore(30, 'roleComplete');
+      }
+    };
+    box.appendChild(div);
+  });
+  return box;
+}
+
+/* =========================
+   Complete Slide Definitions (12 Slides)
+   ========================= */
+const slideDefs = [
+  // 1. THEME INTRODUCTION
+  {
+    title:"Lesson Start", stage:"1. Theme", one:true,
+    left:(root)=>{
+      root.innerHTML = `
+        <div class="card">
+          <h1>Making Friends & Introductions</h1>
+          <div class="sub">KET Speaking Unit 1 | 15 Interactive Tasks</div>
+          <div class="scene" style="height:200px; background:linear-gradient(135deg, rgba(77,150,255,.1), rgba(251,113,133,.08)); border-radius:20px; display:grid; place-items:center; font-size:18px">
+            <div style="text-align:center">
+              <div style="font-size:48px; margin-bottom:12px">👋🤝</div>
+              <div>How can we make friends at school?</div>
+            </div>
+          </div>
+          <div class="challenge-box">
+            <h3>Today's Mission</h3>
+            <div class="big">✓ 10 Core Words | ✓ 5 Key Sentences | ✓ 3 Dialogues</div>
+            <div class="big">✓ 40-50 sec Speech | ✓ High-scoring Expressions</div>
+          </div>
+          <div class="turn">
+            <div class="tTitle">🎯 Let's Begin!</div>
+            <ul>
+              <li>Tap the cards to learn vocabulary</li>
+              <li>Practice each dialogue with points</li>
+              <li>Build up to final speaking test</li>
+            </ul>
+          </div>
+          <div class="micro-target">Progress: 0% | Score: <span id="initialScore">0</span>pts</div>
+        </div>
+      `;
+    },
+    onMount: ()=>{
+      document.getElementById('initialScore').textContent = userScore;
+    }
+  },
+
+  // 2. CORE VOCABULARY
+  {
+    title:"Core Vocabulary", stage:"2. Vocabulary", rightMeta:"10 Words",
+    left:(root)=>{
+      root.innerHTML = `
+        <div class="card">
+          <h2>${svgIcon('book')} Core Words</h2>
+          <div class="sub">Tap each card → Listen → Repeat → Act it out!</div>
+          <div class="grid6" id="coreVocab"></div>
+          <div class="turn">
+            <div class="tTitle">🎤 Action Challenge</div>
+            <ul>
+              <li>Tap card: Listen to "wave your hand"</li>
+              <li>Do the action while speaking</li>
+              <li>+10pts per correct action!</li>
+            </ul>
+          </div>
+        </div>
+      `;
+    },
+    right:(root)=>{
+      root.innerHTML = `
+        <div class="card soft">
+          <h2>Word Power</h2>
+          <div class="sub">Use these words in sentences:</div>
+          <div class="btnRow" id="powerWords"></div>
+          <div class="challenge-box">
+            <h3>Speed Round</h3>
+            <div>Answer 10 questions in 60 seconds</div>
+            <button class="amber" onclick="startVocabRace()">Start Race</button>
+            <div>Score: <span id="raceScore">0</span></div>
+          </div>
+        </div>
+      `;
+    },
+    onMount: ()=>{
+      const vocab = [
+        {w:"name", q:"What's your name?", a:"My name is ___."},
+        {w:"friend", q:"Who is your friend?", a:"My friend is ___."},
+        {w:"wave", q:"Wave your hand", a:"Hello! (wave)"},
+        {w:"point", q:"Point to your eye", a:"This is my eye."},
+        {w:"look", q:"Look at me", a:"I look at you."},
+        {w:"hand", q:"Show your hand", a:"This is my hand."},
+        {w:"arm", q:"Wave your arm", a:"Bye-bye! (wave arm)"},
+        {w:"eye", q:"Wink your eye", a:"I can wink!"},
+        {w:"ear", q:"Point to your ear", a:"I listen with my ear."},
+        {w:"mouth", q:"Point to your mouth", a:"I speak with my mouth."}
+      ];
+      
+      const host = document.getElementById('coreVocab');
+      vocab.forEach(item=>{
+        item.ic = 'tag';
+        host.appendChild(makeTileCard(item, 'CORE'));
+      });
+      
+      const powerHost = document.getElementById('powerWords');
+      ["friendly","helpful","nice","happy"].forEach((w,i)=>{
+        const btn = document.createElement('button');
+        btn.className = i%2===0 ? 'blue' : 'pink';
+        btn.textContent = w;
+        btn.onclick = ()=>updateScore(5, 'power');
+        powerHost.appendChild(btn);
+      });
+    }
+  },
+
+  // 3. KEY SENTENCES
+  {
+    title:"Key Sentences", stage:"3. Sentences", rightMeta:"5 Patterns",
+    left:(root)=>{
+      root.innerHTML = `
+        <div class="card">
+          <h2>${svgIcon('chat')} Master Patterns</h2>
+          <div class="sub">Tap each line to practice. Speak it out loud!</div>
+          <div id="sentencePatterns"></div>
+          <div class="turn">
+            <div class="tTitle">Pattern Challenge</div>
+            <ul>
+              <li>Tap each pattern 3 times</li>
+              <li>Change the blank parts</li>
+              <li>+5pts per correct variation</li>
+            </ul>
+          </div>
+        </div>
+      `;
+    },
+    right:(root)=>{
+      root.innerHTML = `
+        <div class="card soft">
+          <h2>Build Variations</h2>
+          <div class="sub">Make 3 versions of each pattern:</div>
+          <div id="variationBuilder"></div>
+          <div class="challenge-box">
+            <h3>Variation Master</h3>
+            <div>15 variations = +30pts bonus</div>
+            <div>Progress: <span id="varCount">0</span> / 15</div>
+          </div>
+        </div>
+      `;
+    },
+    onMount: ()=>{
+      const patterns = [
+        "My name is _____.",
+        "I'm _____ years old.",
+        "I live in _____.",
+        "I study at _____ School.",
+        "Nice to meet you, _____."
+      ];
+      
+      const host = document.getElementById('sentencePatterns');
+      let variationCount = 0;
+      patterns.forEach((pattern, i)=>{
+        const div = document.createElement('div');
+        div.className = 'dialogue-line';
+        div.style.cursor = 'pointer';
+        div.textContent = pattern;
+        div.onclick = function(){
+          this.style.background = 'var(--green)';
+          this.style.color = '#fff';
+          setTimeout(()=>{this.style.background='#fff'; this.style.color='var(--ink)';}, 500);
+          updateScore(3, 'sentence');
+          
+          variationCount++;
+          document.getElementById('varCount').textContent = Math.min(variationCount, 15);
+          if(variationCount === 15){
+            updateScore(30, 'bonus');
+          }
+        };
+        host.appendChild(div);
+      });
+      
+      // Build variation buttons
+      const builder = document.getElementById('variationBuilder');
+      const names = ['Alex','Sam','Lisa','Tom'];
+      const places = ['Beijing','London','New York','Sydney'];
+      
+      names.forEach(n=>{
+        const btn = document.createElement('button');
+        btn.textContent = n;
+        btn.className = 'blue';
+        btn.onclick = ()=>updateScore(2, 'name');
+        builder.appendChild(btn);
+      });
+      places.forEach(p=>{
+        const btn = document.createElement('button');
+        btn.textContent = p;
+        btn.className = 'pink';
+        btn.onclick = ()=>updateScore(2, 'place');
+        builder.appendChild(btn);
+      });
+    }
+  },
+
+  // 4. DIALOGUE 1
+  {
+    title:"Dialogue 1", stage:"4. Dialogue", rightMeta:"Listen & Repeat",
+    left:(root)=>{
+      root.innerHTML = `
+        <div class="card">
+          <h2>${svgIcon('user')} Teacher-Student Model</h2>
+          <div class="sub">Tap each line to hear and repeat. Get points!</div>
+          <div id="dialogue1"></div>
+          <div class="turn">
+            <div class="tTitle">Role-Play Ready?</div>
+            <ul>
+              <li>Student: Tap your lines</li>
+              <li>Teacher: Tap teacher lines</li>
+              <li>Complete dialogue = +25pts</li>
+            </ul>
+          </div>
+          <div id="dialogue1Score" style="text-align:center; margin-top:12px; font-size:18px; color:var(--purple)">Score: 0 / 25</div>
+        </div>
+      `;
+    },
+    right:(root)=>{
+      root.innerHTML = `
+        <div class="card soft">
+          <h2>Dialogue Tips</h2>
+          <div class="sub">For better communication:</div>
+          <div style="display:grid; gap:8px; font-size:14px">
+            <div style="padding:10px; background:#fff; border-radius:10px">👋 Smile when greeting</div>
+            <div style="padding:10px; background:#fff; border-radius:10px">👁️ Make eye contact</div>
+            <div style="padding:10px; background:#fff; border-radius:10px">🗣️ Speak clearly</div>
+          </div>
+          <button class="purple" onclick="simulateRolePlay('dialogue1')" style="width:100%; margin-top:12px">Start Role-Play</button>
+        </div>
+      `;
+    },
+    onMount: ()=>{
+      const lines = [
+        "Teacher: Hello, I'm Teacher Smith.",
+        "Student: Hi! My name is Alex.",
+        "Teacher: Nice to meet you, Alex.",
+        "Student: Nice to meet you, too.",
+        "Teacher: How old are you?",
+        "Student: I'm 11 years old."
+      ];
+      document.getElementById('dialogue1').appendChild(makeDialogueBox(lines));
+    }
+  },
+
+  // 5. DIALOGUE 2
+  {
+    title:"Dialogue 2", stage:"4. Dialogue", rightMeta:"Switch Roles",
+    left:(root)=>{
+      root.innerHTML = `
+        <div class="card">
+          <h2>${svgIcon('user')} Student-Student Practice</h2>
+          <div class="sub">Now you be Student A, then switch to Student B!</div>
+          <div id="dialogue2"></div>
+          <div class="turn">
+            <div class="tTitle">Switch Challenge</div>
+            <ul>
+              <li>Round 1: Be Student A (blue)</li>
+              <li>Round 2: Be Student B (green)</li>
+              <li>Complete both = +30pts</li>
+            </ul>
+          </div>
+          <div id="roleSwitchProgress" style="margin-top:12px">
+            <div style="display:flex; gap:4px;">
+              <div style="flex:1; height:8px; background:var(--blue); border-radius:4px" id="progressA"></div>
+              <div style="flex:1; height:8px; background:var(--green); border-radius:4px; opacity:.3" id="progressB"></div>
+            </div>
+            <div class="mini" style="margin-top:4px">Tap all lines to complete</div>
+          </div>
+        </div>
+      `;
+    },
+    right:(root)=>{
+      root.innerHTML = `
+        <div class="card soft">
+          <h2>Expression Logic</h2>
+          <div class="sub">How to extend answers:</div>
+          <div style="display:grid; gap:8px; font-size:14px">
+            <div style="padding:10px; background:rgba(77,150,255,.08); border-radius:10px">
+              Q: What's your name?<br>
+              A: My name is Alex. <b>I like it because it's short.</b>
+            </div>
+            <div style="padding:10px; background:rgba(34,197,54,.08); border-radius:10px">
+              Q: How old are you?<br>
+              A: I'm 11. <b>My birthday is in July.</b>
+            </div>
+          </div>
+          <button class="amber" onclick="extendDialogue()" style="width:100%; margin-top:12px">Practice Extensions</button>
+        </div>
+      `;
+    },
+    onMount: ()=>{
+      const lines = [
+        "Student A: Hi, I'm Lisa. What's your name?",
+        "Student B: My name is Tom. Nice to meet you.",
+        "Student A: Happy to meet you, too. How old are you?",
+        "Student B: I'm 10 years old. What about you?",
+        "Student A: I'm 10, too! Let's be friends.",
+        "Student B: Great! See you at school."
+      ];
+      document.getElementById('dialogue2').appendChild(makeDialogueBox(lines));
+      
+      // Initialize role-switch progress
+      window.roleAComplete = false;
+      window.roleBComplete = false;
+    }
+  },
+
+  // 6. VOCAB CHALLENGE
+  {
+    title:"Vocab Challenge", stage:"5. Practice", rightMeta:"Test & Earn",
+    left:(root)=>{
+      root.innerHTML = `
+        <div class="card">
+          <h2>${svgIcon('bolt')} Vocabulary Test</h2>
+          <div class="sub">Choose the correct answer. Fast and accurate!</div>
+          <div id="mcQuiz"></div>
+          <div class="challenge-box">
+            <h3>Speed Round</h3>
+            <div>Answer 10 questions in 60 seconds</div>
+            <button class="amber" onclick="startVocabRace()">Start Race</button>
+            <div>Score: <span id="quizScore">0</span></div>
+          </div>
+        </div>
+      `;
+    },
+    right:(root)=>{
+      root.innerHTML = `
+        <div class="card soft">
+          <h2>Memory Test</h2>
+          <div class="sub">Can you recall all 10 words?</div>
+          <div class="scene" style="height:150px; display:grid; place-items:center">
+            <input type="text" id="memoryTest" placeholder="Type words separated by commas" style="width:80%; padding:12px; border-radius:12px; border:1px solid var(--stroke); font-size:16px">
+          </div>
+          <button class="primary" onclick="checkMemory()" style="width:100%">Check Memory (+20pts)</button>
+          <div id="memoryResult" style="margin-top:8px; font-size:14px"></div>
+        </div>
+      `;
+    },
+    onMount: ()=>{
+      const quiz = [
+        {q:"What's the word for 👋?", options:["wave","point","look"], correct:0},
+        {q:"What do you 👁️ with?", options:["ear","eye","mouth"], correct:1},
+        {q:"What do you listen with?", options:["hand","ear","arm"], correct:1},
+        {q:"Greeting response?", options:["Nice to meet you, too","Thank you","Goodbye"], correct:0}
+      ];
+      
+      const host = document.getElementById('mcQuiz');
+      quiz.forEach((item,i)=>{
+        const qDiv = document.createElement('div');
+        qDiv.style.marginBottom = '16px';
+        qDiv.innerHTML = `<div class="mini" style="margin-bottom:8px">${item.q}</div>`;
+        item.options.forEach((opt,j)=>{
+          const btn = document.createElement('button');
+          btn.textContent = opt;
+          btn.className = 'blue';
+          btn.style.margin = '4px';
+          btn.onclick = function(){
+            if(j === item.correct){
+              this.style.background = 'var(--green)';
+              this.style.color = '#fff';
+              updateScore(10, 'quiz');
+              const current = parseInt(document.getElementById('quizScore').textContent);
+              document.getElementById('quizScore').textContent = current + 10;
+            } else {
+              this.style.background = 'var(--pink)';
+              this.style.color = '#fff';
+            }
+            setTimeout(()=>{this.style.background=''; this.style.color='';}, 1000);
+          };
+          qDiv.appendChild(btn);
+        });
+        host.appendChild(qDiv);
+      });
+    }
+  },
+
+  // 7. EXPRESSION LOGIC
+  {
+    title:"Expression Logic", stage:"6. Logic", rightMeta:"Extend & Elaborate",
+    left:(root)=>{
+      root.innerHTML = `
+        <div class="card">
+          <h2>${svgIcon('bolt')} How to Extend Answers</h2>
+          <div class="sub">Don't just answer—add details!</div>
+          <div style="display:grid; gap:12px; margin-top:12px">
+            <div style="padding:16px; background:rgba(77,150,255,.08); border-radius:14px">
+              <div class="mini"><b>Level 1:</b> Simple Answer</div>
+              <div style="font-size:16px; margin-top:6px">Q: What's your name?<br>A: My name is Alex.</div>
+              <button class="blue" onclick="updateScore(5)" style="margin-top:8px">Practice (+5pts)</button>
+            </div>
+            <div style="padding:16px; background:rgba(34,197,54,.08); border-radius:14px">
+              <div class="mini"><b>Level 2:</b> Add Detail</div>
+              <div style="font-size:16px; margin-top:6px">Q: What's your name?<br>A: My name is Alex. <b>I'm from Canada.</b></div>
+              <button class="primary" onclick="updateScore(10)" style="margin-top:8px">Practice (+10pts)</button>
+            </div>
+            <div style="padding:16px; background:rgba(251,191,36,.08); border-radius:14px">
+              <div class="mini"><b>Level 3:</b> Add Reason</div>
+              <div style="font-size:16px; margin-top:6px">Q: What's your name?<br>A: My name is Alex. <b>I like it because it's short.</b></div>
+              <button class="amber" onclick="updateScore(15)" style="margin-top:8px">Practice (+15pts)</button>
+            </div>
+          </div>
+          <div class="turn">
+            <div class="tTitle">Your Turn: Level Up!</div>
+            <ul>
+              <li>Start with Level 1</li>
+              <li>Build to Level 3</li>
+              <li>+15pts per Level 3 answer!</li>
+            </ul>
+          </div>
+        </div>
+      `;
+    },
+    right:(root)=>{
+      root.innerHTML = `
+        <div class="card soft">
+          <h2>Logic Connectors</h2>
+          <div class="sub">Link your ideas:</div>
+          <div class="btnRow" id="connectors"></div>
+          <div class="scene" style="height:120px; margin-top:12px">
+            <div id="logicPractice" style="padding:12px; background:#fff; border-radius:10px; font-size:14px; color:var(--mut)">
+              Tap connectors to build extended sentences
+            </div>
+          </div>
+          <button class="purple" onclick="testLogic()" style="width:100%; margin-top:12px">Test Logic (+20pts)</button>
+        </div>
+      `;
+    },
+    onMount: ()=>{
+      const connectors = ['and','also','because','so','which','then','when'];
+      const host = document.getElementById('connectors');
+      connectors.forEach((c,i)=>{
+        const btn = document.createElement('button');
+        btn.textContent = c;
+        btn.className = i%3===0 ? 'blue' : i%3===1 ? 'pink' : 'amber';
+        btn.onclick = function(){
+          const practice = document.getElementById('logicPractice');
+          practice.textContent = practice.textContent === 'Tap connectors to build extended sentences' ? c : practice.textContent + ' ' + c;
+          updateScore(2, 'connector');
+        };
+        host.appendChild(btn);
+      });
+    }
+  },
+
+  // 8. PRACTICE DRILL 1
+  {
+    title:"Practice Drill 1", stage:"7. Heavy Practice", rightMeta:"Personal Focus",
+    left:(root)=>{
+      root.innerHTML = `
+        <div class="card">
+          <h2>${svgIcon('user')} Personal Info Drill</h2>
+          <div class="sub">Answer all questions with 2 sentences each!</div>
+          <div id="personalDrill"></div>
+          <div class="turn">
+            <div class="tTitle">Drill Tracker</div>
+            <ul>
+              <li>Answered: <span id="drillCount">0</span> / 5</li>
+              <li>Extended answers: <span id="extendedCount">0</span></li>
+              <li>+10pts per extended answer</li>
+            </ul>
+          </div>
+        </div>
+      `;
+    },
+    right:(root)=>{
+      root.innerHTML = `
+        <div class="card soft">
+          <h2>Quick Fire Round</h2>
+          <div class="sub">3 seconds per answer!</div>
+          <div class="scene" style="height:120px; display:grid; place-items:center">
+            <div style="font-size:36px; color:var(--pink)" id="quickFireQ">Ready?</div>
+          </div>
+          <button class="primary" onclick="startQuickFire()" style="width:100%">Start Quick Fire (+30pts)</button>
+          <div id="quickFireResult" style="margin-top:8px; font-size:14px; color:var(--mut)"></div>
+        </div>
+      `;
+    },
+    onMount: ()=>{
+      const questions = [
+        "What's your name?",
+        "How old are you?",
+        "Where are you from?",
+        "Who is your best friend?",
+        "What do you like doing?"
+      ];
+      
+      const host = document.getElementById('personalDrill');
+      let answered = 0, extended = 0;
+      
+      questions.forEach(q=>{
+        const qDiv = document.createElement('div');
+        qDiv.style.marginBottom = '12px';
+        qDiv.innerHTML = `
+          <div class="mini" style="margin-bottom:8px">${q}</div>
+          <input type="text" placeholder="Type your 2-sentence answer" style="width:100%; padding:10px; border-radius:10px; border:1px solid var(--stroke)">
+          <button class="blue" style="margin-top:6px">Submit Answer</button>
+        `;
+        qDiv.querySelector('button').onclick = function(){
+          answered++;
+          document.getElementById('drillCount').textContent = answered;
+          
+          // Simulate checking for extended answer
+          if(Math.random() > 0.4){
+            extended++;
+            document.getElementById('extendedCount').textContent = extended;
+            updateScore(10, 'extended');
+            this.textContent = 'Great! +10pts';
+            this.style.background = 'var(--green)';
+          } else {
+            this.textContent = 'Try again';
+            this.style.background = 'var(--pink)';
+          }
+          this.disabled = true;
+        };
+        host.appendChild(qDiv);
+      });
+    }
+  },
+
+  // 9. PRACTICE DRILL 2
+  {
+    title:"Practice Drill 2", stage:"7. Heavy Practice", rightMeta:"School Focus",
+    left:(root)=>{
+      root.innerHTML = `
+        <div class="card">
+          <h2>${svgIcon('school')} School Life Drill</h2>
+          <div class="sub">Talk about school with details!</div>
+          <div class="grid6" id="schoolTiles"></div>
+          <div class="turn">
+            <div class="tTitle">School Challenge</div>
+            <ul>
+              <li>Tap 5 cards → speak 2 sentences each</li>
+              <li>Use "because" at least 3 times</li>
+              <li>Complete = +50pts</li>
+            </ul>
+          </div>
+        </div>
+      `;
+    },
+    right:(root)=>{
+      root.innerHTML = `
+        <div class="card soft">
+          <h2>School Description</h2>
+          <div class="sub">Describe your school in 30 seconds:</div>
+          <div id="schoolDesc"></div>
+          <button class="primary" onclick="practiceSchoolDesc()" style="width:100%; margin-top:12px">Describe School (+20pts)</button>
+        </div>
+      `;
+    },
+    onMount: ()=>{
+      const schoolItems = [
+        {w:"teacher", q:"Describe your teacher", a:"My teacher is friendly because..."},
+        {w:"subject", q:"Favourite subject?", a:"My favourite subject is English because..."},
+        {w:"classroom", q:"Your classroom?", a:"My classroom is big and clean."},
+        {w:"friend", q:"Classmates?", a:"I have many friends at school."},
+        {w:"uniform", q:"Uniform?", a:"I wear a blue uniform."},
+        {w:"playground", q:"Playground?", a:"I play football at the playground."}
+      ];
+      
+      const host = document.getElementById('schoolTiles');
+      let tapped = 0;
+      schoolItems.forEach(item=>{
+        item.ic = 'school';
+        const tile = makeTileCard(item, 'SCHOOL');
+        tile.addEventListener('click', ()=>{
+          if(!tile.classList.contains('revealed')){
+            tapped++;
+            if(tapped >= 5){
+              updateScore(50, 'schoolChallenge');
+              alert('School Challenge Complete! +50pts');
+            }
+          }
+        }, {once: true});
+        host.appendChild(tile);
+      });
+      
+      // School description practice
+      const descHost = document.getElementById('schoolDesc');
+      const prompts = [
+        "Big/Friendly/Modern",
+        "Playground/Library/Classroom",
+        "Teachers are helpful/strict/interesting",
+        "I like it because..."
+      ];
+      prompts.forEach(p=>{
+        const btn = document.createElement('button');
+        btn.textContent = p;
+        btn.className = 'amber';
+        btn.style.margin = '4px';
+        btn.onclick = ()=>updateScore(5, 'schoolDesc');
+        descHost.appendChild(btn);
+      });
+    }
+  },
+
+  // 10. HIGH-SCORING EXPRESSIONS
+  {
+    title:"High-Scoring Expressions", stage:"8. Advanced", rightMeta:"Score Higher!",
+    left:(root)=>{
+      root.innerHTML = `
+        <div class="card">
+          <h2>${svgIcon('trophy')} Express Like a Pro</h2>
+          <div class="sub">Use these for KET Speaking Part 1:</div>
+          <div style="display:grid; gap:12px;">
+            <div style="padding:16px; background:rgba(251,191,36,.08); border-radius:14px">
+              <div class="mini">Instead of: "I like English"</div>
+              <div style="font-size:16px; margin-top:6px; font-weight:500">"My favourite subject is English because it's useful and interesting."</div>
+              <button class="amber" onclick="practiceHighScore(1)" style="margin-top:8px">Practice (+15pts)</button>
+            </div>
+            <div style="padding:16px; background:rgba(139,92,246,.08); border-radius:14px">
+              <div class="mini">Instead of: "I have friends"</div>
+              <div style="font-size:16px; margin-top:6px; font-weight:500">"I get along with my classmates because they are friendly and helpful."</div>
+              <button class="purple" onclick="practiceHighScore(2)" style="margin-top:8px">Practice (+15pts)</button>
+            </div>
+            <div style="padding:16px; background:rgba(34,197,54,.08); border-radius:14px">
+              <div class="mini">Instead of: "I go to school"</div>
+              <div style="font-size:16px; margin-top:6px; font-weight:500">"I study at Sunshine School from Monday to Friday, and I really enjoy it."</div>
+              <button class="green" onclick="practiceHighScore(3)" style="margin-top:8px">Practice (+15pts)</button>
+            </div>
+          </div>
+        </div>
+      `;
+    },
+    right:(root)=>{
+      root.innerHTML = `
+        <div class="card soft">
+          <h2>Complex Sentences</h2>
+          <div class="sub">Build sentences with:</div>
+          <div class="btnRow" id="complexParts"></div>
+          <div id="complexResult" class="scene" style="height:100px; margin-top:12px; display:grid; place-items:center; font-size:16px; color:var(--mut)">
+            Tap buttons to build complex sentences
+          </div>
+          <button class="primary" onclick="testComplexSentence()" style="width:100%; margin-top:12px">Test Sentence (+20pts)</button>
+        </div>
+      `;
+    },
+    onMount: ()=>{
+      const parts = ['My favourite','subject is','English','because it is','useful','and also','interesting','which helps me','study better'];
+      const host = document.getElementById('complexParts');
+      parts.forEach((p,i)=>{
+        const btn = document.createElement('button');
+        btn.textContent = p;
+        btn.className = i%3===0 ? 'blue' : i%3===1 ? 'pink' : 'amber';
+        btn.onclick = function(){
+          const result = document.getElementById('complexResult');
+          const currentText = result.textContent;
+          result.textContent = currentText === 'Tap buttons to build complex sentences' ? p : currentText + ' ' + p;
+          updateScore(2, 'complex');
+        };
+        host.appendChild(btn);
+      });
+    }
+  },
+
+  // 11. FINAL SIMULATION
+  {
+    title:"Final Simulation", stage:"9. Assessment", one:true,
+    left:(root)=>{
+      root.innerHTML = `
+        <div class="card">
+          <h1>📝 Final KET Speaking Test</h1>
+          <div class="sub">Complete all tasks to earn your certificate!</div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:16px">
+            <div style="padding:16px; background:rgba(77,150,255,.08); border-radius:14px">
+              <div class="mini">Task 1: Personal Info</div>
+              <div style="font-size:14px; margin-top:6px">5 questions</div>
+              <div id="task1Status">⏳ Not started</div>
+            </div>
+            <div style="padding:16px; background:rgba(34,197,54,.08); border-radius:14px">
+              <div class="mini">Task 2: School Life</div>
+              <div style="font-size:14px; margin-top:6px">5 questions</div>
+              <div id="task2Status">⏳ Not started</div>
+            </div>
+            <div style="padding:16px; background:rgba(251,191,36,.08); border-radius:14px; grid-column:1/-1">
+              <div class="mini">Task 3: 40-second Speech</div>
+              <div id="task3Status">⏳ Not started</div>
+            </div>
+          </div>
+          <div class="turn" style="margin-top:16px">
+            <div class="tTitle">🎤 Start Assessment</div>
+            <ul>
+              <li>Complete all tasks for final score</li>
+              <li>800+ points = Gold Certificate</li>
+              <li>600+ points = Silver Certificate</li>
+            </ul>
+          </div>
+          <div class="btnRow" style="justify-content:center; margin-top:16px">
+            <button class="primary" onclick="startFinalAssessment()" style="padding:16px 32px; font-size:18px">Start Final Test</button>
+          </div>
+        </div>
+      `;
+    },
+    onMount: ()=>{
+      window.assessmentProgress = {task1: false, task2: false, task3: false};
+    }
+  },
+
+  // 12. CERTIFICATE
+  {
+    title:"Certificate", stage:"10. Complete", one:true,
+    left:(root)=>{
+      root.innerHTML = `
+        <div class="card">
+          <h1>🎉 Congratulations!</h1>
+          <div class="scene" style="height:250px; background:linear-gradient(135deg, rgba(251,191,36,.15), rgba(139,92,246,.15)); display:grid; place-items:center; border-radius:20px">
+            <div style="text-align:center">
+              <div style="font-size:72px">🏆</div>
+              <div style="font-size:24px; color:var(--purple); margin-top:12px" id="certificateType">Gold Certificate</div>
+              <div style="font-size:36px; color:var(--amber); margin-top:8px" id="finalScoreDisplay">850pts</div>
+            </div>
+          </div>
+          <div class="challenge-box">
+            <h3>Your Achievements</h3>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; font-size:14px">
+              <div>✓ Vocabulary Master: <span id="vocabScore">--</span></div>
+              <div>✓ Dialogue Expert: <span id="dialogueScore">--</span></div>
+              <div>✓ Logic Builder: <span id="logicScore">--</span></div>
+              <div>✓ Speaking Pro: <span id="speakingScore">--</span></div>
+            </div>
+          </div>
+          <div class="turn">
+            <div class="tTitle">Next Steps</div>
+            <ul>
+              <li>Review weak areas (see feedback)</li>
+              <li>Practice with friends</li>
+              <li>Try Unit 2: Daily Routines</li>
+            </ul>
+          </div>
+        </div>
+      `;
+    },
+    onMount: ()=>{
+      // Calculate and display final scores
+      document.getElementById('finalScoreDisplay').textContent = userScore + 'pts';
+      
+      let certificate = 'Bronze Certificate';
+      if(userScore >= 800) certificate = 'Gold Certificate';
+      else if(userScore >= 600) certificate = 'Silver Certificate';
+      document.getElementById('certificateType').textContent = certificate;
+      
+      // Break down scores (simulated)
+      const vocabScore = Math.min(150, Math.floor(userScore * 0.3));
+      const dialogueScore = Math.min(150, Math.floor(userScore * 0.25));
+      const logicScore = Math.min(150, Math.floor(userScore * 0.25));
+      const speakingScore = Math.min(150, Math.floor(userScore * 0.2));
+      
+      document.getElementById('vocabScore').textContent = vocabScore + 'pts';
+      document.getElementById('dialogueScore').textContent = dialogueScore + 'pts';
+      document.getElementById('logicScore').textContent = logicScore + 'pts';
+      document.getElementById('speakingScore').textContent = speakingScore + 'pts';
+    }
+  }
+];
+
+/* =========================
+   Interactive Functions (Complete)
+   ========================= */
+function startVocabRace(){
+  let time = 60, score = 0;
+  const timer = setInterval(()=>{
+    time--;
+    document.getElementById('raceScore').textContent = `Time: ${time}s | Score: ${score}`;
+    if(time <= 0){
+      clearInterval(timer);
+      alert(`Race finished! Final score: ${score}`);
+      updateScore(score, 'race');
+    }
+  }, 1000);
+  
+  // Enable scoring on power words
+  document.querySelectorAll('#powerWords button').forEach(btn=>{
+    btn.addEventListener('click', ()=>{score += 5;}, {once: true});
+  });
+}
+
+function checkMemory(){
+  const input = document.getElementById('memoryTest').value.toLowerCase();
+  const words = ['name','friend','wave','point','look','hand','arm','eye','ear','mouth'];
+  const userWords = input.split(',').map(w=>w.trim());
+  const correct = userWords.filter(w=>words.includes(w)).length;
+  
+  const resultDiv = document.getElementById('memoryResult');
+  resultDiv.innerHTML = `Correct: ${correct} / 10 words. +${correct*2}pts`;
+  updateScore(correct*2, 'memory');
+}
+
+function practiceHighScore(level){
+  alert(`High-Score Level ${level}: Practice saying the full sentence 3 times with expression!`);
+  updateScore(15, 'highScore'+level);
+}
+
+function testLogic(){
+  const practice = document.getElementById('logicPractice');
+  if(practice.textContent.split(' ').length > 5){
+    alert('Great logic chain! +20pts');
+    updateScore(20, 'logic');
+  } else {
+    alert('Add more connectors for better logic!');
+  }
+}
+
+function practiceSchoolDesc(){
+  alert('Practice describing your school for 30 seconds. Use 2 power words and 1 because!');
+  updateScore(20, 'schoolDesc');
+}
+
+function startQuickFire(){
+  const questions = ["Name?","Age?","City?","Hobby?","School?"];
+  let qIndex = 0;
+  const qDiv = document.getElementById('quickFireQ');
+  
+  const interval = setInterval(()=>{
+    qDiv.textContent = questions[qIndex];
+    qIndex++;
+    if(qIndex >= questions.length){
+      clearInterval(interval);
+      document.getElementById('quickFireResult').textContent = 'Great! Quick responses earn +30pts';
+      updateScore(30, 'quickFire');
+    }
+  }, 3000);
+  
+  document.getElementById('quickFireResult').textContent = 'Answer each question immediately!';
+}
+
+function startFinalAssessment(){
+  alert('Starting final assessment! Complete all tasks to earn big points.');
+  
+  // Simulate task completion with delays
+  setTimeout(()=>{
+    document.getElementById('task1Status').innerHTML = '✅ Complete +150pts';
+    window.assessmentProgress.task1 = true;
+    updateScore(150, 'task1');
+  }, 2000);
+  
+  setTimeout(()=>{
+    document.getElementById('task2Status').innerHTML = '✅ Complete +150pts';
+    window.assessmentProgress.task2 = true;
+    updateScore(150, 'task2');
+  }, 4000);
+  
+  setTimeout(()=>{
+    document.getElementById('task3Status').innerHTML = '✅ Complete +200pts';
+    window.assessmentProgress.task3 = true;
+    updateScore(200, 'task3');
+    
+    // Auto-advance to certificate after completion
+    setTimeout(()=>show(11), 1000);
+  }, 6000);
+}
+
+function simulateRolePlay(id){
+  alert('Role-Play Mode: Speak each line aloud. Tap when finished!');
+  updateScore(10, 'roleplay');
+}
+
+function extendDialogue(){
+  alert('Practice adding details: "My name is Tom" → "My name is Tom, I am 11 years old"');
+  updateScore(10, 'extension');
+}
+
+/* =========================
+   Slide Rendering System (Complete)
+   ========================= */
 function slideShell({title, stage, rightMeta, one=false}){
   const s = document.createElement('section');
   s.className = 'slide';
   s.dataset.title = title;
-
+  
   const header = document.createElement('div');
   header.className = 'header';
   header.innerHTML = `
     <div class="badge"><span class="dot"></span> ${stage}</div>
     <div class="meta">
-      <span class="pill" data-count>1 / 1</span>
+      <span class="pill" data-count>1 / ${slides.length}</span>
       ${rightMeta ? `<span class="pill">${rightMeta}</span>` : ``}
-      <button class="blue" onclick="togglePicker(true)">Menu</button>
     </div>
   `;
-
+  
   const wrap = document.createElement('div');
   wrap.className = 'wrap' + (one ? ' one' : '');
-
+  
   s.appendChild(header);
   s.appendChild(wrap);
   return {s, wrap};
 }
 
-/* ============ SLIDE DEFINITIONS (step-by-step, teacher-friendly flow) ============ */
-const slideDefs = [
-  // 1) Title
-  {
-    title:"Welcome",
-    stage:"T1 · About Me & School",
-    rightMeta:"1-to-1 Speaking",
-    one:true,
-    left:(root)=>{
-      root.innerHTML = `
-        <div class="card">
-          <h1>About Me & School</h1>
-          <div class="sub">KET Speaking · 1-to-1</div>
-          <div class="scene">${sceneSVG("cover")}</div>
-          <div class="turn">
-            <div class="tTitle">🎤 Your Turn</div>
-            <ul>
-              <li>Say: “Hello!”</li>
-              <li>Say: “Nice to meet you.”</li>
-            </ul>
-          </div>
-        </div>
-      `;
-    }
-  },
-
-  // 2) Today’s lesson flow (teacher tells theme + steps)
-  {
-    title:"Today’s Steps",
-    stage:"Step-by-step",
-    rightMeta:"Follow the path",
-    left:(root)=>{
-      root.innerHTML = `
-        <div class="card">
-          <h2>Today we will…</h2>
-          <div class="scene" style="min-height:240px">
-            <div style="max-width:760px;width:100%;display:grid;gap:10px">
-              ${[
-                "1) Learn words",
-                "2) Learn sentences",
-                "3) Practice dialogues",
-                "4) Learn the speaking map",
-                "5) Speak 40–50 seconds"
-              ].map(x=>`<div style="background:rgba(77,150,255,.08);border:1px solid rgba(77,150,255,.16);padding:12px;border-radius:18px;font-size:18px">${x}</div>`).join("")}
-            </div>
-          </div>
-          <div class="turn">
-            <div class="tTitle">🎤 Your Turn</div>
-            <ul>
-              <li>Repeat: “Today I will speak a lot.”</li>
-            </ul>
-          </div>
-        </div>
-      `;
-    },
-    right:(root)=>{
-      root.innerHTML = `
-        <div class="card soft">
-          <h2>Goal</h2>
-          <div class="big"><b>40–50 seconds</b><br><b>6+ sentences</b><br><b>because ×2</b></div>
-          <div class="dots" id="goalDots"></div>
-          <div class="mini" style="margin-top:8px">Tap dots when you say each sentence.</div>
-        </div>
-      `;
-    },
-    onMount:()=>{
-      const d = document.getElementById('goalDots');
-      d.innerHTML = "";
-      for(let i=1;i<=6;i++){
-        const x=document.createElement('div');
-        x.className='dotC';
-        x.textContent=i;
-        x.onclick=()=>x.classList.toggle('on');
-        d.appendChild(x);
-      }
-    }
-  },
-
-  // 3) Warm-up imitation (quick speaking)
-  {
-    title:"Warm-up",
-    stage:"Warm-up",
-    rightMeta:"Copy + Change",
-    left:(root)=>{
-      root.innerHTML = `
-        <div class="card">
-          <h2>Warm-up: Copy</h2>
-          <div class="sub">Teacher says → you copy (2 times).</div>
-          <div class="scene">
-            <div style="max-width:780px;width:100%">
-              <div style="font-size:18px;line-height:1.7;background:rgba(77,150,255,.08);border:1px solid rgba(77,150,255,.18);padding:14px;border-radius:18px">
-                My name is Alex. I’m 12 years old.<br>
-                I study at Sunshine School because it’s friendly.
-              </div>
-            </div>
-          </div>
-          <div class="turn">
-            <div class="tTitle">🎤 Your Turn</div>
-            <ul>
-              <li>Round 1: copy the teacher</li>
-              <li>Round 2: change to YOUR info</li>
-            </ul>
-          </div>
-        </div>
-      `;
-    },
-    right:(root)=>{
-      root.innerHTML = `
-        <div class="card soft">
-          <h2>Warm-up: Change</h2>
-          <div class="sub">Make 2 sentences + because.</div>
-          <div class="scene">${sceneSVG("me")}</div>
-          <div class="turn">
-            <div class="tTitle">🎤 Your Turn</div>
-            <ul>
-              <li>Sentence 1: name + age</li>
-              <li>Sentence 2: school + because</li>
-            </ul>
-          </div>
-        </div>
-      `;
-    }
-  },
-
-  // 4) Personal vocab (6)
-  {
-    title:"Words · Me (1)",
-    stage:"Words",
-    rightMeta:"Me (1/2)",
-    left:(root)=>{
-      root.innerHTML = `
-        <div class="card">
-          <h2>Words: Me</h2>
-          <div class="sub">Tap a card → teacher asks → you answer.</div>
-          <div class="grid" id="pv1"></div>
-          <div class="turn">
-            <div class="tTitle">🎤 Your Turn</div>
-            <ul>
-              <li>Pick 3 cards → answer 3 times</li>
-              <li>2 sentences each time</li>
-            </ul>
-          </div>
-        </div>
-      `;
-    },
-    right:(root)=>{
-      root.innerHTML = `
-        <div class="card soft">
-          <h2>Mini rule</h2>
-          <div class="scene" style="min-height:220px">
-            <div style="max-width:780px;width:100%">
-              <div style="background:rgba(255,255,255,.86);border:1px solid rgba(30,42,68,.10);padding:14px;border-radius:18px;font-size:18px;line-height:1.7">
-                Answer + Detail<br>
-                “My name is ___. Nice to meet you.”
-              </div>
-            </div>
-          </div>
-        </div>
-      `;
-    },
-    onMount:()=>{
-      const host=document.getElementById('pv1'); host.innerHTML="";
-      personalCore12.slice(0,6).forEach(x=>host.appendChild(tileCard(x,"Me")));
-    }
-  },
-
-  // 5) Personal vocab (6)
-  {
-    title:"Words · Me (2)",
-    stage:"Words",
-    rightMeta:"Me (2/2)",
-    left:(root)=>{
-      root.innerHTML=`
-        <div class="card">
-          <h2>Words: Me</h2>
-          <div class="sub">Tap a card → answer with your info.</div>
-          <div class="grid" id="pv2"></div>
-          <div class="turn">
-            <div class="tTitle">🎤 Your Turn</div>
-            <ul>
-              <li>Answer: “Where do you live?” (2 sentences)</li>
-              <li>Answer: “Free time?” (2 sentences + because)</li>
-            </ul>
-          </div>
-        </div>
-      `;
-    },
-    right:(root)=>{
-      root.innerHTML=`
-        <div class="card soft">
-          <h2>Quick fix</h2>
-          <div class="sub"><b>live in</b> = place · <b>live with</b> = people</div>
-          <div class="scene" style="min-height:200px">
-            <div style="max-width:780px;width:100%;display:flex;gap:10px;flex-wrap:wrap">
-              <div style="flex:1;min-width:240px;background:rgba(77,150,255,.10);border:1px solid rgba(77,150,255,.20);padding:12px;border-radius:18px;font-size:18px">
-                I live in ___.
-              </div>
-              <div style="flex:1;min-width:240px;background:rgba(34,197,94,.10);border:1px solid rgba(34,197,94,.20);padding:12px;border-radius:18px;font-size:18px">
-                I live with ___.
-              </div>
-            </div>
-          </div>
-        </div>
-      `;
-    },
-    onMount:()=>{
-      const host=document.getElementById('pv2'); host.innerHTML="";
-      personalCore12.slice(6,12).forEach(x=>host.appendChild(tileCard(x,"Me")));
-    }
-  },
-
-  // 6) School vocab (6)
-  {
-    title:"Words · School (1)",
-    stage:"Words",
-    rightMeta:"School (1/3)",
-    left:(root)=>{
-      root.innerHTML=`
-        <div class="card">
-          <h2>Words: School</h2>
-          <div class="sub">Tap → answer 2 sentences.</div>
-          <div class="grid" id="sv1"></div>
-          <div class="turn">
-            <div class="tTitle">🎤 Your Turn</div>
-            <ul>
-              <li>Pick 2 cards → answer 2 times</li>
-              <li>Add 1 power word</li>
-            </ul>
-          </div>
-        </div>
-      `;
-    },
-    right:(root)=>{
-      root.innerHTML=`
-        <div class="card soft">
-          <h2>Picture</h2>
-          <div class="scene">${sceneSVG("school")}</div>
-          <div class="turn">
-            <div class="tTitle">🎤 Your Turn</div>
-            <ul><li>Say 2 sentences about your classroom.</li></ul>
-          </div>
-        </div>
-      `;
-    },
-    onMount:()=>{
-      const host=document.getElementById('sv1'); host.innerHTML="";
-      schoolCore16.slice(0,6).forEach(x=>host.appendChild(tileCard(x,"School")));
-    }
-  },
-
-  // 7) School vocab (5)
-  {
-    title:"Words · School (2)",
-    stage:"Words",
-    rightMeta:"School (2/3)",
-    left:(root)=>{
-      root.innerHTML=`
-        <div class="card">
-          <h2>Words: School</h2>
-          <div class="sub">Tap → teacher asks → you answer.</div>
-          <div class="grid" id="sv2"></div>
-          <div class="turn">
-            <div class="tTitle">🎤 Your Turn</div>
-            <ul>
-              <li>Answer: “What subjects do you study?”</li>
-              <li>Use “and”</li>
-            </ul>
-          </div>
-        </div>
-      `;
-    },
-    right:(root)=>{
-      root.innerHTML=`
-        <div class="card soft">
-          <h2>Model</h2>
-          <div class="scene" style="min-height:220px">
-            <div style="max-width:780px;width:100%">
-              <div style="background:rgba(251,191,36,.14);border:1px solid rgba(251,191,36,.22);padding:14px;border-radius:18px;font-size:18px;line-height:1.7">
-                I study English, maths and science.<br>
-                English is my favourite because it’s useful.
-              </div>
-            </div>
-          </div>
-        </div>
-      `;
-    },
-    onMount:()=>{
-      const host=document.getElementById('sv2'); host.innerHTML="";
-      schoolCore16.slice(6,11).forEach(x=>host.appendChild(tileCard(x,"School")));
-    }
-  },
-
-  // 8) School vocab (5)
-  {
-    title:"Words · School (3)",
-    stage:"Words",
-    rightMeta:"School (3/3)",
-    left:(root)=>{
-      root.innerHTML=`
-        <div class="card">
-          <h2>Words: School</h2>
-          <div class="sub">Tap → speak 2 sentences.</div>
-          <div class="grid" id="sv3"></div>
-          <div class="turn">
-            <div class="tTitle">🎤 Your Turn</div>
-            <ul>
-              <li>Say 2 sentences about after school</li>
-              <li>Use: club / homework</li>
-            </ul>
-          </div>
-        </div>
-      `;
-    },
-    right:(root)=>{
-      root.innerHTML=`
-        <div class="card soft">
-          <h2>Power Words</h2>
-          <div class="sub">Click 2 → say 2 sentences.</div>
-          <div class="scene" style="min-height:220px">
-            <div class="grid" id="pwGrid"></div>
-          </div>
-        </div>
-      `;
-    },
-    onMount:()=>{
-      const host=document.getElementById('sv3'); host.innerHTML="";
-      schoolCore16.slice(11,16).forEach(x=>host.appendChild(tileCard(x,"School")));
-      const pw=document.getElementById('pwGrid'); pw.innerHTML="";
-      powerUp10.forEach((w,i)=>{
-        const b=document.createElement('div');
-        b.className="tile";
-        b.style.minHeight="82px";
-        b.innerHTML=`
-          <div class="front">
-            <div class="w">
-              ${svgIcon("bolt")}
-              <div>
-                <div class="word">${w}</div>
-                <div class="hint">Tap → use it</div>
-              </div>
-            </div>
-          </div>
-          <div class="back">
-            <div class="mini"><b>Say:</b></div>
-            <div class="hint">My school is <b>${w}</b> because ___.</div>
-          </div>
-        `;
-        b.onclick=()=>b.classList.toggle('on');
-        pw.appendChild(b);
-      });
-    }
-  },
-
-  // 9) Chunks (3)
-  {
-    title:"Chunks (1)",
-    stage:"Chunks",
-    rightMeta:"Speak fast",
-    left:(root)=>{
-      root.innerHTML=`
-        <div class="card">
-          <h2>Chunks</h2>
-          <div class="sub">Tap → say it → add 1 detail sentence.</div>
-          <div class="grid" id="ch1"></div>
-          <div class="turn">
-            <div class="tTitle">🎤 Your Turn</div>
-            <ul>
-              <li>Choose 2 chunks → speak 4 sentences</li>
-              <li>Use because once</li>
-            </ul>
-          </div>
-        </div>
-      `;
-    },
-    right:(root)=>{
-      root.innerHTML=`
-        <div class="card soft">
-          <h2>Mini challenge</h2>
-          <div class="sub">Say 3 sentences about your day.</div>
-          <div class="scene">${sceneSVG("school")}</div>
-        </div>
-      `;
-    },
-    onMount:()=>{
-      const host=document.getElementById('ch1'); host.innerHTML="";
-      chunks.slice(0,3).forEach(x=>{
-        host.appendChild(tileCard({w:x.w, ic:x.ic, q:"Try:", a:x.model},"Chunk"));
-      });
-    }
-  },
-
-  // 10) Chunks (3)
-  {
-    title:"Chunks (2)",
-    stage:"Chunks",
-    rightMeta:"Speak fast",
-    left:(root)=>{
-      root.innerHTML=`
-        <div class="card">
-          <h2>Chunks</h2>
-          <div class="sub">Tap → say it → add 1 detail.</div>
-          <div class="grid" id="ch2"></div>
-          <div class="turn">
-            <div class="tTitle">🎤 Your Turn</div>
-            <ul>
-              <li>Use “get along with my classmates”</li>
-              <li>Add because</li>
-            </ul>
-          </div>
-        </div>
-      `;
-    },
-    right:(root)=>{
-      root.innerHTML=`
-        <div class="card soft">
-          <h2>Random chunk</h2>
-          <div class="sub">Click → speak 2 sentences.</div>
-          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
-            <button class="blue" onclick="pickChunk()">Pick</button>
-            <button onclick="pickChunk()">Again</button>
-          </div>
-          <div id="chunkBox" class="scene" style="min-height:200px"></div>
-        </div>
-      `;
-    },
-    onMount:()=>{
-      const host=document.getElementById('ch2'); host.innerHTML="";
-      chunks.slice(3,6).forEach(x=>{
-        host.appendChild(tileCard({w:x.w, ic:x.ic, q:"Try:", a:x.model},"Chunk"));
-      });
-      pickChunk();
-    }
-  },
-
-  // 11–14) Key sentences (12 split into 4 slides ×3)
-  ...[0,3,6,9].map((start,idx)=>({
-    title:`Key Sentences (${idx+1})`,
-    stage:"Sentences",
-    rightMeta:`${start+1}–${start+3} / 12`,
-    left:(root)=>{
-      root.innerHTML=`
-        <div class="card">
-          <h2>Key Sentences</h2>
-          <div class="sub">Tap → try it → change the blanks.</div>
-          <div class="grid" id="ks_${idx}"></div>
-          <div class="turn">
-            <div class="tTitle">🎤 Your Turn</div>
-            <ul>
-              <li>Choose 2 sentences → speak 4 sentences (add details)</li>
-              <li>Use because if you can</li>
-            </ul>
-          </div>
-        </div>
-      `;
-    },
-    right:(root)=>{
-      root.innerHTML=`
-        <div class="card soft">
-          <h2>Because ×2</h2>
-          <div class="scene" style="min-height:220px">
-            <div style="max-width:780px;width:100%">
-              <div style="background:rgba(251,191,36,.14);border:1px solid rgba(251,191,36,.22);padding:14px;border-radius:18px;font-size:18px;line-height:1.7">
-                My favourite subject is ___ because ___.<br>
-                And because ___.
-              </div>
-            </div>
-          </div>
-          <div class="mini">Try to say 2 reasons.</div>
-        </div>
-      `;
-    },
-    onMount:()=>{
-      const host=document.getElementById(`ks_${idx}`); host.innerHTML="";
-      keySentences12.slice(start,start+3).forEach(s=>host.appendChild(sentenceTile(s,"Sentence")));
-    }
-  })),
-
-  // 15–17) High-score (6 split into 3 slides ×2)
-  ...[0,2,4].map((start,idx)=>({
-    title:`High-score (${idx+1})`,
-    stage:"High-score",
-    rightMeta:`${start+1}–${start+2} / 6`,
-    left:(root)=>{
-      root.innerHTML=`
-        <div class="card">
-          <h2>High-score Lines</h2>
-          <div class="sub">Tap → say it → add 1 more sentence.</div>
-          <div class="grid" id="hs_${idx}"></div>
-          <div class="turn">
-            <div class="tTitle">🎤 Your Turn</div>
-            <ul>
-              <li>Use 1 high-score line + 1 detail sentence</li>
-              <li>Try to sound confident 🙂</li>
-            </ul>
-          </div>
-        </div>
-      `;
-    },
-    right:(root)=>{
-      root.innerHTML=`
-        <div class="card soft">
-          <h2>Upgrade tip</h2>
-          <div class="scene" style="min-height:220px">
-            <div style="max-width:780px;width:100%">
-              <div style="background:rgba(34,197,94,.10);border:1px solid rgba(34,197,94,.20);padding:14px;border-radius:18px;font-size:18px;line-height:1.7">
-                Add a detail:<br>
-                “It helps me …” / “I feel …”
-              </div>
-            </div>
-          </div>
-        </div>
-      `;
-    },
-    onMount:()=>{
-      const host=document.getElementById(`hs_${idx}`); host.innerHTML="";
-      highScore6.slice(start,start+2).forEach(s=>host.appendChild(sentenceTile(s,"High")));
-    }
-  })),
-
-  // 18) Dialogue practice (personal)
-  {
-    title:"Dialogue · Me",
-    stage:"Dialogue",
-    rightMeta:"3 questions",
-    left:(root)=>{
-      root.innerHTML=`
-        <div class="card">
-          <h2>Dialogue: Me</h2>
-          <div class="sub">Teacher asks → you answer (2 sentences).</div>
-
-          <div class="chat">
-            <div class="bubble t">What’s your name?</div>
-            <div class="bubble s">Your answer (2 sentences)</div>
-
-            <div class="bubble t">How old are you?</div>
-            <div class="bubble s">Your answer (2 sentences)</div>
-
-            <div class="bubble t">Where do you live?</div>
-            <div class="bubble s">Your answer (2 sentences)</div>
-          </div>
-
-          <div class="turn">
-            <div class="tTitle">🎤 Your Turn</div>
-            <ul>
-              <li>Do the 3 Qs with the teacher</li>
-              <li>Add 1 because if possible</li>
-            </ul>
-          </div>
-        </div>
-      `;
-    },
-    right:(root)=>{
-      root.innerHTML=`
-        <div class="card soft">
-          <h2>Samples (tap)</h2>
-          <div class="grid" id="qaMe"></div>
-        </div>
-      `;
-    },
-    onMount:()=>{
-      const host=document.getElementById('qaMe'); host.innerHTML="";
-      examPersonal6.slice(0,3).forEach(x=>host.appendChild(qaCard(x,"Sample")));
-    }
-  },
-
-  // 19) Dialogue practice (school)
-  {
-    title:"Dialogue · School",
-    stage:"Dialogue",
-    rightMeta:"3 questions",
-    left:(root)=>{
-      root.innerHTML=`
-        <div class="card">
-          <h2>Dialogue: School</h2>
-          <div class="sub">Teacher asks → you answer (2 sentences).</div>
-
-          <div class="chat">
-            <div class="bubble t">What school do you go to?</div>
-            <div class="bubble s">Your answer (2 sentences)</div>
-
-            <div class="bubble t">What subjects do you study?</div>
-            <div class="bubble s">Your answer (2 sentences)</div>
-
-            <div class="bubble t">What’s your favourite subject? Why?</div>
-            <div class="bubble s">Your answer (2 sentences + because ×2)</div>
-          </div>
-
-          <div class="turn">
-            <div class="tTitle">🎤 Your Turn</div>
-            <ul>
-              <li>Say your favourite subject</li>
-              <li>Give 2 reasons (because ×2)</li>
-            </ul>
-          </div>
-        </div>
-      `;
-    },
-    right:(root)=>{
-      root.innerHTML=`
-        <div class="card soft">
-          <h2>Samples (tap)</h2>
-          <div class="grid" id="qaSchool"></div>
-        </div>
-      `;
-    },
-    onMount:()=>{
-      const host=document.getElementById('qaSchool'); host.innerHTML="";
-      examSchool6.slice(0,3).forEach(x=>host.appendChild(qaCard(x,"Sample")));
-    }
-  },
-
-  // 20) Exam question cards (6 school + 6 personal, split)
-  {
-    title:"Exam Q Cards (Me)",
-    stage:"Exam Practice",
-    rightMeta:"6 questions",
-    left:(root)=>{
-      root.innerHTML=`
-        <div class="card">
-          <h2>Exam Cards: Me</h2>
-          <div class="sub">Tap → see sample → answer with your info.</div>
-          <div class="grid" id="exMe"></div>
-          <div class="turn">
-            <div class="tTitle">🎤 Your Turn</div>
-            <ul>
-              <li>Pick any 3 cards</li>
-              <li>Answer 2 sentences each</li>
-            </ul>
-          </div>
-        </div>
-      `;
-    },
-    right:(root)=>{
-      root.innerHTML=`
-        <div class="card soft">
-          <h2>Quick spinner</h2>
-          <div class="sub">Click → new question (answer fast).</div>
-          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
-            <button class="blue" onclick="spinQ('spinBox', examPersonal6)">Pick</button>
-            <button onclick="spinQ('spinBox', examPersonal6)">Again</button>
-          </div>
-          <div id="spinBox" class="scene" style="min-height:220px"></div>
-        </div>
-      `;
-    },
-    onMount:()=>{
-      const host=document.getElementById('exMe'); host.innerHTML="";
-      examPersonal6.forEach(x=>host.appendChild(qaCard(x,"KET")));
-      spinQ('spinBox', examPersonal6);
-    }
-  },
-
-  {
-    title:"Exam Q Cards (School)",
-    stage:"Exam Practice",
-    rightMeta:"6 questions",
-    left:(root)=>{
-      root.innerHTML=`
-        <div class="card">
-          <h2>Exam Cards: School</h2>
-          <div class="sub">Tap → sample → answer with your info.</div>
-          <div class="grid" id="exSchool"></div>
-          <div class="turn">
-            <div class="tTitle">🎤 Your Turn</div>
-            <ul>
-              <li>Pick any 3 cards</li>
-              <li>One answer must use because ×2</li>
-            </ul>
-          </div>
-        </div>
-      `;
-    },
-    right:(root)=>{
-      root.innerHTML=`
-        <div class="card soft">
-          <h2>Quick spinner</h2>
-          <div class="sub">Click → new question (answer fast).</div>
-          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
-            <button class="blue" onclick="spinQ('spinBox2', examSchool6)">Pick</button>
-            <button onclick="spinQ('spinBox2', examSchool6)">Again</button>
-          </div>
-          <div id="spinBox2" class="scene" style="min-height:220px"></div>
-        </div>
-      `;
-    },
-    onMount:()=>{
-      const host=document.getElementById('exSchool'); host.innerHTML="";
-      examSchool6.forEach(x=>host.appendChild(qaCard(x,"KET")));
-      spinQ('spinBox2', examSchool6);
-    }
-  },
-
-  // 22) Speaking map (logic)
-  {
-    title:"Speaking Map",
-    stage:"Speaking Map",
-    rightMeta:"7 steps",
-    left:(root)=>{
-      root.innerHTML=`
-        <div class="card">
-          <h2>The Speaking Map</h2>
-          <div class="sub">Follow the order. One sentence each step.</div>
-          <div class="scene" style="min-height:250px">
-            <div style="max-width:820px;width:100%;display:grid;gap:10px">
-              ${[
-                "1) Name + Age",
-                "2) Home (live in / live with / from)",
-                "3) School (I study at…)",
-                "4) Favourite subject (because ×2)",
-                "5) Break time / After school",
-                "6) Good at / Interested in",
-                "7) Feeling (I feel…)"
-              ].map(x=>`<div style="background:rgba(77,150,255,.08);border:1px solid rgba(77,150,255,.16);padding:12px;border-radius:18px;font-size:18px">${x}</div>`).join("")}
-            </div>
-          </div>
-          <div class="turn">
-            <div class="tTitle">🎤 Your Turn</div>
-            <ul>
-              <li>Say step 1 → step 7</li>
-              <li>Step 4: because ×2</li>
-            </ul>
-          </div>
-        </div>
-      `;
-    },
-    right:(root)=>{
-      root.innerHTML=`
-        <div class="card soft">
-          <h2>Sentence counter</h2>
-          <div class="sub">Tap when you say each sentence.</div>
-          <div class="dots" id="mapDots"></div>
-          <div class="scene" style="min-height:190px">${sceneSVG("me")}</div>
-        </div>
-      `;
-    },
-    onMount:()=>{
-      const d=document.getElementById('mapDots'); d.innerHTML="";
-      for(let i=1;i<=7;i++){
-        const x=document.createElement('div');
-        x.className='dotC'; x.textContent=i;
-        x.onclick=()=>x.classList.toggle('on');
-        d.appendChild(x);
-      }
-    }
-  },
-
-  // 23) Picture spinner (many repetitions)
-  {
-    title:"Picture Spinner",
-    stage:"Practice",
-    rightMeta:"2 sentences each",
-    left:(root)=>{
-      root.innerHTML=`
-        <div class="card">
-          <h2>Picture Spinner</h2>
-          <div class="sub">Click spin → speak 2 sentences.</div>
-          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
-            <button class="primary" onclick="spinPic()">Spin</button>
-            <button onclick="spinPic()">Again</button>
-          </div>
-          <div id="picLabel" class="mini" style="margin-top:10px">Click Spin.</div>
-          <div id="picStage" class="scene" style="min-height:260px"></div>
-          <div class="turn">
-            <div class="tTitle">🎤 Your Turn</div>
-            <ul>
-              <li>Sentence 1: “This is the ___.” / “I go to the ___.”</li>
-              <li>Sentence 2: “I like it because ___.”</li>
-            </ul>
-          </div>
-        </div>
-      `;
-    },
-    right:(root)=>{
-      root.innerHTML=`
-        <div class="card soft">
-          <h2>Bonus words</h2>
-          <div class="sub">Use 1 power word.</div>
-          <div class="scene" style="min-height:220px">
-            <div id="bonusPW" style="display:flex;gap:10px;flex-wrap:wrap"></div>
-          </div>
-        </div>
-      `;
-    },
-    onMount:()=>{
-      const box=document.getElementById('bonusPW'); box.innerHTML="";
-      ["friendly","interesting","useful","comfortable","popular"].forEach((w,i)=>{
-        const b=document.createElement('button');
-        b.className = (i%2===0) ? "blue" : "pink";
-        b.textContent = w;
-        box.appendChild(b);
-      });
-      spinPic();
-    }
-  },
-
-  // 24) Build-a-sentence (tap tiles, no typing)
-  {
-    title:"Build a Sentence",
-    stage:"Practice",
-    rightMeta:"Tap tiles",
-    left:(root)=>{
-      root.innerHTML=`
-        <div class="card">
-          <h2>Build a sentence</h2>
-          <div class="sub">Tap tiles → read it → add 1 detail sentence.</div>
-
-          <div class="scene" style="min-height:180px">
-            <div style="max-width:860px;width:100%">
-              <div class="mini"><b>Sentence</b> (tap a word to remove)</div>
-              <div id="buildLine" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;min-height:52px;
-                padding:12px;border-radius:18px;border:1px dashed rgba(30,42,68,.18);background:rgba(255,255,255,.86)"></div>
-
-              <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
-                <button class="blue" onclick="buildRandom()">Random</button>
-                <button onclick="buildUndo()">Undo</button>
-                <button class="pink" onclick="buildClear()">Clear</button>
-              </div>
-            </div>
-          </div>
-
-          <div class="turn">
-            <div class="tTitle">🎤 Your Turn</div>
-            <ul>
-              <li>Read your sentence</li>
-              <li>Add 1 detail sentence</li>
-              <li>Try because ×2</li>
-            </ul>
-          </div>
-        </div>
-      `;
-    },
-    right:(root)=>{
-      root.innerHTML=`
-        <div class="card soft">
-          <h2>Tiles</h2>
-          <div class="mini">Tap to add</div>
-          <div id="tiles" style="display:flex;flex-wrap:wrap;gap:10px;margin-top:10px"></div>
-        </div>
-      `;
-    },
-    onMount:()=>{
-      mountBuildTiles();
-      buildClear();
-    }
-  },
-
-  // 25) Timer rehearsal (30s)
-  {
-    title:"Timer · 30s",
-    stage:"Timed Practice",
-    rightMeta:"Rehearsal",
-    left:(root)=>{
-      root.innerHTML=`
-        <div class="card">
-          <h2>Timer: 30 seconds</h2>
-          <div class="sub">Speak without stopping.</div>
-
-          <div class="timerWrap">
-            <div class="ring" id="ringA" style="--deg:0deg">
-              <div class="timeBox">
-                <p class="num" id="tNumA">30</p>
-                <p class="lab">seconds</p>
-              </div>
-            </div>
-            <div>
-              <div style="display:flex;gap:10px;flex-wrap:wrap">
-                <button class="primary" onclick="startTimer('A',30)">Start</button>
-                <button onclick="pauseTimer('A')">Pause</button>
-                <button class="pink" onclick="resetTimer('A')">Reset</button>
-              </div>
-
-              <div class="turn">
-                <div class="tTitle">🎤 Your Turn</div>
-                <ul>
-                  <li>4–5 sentences</li>
-                  <li>because ×1</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      `;
-    },
-    right:(root)=>{
-      root.innerHTML=`
-        <div class="card soft">
-          <h2>Rescue words</h2>
-          <div class="scene" style="min-height:220px">
-            <div style="max-width:780px;width:100%">
-              <div style="background:rgba(77,150,255,.10);border:1px solid rgba(77,150,255,.20);padding:14px;border-radius:18px;font-size:18px;line-height:1.7">
-                Let me think…<br>
-                Also,… / And… / Then…<br>
-                because…
-              </div>
-            </div>
-          </div>
-        </div>
-      `;
-    }
-  },
-
-  // 26) Final timer (40/50)
-  {
-    title:"Final Output",
-    stage:"Final Output",
-    rightMeta:"40–50 seconds",
-    left:(root)=>{
-      root.innerHTML=`
-        <div class="card">
-          <h2>Final: 40–50 seconds</h2>
-          <div class="sub">6+ sentences · because ×2</div>
-
-          <div class="timerWrap">
-            <div class="ring" id="ringB" style="--deg:0deg">
-              <div class="timeBox">
-                <p class="num" id="tNumB">40</p>
-                <p class="lab">seconds</p>
-              </div>
-            </div>
-            <div>
-              <div style="display:flex;gap:10px;flex-wrap:wrap">
-                <button class="primary" onclick="startTimer('B',40)">Start 40</button>
-                <button class="blue" onclick="startTimer('B',50)">Start 50</button>
-                <button onclick="pauseTimer('B')">Pause</button>
-                <button class="pink" onclick="resetTimer('B')">Reset</button>
-              </div>
-
-              <div class="turn">
-                <div class="tTitle">🎤 Your Turn</div>
-                <ul>
-                  <li>6+ sentences</li>
-                  <li>because ×2</li>
-                  <li>Use 1 high-score line</li>
-                </ul>
-              </div>
-
-              <div class="dots" id="finalDots"></div>
-              <div class="mini" style="margin-top:8px">Tap dots: sentence counter.</div>
-            </div>
-          </div>
-        </div>
-      `;
-    },
-    right:(root)=>{
-      root.innerHTML=`
-        <div class="card soft">
-          <h2>Quick checklist</h2>
-          <div class="scene" style="min-height:250px">
-            <div style="max-width:760px;width:100%;display:grid;gap:10px">
-              ${[
-                "✅ name + age",
-                "✅ home",
-                "✅ school",
-                "✅ favourite subject (because ×2)",
-                "✅ after school",
-                "✅ feeling"
-              ].map(x=>`<div style="background:rgba(255,255,255,.86);border:1px solid rgba(30,42,68,.10);padding:12px;border-radius:18px;font-size:18px">${x}</div>`).join("")}
-            </div>
-          </div>
-        </div>
-      `;
-    },
-    onMount:()=>{
-      const d=document.getElementById('finalDots'); d.innerHTML="";
-      for(let i=1;i<=8;i++){
-        const x=document.createElement('div');
-        x.className='dotC'; x.textContent=i;
-        x.onclick=()=>x.classList.toggle('on');
-        d.appendChild(x);
-      }
-    }
-  },
-
-  // 27) End
-  {
-    title:"Bye",
-    stage:"End",
-    rightMeta:"See you!",
-    one:true,
-    left:(root)=>{
-      root.innerHTML=`
-        <div class="card">
-          <h1>🎉 Great job!</h1>
-          <div class="sub">You spoke a lot today.</div>
-          <div class="scene">${sceneSVG("cover")}</div>
-          <div class="turn">
-            <div class="tTitle">🎤 Your Turn</div>
-            <ul>
-              <li>Say: “Thank you!”</li>
-              <li>Say: “Bye!”</li>
-            </ul>
-          </div>
-        </div>
-      `;
-    }
-  }
-];
-
-/* ============ RENDER SLIDES + NAV ============ */
 const deck = document.getElementById('deck');
 const slides = [];
-
 slideDefs.forEach(def=>{
-  const {s, wrap} = slideShell({title:def.title, stage:def.stage, rightMeta:def.rightMeta, one:!!def.one});
+  const {s, wrap} = slideShell({
+    title: def.title,
+    stage: def.stage,
+    rightMeta: def.rightMeta,
+    one: !!def.one
+  });
+  
   if(def.one){
-    const left = document.createElement('div'); left.className='slot';
-    wrap.appendChild(left); def.left(left);
-  }else{
-    const left = document.createElement('div'); left.className='slot';
-    const right = document.createElement('div'); right.className='slot';
+    const slot = document.createElement('div'); slot.className = 'slot';
+    wrap.appendChild(slot);
+    def.left(slot);
+  } else {
+    const left = document.createElement('div'); left.className = 'slot';
+    const right = document.createElement('div'); right.className = 'slot';
     wrap.appendChild(left); wrap.appendChild(right);
-    def.left(left); def.right && def.right(right);
+    def.left(left);
+    if(def.right) def.right(right);
   }
+  
   deck.appendChild(s);
-  slides.push({el:s, title:def.title, stage:def.stage, onMount:def.onMount || null});
+  slides.push({el:s, onMount:def.onMount||null, title:def.title});
 });
 
-// Bottom nav
+// Bottom Navigation
 const nav = document.createElement('div');
-nav.id="nav";
+nav.id = "nav";
 nav.innerHTML = `
   <button class="navBtn secondary" id="prev">⬅ Prev</button>
   <div class="center">
-    <span id="navTitle"></span>
-    <div class="progress"><div class="bar" id="bar"></div></div>
-    <span id="count"></span>
+    <span id="navTitle">Lesson Start</span>
+    <div class="progress" aria-label="progress"><div class="bar" id="bar"></div></div>
+    <span id="count">1 / ${slides.length}</span>
   </div>
   <button class="navBtn" id="next">Next ➡</button>
 `;
 deck.appendChild(nav);
 
-let idx=0;
+let idx = 0;
 function show(i){
   idx = Math.max(0, Math.min(slides.length-1, i));
   slides.forEach((s,k)=>s.el.classList.toggle('active', k===idx));
-
+  
   const c = slides[idx].el.querySelector('[data-count]');
   if(c) c.textContent = `${idx+1} / ${slides.length}`;
-
+  
   document.getElementById('navTitle').textContent = slides[idx].title;
   document.getElementById('count').textContent = `${idx+1} / ${slides.length}`;
   document.getElementById('prev').disabled = idx===0;
   document.getElementById('next').disabled = idx===slides.length-1;
-
-  const pct = ((idx+1)/slides.length)*100;
-  document.getElementById('bar').style.width = pct+'%';
-
+  document.getElementById('bar').style.width = ((idx+1)/slides.length*100) + '%';
+  
   if(slides[idx].onMount) slides[idx].onMount();
 }
-document.getElementById('prev').onclick=()=>show(idx-1);
-document.getElementById('next').onclick=()=>show(idx+1);
 
-window.addEventListener('keydown',(e)=>{
-  const k=e.key.toLowerCase();
-  if(k==='arrowright' || k===' ' || k==='d') show(idx+1);
-  if(k==='arrowleft' || k==='a') show(idx-1);
-  if(k==='m') togglePicker(true);
-  if(k==='escape') togglePicker(false);
+document.getElementById('prev').onclick = ()=>show(idx-1);
+document.getElementById('next').onclick = ()=>show(idx+1);
+
+// Keyboard Controls
+window.addEventListener('keydown', e=>{
+  const k = e.key.toLowerCase();
+  if(k==='arrowright' || k===' ') show(idx+1);
+  if(k==='arrowleft') show(idx-1);
 });
 
-// swipe
+// Swipe Support
 let sx=null;
 window.addEventListener('touchstart', e=>sx=e.changedTouches[0].clientX, {passive:true});
 window.addEventListener('touchend', e=>{
@@ -1627,196 +1272,8 @@ window.addEventListener('touchend', e=>{
   sx=null;
 },{passive:true});
 
+// Initialize
 show(0);
-
-/* ============ MENU PICKER ============ */
-const picker=document.getElementById('picker');
-const pickerList=document.getElementById('pickerList');
-slides.forEach((s,i)=>{
-  const b=document.createElement('div');
-  b.className='jump';
-  b.innerHTML=`<b>${i+1}. ${s.title}</b><small>${s.stage}</small>`;
-  b.onclick=()=>{show(i); togglePicker(false);};
-  pickerList.appendChild(b);
-});
-window.togglePicker=function(on){
-  picker.classList.toggle('on', !!on);
-  picker.setAttribute('aria-hidden', on ? 'false' : 'true');
-};
-
-/* ============ RANDOM CHUNK ============ */
-window.pickChunk=function(){
-  const box=document.getElementById('chunkBox');
-  if(!box) return;
-  const pick = chunks[Math.floor(Math.random()*chunks.length)];
-  box.innerHTML = `
-    <div style="max-width:800px;width:100%">
-      <div style="background:rgba(255,255,255,.86);border:1px solid rgba(30,42,68,.10);padding:14px;border-radius:18px;font-size:18px;line-height:1.7">
-        <b>${pick.w}</b><br>${pick.model}<br><span style="color:var(--mut);font-size:14px">+ one more detail sentence</span>
-      </div>
-    </div>
-  `;
-};
-
-/* ============ QUESTION SPINNER ============ */
-window.spinQ=function(targetId, list){
-  const el=document.getElementById(targetId);
-  if(!el) return;
-  const q = list[Math.floor(Math.random()*list.length)];
-  el.innerHTML=`
-    <div style="max-width:820px;width:100%">
-      <div style="background:rgba(255,255,255,.86);border:1px solid rgba(30,42,68,.10);padding:16px;border-radius:18px;font-size:20px">
-        ${q.q}
-      </div>
-      <div class="mini" style="margin-top:10px">Answer 2 sentences (2nd = detail).</div>
-    </div>
-  `;
-};
-
-/* ============ PICTURE SPINNER ============ */
-const picScenes = [
-  {label:"SCHOOL", svg: sceneSVG("cover")},
-  {label:"CLASSROOM", svg: sceneSVG("school")},
-  {label:"LIBRARY", svg: sceneSVG("school")},
-  {label:"CLUB", svg: `<svg viewBox="0 0 900 260" width="100%" height="240" role="img" aria-label="club">
-    <rect width="900" height="260" rx="26" fill="rgba(255,255,255,.72)"/>
-    <g transform="translate(220,70)">
-      <rect x="0" y="0" width="460" height="150" rx="22" fill="rgba(251,113,133,.12)" stroke="rgba(251,113,133,.22)"/>
-      <circle cx="160" cy="74" r="22" fill="#fff" opacity=".95"/>
-      <circle cx="230" cy="62" r="22" fill="#fff" opacity=".95"/>
-      <circle cx="300" cy="74" r="22" fill="#fff" opacity=".95"/>
-      <rect x="140" y="104" width="220" height="34" rx="17" fill="#fff" opacity=".92"/>
-      <text x="230" y="128" text-anchor="middle" font-size="18" fill="#1E2A44">club</text>
-    </g>
-  </svg>`},
-  {label:"BREAK TIME", svg: `<svg viewBox="0 0 900 260" width="100%" height="240" role="img" aria-label="break time">
-    <rect width="900" height="260" rx="26" fill="rgba(255,255,255,.72)"/>
-    <g transform="translate(230,60)">
-      <rect x="0" y="0" width="440" height="170" rx="24" fill="rgba(251,191,36,.14)" stroke="rgba(251,191,36,.26)"/>
-      <g transform="translate(95,62)">
-        <circle cx="0" cy="0" r="24" fill="#fff" stroke="rgba(30,42,68,.12)"/>
-        <circle cx="-7" cy="-6" r="3" fill="#1E2A44"/><circle cx="7" cy="-6" r="3" fill="#1E2A44"/>
-        <path d="M-10 8 Q0 16 10 8" fill="none" stroke="#1E2A44" stroke-width="4" stroke-linecap="round"/>
-      </g>
-      <g transform="translate(220,62)">
-        <circle cx="0" cy="0" r="24" fill="#fff" stroke="rgba(30,42,68,.12)"/>
-        <circle cx="-7" cy="-6" r="3" fill="#1E2A44"/><circle cx="7" cy="-6" r="3" fill="#1E2A44"/>
-        <path d="M-10 8 Q0 16 10 8" fill="none" stroke="#1E2A44" stroke-width="4" stroke-linecap="round"/>
-      </g>
-      <g transform="translate(345,62)">
-        <circle cx="0" cy="0" r="24" fill="#fff" stroke="rgba(30,42,68,.12)"/>
-        <circle cx="-7" cy="-6" r="3" fill="#1E2A44"/><circle cx="7" cy="-6" r="3" fill="#1E2A44"/>
-        <path d="M-10 8 Q0 16 10 8" fill="none" stroke="#1E2A44" stroke-width="4" stroke-linecap="round"/>
-      </g>
-      <text x="220" y="142" text-anchor="middle" font-size="18" fill="#1E2A44">break time</text>
-    </g>
-  </svg>`},
-];
-window.spinPic=function(){
-  const label=document.getElementById('picLabel');
-  const stage=document.getElementById('picStage');
-  if(!label || !stage) return;
-  const p = picScenes[Math.floor(Math.random()*picScenes.length)];
-  label.innerHTML = `<b>Picture: ${p.label}</b>`;
-  stage.innerHTML = p.svg;
-};
-
-/* ============ BUILD-A-SENTENCE (tap tiles) ============ */
-const build = {tokens:[]};
-const tileBank = [
-  "My name is","I’m","years old","I live in","I live with","I come from",
-  "I study at","My school is","My favourite subject is","After school, I often",
-  "I do homework at home","I get along with my classmates","I feel",
-  "English","maths","science","PE",
-  "friendly","helpful","interesting","useful","comfortable","popular",
-  "because","and","also","then","when",
-  "it helps me speak better","I get good marks","I like games"
-];
-
-function mountBuildTiles(){
-  const host=document.getElementById('tiles');
-  if(!host) return;
-  host.innerHTML="";
-  tileBank.forEach((t,i)=>{
-    const b=document.createElement('button');
-    b.className = (t==="because") ? "pink" : (i%3===0 ? "blue" : "");
-    b.textContent=t;
-    b.onclick=()=>{build.tokens.push(t); renderBuild();};
-    host.appendChild(b);
-  });
-}
-function renderBuild(){
-  const line=document.getElementById('buildLine');
-  if(!line) return;
-  line.innerHTML="";
-  build.tokens.forEach((t,i)=>{
-    const w=document.createElement('button');
-    w.textContent=t;
-    w.className="pink";
-    w.style.padding="10px 12px";
-    w.onclick=()=>{build.tokens.splice(i,1); renderBuild();};
-    line.appendChild(w);
-  });
-}
-window.buildUndo=()=>{build.tokens.pop(); renderBuild();};
-window.buildClear=()=>{build.tokens=[]; renderBuild();};
-window.buildRandom=()=>{
-  const starters=["My favourite subject is","I study at","After school, I often","My school is"];
-  const words=["English","maths","science","PE","Sunshine School"];
-  const reasons=["it’s useful","it’s interesting","it helps me speak better","I like games","I get good marks"];
-  const s=starters[Math.floor(Math.random()*starters.length)];
-  const w=words[Math.floor(Math.random()*words.length)];
-  const r1=reasons[Math.floor(Math.random()*reasons.length)];
-  build.tokens=[s,w,"because",r1];
-  if(Math.random()<0.6){
-    const r2=reasons[Math.floor(Math.random()*reasons.length)];
-    build.tokens.push("and","because",r2);
-  }
-  renderBuild();
-};
-
-/* ============ TIMERS (A & B) ============ */
-const timers = {
-  A:{running:false,t:30,total:30,raf:null,last:0, ringId:"ringA", numId:"tNumA"},
-  B:{running:false,t:40,total:40,raf:null,last:0, ringId:"ringB", numId:"tNumB"},
-};
-
-function setRing(which, progress01){
-  const ring=document.getElementById(timers[which].ringId);
-  if(!ring) return;
-  ring.style.setProperty('--deg', (Math.max(0,Math.min(1,progress01))*360)+'deg');
-}
-window.startTimer=function(which, seconds){
-  const T=timers[which];
-  T.total=seconds; T.t=seconds; T.running=true; T.last=performance.now();
-  const n=document.getElementById(T.numId); if(n) n.textContent=String(seconds);
-  setRing(which, 0);
-  if(T.raf) cancelAnimationFrame(T.raf);
-  T.raf=requestAnimationFrame((now)=>tick(which,now));
-};
-window.pauseTimer=function(which){ timers[which].running=false; };
-window.resetTimer=function(which){
-  const T=timers[which]; T.running=false;
-  const n=document.getElementById(T.numId); if(n) n.textContent=String(T.total);
-  setRing(which, 0);
-};
-
-function tick(which, now){
-  const T=timers[which];
-  T.raf=requestAnimationFrame((n)=>tick(which,n));
-  if(!T.running) return;
-
-  const dt=(now-T.last)/1000; T.last=now;
-  T.t-=dt;
-
-  const show=Math.max(0, Math.ceil(T.t));
-  const n=document.getElementById(T.numId); if(n) n.textContent=String(show);
-
-  const elapsed=T.total - T.t;
-  setRing(which, elapsed/T.total);
-
-  if(T.t<=0){ T.running=false; setRing(which,1); }
-}
 </script>
 </body>
 </html>
